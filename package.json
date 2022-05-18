@@ -45,7 +45,8 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.16.7",
-		"reseter.css": "^2.0.0",
-		"styled-components": "^5.3.5"
+		"@types/react": "^18.0.9",
+		"classnames": "^2.3.1",
+		"reseter.css": "^2.0.0"
 	}
 }

@@ -66,7 +66,7 @@ function optimizationOptions(prodMode, chunkLibs = false) {
 			reuseExistingChunk: true,
 		};
 	}
-	
+
 	return options;
 }
 
@@ -76,7 +76,10 @@ function cssLoaders(moreLoaders = null) {
 		{
 			loader: "css-loader",
 			options: {
-				modules: { auto: true },
+				modules: {
+					auto: undefined,
+					localIdentName: "[name]_[local]__[hash:base64:5]",
+				},
 			},
 		},
 		{
