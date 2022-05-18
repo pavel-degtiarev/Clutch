@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap");
+
+:root {
+	font-family: "Inter", sans-serif;
+}
+
+// Font sizes
+$sizeHuge: 32px;
+$sizeBig: 22px;
+$sizeNormal: 16px;
+$sizeSmall: 12px;
+
+// Font weight
+$weightNormal: 300;
+$weightBold: 700;
+
+// Line heights
+@function lineHeightNormal($fontSize) {
+	@return $fontSize * 1.5;
+}
+
+@function lineHeightSmall($fontSize) {
+	@return $fontSize;
+}
+
+// Text definitions
+@mixin text($size, $weight, $lineHeight) {
+	font-family: "Inter", sans-serif;
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $lineHeight;
+	text-decoration: none;
+}
+
+.titleHuge {
+	@include text($sizeHuge, $weightNormal, lineHeightSmall($sizeHuge));
+}
+
+.titleBig {
+	@include text($sizeBig, $weightNormal, lineHeightSmall($sizeBig));
+}
+
+.titleNormal {
+	@include text($sizeNormal, $weightNormal, lineHeightSmall($sizeNormal));
+}
+
+.titleSmall {
+	@include text($sizeSmall, $weightNormal, lineHeightSmall($sizeSmall));
+}
+
+.textBig {
+	@include text($sizeBig, $weightNormal, lineHeightNormal($sizeBig));
+}
+
+.textNormal {
+	@include text($sizeNormal, $weightNormal, lineHeightNormal($sizeNormal));
+}
+
+.textSmall {
+	@include text($sizeSmall, $weightNormal, lineHeightNormal($sizeSmall));
+}
+
+.noWrap {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

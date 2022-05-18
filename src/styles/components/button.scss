@@ -1,0 +1,55 @@
+@use "../variables.scss" as var;
+@use "../typography.scss" as typo;
+
+@mixin button($width, $height, $color: var.$orange-to-light) {
+	display: block;
+	border: none;
+	border-radius: calc($height/2);
+
+	width: $width;
+	height: $height;
+	padding: 0 calc($height/3);
+	background: $color;
+	color: #fff;
+	cursor: pointer;
+	transition: var.$transition;
+	box-shadow: var.$shadow;
+	line-height: typo.$sizeBig;
+}
+
+.button {
+	@include button(calc(100vw - 40px), 50px);
+
+	&:active {
+		filter: brightness(75%);
+	}
+}
+
+.withMark {
+	padding-right: 24px;
+
+	&::after {
+		position: absolute;
+		right: 25px;
+		top: 0;
+		display: block;
+		content: "";
+		width: 15px;
+		height: 100%;
+		transition: var.$transition;
+
+		background-image: url(../../../markup/images/corner.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+}
+
+.icon {
+	@include button(20px, 20px, transparent);
+	box-shadow: none;
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
