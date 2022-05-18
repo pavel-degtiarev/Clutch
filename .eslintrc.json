@@ -1,0 +1,27 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"commonjs": true,
+		"node": true,
+		"jest": true
+	},
+	"extends": ["eslint:recommended"],
+	"parser": "@babel/preset-react",
+	// "parser": "@babel/eslint-parser",
+	// "parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 7,
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint"],
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+		"no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+		"comma-dangle": "off"
+	}
+}

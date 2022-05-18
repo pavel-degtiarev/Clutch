@@ -1,0 +1,53 @@
+@use "../common/variables" as var;
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	white-space: nowrap;
+	clip-path: inset(100%);
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+
+body {
+	position: relative;
+	min-height: 100vh;
+	margin: 0;
+	background: var.$teal;
+	// background: var.$teal-to-tiffany;
+	background-repeat: no-repeat;
+}
+
+.no-scroll-body {
+	height: calc(100vh + 1px);
+	overflow: hidden;
+}
+
+.details-row {
+	height: 45px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 10px;
+
+	color: var.$teal;
+
+	&+& {
+		border-top: 1px solid var.$teal;
+	}
+
+	& .details-title {
+		flex-grow: 1;
+		flex-shrink: 1;
+	}
+
+	& .details-price {
+		flex-basis: 80px;
+	}
+}

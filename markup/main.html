@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>Clutch</title>
+	</head>
+
+	<body>
+		<!-- class="no-scroll-body" -->
+
+		<h1 class="visually-hidden">Clutch. Car expenses logbook.</h1>
+
+		<header>
+			<div class="header__container">
+				<div class="header__content">
+					<h2 class="title-big header__title">Honda FIT</h2>
+					<div class="header__burger burger__container">
+						<img class="burger__icon" src="./images/burger.svg" alt="burger" />
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<div class="main">
+				<div class="main__container">
+					<section class="reminder">
+						<div class="reminder__container">
+							<div class="reminder__slider">
+								<div class="reminder__slide">
+									<p class="title-normal reminder__title no-wrap">Свечи зажигания</p>
+									<p class="reminder__description">7800 км.</p>
+								</div>
+
+								<div class="reminder__bullets bullets">
+									<ul>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="tabs time-select">
+						<div class="tab-container">
+							<input type="radio" name="tab" id="tab-month" value="month" checked />
+							<label for="tab-month" class="tab">Месяц</label>
+						</div>
+
+						<div class="tab-container">
+							<input type="radio" name="tab" id="tab-year" value="year" />
+							<label for="tab-year" class="tab">Год</label>
+						</div>
+
+						<div class="tab-container">
+							<input type="radio" name="tab" id="tab-custom" value="custom" />
+							<label for="tab-custom" class="tab">•••</label>
+						</div>
+					</section>
+
+					<section class="tiles">
+						<div class="tiles__tile tile">
+							<div class="tile__data tile__info">
+								<h3 class="title-normal tile__header">
+									Пробег&ensp;<br /><span class="text-small tile__units">км.</span>
+								</h3>
+								<div class="title-huge tile__value">1020</div>
+							</div>
+
+							<div class="tile__data tile__chart">
+								<div class="chart__container">
+									<div class="chart">
+										<div class="chart__bar" style="height: 65%"></div>
+										<div class="chart__bar" style="height: 40%"></div>
+										<div class="chart__bar" style="height: 35%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 80%"></div>
+										<div class="chart__bar" style="height: 100%"></div>
+										<div class="chart__bar" style="height: 85%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tiles__tile tile">
+							<div class="tile__data tile__info">
+								<h3 class="title-normal tile__header">
+									Расход топлива&ensp;<br /><span class="text-small tile__units">л. / 100 км.</span>
+								</h3>
+								<div class="title-huge tile__value">7,8</div>
+							</div>
+
+							<div class="tile__data tile__chart">
+								<div class="chart__container">
+									<div class="chart">
+										<div class="chart__bar" style="height: 65%"></div>
+										<div class="chart__bar" style="height: 40%"></div>
+										<div class="chart__bar" style="height: 35%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 80%"></div>
+										<div class="chart__bar" style="height: 100%"></div>
+										<div class="chart__bar" style="height: 85%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tiles__tile tile">
+							<div class="tile__data tile__info">
+								<h3 class="title-normal tile__header">
+									Затраты&ensp;<br /><span class="text-small tile__units">руб.</span>
+								</h3>
+								<div class="title-huge tile__value">56000</div>
+							</div>
+
+							<div class="tile__data tile__chart">
+								<div class="chart__container">
+									<div class="chart">
+										<div class="chart__bar" style="height: 65%"></div>
+										<div class="chart__bar" style="height: 40%"></div>
+										<div class="chart__bar" style="height: 35%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 80%"></div>
+										<div class="chart__bar" style="height: 100%"></div>
+										<div class="chart__bar" style="height: 85%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+			<button type="button" class="button button-main button-with-mark rollup-active">
+				Потратить деньги
+				<div class="button__rollup rollup">
+					<div class="rollup__container">
+						<div class="rollup__content">
+							<div class="rollup__item">Топливо</div>
+							<div class="rollup__item">Расходники, запчасти</div>
+							<div class="rollup__item">Сервис</div>
+							<div class="rollup__item">Прочее</div>
+						</div>
+					</div>
+				</div>
+			</button>
+		</main>
+
+		<section class="popup popup-fuel">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Топливо</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="popup__field field-date">
+								<input class="field" name="date" placeholder=" " />
+								<label class="field-label" for="date">Дата</label>
+							</div>
+
+							<div class="popup__field field-run">
+								<input class="field" name="run" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="run">Пробег</label>
+							</div>
+
+							<div class="popup__field field-cost">
+								<input class="field" name="cost" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="cost">Стоимость</label>
+							</div>
+
+							<div class="popup__field field-price">
+								<input class="field" name="price" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="price">Цена за литр</label>
+							</div>
+
+							<div class="popup__field field-volume">
+								<input class="field" name="volume" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="volume">Объем</label>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="popup popup-spare">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Расходники, запчасти</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="popup__field field-date">
+								<input class="field" name="date" placeholder=" " />
+								<label class="field-label" for="date">Дата</label>
+							</div>
+
+							<div class="popup__field field-title">
+								<input class="field" name="title" inputmode="text" placeholder=" " />
+								<label class="field-label" for="title">Наименование</label>
+							</div>
+
+							<div class="popup__field field-price">
+								<input class="field" name="price" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="price">Цена</label>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="popup popup-other">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Прочее</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="popup__field field-date">
+								<input class="field" name="date" placeholder=" " />
+								<label class="field-label" for="date">Дата</label>
+							</div>
+
+							<div class="popup__field field-title">
+								<input class="field" name="title" inputmode="text" placeholder=" " />
+								<label class="field-label" for="title">Наименование</label>
+							</div>
+
+							<div class="popup__field field-price">
+								<input class="field" name="price" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="price">Цена</label>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="popup popup-service">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Сервис</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="popup__field field-date">
+								<input class="field" name="date" placeholder=" " />
+								<label class="field-label" for="date">Дата</label>
+							</div>
+
+							<div class="popup__field field-description">
+								<input class="field" name="description" inputmode="text" placeholder=" " />
+								<label class="field-label" for="description">Описание</label>
+							</div>
+
+							<div class="popup__field field-run">
+								<input class="field" name="run" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="run">Пробег</label>
+							</div>
+
+							<div class="popup__field field-total">
+								<input class="field" name="total" inputmode="decimal" placeholder=" " />
+								<label class="field-label" for="total">Общая сумма</label>
+								<button
+									class="button-icon total__details"
+									aria-label="Подробнее об общей сумме"
+								></button>
+							</div>
+
+							<div class="popup__checkbox field-repeat">
+								<input class="checkbox" type="checkbox" id="repeat" name="repeat" />
+								<label class="field-label" for="repeat">Повторять периодически</label>
+								<button
+									class="button-icon repeat__details"
+									aria-label="Подробнее о периодичности"
+								></button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="popup popup-small popup-service-repeat">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Периодичность</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="field-group">
+								<div class="popup__checkbox field-repeat-by-run">
+									<input class="checkbox" type="checkbox" id="repeat-by-run" name="repeat-by-run" />
+									<label class="field-label" for="repeat-by-run">по пробегу</label>
+								</div>
+
+								<div class="popup__field field-run">
+									<input
+										class="field"
+										name="total"
+										id="total"
+										inputmode="decimal"
+										placeholder=" "
+									/>
+									<label class="field-label" for="total">Пробег</label>
+								</div>
+							</div>
+
+							<div class="field-group">
+								<div class="popup__checkbox field-repeat-by-time">
+									<input
+										class="checkbox"
+										type="checkbox"
+										id="repeat-by-time"
+										name="repeat-by-time"
+									/>
+									<label class="field-label" for="repeat-by-time">по времени</label>
+								</div>
+
+								<div class="field-group field-group-horizontal">
+									<div class="popup__field field-time-amount">
+										<input
+											class="field"
+											name="time-amount"
+											id="time-amount"
+											inputmode="decimal"
+											placeholder=" "
+										/>
+										<label class="field-label" for="time-amount">Время</label>
+									</div>
+
+									<select class="popup__select" name="time-slot" id="time-slot">
+										<option value="дни">дни</option>
+										<option value="недели">недели</option>
+										<option value="месяцы" selected>месяцы</option>
+										<option value="годы">годы</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="popup popup-small popup-service-details">
+			<div class="popup__container">
+				<header class="popup__header">
+					<h3 class="title-big no-wrap">Подробнее</h3>
+					<button class="popup__close button-icon" aria-label="Закрыть попап" />
+				</header>
+
+				<div class="popup-content">
+					<form class="popup__form">
+						<div class="popup__fields-container">
+							<div class="tabs details-select">
+								<div class="tab-container">
+									<input type="radio" name="tab-details" id="tab-services" value="services" checked />
+									<label for="tab-services" class="tab">Работы<br />(12000 руб.)</label>
+								</div>
+								<div class="tab-container">
+									<input type="radio" name="tab-details" id="tab-spares" value="spares" />
+									<label for="tab-spares" class="tab">З/Ч, расходники<br />(2000 руб.)</label>
+								</div>
+							</div>
+
+							<div class="details-list">
+								<div class="details-row title-small details-list-header">
+									<p class="details-title no-wrap">Название</p>
+									<p class="details-price">Цена (руб.)</p>
+								</div>
+
+								<div class="details-list-body">
+									<div class="details-row">
+										<div class="details-title">
+											<input class="field no-wrap" name="title" value="блок клапанов коробки передач"/>
+										</div>
+										<div class="details-price">
+											<input class="field" inputmode="decimal" name="price" value="4500"/>
+										</div>
+									</div>
+
+									<div class="details-row">
+										<div class="add-details-button"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<button type="button" class="button button-main button-popup">
+					<span>Сохранить</span>
+				</button>
+			</div>
+		</section>
+	</body>
+</html>

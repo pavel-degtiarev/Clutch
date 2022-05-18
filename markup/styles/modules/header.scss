@@ -1,0 +1,44 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.header__container {
+	height: 55px;
+	width: 100vw;
+	padding: 10px 20px;
+}
+
+.header__content {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.burger__icon {
+	display: block;
+	max-width: 100%;
+}
+
+.header__title {
+	color: #fff;
+}
+
+.header-with-return {
+	position: relative;
+	padding-left: 30px;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: "";
+		display: block;
+		width: 20px;
+		height: 20px;
+
+		background-image: url("../images/return.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+}

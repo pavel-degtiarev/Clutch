@@ -1,0 +1,31 @@
+.popup-fuel .popup__fields-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	gap: 20px 20px;
+	grid-template-areas:
+		"date date"
+		"run run"
+		"cost price"
+		"volume .";
+
+	& .field-date {
+		grid-area: date;
+	}
+
+	& .field-run {
+		grid-area: run;
+	}
+
+	& .field-cost {
+		grid-area: cost;
+	}
+
+	& .field-price {
+		grid-area: price;
+	}
+
+	& .field-volume {
+		grid-area: volume;
+	}
+}
