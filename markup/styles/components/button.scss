@@ -50,8 +50,9 @@
 .button-icon {
 	@include button(20px, 20px, transparent);
 	box-shadow: none;
-	mask-size: cover;
-	mask-repeat: none;
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
 	flex-grow: 0;
 	flex-shrink: 0;
 }

@@ -8,8 +8,10 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 const entryPoint = "./src/index.jsx";
 const htmlTemplate = "./src/index.html";
-// const htmlTemplate = "./markup/main.html";
+
+// const entryPoint = "./markup/index.js";
 // const htmlTemplate = "./markup/stat.html";
+// const htmlTemplate = "./markup/main.html";
 
 const chunkCustomLibs = false;
 const customLibs = "src/lib";
