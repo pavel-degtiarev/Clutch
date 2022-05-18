@@ -21,11 +21,11 @@ export default function Header({ title, withReturnButton = false }: HeaderProps)
 			<div className={headerStyles.container}>
 				<div className={headerStyles.content}>
 					<div className={titleStyles.container}>
-						
 						{withReturnButton && (
 							<button
 								className={classNames(`${buttonStyles.icon}`, `${headerStyles.buttonReturn}`)}
-								type="button"></button>
+								type="button"
+							/>
 						)}
 
 						<h2
