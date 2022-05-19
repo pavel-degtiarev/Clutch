@@ -57,9 +57,11 @@ export default function Header({ title, withReturnButton = false }: HeaderProps)
 						</h2>
 					</div>
 
-					<div className={burgerStyles.container}>
-						<img className={burgerStyles.icon} src={burger} alt="burger" />
-					</div>
+					<ButtonIcon
+						label="Burger button"
+						auxClassNames={classNames(`${burgerStyles.container}`, `${burgerStyles.buttonBurger}`)}
+						handler={() => {}}
+					/>
 				</div>
 			</div>
 		</header>

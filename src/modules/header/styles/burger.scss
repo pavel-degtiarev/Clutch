@@ -7,3 +7,9 @@
 	display: block;
 	max-width: 100%;
 }
+
+.buttonBurger {
+	border-radius: 0;
+	background-color: #fff;
+	mask-image: url(../../../../markup/images/burger.svg);
+}
