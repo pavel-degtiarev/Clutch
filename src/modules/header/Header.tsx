@@ -9,8 +9,6 @@ import headerStyles from "./styles/header.scss";
 import burgerStyles from "./styles/burger.scss";
 import titleStyles from "./styles/header-title.scss";
 
-import burger from "../../../markup/images/burger.svg";
-
 // ==================================================
 
 const WITH_BUTTON: boolean = true;
