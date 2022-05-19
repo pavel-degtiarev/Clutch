@@ -1,8 +1,9 @@
 import * as React from "react";
 import classNames from "classnames";
 
+import ButtonIcon from "../../components/button-icon/button-icon";
+
 import textStyles from "../../styles/typography.scss";
-import buttonStyles from "../../styles/components/button.scss";
 
 import headerStyles from "./styles/header.scss";
 import burgerStyles from "./styles/burger.scss";
@@ -39,9 +40,10 @@ export default function Header({ title, withReturnButton = false }: HeaderProps)
 				<div className={headerStyles.content}>
 					<div className={titleStyles.container}>
 						{withReturnButton && (
-							<button
-								className={classNames(`${buttonStyles.icon}`, `${headerStyles.buttonReturn}`)}
-								type="button"
+							<ButtonIcon
+								label="Return to main screen"
+								auxClassNames={`${headerStyles.buttonReturn}`}
+								handler={() => {}}
 							/>
 						)}
 
