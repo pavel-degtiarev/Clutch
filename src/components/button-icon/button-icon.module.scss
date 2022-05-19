@@ -1,4 +1,4 @@
-@use "../../styles/components/button.scss" as btn;
+@use "../../styles/components/button.module.scss" as btn;
 
 .icon {
   @include btn.button(20px, 20px, transparent);

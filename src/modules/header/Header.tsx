@@ -3,11 +3,11 @@ import classNames from "classnames";
 
 import ButtonIcon from "../../components/button-icon/button-icon";
 
-import textStyles from "../../styles/typography.scss";
+import textStyles from "../../styles/typography.module.scss";
 
-import headerStyles from "./styles/header.scss";
-import burgerStyles from "./styles/burger.scss";
-import titleStyles from "./styles/header-title.scss";
+import headerStyles from "./styles/header.module.scss";
+import burgerStyles from "./styles/burger.module.scss";
+import titleStyles from "./styles/header-title.module.scss";
 
 // ==================================================
 

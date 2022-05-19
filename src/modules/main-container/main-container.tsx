@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./styles/main-container.scss";
+import styles from "./styles/main-container.module.scss";
 
 export default function Main({ children }: any) {
 	return (

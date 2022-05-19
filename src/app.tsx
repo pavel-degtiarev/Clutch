@@ -1,7 +1,9 @@
 import * as React from "react";
-import styles from "./styles/global.scss";
+import styles from "./styles/global.module.scss";
+
 import Header from "./modules/header/Header";
 import Main from "./modules/main-container/main-container";
+import Reminder from "./modules/reminder/reminder";
 
 export default function App() {
   return (
@@ -11,7 +13,9 @@ export default function App() {
 			<Header title="Honda Fit" />
 			{/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
 
-			<Main></Main>
+			<Main>
+				<Reminder/>
+			</Main>
 		</>
 	);
 }

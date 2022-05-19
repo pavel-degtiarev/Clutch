@@ -77,6 +77,7 @@ function cssLoaders(moreLoaders = null) {
 			loader: "css-loader",
 			options: {
 				modules: {
+					auto: /\.module\.\w+$/i, //  filename.module.ext
 					localIdentName: "[name]__[local]__[hash:base64:5]",
 				},
 			},

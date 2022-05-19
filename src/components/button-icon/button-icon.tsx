@@ -1,7 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import styles from "./button-icon.scss";
+import styles from "./button-icon.module.scss";
 
 interface ButtonIconProps {
 	label?: string;

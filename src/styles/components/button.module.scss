@@ -1,5 +1,5 @@
-@use "../variables.scss" as var;
-@use "../typography.scss" as typo;
+@use "../variables.module.scss" as var;
+@use "../typography.module.scss" as typo;
 
 @mixin button($width, $height, $color: var.$orange-to-light) {
 	display: block;
