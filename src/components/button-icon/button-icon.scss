@@ -1,0 +1,8 @@
+@use "../../styles/components/button.scss" as btn;
+
+.icon {
+  @include btn.button(20px, 20px, transparent);
+  box-shadow: none;
+  flex-grow: 0;
+  flex-shrink: 0;
+}

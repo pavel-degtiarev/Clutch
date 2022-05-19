@@ -15,6 +15,9 @@
 	transition: var.$transition;
 	box-shadow: var.$shadow;
 	line-height: typo.$sizeBig;
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
 }
 
 .button {
@@ -42,14 +45,4 @@
 		background-position: center;
 		background-repeat: no-repeat;
 	}
-}
-
-.icon {
-	@include button(20px, 20px, transparent);
-	box-shadow: none;
-	mask-size: contain;
-	mask-position: center;
-	mask-repeat: no-repeat;
-	flex-grow: 0;
-	flex-shrink: 0;
 }
