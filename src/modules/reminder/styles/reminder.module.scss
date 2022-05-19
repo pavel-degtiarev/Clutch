@@ -1,0 +1,23 @@
+@use "../../../styles/variables.module.scss" as var;
+@use "../../../styles/typography.module.scss" as typo;
+
+.reminder {
+	background-color: var.$tealLight;
+	margin: 0 -20px;
+}
+
+.slide {
+	height: 60px;
+	padding-top: 20px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	color: #fff;
+	column-gap: 10px;
+}
+
+.description {
+	font-weight: typo.$weightNormal;
+	min-width: fit-content;
+}

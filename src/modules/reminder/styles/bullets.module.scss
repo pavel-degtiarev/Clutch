@@ -1,0 +1,29 @@
+@use "../../../styles/variables.module.scss" as var;
+
+.bullets {
+	content: "";
+	height: 5px;
+
+	& ul {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		column-gap: 5px;
+		margin: 0;
+	}
+}
+
+.bullet {
+	display: block;
+	content: "";
+	width: 5px;
+	height: 5px;
+	background-color: var.$tiffany;
+	border-radius: 50%;
+	line-height: 0;
+
+	&:first-child {
+		background-color: #fff;
+	}
+}
