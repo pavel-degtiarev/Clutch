@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "./styles/global.scss";
 import Header from "./modules/header/Header";
+import Main from "./modules/main-container/main-container";
 
 export default function App() {
   return (
@@ -10,11 +11,7 @@ export default function App() {
 			<Header title="Honda Fit" />
 			{/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
 
-			<main>
-				<div className="main">
-					<div className="main__container" />
-				</div>
-			</main>
+			<Main></Main>
 		</>
 	);
 }
