@@ -10,10 +10,27 @@ import titleStyles from "./styles/header-title.scss";
 
 import burger from "../../../markup/images/burger.svg";
 
-interface HeaderProps {
+// ==================================================
+
+const WITH_BUTTON: boolean = true;
+const WITHOUT_BUTTON: boolean = false;
+
+interface Header {
 	title: string;
-	withReturnButton: boolean;
 }
+
+interface HeaderWithReturn extends Header {
+	withReturnButton?: typeof WITH_BUTTON;
+	handler: (args: any[]) => any;
+}
+
+interface HeaderWithoutRerurn extends Header {
+	withReturnButton?: typeof WITHOUT_BUTTON;
+}
+
+type HeaderProps = HeaderWithReturn | HeaderWithoutRerurn;
+
+// ==================================================
 
 export default function Header({ title, withReturnButton = false }: HeaderProps) {
 	return (
