@@ -1,11 +1,11 @@
 @use "../variables.module.scss" as var;
 
 .swiper-pagination-bullet {
-	color:var.$tiffanyLight;
-	background-color: var.$tiffanyLight;
+	background-color: #FFF;
+	opacity: 0.2;
+	transition: var.$transition;
 }
 
 .swiper-pagination-bullet-active {
-	color:#FFF;
-	background: #FFF;
+	opacity: 1;
 }
