@@ -21,7 +21,9 @@ export default function Reminder() {
 				<SwiperSlide>
 					<div className={reminderStyles.slide}>
 						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>Свечи зажигания</p>
-						<p className={reminderStyles.description}>7800 км.</p>
+						<div className={reminderStyles.period}>
+							<p className={reminderStyles.run}>7800</p>
+						</div>
 					</div>
 				</SwiperSlide>
 				<SwiperSlide>
@@ -29,7 +31,10 @@ export default function Reminder() {
 						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>
 							Катушки зажигания
 						</p>
-						<p className={reminderStyles.description}>7800 км.</p>
+						<div className={reminderStyles.period}>
+							<p className={reminderStyles.run}>7800</p>
+							<p className={classNames(reminderStyles.time, reminderStyles.inMonths)}>15</p>
+						</div>
 					</div>
 				</SwiperSlide>
 				<SwiperSlide>
@@ -37,10 +42,12 @@ export default function Reminder() {
 						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>
 							Провода зажигания
 						</p>
-						<p className={reminderStyles.description}>7800 км.</p>
+						<div className={reminderStyles.period}>
+							<p className={reminderStyles.run}>7800</p>
+						</div>
 					</div>
 				</SwiperSlide>
-				
+
 				<div className="swiper-pagination"></div>
 			</Swiper>
 		</section>
