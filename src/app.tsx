@@ -5,8 +5,14 @@ import Header from "./modules/header/Header";
 import Main from "./modules/main-container/main-container";
 import Reminder from "./modules/reminder/reminder";
 
+// =====================================================
+
+import reminders from "./mocks/reminders";
+
+// ===========================================
+
 export default function App() {
-  return (
+	return (
 		<>
 			<h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
@@ -14,7 +20,7 @@ export default function App() {
 			{/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
 
 			<Main>
-				<Reminder/>
+				<Reminder reminders={reminders} />
 			</Main>
 		</>
 	);
