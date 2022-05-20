@@ -20,6 +20,12 @@
   }
 }
 
+.time {
+  &::before {
+    content: "через ";
+  }
+}
+
 .run {
   &::before {
     content: "через ";
@@ -28,11 +34,11 @@
   &::after {
     content: " км.";
   }
-}
 
-.time {
-  &::before {
-    content: " или ";
+  &+.time {
+    &::before {
+      content: " или ";
+    }
   }
 }
 
