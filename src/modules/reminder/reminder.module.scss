@@ -1,0 +1,6 @@
+@use "../../styles/variables.module.scss" as var;
+
+.reminder {
+	background-color: var.$tealLight;
+	margin: 0 -20px;
+}

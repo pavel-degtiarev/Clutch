@@ -1,15 +1,15 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
-import classNames from "classnames";
+
+import { TimelUnit } from "../../../global.var";
+import ReminderItem from "../reminder-item/reminder-item";
 
 import "swiper/scss";
 import "swiper/scss/pagination";
-
 import "../../styles/components/pagination-custom.scss";
 
-import textStyles from "../../styles/typography.module.scss";
-import reminderStyles from "./styles/reminder.module.scss";
+import reminderStyles from "./reminder.module.scss";
 
 export default function Reminder() {
 	return (
@@ -19,33 +19,23 @@ export default function Reminder() {
 				modules={[Pagination]}
 				pagination={{ el: ".swiper-pagination", type: "bullets" }}>
 				<SwiperSlide>
-					<div className={reminderStyles.slide}>
-						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>Свечи зажигания</p>
-						<div className={reminderStyles.period}>
-							<p className={reminderStyles.run}>7800</p>
-						</div>
-					</div>
+					<ReminderItem
+						title="Свечи зажигания"
+						run={7800}
+						time={{ interval: 5, unit: TimelUnit.YEARS }}
+					/>
 				</SwiperSlide>
+
 				<SwiperSlide>
-					<div className={reminderStyles.slide}>
-						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>
-							Катушки зажигания
-						</p>
-						<div className={reminderStyles.period}>
-							<p className={reminderStyles.run}>7800</p>
-							<p className={classNames(reminderStyles.time, reminderStyles.inMonths)}>15</p>
-						</div>
-					</div>
+					<ReminderItem
+						title="Катушки зажигания"
+						run={7800}
+						time={{ interval: 8, unit: TimelUnit.MONTHS }}
+					/>
 				</SwiperSlide>
+
 				<SwiperSlide>
-					<div className={reminderStyles.slide}>
-						<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>
-							Провода зажигания
-						</p>
-						<div className={reminderStyles.period}>
-							<p className={reminderStyles.run}>7800</p>
-						</div>
-					</div>
+					<ReminderItem title="Провода зажигания" run={15000} />
 				</SwiperSlide>
 
 				<div className="swiper-pagination"></div>

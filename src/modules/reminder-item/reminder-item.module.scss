@@ -1,0 +1,57 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/typography.module.scss" as typo;
+
+.slide {
+  height: 60px;
+  padding-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 5px;
+}
+
+.period {
+  font-size: typo.$sizeSmall;
+
+  & p {
+    display: inline;
+  }
+}
+
+.run {
+  &::before {
+    content: "через ";
+  }
+
+  &::after {
+    content: " км.";
+  }
+}
+
+.time {
+  &::before {
+    content: " или ";
+  }
+}
+
+.inDays::after {
+  content: " дн.";
+}
+
+.inMonths::after {
+  content: " мес.";
+}
+
+.inYears::after {
+  content: " года";
+}
+
+.inYearsSingle::after {
+  content: " год";
+}
+
+.inYearsLong::after {
+  content: " лет";
+}
