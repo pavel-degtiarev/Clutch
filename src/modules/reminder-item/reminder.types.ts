@@ -1,36 +1,35 @@
 import { TimelUnit } from "../../../global.var";
 
-export type TimeType = {
+export type TTime = {
 	interval: number;
 	unit: TimelUnit;
 };
 
-export enum TriggerKind {
-	RUN,
-	TIME,
-	RUNTIME,
+export enum Urgency {
+	NORMAL,
+	NEARDUE,
+	OVERDUED,
+}
+
+interface ReminderBase<T> {
+	title: string;
+	urgency: Urgency;
+	trigger: T;
 }
 
 export interface RunTrigger {
-	kind: TriggerKind.RUN;
 	run: number;
 }
-
 export interface TimeTrigger {
-	kind: TriggerKind.TIME;
-	time: TimeType;
+	time: TTime;
 }
 
-export interface RunTimeTrigger {
-	kind: TriggerKind.RUNTIME;
-	run: number;
-	time: TimeType;
+export type IReminder = ReminderBase<RunTrigger> | ReminderBase<TimeTrigger>;
+
+export function isRunTrigger(trigger: RunTrigger | TimeTrigger): trigger is RunTrigger {
+	return "run" in trigger;
 }
 
-export type TriggerType = RunTrigger | TimeTrigger | RunTimeTrigger;
-
-export interface TReminder {
-	title: string;
-	overdued: boolean;
-	trigger: TriggerType;
+export function isTimeTrigger(trigger: RunTrigger | TimeTrigger): trigger is TimeTrigger {
+	return "time" in trigger;
 }
