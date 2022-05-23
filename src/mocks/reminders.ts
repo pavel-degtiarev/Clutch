@@ -12,14 +12,14 @@ const reminders: Array<IReminder> = [
 	},
 	{
 		title: "Катушки зажигания",
-		urgency: Urgency.NEARDUE,
+		urgency: Urgency.OVERDUED,
 		trigger: {
 			time: { interval: 8, unit: TimelUnit.MONTHS },
 		},
 	},
 	{
 		title: "Провода зажигания",
-		urgency: Urgency.OVERDUED,
+		urgency: Urgency.NEARDUE,
 		trigger: {
 			run: 1500,
 		},

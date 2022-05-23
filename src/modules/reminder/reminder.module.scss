@@ -1,6 +1,18 @@
 @use "../../styles/variables.module.scss" as var;
 
 .reminder {
-	background-color: var.$tealLight;
 	margin: 0 -20px;
+	transition: var.$transition;
+}
+
+.urgencyNormal {
+	background-color: var.$tealLight;
+}
+
+.urgencyNearDue {
+	background-color: var.$orangeDark;
+}
+
+.urgencyOverdued {
+	background-color: var.$red;
 }

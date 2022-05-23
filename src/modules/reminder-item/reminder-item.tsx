@@ -5,14 +5,7 @@ import { TimelUnit, YearSuffix } from "../../../global.var";
 
 import textStyles from "../../styles/typography.module.scss";
 import styles from "./reminder-item.module.scss";
-import {
-	TTime,
-	isRunTrigger,
-	isTimeTrigger,
-	Urgency,
-	RunTrigger,
-	TimeTrigger,
-} from "./reminder.types";
+import { TTime, isRunTrigger, isTimeTrigger, RunTrigger, TimeTrigger } from "./reminder.types";
 
 // ===========================================
 
@@ -49,11 +42,11 @@ function getIntervalClass(time: TTime) {
 
 interface ReminderItemProps {
 	title: string;
-	urgency: Urgency;
 	trigger: RunTrigger | TimeTrigger;
 }
 
-export default function ReminderItem({ title, urgency, trigger }: ReminderItemProps) {
+export default function ReminderItem({ title, trigger }: ReminderItemProps) {
+
 	return (
 		<div className={styles.slide}>
 			<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>{title}</p>
