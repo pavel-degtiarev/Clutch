@@ -1,7 +1,7 @@
 export enum TimelUnit {
-	DAYS,
-	MONTHS,
-	YEARS,
+	DAYS = "days",
+	MONTHS = "months",
+	YEARS = "years",
 }
 
 export enum YearSuffix {

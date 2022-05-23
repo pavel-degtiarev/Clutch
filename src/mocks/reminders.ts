@@ -1,29 +1,26 @@
 import { TimelUnit } from "../../global.var";
-import { TReminder, TriggerKind } from "../modules/reminder-item/reminder.types";
+import { IReminder, Urgency } from "../modules/reminder-item/reminder.types";
 
-const reminders: Array<TReminder> = [
+const reminders: Array<IReminder> = [
 	{
 		title: "Свечи зажигания",
-		overdued: false,
+		urgency: Urgency.NORMAL,
 		trigger: {
-			kind: TriggerKind.RUNTIME,
 			run: 7800,
 			time: { interval: 2, unit: TimelUnit.YEARS },
 		},
 	},
 	{
 		title: "Катушки зажигания",
-		overdued: false,
+		urgency: Urgency.NEARDUE,
 		trigger: {
-			kind: TriggerKind.TIME,
 			time: { interval: 8, unit: TimelUnit.MONTHS },
 		},
 	},
 	{
 		title: "Провода зажигания",
-		overdued: true,
+		urgency: Urgency.OVERDUED,
 		trigger: {
-			kind: TriggerKind.RUN,
 			run: 1500,
 		},
 	},
