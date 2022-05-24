@@ -4,10 +4,26 @@ import styles from "./styles/global.module.scss";
 import Header from "./modules/header/Header";
 import Main from "./modules/main-container/main-container";
 import Reminder from "./modules/reminder/reminder";
+import TabsGroup from "./components/tabs/tabs-group";
 
 // =====================================================
 
 import reminders from "./mocks/reminders";
+
+const tabs = [
+	{
+		id: "month",
+		title: "Месяц",
+	},
+	{
+		id: "year",
+		title: "Год",
+	},
+	{
+		id: "custom",
+		title: "•••",
+	},
+];
 
 // ===========================================
 
@@ -21,7 +37,12 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
+				<TabsGroup name="time-interval" tabs={tabs} tabClickedHandler={timeTabClicked} />
 			</Main>
 		</>
 	);
+}
+
+function timeTabClicked(tabId: string) {
+	console.log(tabId);
 }
