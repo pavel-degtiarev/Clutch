@@ -5,11 +5,18 @@ import { TimelUnit, YearSuffix } from "../../../global.var";
 
 import textStyles from "../../styles/typography.module.scss";
 import styles from "./reminder-item.module.scss";
-import { TTime, isRunTrigger, isTimeTrigger, RunTrigger, TimeTrigger } from "./reminder.types";
+import {
+	TTime,
+	isRunTrigger,
+	isTimeTrigger,
+	RunTrigger,
+	TimeTrigger,
+	Urgency,
+} from "./reminder.types";
 
 // ===========================================
 
-function getIntervalClass(time: TTime) {
+function getIntervalClass(time: TTime): string {
 	let interval: string = "";
 
 	switch (time.unit) {
@@ -42,11 +49,11 @@ function getIntervalClass(time: TTime) {
 
 interface ReminderItemProps {
 	title: string;
+	urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
 	trigger: RunTrigger | TimeTrigger;
 }
 
-export default function ReminderItem({ title, trigger }: ReminderItemProps) {
-
+export default function ReminderItem({ title, trigger, urgency }: ReminderItemProps) {
 	return (
 		<div className={styles.slide}>
 			<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>{title}</p>
@@ -54,7 +61,12 @@ export default function ReminderItem({ title, trigger }: ReminderItemProps) {
 				{isRunTrigger(trigger) && <p className={styles.run}>{trigger.run}</p>}
 
 				{isTimeTrigger(trigger) && (
-					<p className={classNames(styles.time, `${getIntervalClass(trigger.time)}`)}>
+					<p
+						className={classNames(
+							styles.time,
+							getIntervalClass(trigger.time),
+							urgency === Urgency.OVERDUED && styles.overdued
+						)}>
 						{trigger.time.interval}
 					</p>
 				)}

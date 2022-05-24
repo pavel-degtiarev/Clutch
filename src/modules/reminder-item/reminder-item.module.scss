@@ -42,6 +42,12 @@
   }
 }
 
+.time.overdued, .run.overdued {
+  &::before {
+    content: "просрочено на ";
+  }
+}
+
 .inDays::after {
   content: " дн.";
 }
