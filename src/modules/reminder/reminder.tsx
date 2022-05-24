@@ -18,14 +18,18 @@ interface ReminderProps {
 	reminders: Array<IReminder>;
 }
 
+type TReminderColors = {
+	[key in Urgency]: string;
+};
+
 export default function Reminder({ reminders }: ReminderProps) {
-	const reminderColors = {
+	const reminderColors: TReminderColors = {
 		[Urgency.NORMAL]: styles.urgencyNormal,
 		[Urgency.NEARDUE]: styles.urgencyNearDue,
 		[Urgency.OVERDUED]: styles.urgencyOverdued,
 	};
 
-	const [urgencyStyle, setUrgencyStyle] = useState(reminderColors[reminders[0].urgency]);
+	const [urgencyStyle, setUrgencyStyle] = useState<string>(reminderColors[reminders[0].urgency]);
 
 	return (
 		<section className={classNames(styles.reminder, urgencyStyle)}>
@@ -33,6 +37,7 @@ export default function Reminder({ reminders }: ReminderProps) {
 				slidesPerView={1}
 				modules={[Pagination]}
 				pagination={{ el: ".swiper-pagination", type: "bullets" }}>
+				
 				{reminders.map((item, index) => {
 					return (
 						<SwiperSlide key={index}>
@@ -41,7 +46,9 @@ export default function Reminder({ reminders }: ReminderProps) {
 									isActive && setUrgencyStyle(reminderColors[item.urgency]);
 								}, [isActive]);
 
-								return <ReminderItem title={item.title} trigger={item.trigger} />;
+								return (
+									<ReminderItem title={item.title} trigger={item.trigger} urgency={item.urgency} />
+								);
 							}}
 						</SwiperSlide>
 					);

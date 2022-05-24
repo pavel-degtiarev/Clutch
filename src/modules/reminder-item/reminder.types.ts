@@ -13,7 +13,7 @@ export enum Urgency {
 
 interface ReminderBase<T> {
 	title: string;
-	urgency: Urgency;
+	urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
 	trigger: T;
 }
 
