@@ -57,16 +57,13 @@ export default function ReminderItem({ title, trigger, urgency }: ReminderItemPr
 	return (
 		<div className={styles.slide}>
 			<p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>{title}</p>
-			<div className={styles.period}>
-				{isRunTrigger(trigger) && <p className={styles.run}>{trigger.run}</p>}
+
+			<div className={classNames(styles.period, urgency === Urgency.OVERDUED && styles.overdued)}>
+				{isRunTrigger(trigger) &&
+					<p className={styles.run}>{trigger.run}</p>}
 
 				{isTimeTrigger(trigger) && (
-					<p
-						className={classNames(
-							styles.time,
-							getIntervalClass(trigger.time),
-							urgency === Urgency.OVERDUED && styles.overdued
-						)}>
+					<p className={classNames(styles.time, getIntervalClass(trigger.time))}>
 						{trigger.time.interval}
 					</p>
 				)}

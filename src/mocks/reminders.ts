@@ -24,6 +24,28 @@ const reminders: Array<IReminder> = [
 			run: 1500,
 		},
 	},
+	{
+		title: "Моторное масло",
+		urgency: Urgency.NORMAL,
+		trigger: {
+			run: 8500,
+		},
+	},
+	{
+		title: "Масляный фильтр",
+		urgency: Urgency.NORMAL,
+		trigger: {
+			run: 8500,
+		},
+	},
+	{
+		title: "Ручейковый ремень навесного оборудования",
+		urgency: Urgency.OVERDUED,
+		trigger: {
+			run:2000,
+			time: { interval: 8, unit: TimelUnit.MONTHS },
+		},
+	},
 ];
 
 export default reminders;
