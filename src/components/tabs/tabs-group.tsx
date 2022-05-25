@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Tab from "./tab";
 
 import styles from "./tabs-group.module.scss";
@@ -9,25 +9,35 @@ type TabsGroupProps = {
 		id: string;
 		title: string;
 	}[];
-	tabClickedHandler: (tabId: string) => void;
+	tabGroupChangedHandler: (tabId: string) => void;
 };
 
-export default function TabsGroup({ name, tabs, tabClickedHandler }: TabsGroupProps) {
+type ContextType = {
+	tabGroupValue: string;
+	setTabGroupValue: (newCurrent: string) => void;
+};
+
+export const TabsGroupValue = createContext({
+	tabGroupValue: "",
+	setTabGroupValue: Function,
+} as ContextType);
+
+export default function TabsGroup({ name, tabs, tabGroupChangedHandler }: TabsGroupProps) {
+	const [tabGroupValue, setTabGroupValue] = useState(tabs[0].id);
+	useEffect(() => {
+		tabGroupChangedHandler(tabGroupValue);
+	}, [tabGroupValue]);
+
 	return (
-		<section className={styles.tabs}>
-			{tabs.map((item, index) => {
-				const isChecked = index === 0;
-				return (
-					<Tab
-						key={index}
-						name={name}
-						title={item.title}
-						id={item.id}
-						checked={isChecked}
-						clickHandler={tabClickedHandler}
-					/>
-				);
-			})}
-		</section>
+		<TabsGroupValue.Provider value={{ tabGroupValue, setTabGroupValue }}>
+			<section className={styles.tabs}>
+				{tabs.map((item, index) => {
+					const isChecked = index === 0;
+					return (
+						<Tab key={index} name={name} title={item.title} id={item.id} checked={isChecked} />
+					);
+				})}
+			</section>
+		</TabsGroupValue.Provider>
 	);
 }
