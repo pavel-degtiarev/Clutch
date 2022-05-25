@@ -1,0 +1,18 @@
+@use "../../styles/variables.module.scss" as var;
+
+.header,
+.value {
+  color: var.$orange;
+}
+
+.units {
+  color: var.$tiffanyLight;
+  white-space: nowrap;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  row-gap: 10px;
+}
