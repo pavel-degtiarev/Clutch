@@ -9,21 +9,7 @@ import TabsGroup from "./components/tabs/tabs-group";
 // =====================================================
 
 import reminders from "./mocks/reminders";
-
-const tabs = [
-	{
-		id: "month",
-		title: "Месяц",
-	},
-	{
-		id: "year",
-		title: "Год",
-	},
-	{
-		id: "custom",
-		title: "•••",
-	},
-];
+import { timeTabs } from "./mocks/tabs";
 
 // ===========================================
 
@@ -37,7 +23,7 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup name="time-interval" tabs={tabs} tabClickedHandler={timeTabClicked} />
+				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={timeTabClicked} />
 			</Main>
 		</>
 	);
