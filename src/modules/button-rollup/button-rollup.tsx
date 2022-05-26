@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import classNames from "classnames";
 import Button from "../../components/button/button";
 import Rollup, { RollupItem } from "./rollup";
@@ -17,12 +17,12 @@ export default function ButtonRollup({ title, rollup }: ButtonRollupProps) {
 		[rollupButtonStyles.rollupActive]: rollupActive,
 	});
 
+	const rollupTrigger = useCallback(() => setRollupActive((prevState) => !prevState), []);
+	
 	return (
-		<Button
-			title={title}
-			auxStyles={auxStyles}
-			clickHandler={() => setRollupActive((prevState) => !prevState)}>
-			<Rollup items={rollup} isActive={rollupActive} />
-		</Button>
+		<div className={rollupButtonStyles.buttonRollupContainer}>
+			<Button title={title} auxStyles={auxStyles} clickHandler={rollupTrigger} />
+			<Rollup items={rollup} isActive={rollupActive} clickHandler={rollupTrigger} />
+		</div>
 	);
 }

@@ -7,11 +7,10 @@ import styles from "./button.module.scss";
 type ButtonProps = {
 	title: string;
 	auxStyles?: string | string[];
-	children?: React.ReactNode;
 	clickHandler: clickHandler;
 };
 
-export default function Button({ title, auxStyles, children, clickHandler }: ButtonProps) {
+export default function Button({ title, auxStyles, clickHandler }: ButtonProps) {
 	const classes = classNames(
 		buttonStyles.button,
 		typeStyles.titleNormal,
@@ -22,7 +21,6 @@ export default function Button({ title, auxStyles, children, clickHandler }: But
 	return (
 		<button type="button" className={classes} onClick={clickHandler}>
 			{title}
-			{children}
 		</button>
 	);
 }

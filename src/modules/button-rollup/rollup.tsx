@@ -9,6 +9,7 @@ export type RollupItem = {
 
 type RollupProps = {
 	isActive: boolean;
+	clickHandler: Function;
 	items: RollupItem[];
 };
 
@@ -25,13 +26,22 @@ function RollupItem({ title, clickHandler }: RollupItemProps) {
 	);
 }
 
-export default function Rollup({ items, isActive }: RollupProps) {
+export default function Rollup({ items, isActive, clickHandler }: RollupProps) {
 	return (
 		<div className={classNames(styles.rollup, { [styles.rollupActive]: isActive })}>
 			<div className={styles.container}>
 				<div className={styles.content}>
 					{items.map((item, index) => {
-						return <RollupItem key={index} title={item.title} clickHandler={item.callback} />;
+						return (
+							<RollupItem
+								key={index}
+								title={item.title}
+								clickHandler={() => {
+									clickHandler();
+									item.callback();
+								}}
+							/>
+						);
 					})}
 				</div>
 			</div>

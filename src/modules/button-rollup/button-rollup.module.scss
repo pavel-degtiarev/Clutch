@@ -1,3 +1,12 @@
+.buttonRollupContainer {
+  position: fixed;
+  width: calc(100vw - 40px);
+  bottom: 0;
+  left: 20px;
+  height: 70px;
+  z-index: 25;
+}
+
 .rollupActive {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
