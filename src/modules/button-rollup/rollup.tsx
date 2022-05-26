@@ -2,19 +2,37 @@ import classNames from "classnames";
 import * as React from "react";
 import styles from "./rollup.module.scss";
 
-type RollupProps = {
-	active: boolean;
+export type RollupItem = {
+	title: string;
+	callback: Function;
 };
 
-export default function Rollup({ active }: RollupProps) {
+type RollupProps = {
+	isActive: boolean;
+	items: RollupItem[];
+};
+
+type RollupItemProps = {
+	title: string;
+	clickHandler: Function;
+};
+
+function RollupItem({ title, clickHandler }: RollupItemProps) {
 	return (
-		<div className={classNames(styles.rollup, { [styles.rollupActive]: active })}>
+		<div className={styles.item} onClick={() => clickHandler()}>
+			{title}
+		</div>
+	);
+}
+
+export default function Rollup({ items, isActive }: RollupProps) {
+	return (
+		<div className={classNames(styles.rollup, { [styles.rollupActive]: isActive })}>
 			<div className={styles.container}>
 				<div className={styles.content}>
-					<div className={styles.item}>Топливо</div>
-					<div className={styles.item}>Расходники, запчасти</div>
-					<div className={styles.item}>Сервис</div>
-					<div className={styles.item}>Прочее</div>
+					{items.map((item, index) => {
+						return <RollupItem key={index} title={item.title} clickHandler={item.callback} />;
+					})}
 				</div>
 			</div>
 		</div>
