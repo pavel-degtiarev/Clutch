@@ -6,7 +6,7 @@ import Main from "./modules/main-container/main-container";
 import Reminder from "./modules/reminder/reminder";
 import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
-import Button from "./components/button/button";
+import ButtonRollup from "./modules/button-rollup/button-rollup";
 
 // =====================================================
 
@@ -26,14 +26,13 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={timeTabClicked} />
+				<TabsGroup name="time-interval" tabs={timeTabs}
+					tabGroupChangedHandler={(tabId) => console.log(tabId)}
+				/>
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
-				<Button title="Потратить деньги" clickHandler={(e)=> console.log(e)} />
+
+				<ButtonRollup />
 			</Main>
 		</>
 	);
-}
-
-function timeTabClicked(tabId: string) {
-	console.log(tabId);
 }

@@ -1,0 +1,38 @@
+@use "../../styles/variables.module.scss" as var;
+
+.rollup {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  transform: translateY(-100%);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  background: var.$orange-to-light-alt;
+  border-radius: var.$radius var.$radius 0 0;
+  transition: var.$transition;
+  opacity: 0.85;
+
+  transform: translateY(100%);
+}
+
+.content {
+  padding: 10px 0;
+}
+
+.item {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var.$tealDark;
+}
+
+.rollupActive {
+  & .container {
+    transform: translateY(0);
+  }
+}
