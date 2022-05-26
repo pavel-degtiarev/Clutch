@@ -6,6 +6,7 @@ import Main from "./modules/main-container/main-container";
 import Reminder from "./modules/reminder/reminder";
 import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
+import Button from "./components/button/button";
 
 // =====================================================
 
@@ -27,6 +28,7 @@ export default function App() {
 				<Reminder reminders={reminders} />
 				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={timeTabClicked} />
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
+				<Button title="Потратить деньги" clickHandler={(e)=> console.log(e)} />
 			</Main>
 		</>
 	);

@@ -1,0 +1,14 @@
+.main {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  & .buttonRollup {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    transform: translateY(-100%);
+    overflow: hidden;
+  }
+}
