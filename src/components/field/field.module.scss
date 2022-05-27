@@ -16,22 +16,22 @@
   color: var.$teal;
   outline: none;
   transition: var.$transition;
-
-  @extend .title-normal;
 }
 
 .label {
   position: absolute;
   z-index: 1;
   display: block;
-  top: 14px;
+  top: 11px;
   left: 0;
-  @extend .title-normal;
   color: var.$teal;
   transition: var.$transition;
 }
 
 .field {
+  position: relative;
+  height: 40px;
+
   & .input {
     border-bottom: 1px solid var.$teal;
   }
@@ -46,8 +46,9 @@
 
   & .input:focus+.label,
   & .input:not(:placeholder-shown)+.label {
-    top: -8px;
+    top: -10px;
     font-size: typo.$sizeSmall;
+    color: var.$tealLight;
   }
 
   & .input:not(:placeholder-shown)~.button-icon {
