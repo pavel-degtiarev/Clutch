@@ -7,18 +7,18 @@ type FieldProps = {
 	name: string;
 	label: string;
 	auxStyles?: string;
-	mode?: "text" | "decimal";
+	numeric?: boolean;
 };
 
-export default function Field({ name, label, auxStyles, mode = "text" }: FieldProps) {
+export default function Field({ name, label, auxStyles, numeric = false }: FieldProps) {
 	return (
 		<div className={classNames(styles.field, auxStyles)}>
 			<input
 				className={classNames(styles.input, textStyles.titleNormal)}
 				type="text"
 				name={name}
-				inputMode={mode}
-				placeholder={mode === "text" ? " " : undefined}
+				inputMode={numeric ? "decimal" : "text"}
+				placeholder={" "}
 			/>
 			<label className={classNames(styles.label, textStyles.titleNormal)} htmlFor={name}>
 				{label}
