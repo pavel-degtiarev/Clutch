@@ -1,0 +1,82 @@
+@use "../../styles/variables.module.scss" as var;
+
+.popup {
+  width: 100vw;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+}
+
+.popupSmall {
+  & .container {
+    height: calc(100% - 85px);
+  }
+}
+
+.container {
+  position: absolute;
+  bottom: 0;
+  // transform: translateY(100%);
+  width: 100%;
+  height: calc(100% - 20px);
+  padding: 20px 20px 90px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+
+  background-color: #fff;
+  border-top-left-radius: var.$radius;
+  border-top-right-radius: var.$radius;
+  box-shadow: var.$shadowLight;
+  transition: var.$transition;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var.$orangeDark;
+  mask-image: url(../../../markup/images/close-popup.svg);
+}
+
+.saveButton {
+  box-shadow: none;
+  z-index: 45;
+}
+
+.header {
+  color: var.$teal;
+  margin-right: 40px;
+
+  & h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.form {
+  height: 100%;
+}
+
+.field,
+.checkbox {
+  position: relative;
+  height: 40px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fieldGroupHorizontal {
+  flex-direction: row;
+  align-items: flex-end;
+}

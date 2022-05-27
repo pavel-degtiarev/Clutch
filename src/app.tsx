@@ -9,6 +9,8 @@ import Tiles from "./modules/tiles/tiles";
 import ButtonRollup from "./modules/button-rollup/button-rollup";
 import { RollupItem } from "./modules/button-rollup/rollup";
 
+import PopupContainer from "./components/popup-container/popup-container";
+
 // =====================================================
 
 import reminders from "./mocks/reminders";
@@ -41,6 +43,8 @@ export default function App() {
 				/>
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 				<ButtonRollup title="Потратить деньги" rollup={rollupItems} />
+
+				<PopupContainer title="Топливо" />
 			</Main>
 		</>
 	);
