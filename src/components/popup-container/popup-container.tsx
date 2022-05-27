@@ -9,18 +9,29 @@ import Button from "../button/button";
 type PopupContainerProps = {
 	title: string;
 	small?: boolean;
+	inactive?: boolean;
 	children?: ReactNode;
 };
 
-export default function PopupContainer({ title, small = false, children }: PopupContainerProps) {
+export default function PopupContainer({
+	title,
+	small = false,
+	inactive = false,
+	children,
+}: PopupContainerProps) {
 	const [closed, setClosed] = useState(true);
 	const containerClasses = classNames(styles.container, { [styles.containerClosed]: closed });
 
 	useEffect(() => setClosed(false), []);
 	const closePopup = useCallback(() => setClosed(true), []);
-	
+
 	return (
-		<section className={classNames(styles.popup, { [styles.popupSmall]: small })}>
+		<section
+			className={classNames(
+				styles.popup,
+				{ [styles.popupSmall]: small },
+				{ [styles.inactive]: inactive }
+			)}>
 			<div className={containerClasses}>
 				<header className={styles.header}>
 					<h3 className={classNames(textStyles.titleBig, textStyles.noWrap)}>{title}</h3>

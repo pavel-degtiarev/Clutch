@@ -15,6 +15,12 @@
   }
 }
 
+.inactive {
+  & .close {
+    background-color: var.$greyLight;
+  }
+}
+
 .container {
   position: absolute;
   bottom: 0;
