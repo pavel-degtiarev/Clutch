@@ -1,0 +1,56 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/typography.module.scss" as typo;
+
+.input {
+  position: relative;
+  z-index: 2;
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: var.$teal;
+  outline: none;
+  transition: var.$transition;
+
+  @extend .title-normal;
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  top: 14px;
+  left: 0;
+  @extend .title-normal;
+  color: var.$teal;
+  transition: var.$transition;
+}
+
+.field {
+  & .input {
+    border-bottom: 1px solid var.$teal;
+  }
+
+  & .button-icon {
+    background-color: var.$tiffanyLight;
+  }
+
+  & .input:focus {
+    border-bottom: 1px solid var.$orange;
+  }
+
+  & .input:focus+.label,
+  & .input:not(:placeholder-shown)+.label {
+    top: -8px;
+    font-size: typo.$sizeSmall;
+  }
+
+  & .input:not(:placeholder-shown)~.button-icon {
+    background-color: var.$orangeDark;
+  }
+}
