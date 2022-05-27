@@ -16,6 +16,7 @@ import PopupContainer from "./components/popup-container/popup-container";
 import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
+import FormFuel from "./modules/form-fuel/form-fuel";
 
 const rollupItems: RollupItem[] = [
 	{ title: "Топливо", callback: () => console.log("Топливо") },
@@ -36,15 +37,11 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup
-					name="time-interval"
-					tabs={timeTabs}
-					tabGroupChangedHandler={(tabId) => console.log(tabId)}
-				/>
+				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={() => {}} />
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 				<ButtonRollup title="Потратить деньги" rollup={rollupItems} />
 
-				<PopupContainer title="Топливо" />
+				<PopupContainer title="Топливо" form={<FormFuel />} />
 			</Main>
 		</>
 	);
