@@ -18,7 +18,7 @@
 .container {
   position: absolute;
   bottom: 0;
-  // transform: translateY(100%);
+
   width: 100%;
   height: calc(100% - 20px);
   padding: 20px 20px 90px;
@@ -32,6 +32,10 @@
   border-top-right-radius: var.$radius;
   box-shadow: var.$shadowLight;
   transition: var.$transition;
+}
+
+.containerClosed {
+  transform: translateY(100%);
 }
 
 .close {

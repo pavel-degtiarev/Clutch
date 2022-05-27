@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
 
@@ -13,17 +13,23 @@ type PopupContainerProps = {
 };
 
 export default function PopupContainer({ title, small = false, children }: PopupContainerProps) {
+	const [closed, setClosed] = useState(true);
+	const containerClasses = classNames(styles.container, { [styles.containerClosed]: closed });
+
+	useEffect(() => setClosed(false), []);
+	const closePopup = useCallback(() => setClosed(true), []);
+	
 	return (
 		<section className={classNames(styles.popup, { [styles.popupSmall]: small })}>
-			<div className={styles.container}>
+			<div className={containerClasses}>
 				<header className={styles.header}>
 					<h3 className={classNames(textStyles.titleBig, textStyles.noWrap)}>{title}</h3>
-					<ButtonIcon label="Закрыть попап" auxClassNames={styles.close} handler={() => {}} />
+					<ButtonIcon label="Закрыть попап" auxClassNames={styles.close} handler={closePopup} />
 				</header>
 
 				{children}
 
-				<Button title="Сохранить" auxStyles={styles.saveButton} clickHandler={() => {}} />
+				<Button title="Сохранить" auxStyles={styles.saveButton} clickHandler={closePopup} />
 			</div>
 		</section>
 	);
