@@ -10,14 +10,14 @@ type PopupContainerProps = {
 	title: string;
 	small?: boolean;
 	inactive?: boolean;
-	children?: ReactNode;
+	form?: ReactNode;
 };
 
 export default function PopupContainer({
 	title,
 	small = false,
 	inactive = false,
-	children,
+	form,
 }: PopupContainerProps) {
 	const [closed, setClosed] = useState(true);
 	const containerClasses = classNames(styles.container, { [styles.containerClosed]: closed });
@@ -38,7 +38,9 @@ export default function PopupContainer({
 					<ButtonIcon label="Закрыть попап" auxClassNames={styles.close} handler={closePopup} />
 				</header>
 
-				{children}
+				<div className={styles.popupContent}>
+					<form className={styles.form}>{form}</form>
+				</div>
 
 				<Button title="Сохранить" auxStyles={styles.saveButton} clickHandler={closePopup} />
 			</div>
