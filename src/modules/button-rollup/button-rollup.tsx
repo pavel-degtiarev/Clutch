@@ -5,24 +5,24 @@ import Rollup, { RollupItem } from "./rollup";
 
 import basicButtonStyles from "../../styles/components/button.module.scss";
 import rollupButtonStyles from "./button-rollup.module.scss";
+import { rollupToggled } from "../../components/popup-switch/popup-switch-actions";
 
 type ButtonRollupProps = {
 	title: string;
-	rollup: RollupItem[];
+	forms: RollupItem[];
+	rollupOpened: any;
+	dispatch: Function;
 };
 
-export default function ButtonRollup({ title, rollup }: ButtonRollupProps) {
-	const [rollupActive, setRollupActive] = useState(false);
+export default function ButtonRollup({ title, forms, rollupOpened, dispatch }: ButtonRollupProps) {
 	const auxStyles = classNames(basicButtonStyles.withMark, {
-		[rollupButtonStyles.rollupActive]: rollupActive,
+		[rollupButtonStyles.rollupActive]: rollupOpened,
 	});
-
-	const rollupTrigger = useCallback(() => setRollupActive((prevState) => !prevState), []);
 	
 	return (
 		<div className={rollupButtonStyles.buttonRollupContainer}>
-			<Button title={title} auxStyles={auxStyles} clickHandler={rollupTrigger} />
-			<Rollup items={rollup} isActive={rollupActive} clickHandler={rollupTrigger} />
+			<Button title={title} auxStyles={auxStyles} clickHandler={() => dispatch(rollupToggled())} />
+			<Rollup items={forms} isOpened={rollupOpened} dispatch={dispatch} />
 		</div>
 	);
 }

@@ -1,16 +1,17 @@
-import classNames from "classnames";
 import * as React from "react";
+import classNames from "classnames";
+import { formSelected, rollupToggled } from "../../components/popup-switch/popup-switch-actions";
 import styles from "./rollup.module.scss";
 
 export type RollupItem = {
 	title: string;
-	callback: Function;
+	form: React.ReactNode;
 };
 
 type RollupProps = {
-	isActive: boolean;
-	clickHandler: Function;
 	items: RollupItem[];
+	isOpened: boolean;
+	dispatch: Function;
 };
 
 type RollupItemProps = {
@@ -26,9 +27,9 @@ function RollupItem({ title, clickHandler }: RollupItemProps) {
 	);
 }
 
-export default function Rollup({ items, isActive, clickHandler }: RollupProps) {
+export default function Rollup({ items, isOpened, dispatch }: RollupProps) {
 	return (
-		<div className={classNames(styles.rollup, { [styles.rollupActive]: isActive })}>
+		<div className={classNames(styles.rollup, { [styles.rollupActive]: isOpened })}>
 			<div className={styles.container}>
 				<div className={styles.content}>
 					{items.map((item, index) => {
@@ -37,8 +38,8 @@ export default function Rollup({ items, isActive, clickHandler }: RollupProps) {
 								key={index}
 								title={item.title}
 								clickHandler={() => {
-									clickHandler();
-									item.callback();
+									dispatch(rollupToggled());
+									dispatch(formSelected({ title: item.title, form: item.form }))
 								}}
 							/>
 						);
