@@ -9,7 +9,7 @@ type TabsGroupProps = {
 		id: string;
 		title: string;
 	}[];
-	tabGroupChangedHandler: (tabId: string) => void;
+	changedHandler: (tabId: string) => void;
 };
 
 type ContextType = {
@@ -17,15 +17,15 @@ type ContextType = {
 	setTabGroupValue: (newCurrent: string) => void;
 };
 
-export const TabsGroupValue = createContext({
+export const TabsGroupValue = createContext<ContextType>({
 	tabGroupValue: "",
-	setTabGroupValue: Function,
-} as ContextType);
+	setTabGroupValue: () => {},
+});
 
-export default function TabsGroup({ name, tabs, tabGroupChangedHandler }: TabsGroupProps) {
+export default function TabsGroup({ name, tabs, changedHandler }: TabsGroupProps) {
 	const [tabGroupValue, setTabGroupValue] = useState(tabs[0].id);
 	useEffect(() => {
-		tabGroupChangedHandler(tabGroupValue);
+		changedHandler(tabGroupValue);
 	}, [tabGroupValue]);
 
 	return (

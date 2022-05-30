@@ -7,12 +7,11 @@ type TabProps = {
 	name: string;
 	id: string;
 	title: string;
-	checked?: boolean;
+	checked: boolean;
 };
 
 export default function Tab({ name, id, title, checked }: TabProps) {
 	const compoundID = `${name}-${id}`;
-	// console.log(title);
 	
 	return (
 		<TabsGroupValue.Consumer>
