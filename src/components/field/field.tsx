@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FocusEvent, useState } from "react";
 import classNames from "classnames";
 import styles from "./field.module.scss";
 import textStyles from "../../styles/typography.module.scss";
@@ -12,9 +12,22 @@ type FieldProps = {
 };
 
 export default function Field({ name, label, auxStyles, numeric = false, units = "" }: FieldProps) {
-	const [value, setValue] = useState("");
-	const setUnits = (e:any) => setValue(`${e.target.value} ${units}`);
-	const removeUnits = (e:any) => setValue(e.target.value.replace(` ${units}`, ""));
+	const [fieldValue, setFieldValue] = useState("");
+	const setUnits = (e: FocusEvent<HTMLInputElement>) =>
+		setFieldValue(`${e.target.value} ${units}`);
+	const removeUnits = (e: FocusEvent<HTMLInputElement>) =>
+		setFieldValue(e.target.value.replace(` ${units}`, ""));
+	const setValue = (e: FocusEvent<HTMLInputElement>) =>
+		setFieldValue(numeric ? cleanNum(e.target.value) : e.target.value);
+
+	function cleanNum(value: string): string {
+		const clearVal = value.replace(/[^0-9\,\.]/, "");
+		const separators = clearVal.match(/[\.\,]/g);
+		if (separators && separators.length > 1) {
+			return clearVal.replace(/[\,\.]$/, "");
+		}
+		return clearVal;
+	}
 
 	return (
 		<div className={classNames(styles.field, auxStyles)}>
@@ -22,10 +35,10 @@ export default function Field({ name, label, auxStyles, numeric = false, units =
 				className={classNames(styles.input, textStyles.titleNormal)}
 				type="text"
 				name={name}
-				value={value}
+				value={fieldValue}
 				inputMode={numeric ? "decimal" : "text"}
 				placeholder={" "}
-				onChange={(e) => setValue(e.target.value)}
+				onChange={setValue}
 				onBlur={units ? setUnits : undefined}
 				onFocus={units ? removeUnits : undefined}
 			/>
