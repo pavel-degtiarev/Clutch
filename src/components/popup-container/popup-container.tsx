@@ -1,17 +1,17 @@
 import React, { ReactNode } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
-
-import styles from "./popup-container.module.scss";
-import textStyles from "../../styles/typography.module.scss";
 import Button from "../button/button";
 import { popupClosed } from "../popup-switch/popup-switch-actions";
 
+import styles from "./popup-container.module.scss";
+import textStyles from "../../styles/typography.module.scss";
+
 type PopupContainerProps = {
-	title: string;
-	small?: boolean;
+	title: string | undefined;
 	opened: boolean;
-	form?: ReactNode;
+	form: ReactNode | undefined;
+	small?: boolean;
 	inactive?: boolean;
 	dispatch: Function;
 };
@@ -22,11 +22,10 @@ export default function PopupContainer({
 	small = false,
 	inactive = false,
 	form,
-	dispatch
+	dispatch,
 }: PopupContainerProps) {
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
-	// console.log(form);
-	
+
 	return (
 		<section
 			className={classNames(styles.popup, {
@@ -37,7 +36,11 @@ export default function PopupContainer({
 			<div className={containerClasses}>
 				<header className={styles.header}>
 					<h3 className={classNames(textStyles.titleBig, textStyles.noWrap)}>{title}</h3>
-					<ButtonIcon label="Закрыть попап" auxClassNames={styles.close} handler={() => dispatch(popupClosed())} />
+					<ButtonIcon
+						label="Закрыть попап"
+						auxClassNames={styles.close}
+						handler={() => dispatch(popupClosed())}
+					/>
 				</header>
 
 				<div className={styles.popupContent}>

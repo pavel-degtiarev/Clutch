@@ -1,15 +1,11 @@
 import * as React from "react";
 import classNames from "classnames";
 import { formSelected, rollupToggled } from "../../components/popup-switch/popup-switch-actions";
+import { FormItem } from "../../components/popup-switch/popup-switch.types";
 import styles from "./rollup.module.scss";
 
-export type RollupItem = {
-	title: string;
-	form: React.ReactNode;
-};
-
 type RollupProps = {
-	items: RollupItem[];
+	items: FormItem[];
 	isOpened: boolean;
 	dispatch: Function;
 };
