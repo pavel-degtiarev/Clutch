@@ -6,23 +6,22 @@ import Main from "./modules/main-container/main-container";
 import Reminder from "./modules/reminder/reminder";
 import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
-import ButtonRollup from "./modules/button-rollup/button-rollup";
-import { RollupItem } from "./modules/button-rollup/rollup";
+import PopupSwitch from "./components/popup-switch/popup-switch";
+import { FormItem } from "./components/popup-switch/popup-switch.types";
+import FormFuel from "./modules/form-fuel/form-fuel";
 
-import PopupContainer from "./components/popup-container/popup-container";
 
 // =====================================================
 
 import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
-import FormFuel from "./modules/form-fuel/form-fuel";
 
-const rollupItems: RollupItem[] = [
-	{ title: "Топливо", callback: () => console.log("Топливо") },
-	{ title: "Расходники, запчасти", callback: () => console.log("Расходники") },
-	{ title: "Сервис", callback: () => console.log("Сервис") },
-	{ title: "Прочее", callback: () => console.log("Прочее") },
+const forms: FormItem[] = [
+	{ title: "Топливо", form: <FormFuel /> },
+	// { title: "Расходники, запчасти", callback: () => console.log("Расходники") },
+	// { title: "Сервис", callback: () => console.log("Сервис") },
+	// { title: "Прочее", callback: () => console.log("Прочее") },
 ];
 
 // ===========================================
@@ -39,9 +38,8 @@ export default function App() {
 				<Reminder reminders={reminders} />
 				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={() => {}} />
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
-				<ButtonRollup title="Потратить деньги" rollup={rollupItems} />
 
-				<PopupContainer title="Топливо" form={<FormFuel />} />
+				<PopupSwitch forms={forms} />
 			</Main>
 		</>
 	);

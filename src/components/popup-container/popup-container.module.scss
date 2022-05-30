@@ -6,6 +6,10 @@
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 0;
+}
+
+.popupOpened{
   z-index: 40;
 }
 
@@ -38,10 +42,12 @@
   border-top-right-radius: var.$radius;
   box-shadow: var.$shadowLight;
   transition: var.$transition;
+  transform: translateY(100%);
 }
 
-.containerClosed {
-  transform: translateY(100%);
+.containerOpened {
+  transform: translateY(0%);
+
 }
 
 .close {
