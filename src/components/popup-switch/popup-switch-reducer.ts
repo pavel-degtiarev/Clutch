@@ -1,34 +1,35 @@
-export const initState = {
+import * as actions from "./popup-switch-actions";
+import { ActionCreatorType, ActionTypes, PopupState } from "./popup-switch.types";
+
+type ActionType = ReturnType<ActionCreatorType<typeof actions>>;
+
+export const initState: PopupState = {
 	rollupOpened: false,
 	popupOpened: false,
-	currentPopup: {
-		title: "",
-		form: null,
-	},
+	currentPopup: null,
 };
 
-export function reducer(state: any, action: any) {
-	console.log(action.type);
-	
-	switch (action.type) {
-		case "ROLLUP_TOGGLED":
-			return { ...state, rollupOpened: !state.rollupOpened };
+export function reducer(state: PopupState, action: ActionType): PopupState {
 
-		case "FORM_SELECTED":
+	switch (action.type) {
+		case ActionTypes.ROLLUP_TOGGLED:
+			return {
+				...state,
+				rollupOpened: !state.rollupOpened,
+			};
+
+		case ActionTypes.FORM_SELECTED:
 			return {
 				...state,
 				popupOpened: !state.popupOpened,
 				currentPopup: action.payload,
 			};
 
-		case "POPUP_CLOSED":
+		case ActionTypes.POPUP_CLOSED:
 			return {
 				...state,
 				popupOpened: !state.popupOpened,
-				currentPopup: {
-					title: "",
-					form: null,
-				},
+				currentPopup: null,
 			};
 	}
 
