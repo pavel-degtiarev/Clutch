@@ -36,7 +36,7 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup name="time-interval" tabs={timeTabs} tabGroupChangedHandler={() => {}} />
+				<TabsGroup name="time-interval" tabs={timeTabs} changedHandler={() => {}} />
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
 				<PopupSwitch forms={forms} />

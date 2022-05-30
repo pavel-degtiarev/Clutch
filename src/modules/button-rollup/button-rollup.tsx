@@ -23,7 +23,7 @@ export default function ButtonRollup({ title, forms, rollupOpened, dispatch }: B
 	return (
 		<div className={rollupButtonStyles.buttonRollupContainer}>
 			<Button title={title} auxStyles={auxStyles} clickHandler={() => dispatch(rollupToggled())} />
-			<Rollup items={forms} isOpened={rollupOpened} dispatch={dispatch} />
+			<Rollup forms={forms} isOpened={rollupOpened} dispatch={dispatch} />
 		</div>
 	);
 }
