@@ -1,9 +1,0 @@
-@use "../common/variables" as var;
-@use "../common/typography" as typo;
-
-.popup-service-repeat .popup__fields-container {
-	display: flex;
-	flex-direction: column;
-	row-gap: 20px;
-	height: 100%;
-}
