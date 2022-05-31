@@ -11,6 +11,7 @@ type FieldProps = {
 	numeric?: boolean;
 	units?: string;
 	validator?: ((arg: string) => string) | null;
+	clickHandler?: clickHandler;
 };
 
 export default function Field({
@@ -21,15 +22,16 @@ export default function Field({
 	numeric = false,
 	units = "",
 	validator,
+	clickHandler,
 }: FieldProps) {
 	const [fieldValue, setFieldValue] = useState(value);
 
 	const setUnits = (e: FocusEvent<HTMLInputElement>) =>
-		(e.target.value !== "") && setFieldValue(`${e.target.value} ${units}`);
-	
+		e.target.value !== "" && setFieldValue(`${e.target.value} ${units}`);
+
 	const removeUnits = (e: FocusEvent<HTMLInputElement>) =>
 		setFieldValue(e.target.value.replace(` ${units}`, ""));
-	
+
 	const setValue = (e: FocusEvent<HTMLInputElement>) => {
 		const newValue = numeric ? cleanNum(e.target.value) : e.target.value;
 		const validatedValue = validator ? validator(newValue) : newValue;
@@ -46,7 +48,7 @@ export default function Field({
 	}
 
 	return (
-		<div className={classNames(styles.field, auxStyles)}>
+		<div className={classNames(styles.field, auxStyles)} onClick={clickHandler}>
 			<input
 				className={classNames(styles.input, textStyles.titleNormal)}
 				type="text"

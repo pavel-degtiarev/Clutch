@@ -3,6 +3,7 @@ import Field from "../../components/field/field";
 import dayjs from "dayjs";
 
 import styles from "./form-fuel.module.scss";
+import DatePickerField from "../../components/date-picker-field/date-picker-field";
 
 export default function FormFuel() {
 	const validate = (val: string) => {
@@ -12,12 +13,12 @@ export default function FormFuel() {
 
 	return (
 		<div className={styles.fuelFields}>
-			<Field
+			
+			<DatePickerField
 				name="date"
 				label="Дата"
-				auxStyles={styles.date}
-				value={dayjs().format("DD MMM YYYY")}
-			/>
+				auxStyles={styles.date} />
+
 			<Field
 				name="run"
 				label="Пробег"
