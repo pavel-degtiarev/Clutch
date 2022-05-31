@@ -10,6 +10,7 @@ import PopupSwitch from "./components/popup-switch/popup-switch";
 import { FormItem } from "./components/popup-switch/popup-switch.types";
 import FormFuel from "./modules/form-fuel/form-fuel";
 import FormSpare from "./modules/form-spare/form-spare";
+import FormOther from "./modules/form-other/form-other";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -25,7 +26,7 @@ dayjs.locale("ru");
 const forms: FormItem[] = [
 	{ title: "Топливо", form: <FormFuel /> },
 	{ title: "Расходники, запчасти", form: <FormSpare /> },
-	// { title: "Прочее", callback: () => console.log("Прочее") },
+	{ title: "Прочее", form: <FormOther /> },
 	// { title: "Сервис", callback: () => console.log("Сервис") },
 ];
 
