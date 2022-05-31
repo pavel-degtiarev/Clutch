@@ -10,12 +10,16 @@ import PopupSwitch from "./components/popup-switch/popup-switch";
 import { FormItem } from "./components/popup-switch/popup-switch.types";
 import FormFuel from "./modules/form-fuel/form-fuel";
 
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
 
 // =====================================================
 
 import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
+
+dayjs.locale("ru");
 
 const forms: FormItem[] = [
 	{ title: "Топливо", form: <FormFuel /> },
