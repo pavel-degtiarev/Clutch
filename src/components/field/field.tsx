@@ -5,20 +5,36 @@ import textStyles from "../../styles/typography.module.scss";
 
 type FieldProps = {
 	name: string;
+	value?: string;
 	label: string;
 	auxStyles?: string;
 	numeric?: boolean;
 	units?: string;
+	validator?: ((arg: string) => string) | null;
 };
 
-export default function Field({ name, label, auxStyles, numeric = false, units = "" }: FieldProps) {
-	const [fieldValue, setFieldValue] = useState("");
+export default function Field({
+	name,
+	value = "",
+	label,
+	auxStyles,
+	numeric = false,
+	units = "",
+	validator,
+}: FieldProps) {
+	const [fieldValue, setFieldValue] = useState(value);
+
 	const setUnits = (e: FocusEvent<HTMLInputElement>) =>
-		setFieldValue(`${e.target.value} ${units}`);
+		(e.target.value !== "") && setFieldValue(`${e.target.value} ${units}`);
+	
 	const removeUnits = (e: FocusEvent<HTMLInputElement>) =>
 		setFieldValue(e.target.value.replace(` ${units}`, ""));
-	const setValue = (e: FocusEvent<HTMLInputElement>) =>
-		setFieldValue(numeric ? cleanNum(e.target.value) : e.target.value);
+	
+	const setValue = (e: FocusEvent<HTMLInputElement>) => {
+		const newValue = numeric ? cleanNum(e.target.value) : e.target.value;
+		const validatedValue = validator ? validator(newValue) : newValue;
+		setFieldValue(validatedValue);
+	};
 
 	function cleanNum(value: string): string {
 		const clearVal = value.replace(/[^0-9\,\.]/, "");
