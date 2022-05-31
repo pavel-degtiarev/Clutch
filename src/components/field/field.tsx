@@ -7,22 +7,22 @@ type FieldProps = {
 	name: string;
 	value?: string;
 	label: string;
+	type?: string;
 	auxStyles?: string;
 	numeric?: boolean;
 	units?: string;
 	validator?: ((arg: string) => string) | null;
-	clickHandler?: clickHandler;
 };
 
 export default function Field({
 	name,
 	value = "",
 	label,
+	type="text",
 	auxStyles,
 	numeric = false,
 	units = "",
 	validator,
-	clickHandler,
 }: FieldProps) {
 	const [fieldValue, setFieldValue] = useState(value);
 
@@ -48,10 +48,10 @@ export default function Field({
 	}
 
 	return (
-		<div className={classNames(styles.field, auxStyles)} onClick={clickHandler}>
+		<div className={classNames(styles.field, auxStyles)}>
 			<input
 				className={classNames(styles.input, textStyles.titleNormal)}
-				type="text"
+				type={type}
 				name={name}
 				value={fieldValue}
 				inputMode={numeric ? "decimal" : "text"}
