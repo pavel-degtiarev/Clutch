@@ -35,7 +35,9 @@ export default function Rollup({ forms, isOpened, dispatch }: RollupProps) {
 								title={item.title}
 								clickHandler={() => {
 									dispatch(rollupToggled());
-									dispatch(formSelected({ title: item.title, form: item.form }));
+									dispatch(
+										formSelected({ title: item.title, form: item.form, submit: item.submit })
+									);
 								}}
 							/>
 						);

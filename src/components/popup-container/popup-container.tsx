@@ -1,8 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
 import Button from "../button/button";
 import { popupClosed } from "../popup-switch/popup-switch-actions";
+import { FormSubmitHandler } from "../popup-switch/popup-switch.types";
 
 import styles from "./popup-container.module.scss";
 import textStyles from "../../styles/typography.module.scss";
@@ -13,18 +14,17 @@ type PopupContainerProps = {
 	form: ReactNode | undefined;
 	small?: boolean;
 	inactive?: boolean;
+	submit: FormSubmitHandler | undefined;
 	dispatch: Function;
 };
 
 export default function PopupContainer({
-	title,
-	opened,
-	small = false,
-	inactive = false,
-	form,
-	dispatch,
-}: PopupContainerProps) {
+	title, opened, small = false, inactive = false, form, submit, dispatch }: PopupContainerProps) {
+	
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
+	const formRef = useRef(null);
+
+	const submitForm = () => submit && formRef.current && submit(formRef.current);
 
 	return (
 		<section
@@ -44,10 +44,18 @@ export default function PopupContainer({
 				</header>
 
 				<div className={styles.popupContent}>
-					<form className={styles.form}>{form}</form>
+					<form className={styles.form} ref={formRef}>
+						{form}
+					</form>
 				</div>
 
-				<Button title="Сохранить" auxStyles={styles.saveButton} clickHandler={() => {}} />
+				<Button
+					title="Сохранить"
+					auxStyles={styles.saveButton}
+					clickHandler={() => {
+						if (submitForm()) dispatch(popupClosed());
+					}}
+				/>
 			</div>
 		</section>
 	);
