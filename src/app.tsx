@@ -8,7 +8,7 @@ import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
 import PopupSwitch from "./components/popup-switch/popup-switch";
 import { FormItem } from "./components/popup-switch/popup-switch.types";
-import FormFuel from "./modules/form-fuel/form-fuel";
+import FormFuel, { submitFuelForm } from "./modules/form-fuel/form-fuel";
 import FormSpare from "./modules/form-spare/form-spare";
 import FormOther from "./modules/form-other/form-other";
 
@@ -24,9 +24,22 @@ import { expencesData, fuelData, runData } from "./mocks/charts";
 dayjs.locale("ru");
 
 const forms: FormItem[] = [
-	{ title: "Топливо", form: <FormFuel /> },
-	{ title: "Расходники, запчасти", form: <FormSpare /> },
-	{ title: "Прочее", form: <FormOther /> },
+	{
+		title: "Топливо",
+		form: <FormFuel />,
+		submit: submitFuelForm,
+	},
+	// {
+	// 	title: "Расходники, запчасти",
+	// 	form: <FormSpare />,
+	// 	submit: (ref) => console.log("FormSpare submit", ref?.current),
+	// },
+	// {
+	// 	title: "Прочее",
+	// 	form: <FormOther />,
+	// 	submit: (ref) => console.log("FormOther submit", ref?.current),
+	// },
+
 	// { title: "Сервис", callback: () => console.log("Сервис") },
 ];
 

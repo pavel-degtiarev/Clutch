@@ -5,14 +5,14 @@ import dayjs from "dayjs";
 import styles from "./form-fuel.module.scss";
 
 export default function FormFuel() {
-	const validate = (val: string) => {
-		console.log(val);
+
+	const validate = (val: string): string => {
+		// console.log(val);
 		return val;
 	};
 
 	return (
 		<div className={styles.fuelFields}>
-
 			<Field
 				name="date"
 				label="Дата"
@@ -56,4 +56,16 @@ export default function FormFuel() {
 			/>
 		</div>
 	);
+}
+
+export function submitFuelForm(formRef: HTMLFormElement): boolean {
+	const form = new FormData(formRef);
+	const formFields = [];
+
+	for (const field of form) {
+		formFields.push({ field: field[0], value: field[1] });
+	}
+
+	console.log("Send FormFuel data to API", formFields);
+	return true;
 }
