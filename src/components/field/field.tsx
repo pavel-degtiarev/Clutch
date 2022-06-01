@@ -19,7 +19,9 @@ export default function Field({
 	const [fieldValue, setFieldValue] = useState(value);
 	const [isEditing, setEditing] = useState(false);
 
-	useEffect(() => setFieldValue(value), [value]);
+	const formatField = (value: string): void => setFieldValue(numeric ? cleanNumeric(value) : value);
+
+	useEffect(() => formatField(value), [value]);
 
 	return (
 		<div className={classNames(styles.field, auxStyles)}>
@@ -31,7 +33,7 @@ export default function Field({
 					value={fieldValue}
 					inputMode={numeric ? "decimal" : "text"}
 					placeholder={" "}
-					onChange={(e) => setFieldValue(numeric ? cleanNumeric(e.target.value) : e.target.value)}
+					onChange={(e) => formatField(e.target.value)}
 					onBlur={() => setEditing(!isEditing)}
 				/>
 			) : (
@@ -55,13 +57,13 @@ export default function Field({
 }
 
 export const setUnits = (val: string, units: string): string => (val ? `${val} ${units}` : val);
-export const removeUnits = (val: string, units: string): string =>
-	units ? val.replace(` ${units}`, "") : val;
-const cleanNumeric = (value: string): string => {
-	const clearVal = value.replace(/[^0-9\,\.]/, "");
-	const separators = clearVal.match(/[\.\,]/g);
+export const removeUnits = (val: string, units: string): string => units ? val.replace(` ${units}`, "") : val;
+
+const cleanNumeric = (value: string): string => {	
+	const clearVal = value.replace(/[^0-9\,\.]/g, "").replace(/\,/, ".");
+	const separators = clearVal.match(/\./g);
 	if (separators && separators.length > 1) {
-		return clearVal.replace(/[\,\.]$/, "");
+		return clearVal.replace(/\.$/, "");
 	}
 	return clearVal;
 };
