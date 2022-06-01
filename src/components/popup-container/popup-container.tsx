@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { createContext, MutableRefObject, ReactNode, useRef } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
 import Button from "../button/button";
@@ -18,9 +18,17 @@ type PopupContainerProps = {
 	dispatch: Function;
 };
 
+export const FormContext = createContext({} as MutableRefObject<null>);
+
 export default function PopupContainer({
-	title, opened, small = false, inactive = false, form, submit, dispatch }: PopupContainerProps) {
-	
+	title,
+	opened,
+	small = false,
+	inactive = false,
+	form,
+	submit,
+	dispatch,
+}: PopupContainerProps) {
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
 	const formRef = useRef(null);
 
@@ -43,19 +51,16 @@ export default function PopupContainer({
 					/>
 				</header>
 
-				<div className={styles.popupContent}>
-					<form className={styles.form} ref={formRef}>
-						{form}
-					</form>
-				</div>
+				<FormContext.Provider value={formRef}>
+					
+					{form}
 
-				<Button
-					title="Сохранить"
-					auxStyles={styles.saveButton}
-					clickHandler={() => {
-						if (submitForm()) dispatch(popupClosed());
-					}}
-				/>
+					<Button title="Сохранить" auxStyles={styles.saveButton}
+						clickHandler={() => {
+							if (submitForm()) dispatch(popupClosed());
+						}}
+					/>
+				</FormContext.Provider>
 			</div>
 		</section>
 	);

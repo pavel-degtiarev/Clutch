@@ -23,7 +23,7 @@
   position: absolute;
   z-index: 1;
   display: block;
-  top: 13px;
+  top: 11px;
   left: 0;
   color: var.$teal;
   transition: var.$transition;
@@ -47,7 +47,7 @@
 
   & .input:focus+.label,
   & .input:not(:placeholder-shown)+.label {
-    top: -10px;
+    top: -4px;
     font-size: typo.$sizeSmall;
     color: var.$tealLight;
   }
