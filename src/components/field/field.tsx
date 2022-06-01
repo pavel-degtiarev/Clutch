@@ -1,29 +1,25 @@
-import React, { FocusEvent, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import styles from "./field.module.scss";
 import textStyles from "../../styles/typography.module.scss";
 
 type FieldProps = {
 	name: string;
-	value?: string;
+	value?: string | number;
 	label: string;
 	type?: string;
 	auxStyles?: string;
 	numeric?: boolean;
 	units?: string;
-	validator?: ((arg: string) => string) | null;
 };
 
 export default function Field({
-	name, value = "", label, type="text", auxStyles, numeric = false, units = "", validator }: FieldProps) {
+	name, value = "", label, type="text", auxStyles, numeric = false, units = ""}: FieldProps) {
 	const [fieldValue, setFieldValue] = useState(value);
 
 	const setUnits = (val: string): string => (val !== "" ? `${val} ${units}` : val);
 	const removeUnits = (val: string): string => val.replace(` ${units}`, "");
-	const checkValue = (val: string): string => {
-		const newValue = numeric ? cleanNum(val) : val;
-		return validator ? validator(newValue) : newValue;
-	};
+	const checkValue = (val: string): string =>  numeric ? cleanNum(val) : val;
 
 	function cleanNum(value: string): string {
 		const clearVal = value.replace(/[^0-9\,\.]/, "");

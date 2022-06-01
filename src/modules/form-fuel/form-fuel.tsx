@@ -1,15 +1,19 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Field from "../../components/field/field";
 import dayjs from "dayjs";
 
 import styles from "./form-fuel.module.scss";
 
 export default function FormFuel() {
-
-	const validate = (val: string): string => {
-		// console.log(val);
-		return val;
+	const formInitState = {
+		date: dayjs().format("YYYY-MM-DD"),
+		run: 220120,
+		cost: "",
+		price: "",
+		volume: "",
 	};
+
+	const [formState, setFormState] = useState(formInitState);
 
 	return (
 		<div className={styles.fuelFields}>
@@ -18,16 +22,14 @@ export default function FormFuel() {
 				label="Дата"
 				type="date"
 				auxStyles={styles.date}
-				value={dayjs().format("YYYY-MM-DD")}
-				validator={validate}
+				value={formState.date}
 			/>
-
 			<Field
 				name="run"
 				label="Пробег"
 				auxStyles={styles.run}
 				units="км."
-				validator={validate}
+				value={formState.run}
 				numeric
 			/>
 			<Field
@@ -35,7 +37,7 @@ export default function FormFuel() {
 				label="Стоимость"
 				auxStyles={styles.cost}
 				units="руб."
-				validator={validate}
+				value={formState.cost}
 				numeric
 			/>
 			<Field
@@ -43,7 +45,7 @@ export default function FormFuel() {
 				label="Цена за литр"
 				auxStyles={styles.price}
 				units="руб."
-				validator={validate}
+				value={formState.price}
 				numeric
 			/>
 			<Field
@@ -51,7 +53,7 @@ export default function FormFuel() {
 				label="Объем"
 				auxStyles={styles.volume}
 				units="л."
-				validator={validate}
+				value={formState.volume}
 				numeric
 			/>
 		</div>
