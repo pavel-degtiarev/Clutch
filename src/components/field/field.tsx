@@ -15,27 +15,14 @@ type FieldProps = {
 };
 
 export default function Field({
-	name,
-	value = "",
-	label,
-	type="text",
-	auxStyles,
-	numeric = false,
-	units = "",
-	validator,
-}: FieldProps) {
+	name, value = "", label, type="text", auxStyles, numeric = false, units = "", validator }: FieldProps) {
 	const [fieldValue, setFieldValue] = useState(value);
 
-	const setUnits = (e: FocusEvent<HTMLInputElement>) =>
-		e.target.value !== "" && setFieldValue(`${e.target.value} ${units}`);
-
-	const removeUnits = (e: FocusEvent<HTMLInputElement>) =>
-		setFieldValue(e.target.value.replace(` ${units}`, ""));
-
-	const setValue = (e: FocusEvent<HTMLInputElement>) => {
-		const newValue = numeric ? cleanNum(e.target.value) : e.target.value;
-		const validatedValue = validator ? validator(newValue) : newValue;
-		setFieldValue(validatedValue);
+	const setUnits = (val: string): string => (val !== "" ? `${val} ${units}` : val);
+	const removeUnits = (val: string): string => val.replace(` ${units}`, "");
+	const checkValue = (val: string): string => {
+		const newValue = numeric ? cleanNum(val) : val;
+		return validator ? validator(newValue) : newValue;
 	};
 
 	function cleanNum(value: string): string {
@@ -56,9 +43,9 @@ export default function Field({
 				value={fieldValue}
 				inputMode={numeric ? "decimal" : "text"}
 				placeholder={" "}
-				onChange={setValue}
-				onBlur={units ? setUnits : undefined}
-				onFocus={units ? removeUnits : undefined}
+				onChange={(e) => setFieldValue(checkValue(e.target.value))}
+				onBlur={units ? (e) => setFieldValue(setUnits(e.target.value)) : undefined}
+				onFocus={units ? (e) => setFieldValue(removeUnits(e.target.value)) : undefined}
 			/>
 			<label className={classNames(styles.label, textStyles.titleNormal)} htmlFor={name}>
 				{label}
