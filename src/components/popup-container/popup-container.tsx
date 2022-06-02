@@ -1,9 +1,7 @@
-import React, { createContext, MutableRefObject, ReactNode, useRef } from "react";
+import React, { createContext, MutableRefObject, ReactNode } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
-import Button from "../button/button";
 import { popupClosed } from "../popup-switch/popup-switch-actions";
-import { FormSubmitHandler } from "../popup-switch/popup-switch.types";
 
 import styles from "./popup-container.module.scss";
 import textStyles from "../../styles/typography.module.scss";
@@ -14,25 +12,14 @@ type PopupContainerProps = {
 	form: ReactNode | undefined;
 	small?: boolean;
 	inactive?: boolean;
-	submit: FormSubmitHandler | undefined;
 	dispatch: Function;
 };
 
 export const FormContext = createContext({} as MutableRefObject<null>);
 
 export default function PopupContainer({
-	title,
-	opened,
-	small = false,
-	inactive = false,
-	form,
-	submit,
-	dispatch,
-}: PopupContainerProps) {
+	title, opened, small = false, inactive = false, form, dispatch }: PopupContainerProps) {
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
-	const formRef = useRef(null);
-
-	const submitForm = () => submit && formRef.current && submit(formRef.current);
 
 	return (
 		<section
@@ -50,17 +37,9 @@ export default function PopupContainer({
 						handler={() => dispatch(popupClosed())}
 					/>
 				</header>
-
-				<FormContext.Provider value={formRef}>
 					
 					{form}
 
-					<Button title="Сохранить" auxStyles={styles.saveButton}
-						clickHandler={() => {
-							if (submitForm()) dispatch(popupClosed());
-						}}
-					/>
-				</FormContext.Provider>
 			</div>
 		</section>
 	);

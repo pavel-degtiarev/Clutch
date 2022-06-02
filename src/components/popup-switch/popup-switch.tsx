@@ -24,7 +24,6 @@ export default function PopupSwitch({ forms }: PopupSwitchProps) {
 				opened={state.popupOpened}
 				title={state.currentPopup?.title}
 				form={state.currentPopup?.form}
-				submit={state.currentPopup?.submit}
 				dispatch={dispatch}
 			/>
 		</>
