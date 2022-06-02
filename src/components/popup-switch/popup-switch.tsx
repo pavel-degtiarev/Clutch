@@ -20,7 +20,6 @@ export default function PopupSwitch({ forms }: PopupSwitchProps) {
 					title="Потратить деньги"
 					forms={forms}
 					rollupOpened={state.rollupOpened}
-					dispatch={dispatch}
 				/>
 				<PopupContainer
 					opened={state.popupOpened}
