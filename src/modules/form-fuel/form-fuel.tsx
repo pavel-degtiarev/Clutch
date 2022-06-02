@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
-import Field, { removeUnits, setUnits } from "../../components/field/field";
+import React, { useRef, useState } from "react";
+import Field from "../../components/field/field";
+import Button from "../../components/button/button";
 import dayjs from "dayjs";
+
+import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
 
-import { FormContext } from "../../components/popup-container/popup-container";
 
 // ================================================
 
@@ -22,9 +24,11 @@ type FormValidations = {
 	[key in FormFields]?: (value: string) => void;
 };
 
+// ================================================
+
 export default function FormFuel() {
-	const formRef = useContext(FormContext);
 	const [formState, setFormState] = useState(formInitState);
+	const formRef = useRef({} as HTMLFormElement);
 
 	const validations: FormValidations = {
 		date: (value) => console.log("check if Run is consistent", value, formState.run),
@@ -37,9 +41,7 @@ export default function FormFuel() {
 				if (+newState.price > 0) {
 					newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
 				}
-				if (+newState.cost == 0) {
-					newState.volume = "";
-				}
+				if (+newState.cost == 0) { newState.volume = "" }
 				return newState;
 			});
 		},
@@ -51,9 +53,7 @@ export default function FormFuel() {
 				if (+newState.cost > 0) {
 					newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
 				}
-				if (+newState.price == 0) {
-					newState.volume = "";
-				}
+				if (+newState.price == 0) { newState.volume = "" }
 				return newState;
 			});
 		},
@@ -65,9 +65,7 @@ export default function FormFuel() {
 				if (+newState.price > 0) {
 					newState.cost = `${Math.round(+newState.volume * +newState.price)}`;
 				}
-				if (+newState.volume == 0) {
-					newState.cost = "";
-				}
+				if (+newState.volume == 0) { newState.cost = "" }
 				return newState;
 			});
 		},
@@ -75,74 +73,73 @@ export default function FormFuel() {
 
 	function validateForm(target: FormFields, value: string) {
 		const checkTarget = validations[target];
-		checkTarget && checkTarget(value);		
+		checkTarget && checkTarget(value);
+	}
+
+	function submitFuelForm(formRef: HTMLFormElement): boolean {
+		const form = new FormData(formRef);
+		const formFields = [];
+
+		for (const field of form) {
+			formFields.push({ field: field[0], value: field[1] });
+		}
+
+		console.log("Send FormFuel data to API", formFields);
+		return true;
 	}
 
 	return (
-		<div className={containerStyles.popupContent}>
-			<form
-				className={containerStyles.form}
-				ref={formRef}
-				onChange={(e) =>
-					validateForm(
-						(e.target as HTMLInputElement).name as FormFields,
-						(e.target as HTMLInputElement).value
-					)
-				}>
-				<div className={styles.fuelFields}>
-					<Field
-						name="date"
-						label="Дата"
-						type="date"
-						auxStyles={styles.date}
-						value={formState.date}
-					/>
-					<Field
-						name="run"
-						label="Пробег"
-						auxStyles={styles.run}
-						units="км."
-						value={formState.run}
-						numeric
-					/>
-					<Field
-						name="cost"
-						label="Стоимость"
-						auxStyles={styles.cost}
-						units="руб."
-						value={formState.cost}
-						numeric
-					/>
-					<Field
-						name="price"
-						label="Цена за литр"
-						auxStyles={styles.price}
-						units="руб."
-						value={formState.price}
-						numeric
-					/>
-					<Field
-						name="volume"
-						label="Объем"
-						auxStyles={styles.volume}
-						units="л."
-						value={formState.volume}
-						numeric
-					/>
-				</div>
-			</form>
-		</div>
+		<>
+			<div className={containerStyles.popupContent}>
+				<form
+					className={containerStyles.form}
+					ref={formRef}
+					onChange={(e) =>
+						validateForm(
+							(e.target as HTMLInputElement).name as FormFields,
+							(e.target as HTMLInputElement).value
+						)
+					}>
+					<div className={styles.fuelFields}>
+						<Field
+							name="date" label="Дата" type="date"
+							auxStyles={styles.date}
+							value={formState.date}
+						/>
+						<Field
+							name="run" label="Пробег" units="км."
+							auxStyles={styles.run}
+							value={formState.run} numeric
+						/>
+						<Field
+							name="cost" label="Стоимость" units="руб."
+							auxStyles={styles.cost}
+							value={formState.cost} numeric
+						/>
+						<Field
+							name="price" label="Цена за литр" units="руб."
+							auxStyles={styles.price}
+							value={formState.price} numeric
+						/>
+						<Field
+							name="volume" label="Объем" units="л."
+							auxStyles={styles.volume}
+							value={formState.volume} numeric
+						/>
+					</div>
+				</form>
+			</div>
+
+			<Button
+				title="Сохранить"
+				auxStyles={containerStyles.saveButton}
+				clickHandler={() => {
+					if (submitFuelForm(formRef.current)) {
+						// dispatch(popupClosed())
+					}
+				}}
+			/>
+		</>
 	);
 }
 
-export function submitFuelForm(formRef: HTMLFormElement): boolean {
-	const form = new FormData(formRef);
-	const formFields = [];
-
-	for (const field of form) {
-		formFields.push({ field: field[0], value: field[1] });
-	}
-
-	console.log("Send FormFuel data to API", formFields);
-	return true;
-}

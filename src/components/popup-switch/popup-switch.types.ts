@@ -5,7 +5,6 @@ export type FormSubmitHandler = (formRef: HTMLFormElement) => boolean;
 export type FormItem = {
 	title: string;
 	form: React.ReactNode;
-	submit: FormSubmitHandler;
 };
 
 export enum ActionTypes {
