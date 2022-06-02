@@ -14,19 +14,17 @@ export default function PopupSwitch({ forms }: PopupSwitchProps) {
 	const [state, dispatch] = useReducer(reducer, initState);
 
 	return (
-		<>
-			<DispatchContext.Provider value={dispatch}>
-				<ButtonRollup
-					title="Потратить деньги"
-					forms={forms}
-					rollupOpened={state.rollupOpened}
-				/>
-				<PopupContainer
-					opened={state.popupOpened}
-					title={state.currentPopup?.title}
-					form={state.currentPopup?.form}
-				/>
-			</DispatchContext.Provider>
-		</>
+		<DispatchContext.Provider value={dispatch}>
+			<ButtonRollup
+				title="Потратить деньги"
+				forms={forms}
+				rollupOpened={state.rollupOpened}
+			/>
+			<PopupContainer
+				opened={state.popupOpened}
+				title={state.currentPopup?.title}
+				form={state.currentPopup?.form}
+			/>
+		</DispatchContext.Provider>
 	);
 }
