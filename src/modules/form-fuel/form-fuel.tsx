@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import dayjs from "dayjs";
 
+import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
@@ -29,6 +30,7 @@ type FormValidations = {
 export default function FormFuel() {
 	const [formState, setFormState] = useState(formInitState);
 	const formRef = useRef({} as HTMLFormElement);
+	const dispatch = useContext(DispatchContext);
 
 	const validations: FormValidations = {
 		date: (value) => console.log("check if Run is consistent", value, formState.run),
@@ -135,7 +137,7 @@ export default function FormFuel() {
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
 					if (submitFuelForm(formRef.current)) {
-						// dispatch(popupClosed())
+						dispatch(popupClosed())
 					}
 				}}
 			/>
