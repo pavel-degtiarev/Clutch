@@ -28,10 +28,10 @@ const forms: FormItem[] = [
 		title: "Топливо",
 		form: <FormFuel />,
 	},
-	// {
-	// 	title: "Расходники, запчасти",
-	// 	form: <FormSpare />,
-	// },
+	{
+		title: "Расходники, запчасти",
+		form: <FormSpare />,
+	},
 	{
 		title: "Прочее",
 		form: <FormOther />,
