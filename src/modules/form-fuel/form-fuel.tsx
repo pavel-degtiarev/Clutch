@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { FormUnits } from "../../../global.var";
-import { removeUnits } from "../../utilities/units";
+import { collectFormFields } from "../../utilities/collect-form-fields";
 import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import dayjs from "dayjs";
@@ -73,12 +73,7 @@ export default function FormFuel() {
 		checkTarget && checkTarget(value);
 	}
 
-	function submitFuelForm(formRef: HTMLFormElement): boolean {
-		const form = new FormData(formRef);
-		const formFields: { [key: string]: string } = {};
-
-		[...form].forEach(([key, value]) => (formFields[key] = removeUnits(value)));
-
+	function submitFuelForm(formFields: FormFields): boolean {
 		console.log("Send FormFuel data to API", formFields);
 		return true;
 	}
@@ -133,7 +128,7 @@ export default function FormFuel() {
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submitFuelForm(formRef.current)) {
+					if (submitFuelForm(collectFormFields(formRef.current))) {
 						dispatch(popupClosed());
 					}
 				}}
@@ -141,3 +136,5 @@ export default function FormFuel() {
 		</>
 	);
 }
+
+
