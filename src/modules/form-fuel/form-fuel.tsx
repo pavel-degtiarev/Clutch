@@ -73,7 +73,7 @@ export default function FormFuel() {
 		checkTarget && checkTarget(value);
 	}
 
-	function submitFuelForm(formFields: FormFields<FuelFormFields>): boolean {
+	function submitForm(formFields: FormFields<FuelFormFields>): boolean {
 		console.log("Send FormFuel data to API", formFields);
 		return true;
 	}
@@ -128,7 +128,7 @@ export default function FormFuel() {
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submitFuelForm(collectFormFields<FuelFormFields>(formRef.current))) {
+					if (submitForm(collectFormFields<FuelFormFields>(formRef.current))) {
 						dispatch(popupClosed());
 					}
 				}}

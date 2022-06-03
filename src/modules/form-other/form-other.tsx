@@ -29,8 +29,8 @@ export default function FormOther() {
 
 	function validateForm(target: OtherFormFields, value: string) {}
 
-	function submitOtherForm(formFields: FormFields<OtherFormFields>): boolean {
-		console.log("Send FormFuel data to API", formFields);
+	function submitForm(formFields: FormFields<OtherFormFields>): boolean {
+		console.log("Send FormOther data to API", formFields);
 		return true;
 	}
 	
@@ -71,7 +71,7 @@ export default function FormOther() {
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submitOtherForm(collectFormFields<OtherFormFields>(formRef.current))) {
+					if (submitForm(collectFormFields<OtherFormFields>(formRef.current))) {
 						dispatch(popupClosed());
 					}
 				}}
