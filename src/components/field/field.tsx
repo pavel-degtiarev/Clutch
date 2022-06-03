@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { FormUnits } from "../../../global.var";
+import { setUnits } from "../../utilities/units";
+
 import classNames from "classnames";
 import styles from "./field.module.scss";
 import textStyles from "../../styles/typography.module.scss";
@@ -10,7 +13,7 @@ type FieldProps = {
 	type?: string;
 	auxStyles?: string;
 	numeric?: boolean;
-	units?: string;
+	units?: FormUnits | "";
 };
 
 export default function Field({
@@ -55,9 +58,6 @@ export default function Field({
 		</div>
 	);
 }
-
-export const setUnits = (val: string, units: string): string => (val ? `${val} ${units}` : val);
-export const removeUnits = (val: string, units: string): string => units ? val.replace(` ${units}`, "") : val;
 
 const cleanNumeric = (value: string): string => {	
 	const clearVal = value.replace(/[^0-9\,\.]/g, "").replace(/\,/, ".");

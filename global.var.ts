@@ -9,3 +9,9 @@ export enum YearSuffix {
 	MULTIPLE,
 	LONG,
 }
+
+export enum FormUnits {
+	RUN = "км.",
+	MONEY = "руб.",
+	VOLUME = "л.",
+}
