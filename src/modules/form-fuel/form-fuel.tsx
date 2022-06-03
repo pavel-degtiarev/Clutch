@@ -1,4 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
+import { FormUnits } from "../../../global.var";
+import { removeUnits } from "../../utilities/units";
 import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import dayjs from "dayjs";
@@ -9,10 +11,9 @@ import { popupClosed } from "../../components/popup-switch/popup-switch-actions"
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
 
-
 // ================================================
 
-const formInitState = {
+const fuelFormInitState = {
 	date: dayjs().format("YYYY-MM-DD"),
 	run: "220120",
 	cost: "",
@@ -20,71 +21,63 @@ const formInitState = {
 	volume: "",
 };
 
-type FormFields = keyof typeof formInitState;
-type FormValidations = {
-	[key in FormFields]?: (value: string) => void;
-};
+type FuelFormFields = keyof typeof fuelFormInitState;
 
 // ================================================
 
 export default function FormFuel() {
-	const [formState, setFormState] = useState(formInitState);
+	const [formState, setFormState] = useState(fuelFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
-	const validations: FormValidations = {
-		date: (value) => console.log("check if Run is consistent", value, formState.run),
-		run: (value) => console.log("check if Run is consistent", value, formState.date),
+	function validateForm(target: FuelFormFields, value: string) {
+		const validations: FormValidations<FuelFormFields> = {
+			date: (value) => console.log("check if Run is consistent", value, formState.run),
+			run: (value) => console.log("check if Run is consistent", value, formState.date),
 
-		cost: (value) => {
-			// calc volume with fixed price
-			setFormState((prevState) => {
-				const newState = { ...prevState, cost: value };
-				if (+newState.price > 0) {
-					newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
-				}
-				if (+newState.cost == 0) { newState.volume = "" }
-				return newState;
-			});
-		},
+			cost: (value) => {
+				setFormState((prevState) => {
+					const newState = { ...prevState, cost: value }; // calc volume with fixed price
+					if (+newState.price > 0) {
+						newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
+					}
+					if (+newState.cost == 0) { newState.volume = "" }
+					return newState;
+				});
+			},
 
-		price: (value) => {
-			// calc volume with fixed cost
-			setFormState((prevState) => {
-				const newState = { ...prevState, price: value };
-				if (+newState.cost > 0) {
-					newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
-				}
-				if (+newState.price == 0) { newState.volume = "" }
-				return newState;
-			});
-		},
+			price: (value) => {
+				setFormState((prevState) => {
+					const newState = { ...prevState, price: value }; // calc volume with fixed cost
+					if (+newState.cost > 0) {
+						newState.volume = `${Math.round((+newState.cost / +newState.price) * 10) / 10}`;
+					}
+					if (+newState.price == 0) { newState.volume = "" }
+					return newState;
+				});
+			},
 
-		volume: (value) => {
-			// calc cost with fixed price
-			setFormState((prevState) => {
-				const newState = { ...prevState, volume: value };
-				if (+newState.price > 0) {
-					newState.cost = `${Math.round(+newState.volume * +newState.price)}`;
-				}
-				if (+newState.volume == 0) { newState.cost = "" }
-				return newState;
-			});
-		},
-	};
+			volume: (value) => {
+				setFormState((prevState) => {
+					const newState = { ...prevState, volume: value }; // calc cost with fixed price
+					if (+newState.price > 0) {
+						newState.cost = `${Math.round(+newState.volume * +newState.price)}`;
+					}
+					if (+newState.volume == 0) { newState.cost = "" }
+					return newState;
+				});
+			},
+		};
 
-	function validateForm(target: FormFields, value: string) {
 		const checkTarget = validations[target];
 		checkTarget && checkTarget(value);
 	}
 
 	function submitFuelForm(formRef: HTMLFormElement): boolean {
 		const form = new FormData(formRef);
-		const formFields = [];
+		const formFields: { [key: string]: string } = {};
 
-		for (const field of form) {
-			formFields.push({ field: field[0], value: field[1] });
-		}
+		[...form].forEach(([key, value]) => (formFields[key] = removeUnits(value)));
 
 		console.log("Send FormFuel data to API", formFields);
 		return true;
@@ -98,7 +91,7 @@ export default function FormFuel() {
 					ref={formRef}
 					onChange={(e) =>
 						validateForm(
-							(e.target as HTMLInputElement).name as FormFields,
+							(e.target as HTMLInputElement).name as FuelFormFields,
 							(e.target as HTMLInputElement).value
 						)
 					}>
@@ -109,24 +102,28 @@ export default function FormFuel() {
 							value={formState.date}
 						/>
 						<Field
-							name="run" label="Пробег" units="км."
+							name="run" label="Пробег" units={FormUnits.RUN}
 							auxStyles={styles.run}
-							value={formState.run} numeric
+							value={formState.run}
+							numeric
 						/>
 						<Field
-							name="cost" label="Стоимость" units="руб."
+							name="cost" label="Стоимость" units={FormUnits.MONEY}
 							auxStyles={styles.cost}
-							value={formState.cost} numeric
+							value={formState.cost}
+							numeric
 						/>
 						<Field
-							name="price" label="Цена за литр" units="руб."
+							name="price" label="Цена за литр" units={FormUnits.MONEY}
 							auxStyles={styles.price}
-							value={formState.price} numeric
+							value={formState.price}
+							numeric
 						/>
 						<Field
-							name="volume" label="Объем" units="л."
+							name="volume" label="Объем" units={FormUnits.VOLUME}
 							auxStyles={styles.volume}
-							value={formState.volume} numeric
+							value={formState.volume}
+							numeric
 						/>
 					</div>
 				</form>
@@ -137,11 +134,10 @@ export default function FormFuel() {
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
 					if (submitFuelForm(formRef.current)) {
-						dispatch(popupClosed())
+						dispatch(popupClosed());
 					}
 				}}
 			/>
 		</>
 	);
 }
-
