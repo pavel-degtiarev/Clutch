@@ -9,6 +9,5 @@ type FormValidations<T extends string> = {
 	[key in T]?: (value: string) => void;
 };
 
-type FormFields = {
-	[key: string]: string;
-};
+type FormFields<T extends string> = { [key in T]: string };
+
