@@ -18,7 +18,7 @@ const otherFormInitState = {
 	price: "",
 };
 
-type FuelFormFields = keyof typeof otherFormInitState;
+type OtherFormFields = keyof typeof otherFormInitState;
 
 // ==========================================
 
@@ -27,9 +27,9 @@ export default function FormOther() {
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
-	function validateForm(target: FuelFormFields, value: string) { }
+	function validateForm(target: OtherFormFields, value: string) {}
 
-	function submitOtherForm(formFields: FormFields): boolean {
+	function submitOtherForm(formFields: FormFields<OtherFormFields>): boolean {
 		console.log("Send FormFuel data to API", formFields);
 		return true;
 	}
@@ -42,7 +42,7 @@ export default function FormOther() {
 					ref={formRef}
 					onChange={(e) =>
 						validateForm(
-							(e.target as HTMLInputElement).name as FuelFormFields,
+							(e.target as HTMLInputElement).name as OtherFormFields,
 							(e.target as HTMLInputElement).value
 						)
 					}>
@@ -52,7 +52,8 @@ export default function FormOther() {
 							value={formState.date}
 						/>
 
-						<Field name="title" label="Наименование"
+						<Field
+							name="title" label="Наименование"
 							value={formState.title}
 						/>
 
@@ -70,7 +71,7 @@ export default function FormOther() {
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submitOtherForm(collectFormFields(formRef.current))) {
+					if (submitOtherForm(collectFormFields<OtherFormFields>(formRef.current))) {
 						dispatch(popupClosed());
 					}
 				}}
