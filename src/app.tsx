@@ -32,10 +32,10 @@ const forms: FormItem[] = [
 	// 	title: "Расходники, запчасти",
 	// 	form: <FormSpare />,
 	// },
-	// {
-	// 	title: "Прочее",
-	// 	form: <FormOther />,
-	// },
+	{
+		title: "Прочее",
+		form: <FormOther />,
+	},
 
 	// { title: "Сервис", callback: () => console.log("Сервис") },
 ];
