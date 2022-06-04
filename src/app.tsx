@@ -8,12 +8,17 @@ import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
 import PopupSwitch from "./components/popup-switch/popup-switch";
 import { FormItem } from "./components/popup-switch/popup-switch.types";
+
 import WithValidateSubmit from "./HOC/with-validate-submit/with-validate-submit";
 import FormFuel, { FuelFormFields, FuelFormState } from "./modules/form-fuel/form-fuel";
 import validateFuelForm from "./modules/form-fuel/form-fuel-validation";
 import submitFuelForm from "./modules/form-fuel/form-fuel-submit";
 import FormOther, { OtherFormFields, OtherFormState } from "./modules/form-other/form-other";
-import FormSpare from "./modules/form-spare/form-spare";
+import validateOtherForm from "./modules/form-other/form-other-validation";
+import submitOtherForm from "./modules/form-other/form-other-submit";
+import FormSpare, { SpareFormFields, SpareFormState } from "./modules/form-spare/form-spare";
+import validateSpareForm from "./modules/form-spare/form-spare-validation";
+import submitSpareForm from "./modules/form-spare/form-spare-submit";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -23,8 +28,6 @@ import "dayjs/locale/ru";
 import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
-import validateOtherForm from "./modules/form-other/form-other-validation";
-import submitOtherForm from "./modules/form-other/form-other-submit";
 
 dayjs.locale("ru");
 
@@ -39,17 +42,23 @@ const forms: FormItem[] = [
 			/>
 		),
 	},
-	// {
-	// 	title: "Расходники, запчасти",
-	// 	form: <FormSpare />,
-	// },
+	{
+		title: "Расходники, запчасти",
+		form: (
+			<WithValidateSubmit<SpareFormFields, SpareFormState>
+				Form={FormSpare}
+				validate={validateSpareForm}
+				submit={submitOtherForm}
+			/>
+		),
+	},
 	{
 		title: "Прочее",
 		form: (
 			<WithValidateSubmit<OtherFormFields, OtherFormState>
 				Form={FormOther}
 				validate={validateOtherForm}
-				submit={submitOtherForm}
+				submit={submitSpareForm}
 			/>
 		),
 	},
