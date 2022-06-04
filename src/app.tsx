@@ -12,8 +12,8 @@ import WithValidateSubmit from "./HOC/with-validate-submit/with-validate-submit"
 import FormFuel, { FuelFormFields, FuelFormState } from "./modules/form-fuel/form-fuel";
 import validateFuelForm from "./modules/form-fuel/form-fuel-validation";
 import submitFuelForm from "./modules/form-fuel/form-fuel-submit";
+import FormOther, { OtherFormFields, OtherFormState } from "./modules/form-other/form-other";
 import FormSpare from "./modules/form-spare/form-spare";
-import FormOther from "./modules/form-other/form-other";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -23,6 +23,8 @@ import "dayjs/locale/ru";
 import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
+import validateOtherForm from "./modules/form-other/form-other-validation";
+import submitOtherForm from "./modules/form-other/form-other-submit";
 
 dayjs.locale("ru");
 
@@ -41,10 +43,16 @@ const forms: FormItem[] = [
 	// 	title: "Расходники, запчасти",
 	// 	form: <FormSpare />,
 	// },
-	// {
-	// 	title: "Прочее",
-	// 	form: <FormOther />,
-	// },
+	{
+		title: "Прочее",
+		form: (
+			<WithValidateSubmit<OtherFormFields, OtherFormState>
+				Form={FormOther}
+				validate={validateOtherForm}
+				submit={submitOtherForm}
+			/>
+		),
+	},
 
 	// { title: "Сервис", callback: () => console.log("Сервис") },
 ];
