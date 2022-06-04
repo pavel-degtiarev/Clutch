@@ -8,7 +8,7 @@ import TabsGroup from "./components/tabs/tabs-group";
 import Tiles from "./modules/tiles/tiles";
 import PopupSwitch from "./components/popup-switch/popup-switch";
 import { FormItem } from "./components/popup-switch/popup-switch.types";
-import WithVerifySubmit from "./HOC/with-validate-submit/with-validate-submit";
+import WithValidateSubmit from "./HOC/with-validate-submit/with-validate-submit";
 import FormFuel, { FuelFormFields, FuelFormState } from "./modules/form-fuel/form-fuel";
 import validateFuelForm from "./modules/form-fuel/form-fuel-validation";
 import submitFuelForm from "./modules/form-fuel/form-fuel-submit";
@@ -30,7 +30,7 @@ const forms: FormItem[] = [
 	{
 		title: "Топливо",
 		form: (
-			<WithVerifySubmit<FuelFormFields, FuelFormState>
+			<WithValidateSubmit<FuelFormFields, FuelFormState>
 				Form={FormFuel}
 				validate={validateFuelForm}
 				submit={submitFuelForm}

@@ -34,7 +34,7 @@ type WithValidateSubmitProps<T extends TargetFormFields, V extends TargetFormSta
 	submit: SubmitFunction<T>;
 };
 
-export default function WithVerifySubmit<T extends TargetFormFields, V extends TargetFormState>({
+export default function WithValidateSubmit<T extends TargetFormFields, V extends TargetFormState>({
 	Form, validate, submit }: WithValidateSubmitProps<T, V>) {
 	return <Form validate={validate} submit={submit} />;
 }
