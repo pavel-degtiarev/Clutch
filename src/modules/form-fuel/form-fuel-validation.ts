@@ -5,9 +5,7 @@ export default function validateFuelForm(
 	target: FuelFormFields,
 	value: string,
 	setState: setStateFunction<FuelFormState>
-) {
-  console.log("qq");
-  
+) {  
 	const validations: FormValidations<FuelFormFields> = {
 		date: (value) => console.log("check if Run is consistent", value),
 		run: (value) => console.log("check if Run is consistent", value),
