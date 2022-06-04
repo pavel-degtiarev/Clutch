@@ -18,7 +18,8 @@ const spareFormInitState = {
 	price: "",
 };
 
-type SpareFormFields = keyof typeof spareFormInitState;
+export type SpareFormState = typeof spareFormInitState
+export type SpareFormFields = keyof SpareFormState;
 
 // ==========================================
 

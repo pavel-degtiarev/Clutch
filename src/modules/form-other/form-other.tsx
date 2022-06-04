@@ -18,7 +18,8 @@ const otherFormInitState = {
 	price: "",
 };
 
-type OtherFormFields = keyof typeof otherFormInitState;
+export type OtherFormState = typeof otherFormInitState
+export type OtherFormFields = keyof OtherFormState;
 
 // ==========================================
 
