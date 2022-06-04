@@ -5,6 +5,7 @@ import Button from "../../components/button/button";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FormUnits } from "../../../global.var";
 import { collectFormFields } from "../../utilities/collect-form-fields";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import dayjs from "dayjs";
 
 import styles from "./form-spare.module.scss";
@@ -18,21 +19,15 @@ const spareFormInitState = {
 	price: "",
 };
 
-type SpareFormFields = keyof typeof spareFormInitState;
+export type SpareFormState = typeof spareFormInitState
+export type SpareFormFields = keyof SpareFormState;
 
 // ==========================================
 
-export default function FormSpare() {
-	const [formState, setFormState] = useState(spareFormInitState);
+export default function FormSpare({ validate, submit}:FormComponentProps<SpareFormFields, SpareFormState>) {
+	const [formState, setFormState] = useState<SpareFormState>(spareFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
-
-	function validateForm(target: SpareFormFields, value: string) {}
-
-	function submitForm(formFields: FormFields<SpareFormFields>): boolean {
-		console.log("Send FormSpare data to API", formFields);
-		return true;
-	}
 
 	return (
 		<>
@@ -40,30 +35,16 @@ export default function FormSpare() {
 				<form
 					className={containerStyles.form}
 					ref={formRef}
-					onChange={(e) =>
-						validateForm(
-							(e.target as HTMLInputElement).name as SpareFormFields,
-							(e.target as HTMLInputElement).value
-						)
-					}>
+					onChange={(e) => {
+						const name = (e.target as HTMLInputElement).name as SpareFormFields;
+						const value = (e.target as HTMLInputElement).value;
+						validate(name, value, setFormState as setStateFunction<SpareFormState>);
+					}}>
 					<div className={styles.spareFields}>
-						<Field
-							name="date" label="Дата" type="date"
-							value={formState.date}
-						/>
-
-						<Field
-							name="title" label="Наименование"
-							value={formState.title}
-						/>
-
-						<Field
-							name="price"
-							label="Цена"
-							units={FormUnits.MONEY}
-							value={formState.price}
-							numeric
-						/>
+						<Field name="date" label="Дата" type="date" value={formState.date} />
+						<Field name="title" label="Наименование" value={formState.title} />
+						<Field name="price" label="Цена" units={FormUnits.MONEY}
+							value={formState.price} numeric />
 					</div>
 				</form>
 			</div>
@@ -72,7 +53,7 @@ export default function FormSpare() {
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submitForm(collectFormFields<SpareFormFields>(formRef.current))) {
+					if (submit(collectFormFields<SpareFormFields>(formRef.current))) {
 						dispatch(popupClosed());
 					}
 				}}
