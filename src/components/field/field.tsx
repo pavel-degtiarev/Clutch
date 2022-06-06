@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { FormUnits } from "../../../global.var";
 import { setUnits } from "../../utilities/units";
 
@@ -14,10 +14,13 @@ type FieldProps = {
 	auxStyles?: string;
 	numeric?: boolean;
 	units?: FormUnits | "";
+	children?: ReactNode;
 };
 
 export default function Field({
-	name, value = "", label, type = "text", auxStyles, numeric = false, units = ""}: FieldProps) {
+	name, value = "", label, type = "text", auxStyles, units = "",
+	numeric = false, children = null }: FieldProps) {
+	
 	const inputClassnames = classNames(styles.input, textStyles.titleNormal);
 	const [fieldValue, setFieldValue] = useState(value);
 	const [isEditing, setEditing] = useState(false);
@@ -26,35 +29,32 @@ export default function Field({
 
 	useEffect(() => formatField(value), [value]);
 
+	const id = `${name}`; // TODO Need generate unique ID
+
 	return (
 		<div className={classNames(styles.field, auxStyles)}>
 			{isEditing ? (
 				<input
-					className={inputClassnames}
-					type={type}
-					name={name}
-					value={fieldValue}
-					inputMode={numeric ? "decimal" : "text"}
-					placeholder={" "}
+					className={inputClassnames} type={type} name={name} id={id}
+					value={fieldValue} inputMode={numeric ? "decimal" : "text"} placeholder={" "}
 					onChange={(e) => formatField(e.target.value)}
 					onBlur={() => setEditing(!isEditing)}
 				/>
 			) : (
 				<input
-					className={inputClassnames}
-					type={type}
-					name={name}
-					placeholder={" "}
-					inputMode={numeric ? "decimal" : "text"}
+					className={inputClassnames} type={type} name={name} id={id}
+					placeholder={" "} inputMode={numeric ? "decimal" : "text"}
 					value={units ? setUnits(fieldValue, units) : fieldValue}
 					onFocus={() => setEditing(!isEditing)}
 					onChange={() => {}}
 				/>
 			)}
 
-			<label className={classNames(styles.label, textStyles.titleNormal)} htmlFor={name}>
+			<label className={classNames(styles.label, textStyles.titleNormal)} htmlFor={id}>
 				{label}
 			</label>
+
+			{children}
 		</div>
 	);
 }
