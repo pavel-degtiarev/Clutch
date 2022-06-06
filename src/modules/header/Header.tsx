@@ -5,9 +5,9 @@ import ButtonIcon from "../../components/button-icon/button-icon";
 
 import textStyles from "../../styles/typography.module.scss";
 
-import headerStyles from "./styles/header.module.scss";
-import burgerStyles from "./styles/burger.module.scss";
-import titleStyles from "./styles/header-title.module.scss";
+import headerStyles from "./header.module.scss";
+import burgerStyles from "./burger.module.scss";
+import titleStyles from "./header-title.module.scss";
 
 // ==================================================
 
