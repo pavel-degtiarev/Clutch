@@ -19,6 +19,9 @@ import submitOtherForm from "./modules/form-other/form-other-submit";
 import FormSpare, { SpareFormFields, SpareFormState } from "./modules/form-spare/form-spare";
 import validateSpareForm from "./modules/form-spare/form-spare-validation";
 import submitSpareForm from "./modules/form-spare/form-spare-submit";
+import FormService, { ServiceFormFields, ServiceFormState } from "./modules/form-service/form-service";
+import validateServiceForm from "./modules/form-service/form-service-validation";
+import submitServiceForm from "./modules/form-service/service-submit";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -53,6 +56,16 @@ const forms: FormItem[] = [
 		),
 	},
 	{
+		title: "Сервис",
+		form: (
+			<WithValidateSubmit<ServiceFormFields, ServiceFormState>
+				Form={FormService}
+				validate={validateServiceForm}
+				submit={submitServiceForm}
+			/>
+		),
+	},
+	{
 		title: "Прочее",
 		form: (
 			<WithValidateSubmit<OtherFormFields, OtherFormState>
@@ -62,8 +75,6 @@ const forms: FormItem[] = [
 			/>
 		),
 	},
-
-	// { title: "Сервис", callback: () => console.log("Сервис") },
 ];
 
 // ===========================================
