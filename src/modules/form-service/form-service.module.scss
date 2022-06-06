@@ -1,0 +1,26 @@
+@use "../../styles/variables.module.scss" as var;
+
+.serviceFields {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.repeat, .total {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  // justify-content: flex-end;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.repeat {
+  margin-left: -3px;
+}
+
+.repeatDetails,
+.totalDetails {
+  background-color: var.$orangeDark;
+  mask-image: url(../../assets/images/more.svg);
+}
