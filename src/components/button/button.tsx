@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
 import typeStyles from "../../styles/typography.module.scss";
 import buttonStyles from "../../styles/components/button.module.scss";
