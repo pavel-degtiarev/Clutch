@@ -38,3 +38,12 @@ export default function WithValidateSubmit<T extends TargetFormFields, V extends
 	Form, validate, submit }: WithValidateSubmitProps<T, V>) {
 	return <Form validate={validate} submit={submit} />;
 }
+
+export function WithValidateSubmitFunc<T extends TargetFormFields, V extends TargetFormState>(
+	validate: ValidateFunction<T, V>,
+	submit: SubmitFunction<T>
+) {
+	return function FormComponent(Form: FormComponent<T, V>) {
+		return <Form validate={validate} submit={ submit}/>
+	}
+};
