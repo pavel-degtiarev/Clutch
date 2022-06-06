@@ -1,0 +1,62 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/typography.module.scss" as typo;
+
+.checkbox {
+  & .input {
+    appearance: none;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  & .label {
+    position: relative;
+    padding-left: 45px;
+    color: var.$teal;
+  }
+
+  & .label::before {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    display: block;
+    content: "";
+    width: 35px;
+    height: 20px;
+    background-color: var.$tiffanyLight;
+    border-radius: 10px;
+    border: 2px solid var.$tealLight;
+    transition: var.$transition;
+  }
+
+  .label::after {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    display: block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: var.$tealLight;
+    border-radius: 10px;
+    border: 2px solid var.$tealLight;
+    transition: var.$transition;
+  }
+
+  & .button-icon {
+    margin-top: 4px;
+    background-color: var.$tiffanyLight;
+  }
+
+  & .input:checked+.label::before {
+    background-color: var.$orangeLight;
+  }
+
+  & .input:checked+.label::after {
+    left: 15px;
+  }
+
+  & .input:checked~.button-icon {
+    background-color: var.$orangeDark;
+  }
+}
