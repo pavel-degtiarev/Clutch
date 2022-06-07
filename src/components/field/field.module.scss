@@ -55,4 +55,13 @@
   & .input:not(:placeholder-shown)~.button-icon {
     background-color: var.$orangeDark;
   }
+
+  & .input:disabled {
+    border-bottom: 1px solid var.$greyLight;
+  }
+
+  & .input:disabled,
+  & .input:disabled+.label {
+    color: var.$greyLight;
+  }
 }

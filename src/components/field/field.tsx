@@ -11,6 +11,7 @@ type FieldProps = {
 	value: string;
 	label: string;
 	type?: string;
+	disabled?: boolean;
 	auxStyles?: string;
 	numeric?: boolean;
 	units?: FormUnits | "";
@@ -19,7 +20,7 @@ type FieldProps = {
 
 export default function Field({
 	name, value = "", label, type = "text", auxStyles, units = "",
-	numeric = false, children = null }: FieldProps) {
+	numeric = false, disabled = false, children = null }: FieldProps) {
 	
 	const inputClassnames = classNames(styles.input, textStyles.titleNormal);
 	const [fieldValue, setFieldValue] = useState(value);
@@ -29,7 +30,7 @@ export default function Field({
 
 	useEffect(() => formatField(value), [value]);
 
-	const id = `${name}`; // TODO Need generate unique ID
+	const id = `${name}`;
 
 	return (
 		<div className={classNames(styles.field, auxStyles)}>
@@ -39,6 +40,7 @@ export default function Field({
 					value={fieldValue} inputMode={numeric ? "decimal" : "text"} placeholder={" "}
 					onChange={(e) => formatField(e.target.value)}
 					onBlur={() => setEditing(!isEditing)}
+					disabled={ disabled }
 				/>
 			) : (
 				<input
@@ -46,7 +48,8 @@ export default function Field({
 					placeholder={" "} inputMode={numeric ? "decimal" : "text"}
 					value={units ? setUnits(fieldValue, units) : fieldValue}
 					onFocus={() => setEditing(!isEditing)}
-					onChange={() => {}}
+					onChange={() => { }}
+					disabled={ disabled }	
 				/>
 			)}
 
