@@ -1,8 +1,8 @@
-import { TimelUnits } from "../../../global.var";
+import { TimeUnits } from "../../../global.var";
 
 export type TTime = {
 	interval: number;
-	unit: TimelUnits;
+	unit: TimeUnits;
 };
 
 export enum Urgency {

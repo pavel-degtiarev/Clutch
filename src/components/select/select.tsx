@@ -1,10 +1,10 @@
 import React from "react";
-import { TimelUnits } from "../../../global.var";
+import { TimeUnits } from "../../../global.var";
 import styles from "./select.module.scss";
 
 type SelectOption = {
 	label: string;
-	value: TimelUnits;
+	value: TimeUnits;
 };
 
 type SelectProps = {
