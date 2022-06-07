@@ -1,0 +1,19 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/components/button.module.scss" as btn;
+
+.select {
+  position: relative;
+  appearance: none;
+  @include btn.button(auto, 30px, var.$tealLight);
+  padding-right: 30px;
+  font-size: 16px;
+  box-shadow: none;
+
+  background-image: url(../../assets/images/corner.svg);
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+
+  &:focus {
+    background-color: var.$orange;
+  }
+}
