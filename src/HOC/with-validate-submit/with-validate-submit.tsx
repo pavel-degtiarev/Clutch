@@ -1,11 +1,23 @@
 import React from "react";
 import { FuelFormFields, FuelFormState } from "../../modules/form-fuel/form-fuel";
 import { OtherFormFields, OtherFormState } from "../../modules/form-other/form-other";
+import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../modules/form-service-repeat/form-service-repeat";
 import { ServiceFormFields, ServiceFormState } from "../../modules/form-service/form-service";
 import { SpareFormFields, SpareFormState } from "../../modules/form-spare/form-spare";
 
-type TargetFormFields = FuelFormFields | SpareFormFields | OtherFormFields | ServiceFormFields;
-type TargetFormState = FuelFormState | SpareFormState | OtherFormState | ServiceFormState;
+type TargetFormFields =
+	| FuelFormFields
+	| SpareFormFields
+	| OtherFormFields
+	| ServiceFormFields
+	| ServiceRepeatFormFields;
+	
+type TargetFormState =
+	| FuelFormState
+	| SpareFormState
+	| OtherFormState
+	| ServiceFormState
+	| ServiceRepeatFormState;
 
 export type setStateFunction<T extends TargetFormState> = (value: (prevState: T) => void) => void;
 

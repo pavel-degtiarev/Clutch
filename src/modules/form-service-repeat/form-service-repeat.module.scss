@@ -1,0 +1,7 @@
+@use "../../styles/variables.module.scss" as var;
+
+.serviceRepeatFields {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}

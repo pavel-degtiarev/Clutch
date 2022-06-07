@@ -32,6 +32,9 @@ import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
 
+import PopupContainer from "./components/popup-container/popup-container";
+import FormServiceRepeat from "./modules/form-service-repeat/form-service-repeat";
+
 dayjs.locale("ru");
 
 const forms: FormItem[] = [
@@ -93,6 +96,13 @@ export default function App() {
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
 				<PopupSwitch forms={forms} />
+
+				<PopupContainer
+					opened={true}
+					small={true}
+					title="Периодичность"
+					form={<FormServiceRepeat validate={() => { }} submit={() => { return true}}/>}
+				/>
 			</Main>
 		</>
 	);
