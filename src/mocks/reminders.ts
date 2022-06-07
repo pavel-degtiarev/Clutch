@@ -1,4 +1,4 @@
-import { TimelUnit } from "../../global.var";
+import { TimelUnits } from "../../global.var";
 import { IReminder, Urgency } from "../modules/reminder-item/reminder.types";
 
 const reminders: Array<IReminder> = [
@@ -7,14 +7,14 @@ const reminders: Array<IReminder> = [
 		urgency: Urgency.NORMAL,
 		trigger: {
 			run: 7800,
-			time: { interval: 2, unit: TimelUnit.YEARS },
+			time: { interval: 2, unit: TimelUnits.YEARS },
 		},
 	},
 	{
 		title: "Катушки зажигания",
 		urgency: Urgency.OVERDUED,
 		trigger: {
-			time: { interval: 8, unit: TimelUnit.MONTHS },
+			time: { interval: 8, unit: TimelUnits.MONTHS },
 		},
 	},
 	{
@@ -43,7 +43,7 @@ const reminders: Array<IReminder> = [
 		urgency: Urgency.OVERDUED,
 		trigger: {
 			run:2000,
-			time: { interval: 8, unit: TimelUnit.MONTHS },
+			time: { interval: 8, unit: TimelUnits.MONTHS },
 		},
 	},
 ];

@@ -10,22 +10,22 @@ import Checkbox from "../../components/checkbox/checkbox";
 import Field from "../../components/field/field";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
-import { FormUnits, TimelUnit } from "../../../global.var";
+import { FormUnits, TimelUnits } from "../../../global.var";
 import Button from "../../components/button/button";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 
 const timeSlotOptions = [
 	{
 		label: "дни",
-		value: TimelUnit.DAYS,
+		value: TimelUnits.DAYS,
 	},
 	{
 		label: "месяцы",
-		value: TimelUnit.MONTHS,
+		value: TimelUnits.MONTHS,
 	},
 	{
 		label: "годы",
-		value: TimelUnit.YEARS,
+		value: TimelUnits.YEARS,
 	},
 ];
 

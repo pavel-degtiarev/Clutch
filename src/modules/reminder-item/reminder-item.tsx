@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import getYearsSuffix from "../../utilities/get-years-suffix";
-import { TimelUnit, YearSuffix } from "../../../global.var";
+import { TimelUnits, YearSuffix } from "../../../global.var";
 
 import textStyles from "../../styles/typography.module.scss";
 import styles from "./reminder-item.module.scss";
@@ -20,15 +20,15 @@ function getIntervalClass(time: TTime): string {
 	let interval: string = "";
 
 	switch (time.unit) {
-		case TimelUnit.DAYS:
+		case TimelUnits.DAYS:
 			interval = styles.inDays;
 			break;
 
-		case TimelUnit.MONTHS:
+		case TimelUnits.MONTHS:
 			interval = styles.inMonths;
 			break;
 
-		case TimelUnit.YEARS:
+		case TimelUnits.YEARS:
 			switch (getYearsSuffix(time)) {
 				case YearSuffix.SINGLE:
 					interval = styles.inYearsSingle;

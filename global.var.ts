@@ -1,4 +1,4 @@
-export enum TimelUnit {
+export enum TimelUnits {
 	DAYS = "days",
 	MONTHS = "months",
 	YEARS = "years",
