@@ -1,0 +1,12 @@
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fieldGroupHorizontal {
+  flex-direction: row;
+  align-items: flex-end;
+}
