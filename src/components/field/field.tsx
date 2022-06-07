@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { FieldUnits } from "../../../global.var";
+import { FieldSuffixes } from "../../../global.var";
 import { setUnits } from "../../utilities/units";
 
 import classNames from "classnames";
@@ -14,7 +14,7 @@ type FieldProps = {
 	disabled?: boolean;
 	auxStyles?: string;
 	numeric?: boolean;
-	units?: FieldUnits | "";
+	units?: FieldSuffixes | "";
 	children?: ReactNode;
 };
 

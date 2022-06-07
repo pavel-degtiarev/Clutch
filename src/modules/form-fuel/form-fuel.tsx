@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { FieldUnits } from "../../../global.var";
+import { FieldSuffixes } from "../../../global.var";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 import Field from "../../components/field/field";
 import Button from "../../components/button/button";
@@ -48,16 +48,16 @@ export default function FormFuel({ validate, submit }: FormComponentProps<FuelFo
 						<Field name="date" label="Дата" type="date"
 							auxStyles={styles.date} value={formState.date}
 						/>
-						<Field name="run" label="Пробег" units={FieldUnits.RUN}
+						<Field name="run" label="Пробег" units={FieldSuffixes.RUN}
 							auxStyles={styles.run} value={formState.run} numeric
 						/>
-						<Field name="cost" label="Стоимость" units={FieldUnits.MONEY}
+						<Field name="cost" label="Стоимость" units={FieldSuffixes.MONEY}
 							auxStyles={styles.cost} value={formState.cost} numeric
 						/>
-						<Field name="price" label="Цена за литр" units={FieldUnits.MONEY}
+						<Field name="price" label="Цена за литр" units={FieldSuffixes.MONEY}
 							auxStyles={styles.price} value={formState.price} numeric
 						/>
-						<Field name="volume" label="Объем" units={FieldUnits.VOLUME}
+						<Field name="volume" label="Объем" units={FieldSuffixes.VOLUME}
 							auxStyles={styles.volume} value={formState.volume} numeric
 						/>
 					</div>

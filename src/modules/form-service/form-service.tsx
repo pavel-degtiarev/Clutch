@@ -7,7 +7,7 @@ import { collectFormFields } from "../../utilities/collect-form-fields";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { FieldUnits } from "../../../global.var";
+import { FieldSuffixes } from "../../../global.var";
 import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
@@ -45,9 +45,9 @@ export default function FormService({
 					<div className={styles.serviceFields}>
 						<Field name="date" label="Дата" type="date" value={formState.date} />
 						<Field name="description" label="Описание" value={formState.description} />
-						<Field name="run" label="Пробег" units={FieldUnits.RUN} value={formState.run} numeric />
+						<Field name="run" label="Пробег" units={FieldSuffixes.RUN} value={formState.run} numeric />
 
-						<Field name="total" label="Общая сумма" units={FieldUnits.MONEY}
+						<Field name="total" label="Общая сумма" units={FieldSuffixes.MONEY}
 							auxStyles={styles.total} value={formState.total} numeric>
 							<ButtonIcon
 								auxClassNames={styles.totalDetails}
