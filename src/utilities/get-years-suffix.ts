@@ -1,4 +1,5 @@
 import { YearSuffix } from "../../global.var";
+import { TimeType } from "../modules/reminder-item/reminder.types";
 
 export default function getYearsSuffix(time: TimeType): YearSuffix {
 	const lastDigit = +time.interval.toString().slice(-1);

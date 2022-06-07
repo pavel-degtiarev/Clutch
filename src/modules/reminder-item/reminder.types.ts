@@ -1,6 +1,6 @@
 import { TimeUnits } from "../../../global.var";
 
-export type TTime = {
+export type TimeType = {
 	interval: number;
 	unit: TimeUnits;
 };
@@ -21,7 +21,7 @@ export interface RunTrigger {
 	run: number;
 }
 export interface TimeTrigger {
-	time: TTime;
+	time: TimeType;
 }
 
 export type IReminder = ReminderBase<RunTrigger> | ReminderBase<TimeTrigger>;

@@ -6,7 +6,7 @@ import { TimeUnits, YearSuffix } from "../../../global.var";
 import textStyles from "../../styles/typography.module.scss";
 import styles from "./reminder-item.module.scss";
 import {
-	TTime,
+	TimeType,
 	isRunTrigger,
 	isTimeTrigger,
 	RunTrigger,
@@ -16,7 +16,7 @@ import {
 
 // ===========================================
 
-function getIntervalClass(time: TTime): string {
+function getIntervalClass(time: TimeType): string {
 	let interval: string = "";
 
 	switch (time.unit) {
