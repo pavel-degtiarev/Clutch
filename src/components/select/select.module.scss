@@ -16,4 +16,8 @@
   &:focus {
     background-color: var.$orange;
   }
+
+  &:disabled {
+    background-color: var.$greyLight;
+  }
 }
