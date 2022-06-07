@@ -2,6 +2,8 @@
 @use "../../styles/typography.module.scss" as typo;
 
 .checkbox {
+  display: flex;
+  
   & .input {
     appearance: none;
     position: absolute;
