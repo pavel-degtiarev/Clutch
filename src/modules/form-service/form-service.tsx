@@ -55,13 +55,13 @@ export default function FormService({
 							/>
 						</Field>
 
-						<Checkbox name="repeat" auxStyles={styles.repeat} label="Повторять периодически">
+						<Checkbox name="repeat" auxStyles={styles.repeat} label="Повторять периодически"
+							isChecked={formState.repeat}>
 							<ButtonIcon
 								auxClassNames={styles.repeatDetails}
 								handler={() => console.log("repeat")}
 							/>
 						</Checkbox>
-
 					</div>
 				</form>
 			</div>
