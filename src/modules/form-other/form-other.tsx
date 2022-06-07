@@ -3,7 +3,7 @@ import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
-import { FormUnits } from "../../../global.var";
+import { FieldUnits } from "../../../global.var";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 import dayjs from "dayjs";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
@@ -44,7 +44,7 @@ export default function FormOther(
 					<div className={styles.otherFields}>
 						<Field name="date" label="Дата" type="date" value={formState.date} />
 						<Field name="title" label="Наименование" value={formState.title} />
-						<Field name="price" label="Цена" units={FormUnits.MONEY}
+						<Field name="price" label="Цена" units={FieldUnits.MONEY}
 							value={formState.price} numeric />
 					</div>
 				</form>

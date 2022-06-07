@@ -10,7 +10,7 @@ import Checkbox from "../../components/checkbox/checkbox";
 import Field from "../../components/field/field";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
-import { FormUnits, TimelUnits } from "../../../global.var";
+import { FieldUnits, TimelUnits } from "../../../global.var";
 import Button from "../../components/button/button";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 
@@ -67,7 +67,7 @@ export default function FormServiceRepeat({
 								}
 							/>
 							<Field name="repeated-run" label="Пробег"
-								value={formState.run} numeric units={FormUnits.RUN}
+								value={formState.run} numeric units={FieldUnits.RUN}
 								disabled={!formState.repeatByRun}
 							/>
 						</FieldGroup>

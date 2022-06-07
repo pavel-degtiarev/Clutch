@@ -10,7 +10,7 @@ export enum YearSuffix {
 	LONG,
 }
 
-export enum FormUnits {
+export enum FieldUnits {
 	RUN = "км.",
 	MONEY = "руб.",
 	VOLUME = "л.",
