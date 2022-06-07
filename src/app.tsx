@@ -92,7 +92,7 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup name="time-interval" tabs={timeTabs} changedHandler={() => {}} />
+				<TabsGroup name="time-interval" tabs={timeTabs} changedHandler={(tab) => console.log(tab)} />
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
 				<PopupSwitch forms={forms} />
