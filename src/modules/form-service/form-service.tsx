@@ -45,9 +45,9 @@ export default function FormService({
 					<div className={styles.serviceFields}>
 						<Field name="date" label="Дата" type="date" value={formState.date} />
 						<Field name="description" label="Описание" value={formState.description} />
-						<Field name="run" label="Пробег" units={FieldSuffixes.RUN} value={formState.run} numeric />
+						<Field name="run" label="Пробег" suffix={FieldSuffixes.RUN} value={formState.run} numeric />
 
-						<Field name="total" label="Общая сумма" units={FieldSuffixes.MONEY}
+						<Field name="total" label="Общая сумма" suffix={FieldSuffixes.MONEY}
 							auxStyles={styles.total} value={formState.total} numeric>
 							<ButtonIcon
 								auxClassNames={styles.totalDetails}

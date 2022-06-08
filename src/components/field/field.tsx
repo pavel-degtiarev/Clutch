@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { FieldSuffixes } from "../../../global.var";
-import { setUnits } from "../../utilities/units";
+import { FieldSuffixes, TimeSuffixes } from "../../../global.var";
+import { setSuffix } from "../../utilities/units";
 
 import classNames from "classnames";
 import styles from "./field.module.scss";
@@ -14,12 +14,12 @@ type FieldProps = {
 	disabled?: boolean;
 	auxStyles?: string;
 	numeric?: boolean;
-	units?: FieldSuffixes | "";
+	suffix?: FieldSuffixes | TimeSuffixes | "";
 	children?: ReactNode;
 };
 
 export default function Field({
-	name, value = "", label, type = "text", auxStyles, units = "",
+	name, value = "", label, type = "text", auxStyles, suffix = "",
 	numeric = false, disabled = false, children = null }: FieldProps) {
 	
 	const inputClassnames = classNames(styles.input, textStyles.titleNormal);
@@ -46,7 +46,7 @@ export default function Field({
 				<input
 					className={inputClassnames} type={type} name={name} id={id}
 					placeholder={" "} inputMode={numeric ? "decimal" : "text"}
-					value={units ? setUnits(fieldValue, units) : fieldValue}
+					value={suffix ? setSuffix(fieldValue, suffix) : fieldValue}
 					onFocus={() => setEditing(!isEditing)}
 					onChange={() => { }}
 					disabled={ disabled }	

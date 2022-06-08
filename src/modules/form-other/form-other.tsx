@@ -44,7 +44,7 @@ export default function FormOther(
 					<div className={styles.otherFields}>
 						<Field name="date" label="Дата" type="date" value={formState.date} />
 						<Field name="title" label="Наименование" value={formState.title} />
-						<Field name="price" label="Цена" units={FieldSuffixes.MONEY}
+						<Field name="price" label="Цена" suffix={FieldSuffixes.MONEY}
 							value={formState.price} numeric />
 					</div>
 				</form>

@@ -1,8 +1,11 @@
-import { FieldSuffixes } from "../../global.var";
+import { FieldSuffixes, TimeSuffixes } from "../../global.var";
 
-export const setUnits = (val: string, units: FieldSuffixes): string => (val ? `${val} ${units}` : val);
-export const removeUnits = (val: FormDataEntryValue | string): string => {
+export const setSuffix = (val: string, units: FieldSuffixes | TimeSuffixes): string =>
+	val ? `${val} ${units}` : val;
+
+export const removeSuffix = (val: FormDataEntryValue | string): string => {
 	let cleanVal = val as string;
-	Object.values(FieldSuffixes).forEach((unit) => (cleanVal = cleanVal.replace(` ${unit}`, "")));
+	const suffixes = [...Object.values(FieldSuffixes), ...Object.values(TimeSuffixes)];
+	suffixes.forEach((unit) => (cleanVal = cleanVal.replace(` ${unit}`, "")));
 	return cleanVal;
 };

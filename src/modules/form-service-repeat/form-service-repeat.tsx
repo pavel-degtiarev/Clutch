@@ -67,7 +67,7 @@ export default function FormServiceRepeat({
 								}
 							/>
 							<Field name="repeated-run" label="Пробег"
-								value={formState.run} numeric units={FieldSuffixes.RUN}
+								value={formState.run} numeric suffix={FieldSuffixes.RUN}
 								disabled={!formState.repeatByRun}
 							/>
 						</FieldGroup>

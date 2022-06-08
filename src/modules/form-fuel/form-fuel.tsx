@@ -48,16 +48,16 @@ export default function FormFuel({ validate, submit }: FormComponentProps<FuelFo
 						<Field name="date" label="Дата" type="date"
 							auxStyles={styles.date} value={formState.date}
 						/>
-						<Field name="run" label="Пробег" units={FieldSuffixes.RUN}
+						<Field name="run" label="Пробег" suffix={FieldSuffixes.RUN}
 							auxStyles={styles.run} value={formState.run} numeric
 						/>
-						<Field name="cost" label="Стоимость" units={FieldSuffixes.MONEY}
+						<Field name="cost" label="Стоимость" suffix={FieldSuffixes.MONEY}
 							auxStyles={styles.cost} value={formState.cost} numeric
 						/>
-						<Field name="price" label="Цена за литр" units={FieldSuffixes.MONEY}
+						<Field name="price" label="Цена за литр" suffix={FieldSuffixes.MONEY}
 							auxStyles={styles.price} value={formState.price} numeric
 						/>
-						<Field name="volume" label="Объем" units={FieldSuffixes.VOLUME}
+						<Field name="volume" label="Объем" suffix={FieldSuffixes.VOLUME}
 							auxStyles={styles.volume} value={formState.volume} numeric
 						/>
 					</div>
