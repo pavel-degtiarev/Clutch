@@ -14,31 +14,31 @@ export interface InputProps extends ControlledField {
 }
 
 export default function Input({
-	name, value, type=InputType.TEXT, inputMode, disabled,
+	name, value, type=InputType.TEXT, inputMode, disabled=false,
 	changeHandler, focusHandler, blurHandler }: InputProps) {
-		
+	
 	const inputClassnames = classNames(styles.input, textStyles.titleNormal);
 	const [fieldValue, setFieldValue] = useState(value);
 	
 	const changeField = useCallback(
-		(value: string) => {
+		(value: string) => {			
 			setFieldValue(changeHandler ? changeHandler(value) : value);
 		},
 		[changeHandler]
 	);
 
-	useEffect(() => changeField(value), [value]);
+	useEffect(() => setFieldValue(value), [value]);
 
 	return (
-			<input
-				className={inputClassnames}
-				type={type} name={name} id={name} value={fieldValue}
-				inputMode={inputMode} placeholder={" "}
-				onChange={(e) => changeField(e.target.value)}
-				onBlur={blurHandler}
-				onFocus={focusHandler}
-				disabled={disabled}
-			/>
+		<input
+			className={inputClassnames}
+			type={type} name={name} id={name} value={fieldValue}
+			inputMode={inputMode} placeholder={" "}
+			onChange={(e) => changeField(e.target.value)}
+			onBlur={blurHandler}
+			onFocus={focusHandler}
+			disabled={disabled}
+		/>
 	);
 }
 
