@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FieldContainer from "./field-container";
 import { FieldSuffixes, TimeSuffixes } from "../../../global.var";
 import Label from "./label";
@@ -18,6 +18,8 @@ export default function FieldWithSuffix({
 	const [isEditing, setEditing] = useState(false);
 	const [currValue, setCurrValue] = useState(value);
 
+	useEffect(()=>setCurrValue(value), [value]);
+
 	return (
 		<FieldContainer auxStyles={auxStyles}>
 			{isEditing ? (
@@ -30,7 +32,7 @@ export default function FieldWithSuffix({
 				/>
 			) : (
 				<InputComponent
-					name={name+"2"} value={addSuffix(currValue, suffix)} disabled={disabled}
+					name={name} value={addSuffix(currValue, suffix)} disabled={disabled}
 					focusHandler={() => setEditing(!isEditing)}
 				/>
 			)}
@@ -38,6 +40,7 @@ export default function FieldWithSuffix({
 			<Label inputName={name} label={label} />
 
 			{children}
+			
 		</FieldContainer>
 	);
 }
