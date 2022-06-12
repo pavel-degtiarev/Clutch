@@ -6,7 +6,7 @@ import { InputMode } from "./field-types";
 export interface InputNumericProps extends InputProps {}
 
 export default function InputNumeric({
-	name, value, focusHandler, blurHandler }: InputNumericProps) {
+	name, value, disabled, focusHandler, blurHandler }: InputNumericProps) {
 	
 	const clean = useCallback(cleanNumeric, []);
 		
@@ -15,6 +15,7 @@ export default function InputNumeric({
 			name={name}
 			value={value}
 			inputMode={InputMode.NUMERIC}
+			disabled={disabled}
 			changeHandler={clean}
 			focusHandler={focusHandler}
 			blurHandler={blurHandler}

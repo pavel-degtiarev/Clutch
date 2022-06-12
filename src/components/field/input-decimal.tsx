@@ -6,7 +6,7 @@ import { InputMode } from "./field-types";
 export interface InputDecimalProps extends InputProps {}
 
 export default function InputDecimal({
-	name, value, focusHandler, blurHandler }: InputDecimalProps) {
+	name, value, disabled, focusHandler, blurHandler }: InputDecimalProps) {
 	
 	const clean = useCallback(cleanDecimal, []);
 
@@ -15,6 +15,7 @@ export default function InputDecimal({
 			name={name}
 			value={value}
 			inputMode={InputMode.NUMERIC}
+			disabled={disabled}
 			changeHandler={clean}
 			focusHandler={focusHandler}
 			blurHandler={blurHandler}
