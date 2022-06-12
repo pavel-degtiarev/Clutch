@@ -5,58 +5,73 @@ import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import {
+	FormComponentProps,
+	setStateFunction,
+	TargetFormFields,
+	ValidateContext,
+	ValidateFunction,
+} from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { FieldSuffixes } from "../../../global.var";
 import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
+import FieldDate from "../../components/field/field-date";
+import FieldText from "../../components/field/field-text";
+import FieldWithSuffix from "../../components/field/field-with-suffix";
+import InputNumeric from "../../components/field/input-numeric";
 
 const ServiceFormInitState = {
-	date: dayjs().format("YYYY-MM-DD"),
-	description: "",
-	run: "",
-  total: "",
-  repeat:false,
+	serviceDate: dayjs().format("YYYY-MM-DD"),
+	serviceDescription: "",
+	serviceRun: "",
+	serviceTotal: "",
+	serviceRepeat: false,
 };
 
 export type ServiceFormState = typeof ServiceFormInitState;
 export type ServiceFormFields = keyof ServiceFormState;
 
 export default function FormService({
-  validate, submit }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
-  
-  const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
-  const formRef = useRef({} as HTMLFormElement);
+	getValidate: getValidate,
+	submit,
+}: FormComponentProps<ServiceFormFields, ServiceFormState>) {
+	const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
+	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
-  
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form
-					className={containerStyles.form}
-					ref={formRef}
-					onChange={(e) => {
-						const name = (e.target as HTMLInputElement).name as ServiceFormFields;
-						const value = (e.target as HTMLInputElement).value;
-						validate(name, value, setFormState as setStateFunction<ServiceFormState>);
-					}}>
-					<div className={styles.serviceFields}>
-						<Field name="date" label="Дата" type="date" value={formState.date} />
-						<Field name="description" label="Описание" value={formState.description} />
-						<Field name="run" label="Пробег" suffix={FieldSuffixes.RUN} value={formState.run} numeric />
 
-						<Field name="total" label="Общая сумма" suffix={FieldSuffixes.MONEY}
-							auxStyles={styles.total} value={formState.total} numeric>
+	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
+
+	return (
+		<ValidateContext.Provider value={validate as ValidateFunction<TargetFormFields>}>
+			<div className={containerStyles.popupContent}>
+				<form className={containerStyles.form} ref={formRef}>
+					<div className={styles.serviceFields}>
+						<FieldDate name="serviceDate" label="Дата" value={formState.serviceDate} />
+						<FieldText name="serviceDescription" label="Описание"
+							value={formState.serviceDescription}
+						/>
+
+						<FieldWithSuffix InputComponent={InputNumeric}
+							name="serviceRun" label="Пробег"
+							value={formState.serviceRun} suffix={FieldSuffixes.RUN}
+						/>
+
+						<FieldWithSuffix InputComponent={InputNumeric}
+							name="serviceTotal" label="Общая сумма"
+							value={formState.serviceTotal} suffix={FieldSuffixes.MONEY}
+							auxStyles={styles.total}>
 							<ButtonIcon
 								auxClassNames={styles.totalDetails}
 								handler={() => console.log("details")}
 							/>
-						</Field>
+						</FieldWithSuffix>
 
-						<Checkbox name="repeat" auxStyles={styles.repeat} label="Повторять периодически"
-							isChecked={formState.repeat}>
+						<Checkbox name="serviceRepeat"
+							label="Повторять периодически" isChecked={formState.serviceRepeat}
+							auxStyles={styles.repeat}>
 							<ButtonIcon
 								auxClassNames={styles.repeatDetails}
 								handler={() => console.log("repeat")}
@@ -75,6 +90,6 @@ export default function FormService({
 					}
 				}}
 			/>
-		</>
+		</ValidateContext.Provider>
 	);
 }
