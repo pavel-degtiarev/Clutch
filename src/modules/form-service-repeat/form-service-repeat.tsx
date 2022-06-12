@@ -1,18 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	FormComponentProps,
 	setStateFunction,
+	TargetFormFields,
+	ValidateContext,
+	ValidateFunction,
 } from "../../HOC/with-validate-submit/with-validate-submit";
+import Checkbox from "../../components/checkbox/checkbox";
+import FieldGroup from "../../components/field-group/field-group";
+import Select from "../../components/select/select";
+import { FieldSuffixes, TimeSuffixes, TimeUnits } from "../../../global.var";
+import Button from "../../components/button/button";
+import { collectFormFields } from "../../utilities/collect-form-fields";
+import FieldWithSuffix from "../../components/field/field-with-suffix";
 
 import styles from "./form-service-repeat.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import Checkbox from "../../components/checkbox/checkbox";
-import Field from "../../components/field/field";
-import FieldGroup from "../../components/field-group/field-group";
-import Select from "../../components/select/select";
-import { FieldSuffixes, TimeUnits } from "../../../global.var";
-import Button from "../../components/button/button";
-import { collectFormFields } from "../../utilities/collect-form-fields";
+import InputNumeric from "../../components/field/input-numeric";
 
 const timeSlotOptions = [
 	{
@@ -30,7 +34,8 @@ const timeSlotOptions = [
 ];
 
 const ServiceRepeatFormInitState = {
-	run: "",
+	repeatingRun: "",
+	repeatingTime: "",
 	repeatByRun: false,
 	repeatByTime: false,
 };
@@ -38,57 +43,50 @@ const ServiceRepeatFormInitState = {
 export type ServiceRepeatFormState = typeof ServiceRepeatFormInitState;
 export type ServiceRepeatFormFields = keyof ServiceRepeatFormState;
 
-export default function FormServiceRepeat({
-	validate,
-	submit,
-}: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
+export default function FormServiceRepeat({ getValidate, submit }: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
+
 	const [formState, setFormState] = useState<ServiceRepeatFormState>(ServiceRepeatFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 
+	const validate = getValidate(setFormState as setStateFunction<ServiceRepeatFormState>);
+
 	return (
-		<>
+		<ValidateContext.Provider value={validate as ValidateFunction<TargetFormFields>}>
+
 			<div className={containerStyles.popupContent}>
-				<form
-					className={containerStyles.form}
-					ref={formRef}
-					onChange={(e) => {
-						const name = (e.target as HTMLInputElement).name as ServiceRepeatFormFields;
-						const value = (e.target as HTMLInputElement).value;
-						validate(name, value, setFormState as setStateFunction<ServiceRepeatFormState>);
-					}}>
+				<form className={containerStyles.form} ref={formRef} >
 					<div className={styles.serviceRepeatFields}>
 						<FieldGroup>
-							<Checkbox name="repeat-by-run" label="по пробегу"
-								isChecked={formState.repeatByRun}
+							<Checkbox
+								name="repeatByRun" label="по пробегу" isChecked={formState.repeatByRun}
 								callback={() =>
 									setFormState((prevState) => {
 										return { ...prevState, repeatByRun: !prevState.repeatByRun };
 									})
 								}
 							/>
-							<Field name="repeated-run" label="Пробег"
-								value={formState.run} numeric suffix={FieldSuffixes.RUN}
+							<FieldWithSuffix InputComponent={InputNumeric}
+								name="repeatingRun" label="Пробег" value={formState.repeatingRun}
+								suffix={FieldSuffixes.RUN}
 								disabled={!formState.repeatByRun}
 							/>
 						</FieldGroup>
 
 						<FieldGroup>
-							<Checkbox name="repeat-by-time" label="по времени"
-								isChecked={formState.repeatByTime}
+							<Checkbox
+								name="repeatByTime" label="по времени" isChecked={formState.repeatByTime}
 								callback={() =>
 									setFormState((prevState) => {
 										return { ...prevState, repeatByTime: !prevState.repeatByTime };
 									})
 								}
 							/>
-
 							<FieldGroup horizontal>
-								<Field name="repeated-time" label="Время"
-									value={formState.run}
-									disabled={!formState.repeatByTime}
-								/>
-								<Select name="repeat-time-slot" options={timeSlotOptions}
-									selected={timeSlotOptions[1]}
+								<FieldWithSuffix InputComponent={InputNumeric}
+									name="repeatingTime" label="Время" value={formState.repeatingTime}
+									disabled={!formState.repeatByTime} suffix={TimeSuffixes.MANY_MONTHS} />
+								<Select
+									name="repeatTimeSlot" options={timeSlotOptions} selected={timeSlotOptions[1]}
 									disabled={!formState.repeatByTime}
 								/>
 							</FieldGroup>
@@ -106,6 +104,6 @@ export default function FormServiceRepeat({
 					}
 				}}
 			/>
-		</>
+		</ValidateContext.Provider>
 	);
 }

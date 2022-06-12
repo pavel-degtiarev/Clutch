@@ -1,18 +1,18 @@
-import React from "react";
+import React, { createContext } from "react";
 import { FuelFormFields, FuelFormState } from "../../modules/form-fuel/form-fuel";
 import { OtherFormFields, OtherFormState } from "../../modules/form-other/form-other";
 import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../modules/form-service-repeat/form-service-repeat";
 import { ServiceFormFields, ServiceFormState } from "../../modules/form-service/form-service";
 import { SpareFormFields, SpareFormState } from "../../modules/form-spare/form-spare";
 
-type TargetFormFields =
+export type TargetFormFields =
 	| FuelFormFields
 	| SpareFormFields
 	| OtherFormFields
 	| ServiceFormFields
 	| ServiceRepeatFormFields;
 	
-type TargetFormState =
+export type TargetFormState =
 	| FuelFormState
 	| SpareFormState
 	| OtherFormState
@@ -21,42 +21,31 @@ type TargetFormState =
 
 export type setStateFunction<T extends TargetFormState> = (value: (prevState: T) => void) => void;
 
-type ValidateFunction<T extends TargetFormFields, V extends TargetFormState> = (
-	target: T,
-	value: string,
-	setState: setStateFunction<V>
-) => void;
+export type ValidateFunction<T extends TargetFormFields> = (target: T, value: string) => void;
 
-type SubmitFunction<T extends TargetFormFields> = (formFields: FormFields<T>) => boolean;
+type ValidateFunctionGetter<T extends TargetFormFields, V extends TargetFormState> = (setState: setStateFunction<V>) => ValidateFunction<T>
+
+export type SubmitFunction<T extends TargetFormFields> = (formFields: FormFields<T>) => boolean;
 
 export type FormComponentProps<T extends TargetFormFields, V extends TargetFormState> = {
-	validate: ValidateFunction<T, V>;
+	getValidate: ValidateFunctionGetter<T, V>;
 	submit: SubmitFunction<T>;
 };
 
 type FormComponent<T extends TargetFormFields, V extends TargetFormState> = ({
-	validate,
-	submit,
-}: FormComponentProps<T, V>) => JSX.Element;
+	getValidate, submit }: FormComponentProps<T, V>) => JSX.Element;
 
 // =========================================
 
 type WithValidateSubmitProps<T extends TargetFormFields, V extends TargetFormState> = {
 	Form: FormComponent<T, V>;
-	validate: ValidateFunction<T, V>;
+	getValidate: ValidateFunctionGetter<T, V>;
 	submit: SubmitFunction<T>;
 };
 
-export default function WithValidateSubmit<T extends TargetFormFields, V extends TargetFormState>({
-	Form, validate, submit }: WithValidateSubmitProps<T, V>) {
-	return <Form validate={validate} submit={submit} />;
-}
+export const ValidateContext = createContext((() => {}) as ValidateFunction<TargetFormFields>);
 
-export function WithValidateSubmitFunc<T extends TargetFormFields, V extends TargetFormState>(
-	validate: ValidateFunction<T, V>,
-	submit: SubmitFunction<T>
-) {
-	return function FormComponent(Form: FormComponent<T, V>) {
-		return <Form validate={validate} submit={ submit}/>
-	}
-};
+export default function WithValidateSubmit<T extends TargetFormFields, V extends TargetFormState>({
+	Form, getValidate, submit }: WithValidateSubmitProps<T, V>) {
+	return <Form getValidate={getValidate} submit={submit} />;
+}
