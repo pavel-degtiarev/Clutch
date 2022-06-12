@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FieldSuffixes } from "../../../global.var";

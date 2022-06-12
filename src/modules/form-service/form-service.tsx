@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from "react";
-import Field from "../../components/field/field";
 import Button from "../../components/button/button";
 import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
