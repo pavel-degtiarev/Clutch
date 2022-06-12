@@ -1,11 +1,14 @@
 import React, { useContext, useRef, useState } from "react";
 import { FieldSuffixes } from "../../../global.var";
 import { collectFormFields } from "../../utilities/collect-form-fields";
-import Field from "../../components/field/field";
 import Button from "../../components/button/button";
+import FieldDate from "../../components/field/field-date";
+import FieldWithSuffix from "../../components/field/field-with-suffix";
+import InputNumeric from "../../components/field/input-numeric";
+import InputDecimal from "../../components/field/input-decimal";
 import dayjs from "dayjs";
 
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction, TargetFormFields, ValidateContext, ValidateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
 
@@ -15,11 +18,11 @@ import styles from "./form-fuel.module.scss";
 // ================================================
 
 const fuelFormInitState = {
-	date: dayjs().format("YYYY-MM-DD"),
-	run: "220120",
-	cost: "",
-	price: "",
-	volume: "",
+	fuelDate: dayjs().format("YYYY-MM-DD"),
+	fuelRun: "220120",
+	fuelCost: "",
+	fuelPrice: "",
+	fuelVolume: "",
 };
 
 export type FuelFormState = typeof fuelFormInitState;
@@ -27,39 +30,40 @@ export type FuelFormFields = keyof FuelFormState;
 
 // ================================================
 
-export default function FormFuel({ validate, submit }: FormComponentProps<FuelFormFields, FuelFormState>) {
+export default function FormFuel({ getValidate, submit }: FormComponentProps<FuelFormFields, FuelFormState>) {
 	const [formState, setFormState] = useState<FuelFormState>(fuelFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
+	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
+
 	return (
-		<>
+		<ValidateContext.Provider value={validate as ValidateFunction<TargetFormFields>}>
+		
 			<div className={containerStyles.popupContent}>
-				<form
-					className={containerStyles.form}
-					ref={formRef}
-					onChange={(e) => {
-						const name = (e.target as HTMLInputElement).name as FuelFormFields;
-						const value = (e.target as HTMLInputElement).value;
-						validate(name, value, setFormState as setStateFunction<FuelFormState>);
-					}}>
-					
+				<form className={containerStyles.form} ref={formRef} >
 					<div className={styles.fuelFields}>
-						<Field name="date" label="Дата" type="date"
-							auxStyles={styles.date} value={formState.date}
+
+						<FieldDate name="fuelDate" label="Дата"
+							auxStyles={styles.date} value={formState.fuelDate}
 						/>
-						<Field name="run" label="Пробег" suffix={FieldSuffixes.RUN}
-							auxStyles={styles.run} value={formState.run} numeric
+						<FieldWithSuffix InputComponent={InputNumeric}
+							name="fuelRun" label="Пробег" value={formState.fuelRun}
+							auxStyles={styles.run} suffix={FieldSuffixes.RUN}
 						/>
-						<Field name="cost" label="Стоимость" suffix={FieldSuffixes.MONEY}
-							auxStyles={styles.cost} value={formState.cost} numeric
+						<FieldWithSuffix InputComponent={InputDecimal}
+							name="fuelCost" label="Стоимость" value={formState.fuelCost}
+							auxStyles={styles.cost} suffix={FieldSuffixes.MONEY}
 						/>
-						<Field name="price" label="Цена за литр" suffix={FieldSuffixes.MONEY}
-							auxStyles={styles.price} value={formState.price} numeric
+						<FieldWithSuffix InputComponent={InputDecimal}
+							name="fuelPrice" label="Цена за литр" value={formState.fuelPrice}
+							auxStyles={styles.price} suffix={FieldSuffixes.MONEY}
 						/>
-						<Field name="volume" label="Объем" suffix={FieldSuffixes.VOLUME}
-							auxStyles={styles.volume} value={formState.volume} numeric
+						<FieldWithSuffix InputComponent={InputDecimal}
+							name="fuelVolume" label="Объем" value={formState.fuelVolume}
+							auxStyles={styles.volume} suffix={FieldSuffixes.VOLUME}
 						/>
+
 					</div>
 				</form>
 			</div>
@@ -70,7 +74,7 @@ export default function FormFuel({ validate, submit }: FormComponentProps<FuelFo
 						dispatch(popupClosed());
 					}
 				}}
-			/>
-		</>
+				/>
+		</ValidateContext.Provider>
 	);
 }
