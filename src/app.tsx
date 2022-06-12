@@ -11,18 +11,23 @@ import { FormItem } from "./components/popup-switch/popup-switch.types";
 
 import WithValidateSubmit from "./HOC/with-validate-submit/with-validate-submit";
 import FormFuel, { FuelFormFields, FuelFormState } from "./modules/form-fuel/form-fuel";
-import validateFuelForm from "./modules/form-fuel/form-fuel-validation";
+import getValidateFuelForm from "./modules/form-fuel/form-fuel-validation";
 import submitFuelForm from "./modules/form-fuel/form-fuel-submit";
 import FormOther, { OtherFormFields, OtherFormState } from "./modules/form-other/form-other";
-import validateOtherForm from "./modules/form-other/form-other-validation";
 import submitOtherForm from "./modules/form-other/form-other-submit";
+import getValidateOtherForm from "./modules/form-other/form-other-validation";
 import FormSpare, { SpareFormFields, SpareFormState } from "./modules/form-spare/form-spare";
-import validateSpareForm from "./modules/form-spare/form-spare-validation";
+import getValidateSpareForm from "./modules/form-spare/form-spare-validation";
 import submitSpareForm from "./modules/form-spare/form-spare-submit";
 import FormService, { ServiceFormFields, ServiceFormState } from "./modules/form-service/form-service";
-import validateServiceForm from "./modules/form-service/form-service-validation";
+import getValidateServiceForm from "./modules/form-service/form-service-validation";
 import submitServiceForm from "./modules/form-service/service-submit";
-
+import FormServiceRepeat, {
+	ServiceRepeatFormFields,
+	ServiceRepeatFormState,
+} from "./modules/form-service-repeat/form-service-repeat";
+import submitServiceRepeatForm from "./modules/form-service-repeat/form-service-repeat-submit";
+import getValidateServiceRepeatForm from "./modules/form-service-repeat/form-service-repeat-validation";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 
@@ -33,7 +38,7 @@ import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
 
 import PopupContainer from "./components/popup-container/popup-container";
-import FormServiceRepeat from "./modules/form-service-repeat/form-service-repeat";
+
 
 dayjs.locale("ru");
 
@@ -43,7 +48,7 @@ const forms: FormItem[] = [
 		form: (
 			<WithValidateSubmit<FuelFormFields, FuelFormState>
 				Form={FormFuel}
-				validate={validateFuelForm}
+				getValidate={getValidateFuelForm}
 				submit={submitFuelForm}
 			/>
 		),
@@ -53,8 +58,8 @@ const forms: FormItem[] = [
 		form: (
 			<WithValidateSubmit<SpareFormFields, SpareFormState>
 				Form={FormSpare}
-				validate={validateSpareForm}
-				submit={submitOtherForm}
+				getValidate={getValidateSpareForm}
+				submit={submitSpareForm}
 			/>
 		),
 	},
@@ -63,7 +68,7 @@ const forms: FormItem[] = [
 		form: (
 			<WithValidateSubmit<ServiceFormFields, ServiceFormState>
 				Form={FormService}
-				validate={validateServiceForm}
+				getValidate={getValidateServiceForm}
 				submit={submitServiceForm}
 			/>
 		),
@@ -73,8 +78,8 @@ const forms: FormItem[] = [
 		form: (
 			<WithValidateSubmit<OtherFormFields, OtherFormState>
 				Form={FormOther}
-				validate={validateOtherForm}
-				submit={submitSpareForm}
+				getValidate={getValidateOtherForm}
+				submit={submitOtherForm}
 			/>
 		),
 	},
@@ -92,7 +97,11 @@ export default function App() {
 
 			<Main>
 				<Reminder reminders={reminders} />
-				<TabsGroup name="time-interval" tabs={timeTabs} changedHandler={(tab) => console.log(tab)} />
+				<TabsGroup
+					name="time-interval"
+					tabs={timeTabs}
+					changedHandler={(tab) => console.log(tab)}
+				/>
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
 				<PopupSwitch forms={forms} />
@@ -101,7 +110,13 @@ export default function App() {
 					opened={true}
 					small={true}
 					title="Периодичность"
-					form={<FormServiceRepeat validate={() => { }} submit={() => { return true}}/>}
+					form={
+						<WithValidateSubmit<ServiceRepeatFormFields, ServiceRepeatFormState>
+							Form={FormServiceRepeat}
+							getValidate={getValidateServiceRepeatForm}
+							submit={submitServiceRepeatForm}
+						/>
+					}
 				/>
 			</Main>
 		</>
