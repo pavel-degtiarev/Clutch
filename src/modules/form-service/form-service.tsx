@@ -74,6 +74,7 @@ export default function FormService({
 							<ButtonIcon
 								auxClassNames={styles.repeatDetails}
 								handler={() => console.log("repeat")}
+								disabled={!formState.serviceRepeat}
 							/>
 						</Checkbox>
 					</div>

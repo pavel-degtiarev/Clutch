@@ -6,16 +6,13 @@ import styles from "./button-icon.module.scss";
 interface ButtonIconProps {
 	label?: string;
 	auxClassNames?: string;
+	disabled?: boolean;
 	handler: clickHandler;
 }
 
-export default function ButtonIcon({ label, auxClassNames, handler }: ButtonIconProps) {
-	return (
-		<button
-			className={classNames(`${styles.icon}`, auxClassNames)}
-			type="button"
-			aria-label={label}
-			onClick={handler}
-		/>
-	);
+export default function ButtonIcon({
+	label, auxClassNames, disabled = false, handler, }: ButtonIconProps) {
+	
+	const buttonStyles = classNames(styles.icon, { [styles.iconDisabled]: disabled }, auxClassNames);
+	return <button className={buttonStyles} type="button" aria-label={label} onClick={handler} />;
 }

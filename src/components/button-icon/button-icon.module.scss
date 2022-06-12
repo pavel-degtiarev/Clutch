@@ -1,3 +1,4 @@
+@use "../../styles/variables.module.scss" as var;
 @use "../../styles/components/button.module.scss" as btn;
 
 .icon {
@@ -5,4 +6,9 @@
   box-shadow: none;
   flex-grow: 0;
   flex-shrink: 0;
+  background-color: var.$orangeDark;
+}
+
+.iconDisabled {
+  background-color: var.$greyLight;
 }
