@@ -1,36 +1,43 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import Label from "../field/label/label";
+import { ControlledField } from "../field/field-types";
 import classNames from "classnames";
 
 import styles from "./checkbox.module.scss";
-import textStyles from "../../styles/typography.module.scss";
 
-type CheckboxProps = {
+export interface CheckboxProps extends ControlledField {
 	name: string;
 	label: string;
 	isChecked: boolean;
 	auxStyles?: string;
 	children?: ReactNode;
-	callback?: Function;
-};
+}
 
 export default function Checkbox({
-	name, label, auxStyles, isChecked = false, children = null, callback = () => { } }: CheckboxProps) {
+	name, label, auxStyles, isChecked, children, changeHandler }: CheckboxProps) {
 	
 	const [checkboxChecked, setCheckboxChecked] = useState(isChecked);
-	const id = `${name}`;
+
+	console.log(checkboxChecked);
+
+	const changeCheckboxState = useCallback(() => {
+		const newState = !checkboxChecked;
+		changeHandler && changeHandler(newState.toString());
+		setCheckboxChecked(newState);
+	}, [changeHandler])
+
+	useEffect(()=>setCheckboxChecked(isChecked), [isChecked]);
 
 	return (
 		<div className={classNames(styles.checkbox, auxStyles)}>
-			<input className={styles.input} type="checkbox"
-				id={id} name={name} checked={checkboxChecked}
-				onChange={() => {
-					setCheckboxChecked((prevState) => !prevState);
-					callback(checkboxChecked);
-				}}
+			<input
+				id={name} name={name}
+				className={styles.input} type="checkbox"
+				checked={checkboxChecked}
+				onChange={changeCheckboxState}
 			/>
-			<label className={classNames(styles.label, textStyles.titleNormal)} htmlFor={name}>
-				{label}
-			</label>
+
+			<Label inputName={name} label={label} auxStyles={styles.label} />
 
 			{children}
 		</div>

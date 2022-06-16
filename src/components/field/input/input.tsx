@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ControlledField, InputMode, InputType } from "./field-types";
+import React, { useCallback, useEffect, useState } from "react";
+import { ControlledField, InputMode, InputType } from "../field-types";
 
 import classNames from "classnames";
-import styles from "./field.module.scss";
-import textStyles from "../../styles/typography.module.scss";
-import { TargetFormFields, ValidateContext } from "../../HOC/with-validate-submit/with-validate-submit";
+import styles from "../field.module.scss";
+import textStyles from "../../../styles/typography.module.scss";
 
 export interface InputProps extends ControlledField {
 	name: string;
@@ -17,10 +16,9 @@ export interface InputProps extends ControlledField {
 export default function Input({
 	name, value, type=InputType.TEXT, inputMode, disabled=false,
 	changeHandler, focusHandler, blurHandler }: InputProps) {
-	
+
 	const inputClassnames = classNames(styles.input, textStyles.titleNormal);
 	const [fieldValue, setFieldValue] = useState(value);
-	const validate = useContext(ValidateContext);
 
 	const changeField = useCallback(
 		(value: string) => {
@@ -38,10 +36,7 @@ export default function Input({
 			className={inputClassnames}
 			type={type} name={name} id={name} value={fieldValue}
 			inputMode={inputMode} placeholder={" "}
-			onChange={(e) => {
-				const value = changeField(e.target.value);
-				validate(name as TargetFormFields, value);
-			}}
+			onChange={(e) => changeField(e.target.value)}
 			onBlur={blurHandler}
 			onFocus={focusHandler}
 			disabled={disabled}

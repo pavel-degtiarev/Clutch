@@ -3,6 +3,7 @@ import { FuelFormFields, FuelFormState } from "./form-fuel";
 
 export default function getValidateFuelForm(setState: setStateFunction<FuelFormState>) {
 	return function (target: FuelFormFields, value: string) {
+
 		const validations: FormValidations<FuelFormFields> = {
 			fuelDate: (value) => console.log("check if Date is consistent", value),
 			fuelRun: (value) => console.log("check if Run is consistent", value),
@@ -50,6 +51,8 @@ export default function getValidateFuelForm(setState: setStateFunction<FuelFormS
 				});
 			},
 		};
+
+		console.log("Fuel form validation", target, value);
 
 		const checkTarget = validations[target];
 		checkTarget && checkTarget(value);

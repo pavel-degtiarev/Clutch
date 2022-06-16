@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { ReactNode } from "react";
-import styles from "./field.module.scss";
+import styles from "../field.module.scss";
 
 type FieldContainerProps = {
 	auxStyles?: string;
