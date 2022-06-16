@@ -11,8 +11,19 @@ interface ButtonIconProps {
 }
 
 export default function ButtonIcon({
-	label, auxClassNames, disabled = false, handler, }: ButtonIconProps) {
+	label, auxClassNames, disabled = false, handler }: ButtonIconProps) {
 	
-	const buttonStyles = classNames(styles.icon, { [styles.iconDisabled]: disabled }, auxClassNames);
-	return <button className={buttonStyles} type="button" aria-label={label} onClick={handler} />;
+	const buttonStyles = classNames(
+		styles.icon,
+		{ [styles.iconDisabled]: disabled },
+		auxClassNames);
+
+	return (
+		<button
+			className={buttonStyles}
+			type="button"
+			aria-label={label}
+			onClick={disabled ? undefined : handler}
+		/>
+	);
 }
