@@ -43,8 +43,6 @@ type WithValidateSubmitProps<T extends TargetFormFields, V extends TargetFormSta
 	submit: SubmitFunction<T>;
 };
 
-export const ValidateContext = createContext((() => {}) as ValidateFunction<TargetFormFields>);
-
 export default function WithValidateSubmit<T extends TargetFormFields, V extends TargetFormState>({
 	Form, getValidate, submit }: WithValidateSubmitProps<T, V>) {
 	return <Form getValidate={getValidate} submit={submit} />;
