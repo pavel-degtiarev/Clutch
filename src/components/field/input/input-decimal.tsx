@@ -9,6 +9,7 @@ export default function InputDecimal({
 	name, value, disabled, focusHandler, blurHandler, changeHandler }: InputDecimalProps) {
 	
 	const clean = useCallback(cleanDecimal, []);
+	const handler = (val: string) => (changeHandler ? changeHandler(clean(val)) : clean(val));
 
 	return (
 		<Input
@@ -16,7 +17,7 @@ export default function InputDecimal({
 			value={value}
 			inputMode={InputMode.NUMERIC}
 			disabled={disabled}
-			changeHandler={(val) => (changeHandler ? changeHandler(clean(val)) : clean(val))}
+			changeHandler={handler}
 			focusHandler={focusHandler}
 			blurHandler={blurHandler}
 		/>

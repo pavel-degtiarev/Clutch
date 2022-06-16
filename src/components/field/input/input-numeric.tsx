@@ -9,14 +9,15 @@ export default function InputNumeric({
 	name, value, disabled, focusHandler, blurHandler, changeHandler }: InputNumericProps) {
 	
 	const clean = useCallback(cleanNumeric, []);
-	
+	const handler = (val: string) => (changeHandler ? changeHandler(clean(val)) : clean(val));
+
 	return (
 		<Input
 			name={name}
 			value={value}
 			inputMode={InputMode.NUMERIC}
 			disabled={disabled}
-			changeHandler={(val) => (changeHandler ? changeHandler(clean(val)) : clean(val))}
+			changeHandler={handler}
 			focusHandler={focusHandler}
 			blurHandler={blurHandler}
 		/>
