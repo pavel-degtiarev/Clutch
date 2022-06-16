@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import FieldContainer from "./field-container";
+import FieldContainer from "./container/field-container";
 import { FieldSuffixes, TimeSuffixes } from "../../../global.var";
-import Label from "./label";
+import Label from "./label/label";
 import { addSuffix } from "../../utilities/units";
 import { FieldProps } from "./field-types";
-import { InputNumericProps } from "./input-numeric";
-import { InputDecimalProps } from "./input-decimal";
+import { InputNumericProps } from "./input/input-numeric";
+import { InputDecimalProps } from "./input/input-decimal";
+
 
 interface FieldWithSuffix extends FieldProps {
 	InputComponent: (props: InputNumericProps | InputDecimalProps) => JSX.Element;
@@ -13,7 +14,8 @@ interface FieldWithSuffix extends FieldProps {
 }
 
 export default function FieldWithSuffix({
-	InputComponent, name, label, value, suffix, auxStyles, disabled, children }: FieldWithSuffix) {
+	InputComponent, name, label, value, suffix, disabled,
+	changeHandler, auxStyles, children }: FieldWithSuffix) {
 	
 	const [isEditing, setEditing] = useState(false);
 	const [currValue, setCurrValue] = useState(value);
@@ -29,11 +31,14 @@ export default function FieldWithSuffix({
 						setCurrValue(e.target.value);
 						setEditing(!isEditing);
 					}}
+					changeHandler={changeHandler}
 				/>
 			) : (
 				<InputComponent
 					name={name} value={addSuffix(currValue, suffix)} disabled={disabled}
 					focusHandler={() => setEditing(!isEditing)}
+					changeHandler={changeHandler}
+
 				/>
 			)}
 

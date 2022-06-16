@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 
-import { InputProps } from "./input";
-import { LabelProps } from "./label";
+import { InputProps } from "./input/input";
+import { LabelProps } from "./label/label";
 
 export enum InputType {
 	TEXT = "text",
 	NUMBER = "number",
 	DATE = "date",
+	CHECKBOX = "checkbox"
 }
 
 export enum InputMode {
