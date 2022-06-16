@@ -15,7 +15,7 @@ export default function InputDecimal({
 		<Input
 			name={name}
 			value={value}
-			inputMode={InputMode.NUMERIC}
+			inputMode={InputMode.DECIMAL}
 			disabled={disabled}
 			changeHandler={handler}
 			focusHandler={focusHandler}
