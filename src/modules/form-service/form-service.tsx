@@ -41,25 +41,24 @@ export default function FormService({ getValidate, submit,
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 	
+	console.log(formState);
+	
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
 				<form className={containerStyles.form} ref={formRef}>
 					<div className={styles.serviceFields}>
-
 						<Validated<ServiceFormFields>
 							validate={validate}
-							Control={
-								<FieldDate name="serviceDate" label="Дата"
-								value={formState.serviceDate} />
-							}
+							Control={<FieldDate name="serviceDate" label="Дата" value={formState.serviceDate} />}
 						/>
 
 						<Validated<ServiceFormFields>
 							validate={validate}
 							Control={
 								<FieldText
-									name="serviceDescription" label="Описание"
+									name="serviceDescription"
+									label="Описание"
 									value={formState.serviceDescription}
 								/>
 							}
@@ -70,7 +69,8 @@ export default function FormService({ getValidate, submit,
 							Control={
 								<FieldWithSuffix
 									InputComponent={InputNumeric}
-									name="serviceRun" label="Пробег"
+									name="serviceRun"
+									label="Пробег"
 									value={formState.serviceRun}
 									suffix={FieldSuffixes.RUN}
 								/>
@@ -90,6 +90,7 @@ export default function FormService({ getValidate, submit,
 									<ButtonIcon
 										auxClassNames={styles.totalDetails}
 										handler={() => console.log("details")}
+										disabled={formState.serviceTotal === ""}
 									/>
 								</FieldWithSuffix>
 							}
