@@ -5,7 +5,7 @@ import classNames from "classnames";
 import styles from "../field.module.scss";
 import textStyles from "../../../styles/typography.module.scss";
 
-export interface InputProps extends ControlledField {
+export interface InputProps extends ControlledField<string> {
 	name: string;
 	value: string;
 	type?: InputType;

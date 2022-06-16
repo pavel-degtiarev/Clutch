@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import styles from "./checkbox.module.scss";
 
-export interface CheckboxProps extends ControlledField {
+export interface CheckboxProps extends ControlledField<boolean> {
 	name: string;
 	label: string;
 	isChecked: boolean;
@@ -18,11 +18,9 @@ export default function Checkbox({
 	
 	const [checkboxChecked, setCheckboxChecked] = useState(isChecked);
 
-	console.log(checkboxChecked);
-
 	const changeCheckboxState = useCallback(() => {
 		const newState = !checkboxChecked;
-		changeHandler && changeHandler(newState.toString());
+		changeHandler && changeHandler(newState);
 		setCheckboxChecked(newState);
 	}, [changeHandler])
 
