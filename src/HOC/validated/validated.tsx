@@ -18,7 +18,7 @@ type AnyInput =
 	| typeof Select;
 
 type ControlledInput<T> = T extends ({ ...args }: infer V) => JSX.Element
-	? V extends ControlledField
+	? V extends ControlledField<any>
 		? ReturnType<T>
 		: never
 	: never;
@@ -29,7 +29,7 @@ interface ValidatedProps<T extends TargetFormFields> {
 }
 
 export default function Validated<T extends TargetFormFields>({
-	Control, validate }: ValidatedProps<T>) {
+	validate, Control }: ValidatedProps<T>) {
 	
 	const oldHandler = Control.props.changeHandler;
 	const newHandler = (value: string): string => {
