@@ -106,7 +106,7 @@ export default function App() {
 
 				<PopupSwitch forms={forms} />
 
-				{/* <PopupContainer
+				<PopupContainer
 					opened={true}
 					small={true}
 					title="Периодичность"
@@ -117,7 +117,7 @@ export default function App() {
 							submit={submitServiceRepeatForm}
 						/>
 					}
-				/> */}
+				/>
 			</Main>
 		</>
 	);
