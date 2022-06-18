@@ -8,25 +8,31 @@ type SelectOption = {
 	value: TimeUnits;
 };
 
-export interface SelectProps extends ControlledField {
+export interface SelectProps extends ControlledField<string> {
 	name: string;
 	options: SelectOption[];
 	selected: SelectOption;
 	disabled?: boolean;
 }
 
-export default function Select({ name, options, selected, disabled = false }: SelectProps) {
+export default function Select({
+	name, options, selected, disabled = false, changeHandler }: SelectProps) {
 	return (
 		<select
-			name={name} id={name}
+			name={name}
+			id={name}
 			className={styles.select}
 			defaultValue={selected.value}
-			disabled={disabled}>
+			disabled={disabled}
+			onChange={(e)=>changeHandler && changeHandler(e.target.value)}
+		>
+			
 			{options.map((item, index) => (
 				<option key={index} value={item.value}>
 					{item.label}
 				</option>
 			))}
+
 		</select>
 	);
 }
