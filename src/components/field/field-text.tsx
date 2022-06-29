@@ -10,8 +10,6 @@ export default function FieldText({
 	name, label, value, auxStyles, disabled = false, children,
 	changeHandler, focusHandler, blurHandler }: FieldTextProps) {
 	
-	console.log("FieldText");
-	
 	return (
 		<FieldContainer auxStyles={auxStyles}>
 				<Input

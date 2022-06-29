@@ -41,8 +41,6 @@ export default function FormService({ getValidate, submit,
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 	
-	console.log(formState);
-	
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
