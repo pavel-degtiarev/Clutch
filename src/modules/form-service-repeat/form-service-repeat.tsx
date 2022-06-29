@@ -55,10 +55,10 @@ export default function FormServiceRepeat({ getValidate, submit,
 							<Validated
 								validate={validate}
 								Control={ <FieldWithSuffix InputComponent={InputNumeric}
-										name="repeatingRun" label="Пробег"
-										value={formState.repeatingRun}
-										suffix={FieldSuffixes.RUN}
-										disabled={!formState.repeatByRun}/>}
+									name="repeatingRun" label="Пробег"
+									value={formState.repeatingRun}
+									suffix={FieldSuffixes.RUN}
+									disabled={!formState.repeatByRun}/>}
 							/>
 						</FieldGroup>
 
@@ -66,8 +66,8 @@ export default function FormServiceRepeat({ getValidate, submit,
 							<Validated
 								validate={validate}
 								Control={ <Checkbox
-										name="repeatByTime" label="по времени"
-										isChecked={formState.repeatByTime}/>}
+									name="repeatByTime" label="по времени"
+									isChecked={formState.repeatByTime}/>}
 							/>
 
 							<FieldGroup horizontal>
