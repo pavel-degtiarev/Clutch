@@ -6,37 +6,25 @@ import {
 import Checkbox from "../../components/checkbox/checkbox";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
-import { FieldSuffixes, TimeSuffixes, TimeUnits } from "../../../global.var";
+import { FieldSuffixes, timeSlotOptions} from "../../../global.var";
 import Button from "../../components/button/button";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import Validated from "../../HOC/validated/validated";
 import InputNumeric from "../../components/field/input/input-numeric";
+import { getTimeSuffix } from "../../utilities/units";
 
 import styles from "./form-service-repeat.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 
-const timeSlotOptions = [
-	{
-		label: "дни",
-		value: TimeUnits.DAYS,
-	},
-	{
-		label: "месяцы",
-		value: TimeUnits.MONTHS,
-	},
-	{
-		label: "годы",
-		value: TimeUnits.YEARS,
-	},
-];
+// ===========================================
 
 const ServiceRepeatFormInitState = {
 	repeatingRun: "",
 	repeatingTime: "",
 	repeatByRun: false,
 	repeatByTime: false,
-	repeatTimeSlot: timeSlotOptions[1]
+	repeatTimeSlot: timeSlotOptions[1].value
 };
 
 export type ServiceRepeatFormState = typeof ServiceRepeatFormInitState;
@@ -90,7 +78,9 @@ export default function FormServiceRepeat({ getValidate, submit,
 										name="repeatingTime"label="Время"
 										value={formState.repeatingTime}
 										disabled={!formState.repeatByTime}
-										suffix={TimeSuffixes.MANY_MONTHS}/>}
+										suffix={getTimeSuffix(
+											formState.repeatingTime,
+											formState.repeatTimeSlot)} />}
 								/>
 
 								<Validated
