@@ -9,7 +9,6 @@ import textStyles from "../../styles/typography.module.scss";
 
 type PopupContainerProps = {
 	title: string | undefined;
-	opened: boolean;
 	form: ReactNode | undefined;
 	small?: boolean;
 	inactive?: boolean;
@@ -18,9 +17,12 @@ type PopupContainerProps = {
 export const FormContext = createContext({} as MutableRefObject<null>);
 
 export default function PopupContainer({
-	title, opened, small = false, inactive = false, form }: PopupContainerProps) {
+	title, small = false, inactive = false, form }: PopupContainerProps) {
+	
+	const opened = !!form;
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
 	const dispatch = useContext(DispatchContext);
+
 
 	return (
 		<section
