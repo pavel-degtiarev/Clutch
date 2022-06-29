@@ -14,7 +14,7 @@ import {
 	setStateFunction,
 } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
+import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
@@ -126,7 +126,7 @@ export default function FormFuel({
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
 					if (submit(collectFormFields<FuelFormFields>(formRef.current))) {
-						dispatch(popupClosed());
+						dispatch(formClosed());
 					}
 				}}
 			/>

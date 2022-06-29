@@ -6,7 +6,7 @@ import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
+import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FieldSuffixes } from "../../../global.var";
 import { collectFormFields } from "../../utilities/collect-form-fields";
 import {
@@ -80,7 +80,7 @@ export default function FormSpare({
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
 					if (submit(collectFormFields<SpareFormFields>(formRef.current))) {
-						dispatch(popupClosed());
+						dispatch(formClosed());
 					}
 				}}
 			/>
