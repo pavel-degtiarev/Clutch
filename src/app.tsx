@@ -37,9 +37,6 @@ import reminders from "./mocks/reminders";
 import { timeTabs } from "./mocks/tabs";
 import { expencesData, fuelData, runData } from "./mocks/charts";
 
-import PopupContainer from "./components/popup-container/popup-container";
-
-
 dayjs.locale("ru");
 
 const forms: FormItem[] = [
@@ -85,6 +82,19 @@ const forms: FormItem[] = [
 	},
 ];
 
+export const subforms = {
+	repeatSubform: {
+		title: "Периодичность",
+		form: (
+			<WithValidateSubmit<ServiceRepeatFormFields, ServiceRepeatFormState>
+				Form={FormServiceRepeat}
+				getValidate={getValidateServiceRepeatForm}
+				submit={submitServiceRepeatForm}
+			/>
+		),
+	},
+};
+
 // ===========================================
 
 export default function App() {
@@ -106,18 +116,6 @@ export default function App() {
 
 				<PopupSwitch forms={forms} />
 
-				<PopupContainer
-					opened={true}
-					small={true}
-					title="Периодичность"
-					form={
-						<WithValidateSubmit<ServiceRepeatFormFields, ServiceRepeatFormState>
-							Form={FormServiceRepeat}
-							getValidate={getValidateServiceRepeatForm}
-							submit={submitServiceRepeatForm}
-						/>
-					}
-				/>
 			</Main>
 		</>
 	);

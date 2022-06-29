@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import FieldDate from "../../components/field/field-date";
 import FieldText from "../../components/field/field-text";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
@@ -9,7 +9,7 @@ import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
 
 import { collectFormFields } from "../../utilities/collect-form-fields";
-import { popupClosed } from "../../components/popup-switch/popup-switch-actions";
+import { formClosed, subformSelected } from "../../components/popup-switch/popup-switch-actions";
 import {
 	FormComponentProps,
 	setStateFunction,
@@ -20,6 +20,7 @@ import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
+import { subforms } from "../../app";
 
 const ServiceFormInitState = {
 	serviceDate: dayjs().format("YYYY-MM-DD"),
@@ -38,6 +39,16 @@ export default function FormService({ getValidate, submit,
 	const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
+
+	const showRepeatSubform = useCallback(
+		(value = true) => {
+			if (value === true) {
+				dispatch(subformSelected(subforms.repeatSubform));
+			}
+			return value;
+		},
+		[dispatch]
+	);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 	
@@ -101,10 +112,11 @@ export default function FormService({ getValidate, submit,
 									name="serviceRepeat"
 									label="Повторять периодически"
 									isChecked={formState.serviceRepeat}
-									auxStyles={styles.repeat}>
+									auxStyles={styles.repeat}
+									changeHandler={showRepeatSubform}>
 									<ButtonIcon
 										auxClassNames={styles.repeatDetails}
-										handler={() => console.log("repeat")}
+										handler={() => showRepeatSubform()}
 										disabled={!formState.serviceRepeat}
 									/>
 								</Checkbox>
@@ -119,7 +131,7 @@ export default function FormService({ getValidate, submit,
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
 					if (submit(collectFormFields<ServiceFormFields>(formRef.current))) {
-						dispatch(popupClosed());
+						dispatch(formClosed());
 					}
 				}}
 			/>
