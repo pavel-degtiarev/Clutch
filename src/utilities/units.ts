@@ -33,13 +33,13 @@ export function getTimeSuffix(value: string, timeSlot: TimeUnits): TimeSuffixes 
 	};
 
 	switch (true) {
-		case lastDigit === 1:
-			return suffixes[timeSlot].ONE;
-		case lastDigit >= 2 && lastDigit <= 4:
-			return suffixes[timeSlot].TWO_TO_FOUR;
+		case +value > 4 && +value <= 20:
 		case lastDigit > 4 || lastDigit === 0:
 			return suffixes[timeSlot].MANY;
+
+		case lastDigit >= 2 && lastDigit <= 4:
+			return suffixes[timeSlot].TWO_TO_FOUR;
 	}
 
-	return TimeSuffixes.ONE_DAY;
+	return suffixes[timeSlot].ONE;
 }
