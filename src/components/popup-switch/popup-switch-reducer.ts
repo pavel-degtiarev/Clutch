@@ -5,12 +5,14 @@ type ActionType = ReturnType<ActionCreatorType<typeof actions>>;
 
 export const initState: PopupState = {
 	rollupOpened: false,
-	popupOpened: false,
-	currentPopup: null,
+	currentForm: null,
+	currentSubform: null,
 };
 
 export function reducer(state: PopupState, action: ActionType): PopupState {
 
+	console.log(action);
+	
 	switch (action.type) {
 		case ActionTypes.ROLLUP_TOGGLED:
 			return {
@@ -21,15 +23,25 @@ export function reducer(state: PopupState, action: ActionType): PopupState {
 		case ActionTypes.FORM_SELECTED:
 			return {
 				...state,
-				popupOpened: !state.popupOpened,
-				currentPopup: action.payload,
+				currentForm: action.payload,
 			};
 
-		case ActionTypes.POPUP_CLOSED:
+		case ActionTypes.SUBFORM_SELECTED:
 			return {
 				...state,
-				popupOpened: !state.popupOpened,
-				currentPopup: null,
+				currentSubform: action.payload,
+			};
+
+		case ActionTypes.FORM_CLOSED:
+			return {
+				...state,
+				currentForm: null,
+			};
+
+		case ActionTypes.SUBFORM_CLOSED:
+			return {
+				...state,
+				currentSubform: null,
 			};
 	}
 

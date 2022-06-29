@@ -8,9 +8,11 @@ export type FormItem = {
 };
 
 export enum ActionTypes {
-	FORM_SELECTED = "FORM_SELECTED",
 	ROLLUP_TOGGLED = "ROLLUP_TOGGLED",
-	POPUP_CLOSED = "POPUP_CLOSED",
+	FORM_SELECTED = "FORM_SELECTED",
+	SUBFORM_SELECTED = "SUBFORM_SELECTED",
+	FORM_CLOSED = "FORM_CLOSED",
+	SUBFORM_CLOSED = "SUBFORM_CLOSED",
 }
 
 export type Action = {
@@ -22,6 +24,6 @@ export type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : ne
 
 export type PopupState = {
 	rollupOpened: boolean;
-	popupOpened: boolean;
-	currentPopup: FormItem | null | undefined;
+	currentForm: FormItem | null | undefined;
+	currentSubform: FormItem | null | undefined;
 };
