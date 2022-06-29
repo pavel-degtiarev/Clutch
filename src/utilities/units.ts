@@ -1,4 +1,4 @@
-import { FieldSuffixes, TimeSuffixes } from "../../global.var";
+import { FieldSuffixes, TimeSuffixes, TimeUnits } from "../../global.var";
 
 export const addSuffix = (val: string, suffix: FieldSuffixes | TimeSuffixes): string =>
 	val ? `${val} ${suffix}` : val;
@@ -9,3 +9,37 @@ export const removeSuffix = (val: FormDataEntryValue | string): string => {
 	suffixes.forEach((unit) => (cleanVal = cleanVal.replace(` ${unit}`, "")));
 	return cleanVal;
 };
+
+export function getTimeSuffix(value: string, timeSlot: TimeUnits): TimeSuffixes {
+	
+	const lastDigit = +value - Math.floor(+value / 10) * 10;
+
+	const suffixes = {
+		[TimeUnits.DAYS]: {
+			ONE: TimeSuffixes.ONE_DAY,
+			TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_DAYS,
+			MANY: TimeSuffixes.MANY_DAYS,
+		},
+		[TimeUnits.MONTHS]: {
+			ONE: TimeSuffixes.ONE_MONTH,
+			TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_MONTHS,
+			MANY: TimeSuffixes.MANY_MONTHS,
+		},
+		[TimeUnits.YEARS]: {
+			ONE: TimeSuffixes.ONE_YEAR,
+			TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_YEARS,
+			MANY: TimeSuffixes.MANY_YEARS,
+		},
+	};
+
+	switch (true) {
+		case lastDigit === 1:
+			return suffixes[timeSlot].ONE;
+		case lastDigit >= 2 && lastDigit <= 4:
+			return suffixes[timeSlot].TWO_TO_FOUR;
+		case lastDigit > 4 || lastDigit === 0:
+			return suffixes[timeSlot].MANY;
+	}
+
+	return TimeSuffixes.ONE_DAY;
+}

@@ -16,6 +16,26 @@ export enum TimeSuffixes {
 	MANY_YEARS = "лет",
 }
 
+export type TimeSlot = {
+	label: string;
+	value: TimeUnits;
+};
+
+export const timeSlotOptions: TimeSlot[] = [
+	{
+		label: "дни",
+		value: TimeUnits.DAYS,
+	},
+	{
+		label: "месяцы",
+		value: TimeUnits.MONTHS,
+	},
+	{
+		label: "годы",
+		value: TimeUnits.YEARS,
+	},
+];
+
 export enum YearSuffix {
 	SINGLE,
 	MULTIPLE,
