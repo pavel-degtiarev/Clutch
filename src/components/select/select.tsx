@@ -11,7 +11,7 @@ type SelectOption = {
 export interface SelectProps extends ControlledField<string> {
 	name: string;
 	options: SelectOption[];
-	selected: SelectOption;
+	selected: TimeUnits;
 	disabled?: boolean;
 }
 
@@ -22,7 +22,7 @@ export default function Select({
 			name={name}
 			id={name}
 			className={styles.select}
-			defaultValue={selected.value}
+			defaultValue={selected}
 			disabled={disabled}
 			onChange={(e)=>changeHandler && changeHandler(e.target.value)}
 		>
