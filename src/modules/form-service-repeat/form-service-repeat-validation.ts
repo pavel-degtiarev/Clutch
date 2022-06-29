@@ -23,6 +23,7 @@ export default function getValidateServiceRepeatForm(
 			repeatByRun: (value) => {
 				setState((prevState) => {
 					const newState = { ...prevState, repeatByRun: value };
+					if (!newState.repeatByTime) newState.repeatingRun = "";
 					return newState;
 				});
 			},
@@ -30,6 +31,7 @@ export default function getValidateServiceRepeatForm(
 			repeatByTime: (value) => {
 				setState((prevState) => {
 					const newState = { ...prevState, repeatByTime: value };
+					if (!newState.repeatByTime) newState.repeatingTime = "";
 					return newState;
 				});
 			},
