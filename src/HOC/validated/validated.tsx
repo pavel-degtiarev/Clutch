@@ -30,9 +30,9 @@ interface ValidatedProps<T extends TargetFormFields> {
 
 export default function Validated<T extends TargetFormFields>({
 	validate, Control }: ValidatedProps<T>) {
-	
+
 	const oldHandler = Control.props.changeHandler;
-	const newHandler = (value: string): string => {
+	const newHandler = (value: T): T => {
 		const newValue = oldHandler ? oldHandler(value) : value;		
 		validate(Control.props.name, newValue);
 		return newValue;
