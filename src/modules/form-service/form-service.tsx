@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import { subforms } from "../../app";
+import { FormItem } from "../../components/popup-switch/popup-switch.types";
 
 const ServiceFormInitState = {
 	serviceDate: dayjs().format("YYYY-MM-DD"),
@@ -33,25 +34,22 @@ const ServiceFormInitState = {
 export type ServiceFormState = typeof ServiceFormInitState;
 export type ServiceFormFields = keyof ServiceFormState;
 
-export default function FormService({ getValidate, submit,
+export default function FormService({ getValidate, submit
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
-
+	
 	const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
-	const showRepeatSubform = useCallback(
-		(value = true) => {
-			if (value === true) {
-				dispatch(subformSelected(subforms.repeatSubform));
-			}
+	const showSubform = useCallback(
+		(subform: FormItem, value = true) => {
+			if (value === true) dispatch(subformSelected(subform));
 			return value;
-		},
-		[dispatch]
+		}, [dispatch]
 	);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
-	
+
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
@@ -98,8 +96,7 @@ export default function FormService({ getValidate, submit,
 									auxStyles={styles.total}>
 									<ButtonIcon
 										auxClassNames={styles.totalDetails}
-										handler={() => console.log("details")}
-										disabled={formState.serviceTotal === ""}
+										handler={() => showSubform(subforms.detailsSubform)}
 									/>
 								</FieldWithSuffix>
 							}
@@ -113,10 +110,10 @@ export default function FormService({ getValidate, submit,
 									label="Повторять периодически"
 									isChecked={formState.serviceRepeat}
 									auxStyles={styles.repeat}
-									changeHandler={showRepeatSubform}>
+									changeHandler={(isChecked) => showSubform(subforms.repeatSubform, isChecked)}>
 									<ButtonIcon
 										auxClassNames={styles.repeatDetails}
-										handler={() => showRepeatSubform()}
+										handler={() => showSubform(subforms.repeatSubform)}
 										disabled={!formState.serviceRepeat}
 									/>
 								</Checkbox>
