@@ -28,6 +28,10 @@ import FormServiceRepeat, {
 } from "./modules/form-service-repeat/form-service-repeat";
 import submitServiceRepeatForm from "./modules/form-service-repeat/form-service-repeat-submit";
 import getValidateServiceRepeatForm from "./modules/form-service-repeat/form-service-repeat-validation";
+import FormServiceDetails, { ServiceDetailsFormFields, ServiceDetailsFormState } from "./modules/form-service-details/form-service-details";
+import getValidateServiceDetailsForm from "./modules/form-service-details/form-service-details-validation";
+import submitServiceDetailsForm from "./modules/form-service-details/form-service-details-submit";
+
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 
@@ -90,6 +94,16 @@ export const subforms = {
 				Form={FormServiceRepeat}
 				getValidate={getValidateServiceRepeatForm}
 				submit={submitServiceRepeatForm}
+			/>
+		),
+	},
+	detailsSubform: {
+		title: "Подробнее",
+		form: (
+			<WithValidateSubmit<ServiceDetailsFormFields, ServiceDetailsFormState>
+				Form={FormServiceDetails}
+				getValidate={getValidateServiceDetailsForm}
+				submit={submitServiceDetailsForm}
 			/>
 		),
 	},
