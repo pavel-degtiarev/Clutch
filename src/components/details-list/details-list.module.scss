@@ -1,0 +1,81 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/typography.module.scss" as typo;
+
+.detailsList {
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  max-height: calc(100% - 45px - 25px);
+}
+
+.row {
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+
+  color: var.$teal;
+
+  &+& {
+    border-top: 1px solid var.$teal;
+  }
+
+  & .title {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  & .price {
+    flex-basis: 90px;
+  }
+}
+
+.header {
+  font-weight: typo.$weightBold;
+}
+
+.body {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.header,
+.body {
+  border-bottom: 2px solid var.$teal;
+}
+
+.addDetailsButton {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 10px);
+  border: 1px dashed var.$teal;
+  border-radius: 25px;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var.$tealLight;
+    mask-image: url(../../assets/images/add.svg);
+  }
+}
+
+.detailsRowField {
+  padding: 0;
+  
+  & input {
+    @extend .noWrap;
+    font-size: typo.$sizeMedium;
+    border-bottom: none !important;
+  }
+}
