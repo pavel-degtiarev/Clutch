@@ -1,4 +1,5 @@
 import * as React from "react";
+import classNames from "classnames";
 import styles from "./tab.module.scss";
 import globalStyles from "../../styles/global.module.scss";
 import { TabsGroupValue } from "./tabs-group";
@@ -8,11 +9,13 @@ type TabProps = {
 	id: string;
 	title: string;
 	checked: boolean;
+	themeOnLight: boolean;
 };
 
-export default function Tab({ name, id, title, checked }: TabProps) {
+export default function Tab({ name, id, title, checked, themeOnLight }: TabProps) {
 	const compoundID = `${name}-${id}`;
-	
+	const labelStyle = classNames(styles.tab, themeOnLight ? styles.tabOnLight : styles.tabOnDark);
+
 	return (
 		<TabsGroupValue.Consumer>
 			{(context) => (
@@ -28,7 +31,7 @@ export default function Tab({ name, id, title, checked }: TabProps) {
 							context.setTabGroupValue(id);
 						}}
 					/>
-					<label className={styles.tab} htmlFor={compoundID}>
+					<label className={labelStyle} htmlFor={compoundID}>
 						{title}
 					</label>
 				</div>

@@ -16,15 +16,30 @@
   justify-content: center;
   text-align: center;
 
+  @extend .textSmall;
+  transition: var.$transition;
+}
+
+.tabOnLight {
+  color: var.$teal;
+  border-bottom: 2px solid var.$teal;
+}
+
+.tabOnDark {
   color: #fff;
   border-bottom: 2px solid #fff;
-
-  @extend .textSmall;
 }
 
 .tabContainer input:checked+label {
   font-weight: typo.$weightBold;
+}
+
+.tabContainer input:checked+.tabOnLight {
+  color: var.$orangeDark;
+  border-color: var.$orangeDark;
+}
+
+.tabContainer input:checked+.tabOnDark {
   color: var.$orange;
   border-color: var.$orange;
-  transition: var.$transition;
 }

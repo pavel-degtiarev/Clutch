@@ -10,6 +10,7 @@ type TabsGroupProps = {
 		title: string;
 	}[];
 	changedHandler: (tabId: string) => void;
+	themeOnLight?: boolean;
 };
 
 type ContextType = {
@@ -22,7 +23,7 @@ export const TabsGroupValue = createContext<ContextType>({
 	setTabGroupValue: () => {},
 });
 
-export default function TabsGroup({ name, tabs, changedHandler }: TabsGroupProps) {
+export default function TabsGroup({ name, tabs, changedHandler, themeOnLight = false }: TabsGroupProps) {
 	const [tabGroupValue, setTabGroupValue] = useState(tabs[0].id);
 	useEffect(() => {
 		changedHandler(tabGroupValue);
@@ -34,7 +35,14 @@ export default function TabsGroup({ name, tabs, changedHandler }: TabsGroupProps
 				{tabs.map((item, index) => {
 					const isChecked = index === 0;
 					return (
-						<Tab key={index} name={name} title={item.title} id={item.id} checked={isChecked} />
+						<Tab
+							key={index}
+							name={name}
+							title={item.title}
+							id={item.id}
+							checked={isChecked}
+							themeOnLight={themeOnLight}
+						/>
 					);
 				})}
 			</section>
