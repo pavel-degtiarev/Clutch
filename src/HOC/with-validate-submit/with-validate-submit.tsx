@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import { FuelFormFields, FuelFormState } from "../../modules/form-fuel/form-fuel";
 import { OtherFormFields, OtherFormState } from "../../modules/form-other/form-other";
+import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../modules/form-service-details/form-service-details";
 import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../modules/form-service-repeat/form-service-repeat";
 import { ServiceFormFields, ServiceFormState } from "../../modules/form-service/form-service";
 import { SpareFormFields, SpareFormState } from "../../modules/form-spare/form-spare";
@@ -10,14 +11,16 @@ export type TargetFormFields =
 	| SpareFormFields
 	| OtherFormFields
 	| ServiceFormFields
-	| ServiceRepeatFormFields;
+	| ServiceRepeatFormFields
+	| ServiceDetailsFormFields;
 	
 export type TargetFormState =
 	| FuelFormState
 	| SpareFormState
 	| OtherFormState
 	| ServiceFormState
-	| ServiceRepeatFormState;
+	| ServiceRepeatFormState
+	| ServiceDetailsFormState;
 
 export type setStateFunction<T extends TargetFormState> = (value: (prevState: T) => void) => void;
 
