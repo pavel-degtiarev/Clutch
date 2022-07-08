@@ -36,7 +36,7 @@ const ServiceDetailsFormInitState = {
 	],
 };
 
-type ServiceDetails = {
+export type ServiceDetails = {
 	title: string;
 	price: number;
 };
