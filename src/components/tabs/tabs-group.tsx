@@ -3,12 +3,14 @@ import Tab from "./tab";
 
 import styles from "./tabs-group.module.scss";
 
+export interface TabInfo {
+	id: string;
+	title: string;
+}
+
 type TabsGroupProps = {
 	name: string;
-	tabs: {
-		id: string;
-		title: string;
-	}[];
+	tabs: TabInfo[];
 	changedHandler: (tabId: string) => void;
 	themeOnLight?: boolean;
 };
