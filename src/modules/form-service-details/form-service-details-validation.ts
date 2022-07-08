@@ -15,9 +15,18 @@ export default function getValidateServiceDetailsForm(
 		// поэтому поля формы не соответствуют полям объекта состояния
 
 		setState((prevState) => {
-			const { section, key, index } = parseTarget(target);
 			const newState = { ...prevState };
-			setChanged(newState[section][index], key, value);
+			const { section, key, index } = parseTarget(target);
+
+			switch (key) {
+				case "price":
+					newState[section][index][key] = Number(value);
+					break;
+				case "title":
+					newState[section][index][key] = value;
+					break;
+			}
+			
 			return newState;
 		});
 	};
@@ -39,7 +48,10 @@ function parseTarget(target: string): StateItem {
 }
 
 // https://stackoverflow.com/questions/61758438/type-is-not-assignable-to-type-never-2322
-function setChanged<T extends keyof ServiceDetails, V extends ServiceDetails[T]>(
-	obj: ServiceDetails, prop: T, value: V) {
-	obj[prop] = value;
-	}
+// function setChanged<T extends keyof ServiceDetails, V extends ServiceDetails[T]>(
+// 	obj: ServiceDetails,
+// 	prop: T,
+// 	value: V
+// ) {
+// 	obj[prop] = value;
+// }
