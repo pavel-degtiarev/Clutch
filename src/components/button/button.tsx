@@ -5,12 +5,12 @@ import buttonStyles from "../../styles/components/button.module.scss";
 import styles from "./button.module.scss";
 
 type ButtonProps = {
-	title: string;
+	title?: string;
 	auxStyles?: string | string[];
 	clickHandler: clickHandler;
 };
 
-export default function Button({ title, auxStyles, clickHandler }: ButtonProps) {
+export default function Button({ title="", auxStyles, clickHandler }: ButtonProps) {
 	const classes = classNames(
 		buttonStyles.button,
 		typeStyles.titleNormal,
