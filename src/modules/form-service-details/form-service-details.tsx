@@ -16,6 +16,7 @@ import { FieldSuffixes } from "../../../global.var";
 import styles from "./form-service-details.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
+import { RowDeletable } from "../../components/details-list/row-deletable";
 
 // ==========================================
 
@@ -67,7 +68,8 @@ export default function FormServiceDetails({ getValidate, submit
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceDetailsFormState>);
 	const getFieldName = (suffix: string, currentTab: string): string => `${currentTab}-${suffix}`;
-	const addRow = () => { validate(`${currentTab}-add` as ServiceDetailsFormFields, "") };
+	const addRow = () => (validate(`${currentTab}-add` as ServiceDetailsFormFields, ""));
+	const deleteRow = (index: number) => (validate(`${currentTab}-delete-${index}` as ServiceDetailsFormFields, ""));
 	
 	return (
 		<>
@@ -83,9 +85,8 @@ export default function FormServiceDetails({ getValidate, submit
 
 						<DetailsList headers={["Название", "Цена"]} addRowHandler={()=>addRow()} >
 							{useCurrentList(currentTab, formState).map((item, index) => (
-								<div className={detailsListStyles.row} key={index}>
-
-									<Validated
+								<RowDeletable key={index} deleteHandler={()=>deleteRow(index)}>
+										<Validated
 										validate={validate}
 										Control={
 											<FieldText
@@ -116,9 +117,9 @@ export default function FormServiceDetails({ getValidate, submit
 											/>
 										}
 									/>
-
-								</div>
+									</RowDeletable>
 							))}
+
 						</DetailsList>
 					</div>
 				</form>

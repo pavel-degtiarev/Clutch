@@ -22,6 +22,10 @@ export default function getValidateServiceDetailsForm(
 				case "add" as keyof ServiceDetails:
 					newState[section].push({ title: "", price: 0 });
 					break;
+				
+				case "delete" as keyof ServiceDetails:
+					newState[section].splice(index, 1);
+					break;
 
 				case "price":
 					newState[section][index][key] = Number(value);
