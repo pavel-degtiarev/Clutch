@@ -19,13 +19,20 @@ export default function getValidateServiceDetailsForm(
 			const { section, key, index } = parseTarget(target);
 
 			switch (key) {
+				case "add" as keyof ServiceDetails:
+					newState[section].push({ title: "", price: 0 });
+					break;
+
 				case "price":
 					newState[section][index][key] = Number(value);
 					break;
+				
 				case "title":
 					newState[section][index][key] = value;
 					break;
 			}
+			
+			console.log(newState);
 			
 			return newState;
 		});

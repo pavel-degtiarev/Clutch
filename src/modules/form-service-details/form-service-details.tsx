@@ -49,16 +49,14 @@ export type ServiceDetailsFormFields = keyof ServiceDetailsFormState;
 
 // ============================================
 
-	function useCurrentList( currentTab: string, formState: ServiceDetailsFormState
-	): ServiceDetails[] {
-		const [list, setList] = useState(formState.services);
-
-		useEffect(() => {
-			setList(currentTab === detailsTabs[0].id ? formState.services : formState.spares);
-		}, [currentTab]);
-
-		return list;
-	}
+function useCurrentList( currentTab: string, formState: ServiceDetailsFormState
+): ServiceDetails[] {
+	const [list, setList] = useState(formState.services);
+	useEffect(() => {
+		setList(currentTab === detailsTabs[0].id ? formState.services : formState.spares);
+	}, [currentTab]);
+	return list;
+}
 
 export default function FormServiceDetails({ getValidate, submit
 }: FormComponentProps<ServiceDetailsFormFields, ServiceDetailsFormState>) {
@@ -69,6 +67,7 @@ export default function FormServiceDetails({ getValidate, submit
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceDetailsFormState>);
 	const getFieldName = (suffix: string, currentTab: string): string => `${currentTab}-${suffix}`;
+	const addRow = () => { validate(`${currentTab}-add` as ServiceDetailsFormFields, "") };
 	
 	return (
 		<>
@@ -82,7 +81,7 @@ export default function FormServiceDetails({ getValidate, submit
 							themeOnLight
 						/>
 
-						<DetailsList headers={["Название", "Цена"]}>
+						<DetailsList headers={["Название", "Цена"]} addRowHandler={()=>addRow()} >
 							{useCurrentList(currentTab, formState).map((item, index) => (
 								<div className={detailsListStyles.row} key={index}>
 
