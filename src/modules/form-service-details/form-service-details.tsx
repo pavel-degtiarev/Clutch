@@ -27,17 +27,23 @@ const detailsTabs: TabInfo[] = [
 
 const ServiceDetailsFormInitState = {
 	services: [
-		{ title: "замена блока клапанов КПП", price: 30000 },
-		{ title: "замена прокладки крышки клапанов", price: 3000 },
+		{ id:1265, title: "замена блока клапанов КПП", price: 30000 },
+		{ id:6845, title: "замена прокладки крышки клапанов", price: 3000 },
 	],
 	spares: [
-		{ title: "блок клапанов коробки передач", price: 4500 },
-		{ title: "прокладка клапанной крышки", price: 500 },
-		{ title: "воздушный фильтр", price: 200 },
+		{ id:5831, title: "блок клапанов коробки передач", price: 4500 },
+		{ id:12, title: "прокладка клапанной крышки", price: 500 },
+		{ id:681, title: "воздушный фильтр", price: 200 },
+		{ id:3215951, title: "сальник привода", price: 500 },
+		{ id:153, title: "моторное масло", price: 3500 },
+		{ id:9845, title: "масляный фильтр", price: 800 },
+		{ id:651716, title: "шаровая опора", price: 500 },
+		{ id:44562, title: "сайлент-блоки", price: 400 },
 	],
 };
 
 export type ServiceDetails = {
+	id: number;
 	title: string;
 	price: number;
 };
@@ -50,27 +56,25 @@ export type ServiceDetailsFormFields = keyof ServiceDetailsFormState;
 
 // ============================================
 
-function useCurrentList( currentTab: string, formState: ServiceDetailsFormState
-): ServiceDetails[] {
-	const [list, setList] = useState(formState.services);
-	useEffect(() => {
-		setList(currentTab === detailsTabs[0].id ? formState.services : formState.spares);
-	}, [currentTab]);
-	return list;
-}
-
 export default function FormServiceDetails({ getValidate, submit
 }: FormComponentProps<ServiceDetailsFormFields, ServiceDetailsFormState>) {
-
 	const [formState, setFormState] = useState<ServiceDetailsFormState>(ServiceDetailsFormInitState);
 	const formRef = useRef({} as HTMLFormElement);
 	const [currentTab, setCurrentTab] = useState(detailsTabs[0].id);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceDetailsFormState>);
 	const getFieldName = (suffix: string, currentTab: string): string => `${currentTab}-${suffix}`;
-	const addRow = () => (validate(`${currentTab}-add` as ServiceDetailsFormFields, ""));
-	const deleteRow = (index: number) => (validate(`${currentTab}-delete-${index}` as ServiceDetailsFormFields, ""));
-	
+	const addRow = () => validate(`${currentTab}-add` as ServiceDetailsFormFields, "");
+	const deleteRow = (index: number) => validate(`${currentTab}-delete-${index}` as ServiceDetailsFormFields, "");
+
+	function useCurrentList(): ServiceDetails[] {
+		const [list, setList] = useState(formState.services);
+		useEffect(() => {
+			setList(currentTab === detailsTabs[0].id ? formState.services : formState.spares);
+		}, [currentTab]);
+		return list;
+	}
+
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
@@ -79,14 +83,14 @@ export default function FormServiceDetails({ getValidate, submit
 						<TabsGroup
 							name="service-details"
 							tabs={detailsTabs}
-							changedHandler={ setCurrentTab }
+							changedHandler={setCurrentTab}
 							themeOnLight
 						/>
 
-						<DetailsList headers={["Название", "Цена"]} addRowHandler={()=>addRow()} >
-							{useCurrentList(currentTab, formState).map((item, index) => (
-								<RowDeletable key={index} deleteHandler={()=>deleteRow(index)}>
-										<Validated
+						<DetailsList headers={["Название", "Цена"]} addRowHandler={() => addRow()}>
+							{useCurrentList().map((item, index) => (
+								<RowDeletable key={item.id} deleteHandler={() => deleteRow(index)}>
+									<Validated
 										validate={validate}
 										Control={
 											<FieldText
@@ -117,9 +121,8 @@ export default function FormServiceDetails({ getValidate, submit
 											/>
 										}
 									/>
-									</RowDeletable>
+								</RowDeletable>
 							))}
-
 						</DetailsList>
 					</div>
 				</form>

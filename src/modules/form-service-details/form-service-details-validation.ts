@@ -20,9 +20,9 @@ export default function getValidateServiceDetailsForm(
 
 			switch (key) {
 				case "add" as keyof ServiceDetails:
-					newState[section].push({ title: "", price: 0 });
+					newState[section].push({ id: generateId(), title: "", price: 0 });
 					break;
-				
+
 				case "delete" as keyof ServiceDetails:
 					newState[section].splice(index, 1);
 					break;
@@ -30,14 +30,14 @@ export default function getValidateServiceDetailsForm(
 				case "price":
 					newState[section][index][key] = Number(value);
 					break;
-				
+
 				case "title":
 					newState[section][index][key] = value;
 					break;
 			}
-			
+
 			console.log(newState);
-			
+
 			return newState;
 		});
 	};
@@ -56,6 +56,10 @@ function parseTarget(target: string): StateItem {
 		key: parts[1] as keyof ServiceDetails,
 		index: Number(parts[2]),
 	};
+}
+
+function generateId(): number {
+	return Math.floor(Math.random() * 1000000000);
 }
 
 // https://stackoverflow.com/questions/61758438/type-is-not-assignable-to-type-never-2322
