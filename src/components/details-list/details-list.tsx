@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 
 import classNames from "classnames";
-import styles from "./details-list.module.scss";
-import textStyles from "../../styles/typography.module.scss";
 import Button from "../button/button";
+import textStyles from "../../styles/typography.module.scss";
+import styles from "./details-list.module.scss";
+import { Row } from "./row";
 
 interface DetailsListProps {
 	headers: string[];
@@ -22,9 +23,9 @@ export default function DetailsList({ headers, children, addRowHandler }: Detail
 			<div className={styles.body}>
 				{children}
 
-				<div className={styles.row}>
+				<Row>
 					<Button auxStyles={styles.addDetailsButton} clickHandler={() => addRowHandler()} />
-				</div>
+				</Row>
 			</div>
 		</div>
 	);
