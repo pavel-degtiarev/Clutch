@@ -8,10 +8,14 @@
   flex-direction: column;
   flex-wrap: nowrap;
 
-  max-height: calc(100% - 45px - 25px);
+  height: calc(100vh - 220px);
+  padding-bottom: 80px;
+  // max-height: calc(100% - 45px - 25px);
+  overflow: hidden;
 }
 
 .row {
+  position: relative;
   height: 45px;
   display: flex;
   flex-direction: row;
@@ -38,11 +42,13 @@
 
 .header {
   font-weight: typo.$weightBold;
+  flex-shrink: 0;
 }
 
 .body {
   flex-grow: 1;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .header,
