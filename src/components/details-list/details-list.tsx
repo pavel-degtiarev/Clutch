@@ -3,13 +3,15 @@ import React, { ReactNode } from "react";
 import classNames from "classnames";
 import styles from "./details-list.module.scss";
 import textStyles from "../../styles/typography.module.scss";
+import Button from "../button/button";
 
 interface DetailsListProps {
 	headers: string[];
 	children: ReactNode;
+	addRowHandler: () => void;
 }
 
-export default function DetailsList({ headers, children }: DetailsListProps) {
+export default function DetailsList({ headers, children, addRowHandler }: DetailsListProps) {
 	return (
 		<div className={styles.detailsList}>
 			<div className={classNames(textStyles.titleSmall, styles.row, styles.header)}>
@@ -18,11 +20,10 @@ export default function DetailsList({ headers, children }: DetailsListProps) {
 			</div>
 
 			<div className={styles.body}>
-
 				{children}
 
 				<div className={styles.row}>
-					<div className={styles.addDetailsButton}></div>
+					<Button auxStyles={styles.addDetailsButton} clickHandler={() => addRowHandler()} />
 				</div>
 			</div>
 		</div>

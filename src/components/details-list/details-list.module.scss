@@ -53,9 +53,13 @@
 .addDetailsButton {
   position: relative;
   width: 100%;
+  top: 0;
+  left: 0;
   height: calc(100% - 10px);
   border: 1px dashed var.$teal;
   border-radius: 25px;
+  background: none;
+  box-shadow: none;
 
   &::after {
     position: absolute;
@@ -72,7 +76,7 @@
 
 .detailsRowField {
   padding: 0;
-  
+
   & input {
     @extend .noWrap;
     font-size: typo.$sizeMedium;
