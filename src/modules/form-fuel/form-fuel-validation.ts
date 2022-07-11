@@ -5,8 +5,20 @@ export default function getValidateFuelForm(setState: setStateFunction<FuelFormS
 	return function (target: FuelFormFields, value: string) {
 
 		const validations: FormValidations<FuelFormFields> = {
-			fuelDate: (value) => console.log("check if Date is consistent", value),
-			fuelRun: (value) => console.log("check if Run is consistent", value),
+
+			fuelDate: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, fuelDate: value };
+					return newState;
+				});
+			},
+
+			fuelRun: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, fuelRun: value };
+					return newState;
+				});
+			},
 
 			fuelCost: (value) => {
 				setState((prevState) => {
@@ -52,9 +64,7 @@ export default function getValidateFuelForm(setState: setStateFunction<FuelFormS
 			},
 		};
 
-		console.log("Fuel form validation", target, value);
-
 		const checkTarget = validations[target];
 		checkTarget && checkTarget(value);
-	}
-};
+	};
+}
