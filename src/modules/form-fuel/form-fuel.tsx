@@ -34,12 +34,10 @@ export type FuelFormFields = keyof FuelFormState;
 
 // ================================================
 
-export default function FormFuel({
-	getValidate,
-	submit,
+export default function FormFuel({ getValidate, submit,
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
+	
 	const [formState, setFormState] = useState<FuelFormState>(fuelFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
@@ -47,7 +45,7 @@ export default function FormFuel({
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.fuelFields}>
 						
 						<Validated<FuelFormFields>
@@ -125,7 +123,7 @@ export default function FormFuel({
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submit(collectFormFields<FuelFormFields>(formRef.current))) {
+					if (submit(formState)) {
 						dispatch(formClosed());
 					}
 				}}
