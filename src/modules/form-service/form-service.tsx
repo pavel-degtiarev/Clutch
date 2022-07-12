@@ -129,9 +129,9 @@ export default function FormService({ getValidate, submit
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submit(collectFormFields<ServiceFormFields>(formRef.current))) {
-						dispatch(formClosed());
-					}
+					// if (submit(collectFormFields<ServiceFormFields>(formRef.current))) {
+					// 	dispatch(formClosed());
+					// }
 				}}
 			/>
 		</>
