@@ -8,7 +8,6 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FieldSuffixes } from "../../../global.var";
-import { collectFormFields } from "../../utilities/collect-form-fields";
 import {
 	FormComponentProps,
 	setStateFunction,
@@ -32,12 +31,10 @@ export type SpareFormFields = keyof SpareFormState;
 
 // ==========================================
 
-export default function FormSpare({
-	getValidate,
-	submit,
+export default function FormSpare({ getValidate, submit
 }: FormComponentProps<SpareFormFields, SpareFormState>) {
+
 	const [formState, setFormState] = useState<SpareFormState>(spareFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
@@ -45,7 +42,7 @@ export default function FormSpare({
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.spareFields}>
 						<Validated<SpareFormFields>
 							validate={validate}
@@ -79,7 +76,7 @@ export default function FormSpare({
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submit(collectFormFields<SpareFormFields>(formRef.current))) {
+					if (submit(formState)) {
 						dispatch(formClosed());
 					}
 				}}

@@ -8,7 +8,6 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FieldSuffixes } from "../../../global.var";
-import { collectFormFields } from "../../utilities/collect-form-fields";
 import {
 	FormComponentProps,
 	setStateFunction,
@@ -37,7 +36,6 @@ export default function FormOther({
 	submit,
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
 	const [formState, setFormState] = useState<OtherFormState>(otherFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
@@ -45,7 +43,7 @@ export default function FormOther({
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.otherFields}>
 						
 						<Validated<OtherFormFields>
@@ -80,7 +78,7 @@ export default function FormOther({
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submit(collectFormFields<OtherFormFields>(formRef.current))) {
+					if (submit(formState)) {
 						dispatch(formClosed());
 					}
 				}}
