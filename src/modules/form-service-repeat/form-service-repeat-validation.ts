@@ -44,8 +44,6 @@ export default function getValidateServiceRepeatForm(
 			},
 		};
 
-		console.log("ServiceRepeat form validation", target, value);
-
 		const checkTarget = validations[target];
 		checkTarget && checkTarget(value);
 	};
