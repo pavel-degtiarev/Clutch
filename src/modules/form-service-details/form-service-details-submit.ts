@@ -1,12 +1,14 @@
-import { ServiceDetailsFormFields, ServiceDetailsFormState } from "./form-service-details";
+import submitForm, { ServiceDetailsFormFinalState } from "../../utilities/submit-form";
+import { ServiceDetailsFormState } from "./form-service-details";
+import { formServiceDetailsCheckpoints } from "./form-service-details-checkpoints";
+import { convertServiceDetailsFields } from "./form-service-details-convert-fields";
 
 export default function submitServiceDetailsForm(state: ServiceDetailsFormState): boolean {
 	console.log("Send FormServiceDetails data to API");
-	return true;
+	
+	return submitForm<ServiceDetailsFormState, ServiceDetailsFormFinalState>(
+		state,
+		formServiceDetailsCheckpoints,
+		convertServiceDetailsFields
+	);
 }
-// export default function submitServiceDetailsForm(
-// 	formFields: FormFields<ServiceDetailsFormFields>
-// ): boolean {
-// 	console.log("Send FormServiceDetails data to API", formFields);
-// 	return true;
-// }

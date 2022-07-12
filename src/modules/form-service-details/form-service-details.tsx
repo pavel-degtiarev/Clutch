@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import {
 	FormComponentProps,
@@ -8,7 +8,6 @@ import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
 import Button from "../../components/button/button";
 import DetailsList, { detailsListStyles } from "../../components/details-list/details-list";
 import FieldText from "../../components/field/field-text";
-import { collectFormFields } from "../../utilities/collect-form-fields";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
@@ -59,7 +58,6 @@ export type ServiceDetailsFormFields = keyof ServiceDetailsFormState;
 export default function FormServiceDetails({ getValidate, submit
 }: FormComponentProps<ServiceDetailsFormFields, ServiceDetailsFormState>) {
 	const [formState, setFormState] = useState<ServiceDetailsFormState>(ServiceDetailsFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
 	const [currentTab, setCurrentTab] = useState(detailsTabs[0].id);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceDetailsFormState>);
@@ -78,7 +76,7 @@ export default function FormServiceDetails({ getValidate, submit
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.serviceDetailsFields}>
 						<TabsGroup
 							name="service-details"
@@ -132,9 +130,9 @@ export default function FormServiceDetails({ getValidate, submit
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					// if (submit(collectFormFields<ServiceDetailsFormFields>(formRef.current))) {
-					// 	// dispatch(popupClosed());
-					// }
+					if (submit(formState)) {
+						// dispatch(popupClosed());
+					}
 				}}
 			/>
 		</>
