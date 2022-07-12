@@ -1,11 +1,11 @@
 import { TargetFormState } from "../HOC/with-validate-submit/with-validate-submit";
 import { FuelFormFields } from "../modules/form-fuel/form-fuel";
-import { OtherFormFields } from "../modules/form-other/form-other";
 
 export type FuelFormFinalState = { [key in FuelFormFields]: number };
 export type OtherFormFinalState = { otherDate: number, otherTitle: string, otherPrice: number};
+export type SpareFormFinalState = { spareDate: number, spareTitle: string, sparePrice: number};
 
-export type FinalFormState = FuelFormFinalState | OtherFormFinalState;
+export type FinalFormState = FuelFormFinalState | OtherFormFinalState | SpareFormFinalState;
 
 // ==============================================
 

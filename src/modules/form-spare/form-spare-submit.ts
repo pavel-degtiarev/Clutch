@@ -1,6 +1,14 @@
-import { SpareFormFields } from "./form-spare";
+import submitForm, { SpareFormFinalState } from "../../utilities/submit-form";
+import { SpareFormState } from "./form-spare";
+import { convertSpareFields } from "./form-spare-convert-fields";
+import { formSpareCheckpoints } from "./form-spare-submit-checkpoints";
 
-export default function submitSpareForm(formFields: FormFields<SpareFormFields>): boolean {
-	console.log("Send FormSpare data to API", formFields);
-	return true;
+export default function submitOtherForm(state: SpareFormState): boolean {
+	console.log("Send FormSpare data to API");
+
+	return submitForm<SpareFormState, SpareFormFinalState>(
+		state,
+		formSpareCheckpoints,
+		convertSpareFields
+	);
 }
