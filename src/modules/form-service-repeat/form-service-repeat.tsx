@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
 	FormComponentProps,
 	setStateFunction,
@@ -8,7 +8,6 @@ import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
 import { FieldSuffixes, timeSlotOptions} from "../../../global.var";
 import Button from "../../components/button/button";
-import { collectFormFields } from "../../utilities/collect-form-fields";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import Validated from "../../HOC/validated/validated";
 import InputNumeric from "../../components/field/input/input-numeric";
@@ -34,14 +33,12 @@ export default function FormServiceRepeat({ getValidate, submit,
 }: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
 	
 	const [formState, setFormState] = useState<ServiceRepeatFormState>(ServiceRepeatFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
-
 	const validate = getValidate(setFormState as setStateFunction<ServiceRepeatFormState>);
 
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.serviceRepeatFields}>
 
 						<FieldGroup>
@@ -101,7 +98,7 @@ export default function FormServiceRepeat({ getValidate, submit,
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					if (submit(collectFormFields<ServiceRepeatFormFields>(formRef.current))) {
+					if (submit(formState)) {
 						// dispatch(popupClosed());
 					}
 				}}
