@@ -3,6 +3,30 @@ import { SpareFormFields, SpareFormState } from "./form-spare";
 
 export default function getValidateSpareForm(setState: setStateFunction<SpareFormState>) {
 	return function (target: SpareFormFields, value: string) {
-		console.log("Spare form validation", target, value);
+		const validations: FormValidations<SpareFormFields> = {
+			spareDate: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, spareDate: value };
+					return newState;
+				});
+			},
+
+			spareTitle: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, spareTitle: value };
+					return newState;
+				});
+			},
+
+			sparePrice: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, sparePrice: value };
+					return newState;
+				});
+			},
+		};
+
+		const checkTarget = validations[target];
+		checkTarget && checkTarget(value);
 	};
 }

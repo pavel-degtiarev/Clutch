@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../../components/button/button";
 import FieldDate from "../../components/field/field-date";
 import FieldText from "../../components/field/field-text";
@@ -31,10 +31,9 @@ export type OtherFormFields = keyof OtherFormState;
 
 // ==========================================
 
-export default function FormOther({
-	getValidate,
-	submit,
+export default function FormOther({ getValidate, submit,
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
+	
 	const [formState, setFormState] = useState<OtherFormState>(otherFormInitState);
 	const dispatch = useContext(DispatchContext);
 
