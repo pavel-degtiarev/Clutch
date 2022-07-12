@@ -28,11 +28,11 @@ export type ValidateFunction<T extends TargetFormFields> = (target: T, value: st
 
 type ValidateFunctionGetter<T extends TargetFormFields, V extends TargetFormState> = (setState: setStateFunction<V>) => ValidateFunction<T>
 
-export type SubmitFunction<T extends TargetFormFields> = (formFields: FormFields<T>) => boolean;
+export type SubmitFunction<T extends TargetFormState> = (state: T) => boolean;
 
 export type FormComponentProps<T extends TargetFormFields, V extends TargetFormState> = {
 	getValidate: ValidateFunctionGetter<T, V>;
-	submit: SubmitFunction<T>;
+	submit: SubmitFunction<V>;
 };
 
 type FormComponent<T extends TargetFormFields, V extends TargetFormState> = ({
@@ -43,7 +43,7 @@ type FormComponent<T extends TargetFormFields, V extends TargetFormState> = ({
 type WithValidateSubmitProps<T extends TargetFormFields, V extends TargetFormState> = {
 	Form: FormComponent<T, V>;
 	getValidate: ValidateFunctionGetter<T, V>;
-	submit: SubmitFunction<T>;
+	submit: SubmitFunction<V>;
 };
 
 export default function WithValidateSubmit<T extends TargetFormFields, V extends TargetFormState>({
