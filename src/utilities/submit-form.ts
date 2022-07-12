@@ -10,7 +10,7 @@ export type ServiceRepeatFormFinalState = {
 	repeatByTime: boolean;
 	repeatingTime: number;
 	repeatTimeSlot: string;
-};
+} | null;
 
 export type FinalFormState =
 	| FuelFormFinalState
