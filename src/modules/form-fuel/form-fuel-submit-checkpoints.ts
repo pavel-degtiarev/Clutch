@@ -1,7 +1,7 @@
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
 import { FuelFormState } from "./form-fuel";
 
-export const checkpoints: Checkpoint<FuelFormState>[] = [
+export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [
 	function noEmptyFields(state: FuelFormState): boolean {
 		return submitCheckpoint(
 			() => !Object.values(state).includes(""),
