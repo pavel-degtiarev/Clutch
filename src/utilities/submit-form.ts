@@ -1,5 +1,6 @@
 import { TargetFormState } from "../HOC/with-validate-submit/with-validate-submit";
 import { FuelFormFields } from "../modules/form-fuel/form-fuel";
+import { ServiceDetails } from "../modules/form-service-details/form-service-details";
 
 export type FuelFormFinalState = { [key in FuelFormFields]: number };
 export type OtherFormFinalState = { otherDate: number; otherTitle: string; otherPrice: number };
@@ -11,12 +12,17 @@ export type ServiceRepeatFormFinalState = {
 	repeatingTime: number;
 	repeatTimeSlot: string;
 } | null;
+export type ServiceDetailsFormFinalState = {
+	services: ServiceDetails[] | null;
+	spares: ServiceDetails[] | null;
+} | null;
 
 export type FinalFormState =
 	| FuelFormFinalState
 	| OtherFormFinalState
 	| SpareFormFinalState
-	| ServiceRepeatFormFinalState;
+	| ServiceRepeatFormFinalState
+	| ServiceDetailsFormFinalState;
 
 // ==============================================
 
