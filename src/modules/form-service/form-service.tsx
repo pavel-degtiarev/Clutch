@@ -9,36 +9,23 @@ import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
 
 import { formClosed, subformSelected } from "../../components/popup-switch/popup-switch-actions";
-import {
-	FormComponentProps,
-	setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { FieldSuffixes } from "../../general/global.var";
-import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import { subforms } from "../../general/forms";
 import { FormItem } from "../../components/popup-switch/popup-switch.types";
 
+import { ServiceFormFields, ServiceFormState } from "../../general/form-init-states";
+
 // ==============================================
 
-const ServiceFormInitState = {
-	serviceDate: dayjs().format("YYYY-MM-DD"),
-	serviceDescription: "",
-	serviceRun: "",
-	serviceTotal: "",
-	serviceRepeat: false,
-};
-
-export type ServiceFormState = typeof ServiceFormInitState;
-export type ServiceFormFields = keyof ServiceFormState;
-
-export default function FormService({ getValidate, submit
+export default function FormService({ getValidate, submit, initState
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
-	const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
+	const [formState, setFormState] = useState<ServiceFormState>(initState);
 	const dispatch = useContext(DispatchContext);
 
 	const showSubform = useCallback(
