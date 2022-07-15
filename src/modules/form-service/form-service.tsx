@@ -8,7 +8,6 @@ import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
 
-import { collectFormFields } from "../../utilities/collect-form-fields";
 import { formClosed, subformSelected } from "../../components/popup-switch/popup-switch-actions";
 import {
 	FormComponentProps,
@@ -20,7 +19,7 @@ import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import { subforms } from "../../app";
+import { subforms } from "../../forms";
 import { FormItem } from "../../components/popup-switch/popup-switch.types";
 
 // ==============================================
@@ -40,7 +39,6 @@ export default function FormService({ getValidate, submit
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
 	const [formState, setFormState] = useState<ServiceFormState>(ServiceFormInitState);
-	const formRef = useRef({} as HTMLFormElement);
 	const dispatch = useContext(DispatchContext);
 
 	const showSubform = useCallback(
@@ -55,7 +53,7 @@ export default function FormService({ getValidate, submit
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form} ref={formRef}>
+				<form className={containerStyles.form}>
 					<div className={styles.serviceFields}>
 						<Validated<ServiceFormFields>
 							validate={validate}
@@ -129,9 +127,9 @@ export default function FormService({ getValidate, submit
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={() => {
-					// if (submit(collectFormFields<ServiceFormFields>(formRef.current))) {
-					// 	dispatch(formClosed());
-					// }
+					if (submit(formState)) {
+						dispatch(formClosed());
+					}
 				}}
 			/>
 		</>
