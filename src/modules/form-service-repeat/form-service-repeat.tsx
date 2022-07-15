@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-	FormComponentProps,
-	setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import Checkbox from "../../components/checkbox/checkbox";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
@@ -15,24 +12,14 @@ import { getTimeSuffix } from "../../utilities/units";
 
 import styles from "./form-service-repeat.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
+import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../general/form-init-states";
 
 // ===========================================
 
-const ServiceRepeatFormInitState = {
-	repeatingRun: "",
-	repeatingTime: "",
-	repeatByRun: false,
-	repeatByTime: false,
-	repeatTimeSlot: timeSlotOptions[1].value
-};
-
-export type ServiceRepeatFormState = typeof ServiceRepeatFormInitState;
-export type ServiceRepeatFormFields = keyof ServiceRepeatFormState;
-
-export default function FormServiceRepeat({ getValidate, submit,
+export default function FormServiceRepeat({ getValidate, submit, initState
 }: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
 	
-	const [formState, setFormState] = useState<ServiceRepeatFormState>(ServiceRepeatFormInitState);
+	const [formState, setFormState] = useState<ServiceRepeatFormState>(initState);
 	const validate = getValidate(setFormState as setStateFunction<ServiceRepeatFormState>);
 
 	return (

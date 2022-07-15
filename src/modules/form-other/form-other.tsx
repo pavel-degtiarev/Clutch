@@ -8,33 +8,19 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 import { FieldSuffixes } from "../../general/global.var";
-import {
-	FormComponentProps,
-	setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
-import dayjs from "dayjs";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 
 import styles from "./form-other.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-
-// =========================================
-
-const otherFormInitState = {
-	otherDate: dayjs().format("YYYY-MM-DD"),
-	otherTitle: "",
-	otherPrice: "",
-};
-
-export type OtherFormState = typeof otherFormInitState;
-export type OtherFormFields = keyof OtherFormState;
+import { OtherFormFields, OtherFormState } from "../../general/form-init-states";
 
 // ==========================================
 
-export default function FormOther({ getValidate, submit,
+export default function FormOther({ getValidate, submit, initState
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
 	
-	const [formState, setFormState] = useState<OtherFormState>(otherFormInitState);
+	const [formState, setFormState] = useState<OtherFormState>(initState);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<OtherFormState>);

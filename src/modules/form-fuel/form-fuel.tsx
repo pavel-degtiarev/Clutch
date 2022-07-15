@@ -5,38 +5,22 @@ import FieldDate from "../../components/field/field-date";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 import InputDecimal from "../../components/field/input/input-decimal";
-import dayjs from "dayjs";
 import Validated from "../../HOC/validated/validated";
 
-import {
-	FormComponentProps,
-	setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
+import { FuelFormFields, FuelFormState } from "../../general/form-init-states";
 
 // ================================================
 
-const fuelFormInitState = {
-	fuelDate: dayjs().format("YYYY-MM-DD"),
-	fuelRun: "220120",
-	fuelCost: "",
-	fuelPrice: "",
-	fuelVolume: "",
-};
-
-export type FuelFormState = typeof fuelFormInitState;
-export type FuelFormFields = keyof FuelFormState;
-
-// ================================================
-
-export default function FormFuel({ getValidate, submit,
+export default function FormFuel({ getValidate, submit, initState
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
 	
-	const [formState, setFormState] = useState<FuelFormState>(fuelFormInitState);
+	const [formState, setFormState] = useState<FuelFormState>(initState);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);

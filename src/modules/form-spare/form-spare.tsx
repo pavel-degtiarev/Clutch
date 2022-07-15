@@ -12,29 +12,18 @@ import {
 	FormComponentProps,
 	setStateFunction,
 } from "../../HOC/with-validate-submit/with-validate-submit";
-import dayjs from "dayjs";
 
 import styles from "./form-spare.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-
-// =========================================
-
-const spareFormInitState = {
-	spareDate: dayjs().format("YYYY-MM-DD"),
-	spareTitle: "",
-	sparePrice: "",
-};
-
-export type SpareFormState = typeof spareFormInitState;
-export type SpareFormFields = keyof SpareFormState;
+import { SpareFormFields, SpareFormState } from "../../general/form-init-states";
 
 // ==========================================
 
-export default function FormSpare({ getValidate, submit
+export default function FormSpare({ getValidate, submit, initState
 }: FormComponentProps<SpareFormFields, SpareFormState>) {
 
-	const [formState, setFormState] = useState<SpareFormState>(spareFormInitState);
+	const [formState, setFormState] = useState<SpareFormState>(initState);
 	const dispatch = useContext(DispatchContext);
 
 	const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
