@@ -16,13 +16,25 @@ export type ServiceDetailsFormFinalState = {
 	services: ServiceDetails[] | null;
 	spares: ServiceDetails[] | null;
 } | null;
+export type ServiceFormFinalState = {
+	serviceDate: number;
+	serviceDescription: string;
+	serviceRun: number;
+	serviceTotal: number;
+	serviceRepeat: boolean;
+	serviceDetails: {
+		repeat: ServiceRepeatFormFinalState;
+		details: ServiceDetailsFormFinalState;
+	};
+};
 
 export type FinalFormState =
 	| FuelFormFinalState
 	| OtherFormFinalState
 	| SpareFormFinalState
 	| ServiceRepeatFormFinalState
-	| ServiceDetailsFormFinalState;
+	| ServiceDetailsFormFinalState
+	| ServiceFormFinalState;
 
 // ==============================================
 
