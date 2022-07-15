@@ -14,3 +14,9 @@ type FormFields<T extends string> = { [key in T]: string };
 interface Checkpoint<T extends TargetFormState> {
 	(state: T): boolean;
 }
+
+type ServiceDetails = {
+	id: number;
+	title: string;
+	price: number;
+};
