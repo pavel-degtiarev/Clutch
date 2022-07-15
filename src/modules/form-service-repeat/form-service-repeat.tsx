@@ -6,7 +6,7 @@ import {
 import Checkbox from "../../components/checkbox/checkbox";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
-import { FieldSuffixes, timeSlotOptions} from "../../../global.var";
+import { FieldSuffixes, timeSlotOptions} from "../../general/global.var";
 import Button from "../../components/button/button";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import Validated from "../../HOC/validated/validated";

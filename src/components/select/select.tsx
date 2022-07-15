@@ -1,5 +1,5 @@
 import React from "react";
-import { TimeUnits } from "../../../global.var";
+import { TimeUnits } from "../../general/global.var";
 import { ControlledField } from "../field/field-types";
 import styles from "./select.module.scss";
 

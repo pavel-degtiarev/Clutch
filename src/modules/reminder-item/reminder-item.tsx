@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import getYearsSuffix from "../../utilities/get-years-suffix";
-import { TimeUnits, YearSuffix } from "../../../global.var";
+import { TimeUnits, YearSuffix } from "../../general/global.var";
 
 import textStyles from "../../styles/typography.module.scss";
 import styles from "./reminder-item.module.scss";

@@ -1,4 +1,4 @@
-import { YearSuffix } from "../../global.var";
+import { YearSuffix } from "../general/global.var";
 import { TimeType } from "../modules/reminder-item/reminder.types";
 
 export default function getYearsSuffix(time: TimeType): YearSuffix {

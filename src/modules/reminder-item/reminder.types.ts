@@ -1,4 +1,4 @@
-import { TimeUnits } from "../../../global.var";
+import { TimeUnits } from "../../general/global.var";
 
 export type TimeType = {
 	interval: number;

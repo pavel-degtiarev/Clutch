@@ -11,7 +11,7 @@ import FieldText from "../../components/field/field-text";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
-import { FieldSuffixes } from "../../../global.var";
+import { FieldSuffixes } from "../../general/global.var";
 import styles from "./form-service-details.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";

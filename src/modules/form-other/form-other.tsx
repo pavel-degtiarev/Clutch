@@ -7,7 +7,7 @@ import InputNumeric from "../../components/field/input/input-numeric";
 
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
 import { formClosed } from "../../components/popup-switch/popup-switch-actions";
-import { FieldSuffixes } from "../../../global.var";
+import { FieldSuffixes } from "../../general/global.var";
 import {
 	FormComponentProps,
 	setStateFunction,

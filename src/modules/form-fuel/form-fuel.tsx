@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FieldSuffixes } from "../../../global.var";
+import { FieldSuffixes } from "../../general/global.var";
 import Button from "../../components/button/button";
 import FieldDate from "../../components/field/field-date";
 import FieldWithSuffix from "../../components/field/field-with-suffix";

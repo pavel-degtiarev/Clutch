@@ -1,4 +1,4 @@
-import { FieldSuffixes, TimeSuffixes, TimeUnits } from "../../global.var";
+import { FieldSuffixes, TimeSuffixes, TimeUnits } from "../general/global.var";
 
 export const addSuffix = (val: string, suffix: FieldSuffixes | TimeSuffixes): string =>
 	val ? `${val} ${suffix}` : val;

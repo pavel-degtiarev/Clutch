@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FieldContainer from "./container/field-container";
-import { FieldSuffixes, TimeSuffixes } from "../../../global.var";
+import { FieldSuffixes, TimeSuffixes } from "../../general/global.var";
 import Label from "./label/label";
 import { addSuffix } from "../../utilities/units";
 import { FieldProps } from "./field-types";

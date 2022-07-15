@@ -1,4 +1,4 @@
-import { TimeUnits } from "../../global.var";
+import { TimeUnits } from "../general/global.var";
 import { IReminder, Urgency } from "../modules/reminder-item/reminder.types";
 
 const reminders: Array<IReminder> = [

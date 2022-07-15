@@ -14,12 +14,12 @@ import {
 	setStateFunction,
 } from "../../HOC/with-validate-submit/with-validate-submit";
 import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { FieldSuffixes } from "../../../global.var";
+import { FieldSuffixes } from "../../general/global.var";
 import dayjs from "dayjs";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import { subforms } from "../../forms";
+import { subforms } from "../../general/forms";
 import { FormItem } from "../../components/popup-switch/popup-switch.types";
 
 // ==============================================
