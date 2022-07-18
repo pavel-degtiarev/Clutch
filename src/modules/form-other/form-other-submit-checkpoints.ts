@@ -1,5 +1,5 @@
+import { OtherFormState } from "../../store/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
-import { OtherFormState } from "./form-other";
 
 export const formOtherCheckpoints: Checkpoint<OtherFormState>[] = [
 	function noEmptyFields(state: OtherFormState): boolean {

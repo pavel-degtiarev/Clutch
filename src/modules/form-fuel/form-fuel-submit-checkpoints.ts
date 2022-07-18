@@ -1,5 +1,5 @@
+import { FuelFormState } from "../../store/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
-import { FuelFormState } from "./form-fuel";
 
 export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [
 	function noEmptyFields(state: FuelFormState): boolean {

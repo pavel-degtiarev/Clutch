@@ -1,5 +1,5 @@
+import { ServiceDetailsFormState } from "../../store/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
-import { ServiceDetailsFormState } from "./form-service-details";
 
 export const formServiceDetailsCheckpoints: Checkpoint<ServiceDetailsFormState>[] = [
   function noEmptyFields(state: ServiceDetailsFormState) {

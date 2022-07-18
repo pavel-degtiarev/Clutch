@@ -1,5 +1,5 @@
+import { SpareFormState } from "../../store/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
-import { SpareFormState } from "./form-spare";
 
 export const formSpareCheckpoints: Checkpoint<SpareFormState>[] = [
 	function noEmptyFields(state: SpareFormState): boolean {
