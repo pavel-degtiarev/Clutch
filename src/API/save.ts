@@ -1,9 +1,10 @@
 import { FinalFormState } from "../utilities/submit-form";
 import { getDB } from "./init-db";
 
-export default async function saveToDb(
-  store: string, value: FinalFormState, onSuccess?: () => void): Promise<boolean> {
-  
+export default async function saveToDb<T extends FinalFormState>(
+	store: string, value: T, onSuccess: (...args: any[]) => any = () => {}
+): Promise<boolean> {
+	
 	const db = getDB();
 	if (!db) throw new Error("DB access error");
 
@@ -12,13 +13,13 @@ export default async function saveToDb(
 	await transaction.store.add(value);
 	const result = await transaction.done.then(
 		() => {
-			onSuccess && onSuccess();
+			onSuccess();
 			return true;
 		},
 		() => {
 			return false;
 		}
-  );
-  
-  return result;
+	);
+
+	return result;
 }
