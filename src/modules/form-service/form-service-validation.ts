@@ -36,6 +36,25 @@ export default function getValidateServiceForm(setState: setStateFunction<Servic
 			serviceRepeat: (value) => {
 				setState((prevState) => {
 					const newState = { ...prevState, serviceRepeat: value };
+
+					return newState;
+				});
+			},
+
+			serviceTotalDetails: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, serviceTotalDetails: value };
+					// WIP посчитать newState.serviceTotal
+					return newState;
+				});
+			},
+
+			serviceRepeatDetails: (value) => {
+				setState((prevState) => {
+					const newState = { ...prevState, serviceRepeatDetails: value };
+					if (!value) {
+						newState.serviceRepeat = false;
+					}
 					return newState;
 				});
 			},

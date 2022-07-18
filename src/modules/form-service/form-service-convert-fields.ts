@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { ServiceFormFields, ServiceFormState } from "../../store/form-init-states";
+import { ServiceFormState } from "../../store/form-init-states";
 import { ServiceFormFinalState } from "../../utilities/submit-form";
 
 export function convertServiceFields(state: ServiceFormState): ServiceFormFinalState {
@@ -8,11 +8,9 @@ export function convertServiceFields(state: ServiceFormState): ServiceFormFinalS
 		serviceDescription: state.serviceDescription,
 		serviceRun: Number(state.serviceRun),
 		serviceTotal: Number(state.serviceTotal),
+		serviceTotalDetails: state.serviceTotalDetails,
 		serviceRepeat: state.serviceRepeat,
-		serviceDetails: {
-			repeat: null,
-			details: null,
-		},
+		serviceRepeatDetails: state.serviceRepeatDetails,
 	};
 	return finalState;
 }

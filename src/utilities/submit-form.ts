@@ -27,11 +27,9 @@ export type ServiceFormFinalState = {
 	serviceDescription: string;
 	serviceRun: number;
 	serviceTotal: number;
+	serviceTotalDetails: ServiceDetailsFormFinalState;
 	serviceRepeat: boolean;
-	serviceDetails: {
-		repeat: ServiceRepeatFormFinalState;
-		details: ServiceDetailsFormFinalState;
-	};
+	serviceRepeatDetails: ServiceRepeatFormFinalState;
 };
 
 export type ServiceRepeatFormFinalState = {

@@ -20,7 +20,9 @@ export const ServiceFormInitState = {
 	serviceDescription: "",
 	serviceRun: "",
 	serviceTotal: "",
+	serviceTotalDetails: null,
 	serviceRepeat: false,
+	serviceRepeatDetails: null,
 };
 
 export const otherFormInitState = {
