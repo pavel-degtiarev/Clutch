@@ -1,5 +1,5 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { FuelFormFields, FuelFormState } from "./form-fuel";
+import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
 
 export default function getValidateFuelForm(setState: setStateFunction<FuelFormState>) {
 	return function (target: FuelFormFields, value: string) {

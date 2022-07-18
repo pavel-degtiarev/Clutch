@@ -1,5 +1,5 @@
+import { ServiceRepeatFormState } from "../../store/form-init-states";
 import { ServiceRepeatFormFinalState } from "../../utilities/submit-form";
-import { ServiceRepeatFormState } from "./form-service-repeat";
 
 export function convertServiceRepeatFields(
 	state: ServiceRepeatFormState): ServiceRepeatFormFinalState {

@@ -1,9 +1,5 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import {
-	ServiceDetails,
-	ServiceDetailsFormFields,
-	ServiceDetailsFormState,
-} from "./form-service-details";
+import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../store/form-init-states";
 
 export default function getValidateServiceDetailsForm(
 	setState: setStateFunction<ServiceDetailsFormState>
@@ -61,12 +57,3 @@ function parseTarget(target: string): StateItem {
 function generateId(): number {
 	return Math.floor(Math.random() * 1000000000);
 }
-
-// https://stackoverflow.com/questions/61758438/type-is-not-assignable-to-type-never-2322
-// function setChanged<T extends keyof ServiceDetails, V extends ServiceDetails[T]>(
-// 	obj: ServiceDetails,
-// 	prop: T,
-// 	value: V
-// ) {
-// 	obj[prop] = value;
-// }

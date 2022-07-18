@@ -1,5 +1,5 @@
+import { ServiceDetailsFormState } from "../../store/form-init-states";
 import { ServiceDetailsFormFinalState } from "../../utilities/submit-form";
-import { ServiceDetailsFormState } from "./form-service-details";
 
 export function convertServiceDetailsFields(
   state: ServiceDetailsFormState): ServiceDetailsFormFinalState {

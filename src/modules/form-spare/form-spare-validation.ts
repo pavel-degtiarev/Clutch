@@ -1,5 +1,5 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { SpareFormFields, SpareFormState } from "./form-spare";
+import { SpareFormFields, SpareFormState } from "../../store/form-init-states";
 
 export default function getValidateSpareForm(setState: setStateFunction<SpareFormState>) {
 	return function (target: SpareFormFields, value: string) {
