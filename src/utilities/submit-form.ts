@@ -1,3 +1,5 @@
+import { dbNames } from "../API/init-db";
+import saveToDb from "../API/save";
 import { TargetFormState } from "../HOC/with-validate-submit/with-validate-submit";
 
 export type FuelFormFinalState = {
@@ -66,6 +68,18 @@ export default function submitForm<T extends TargetFormState, V extends FinalFor
 
 	const finalState: V = convertFields(state);
 	console.log(finalState);
+	
+	saveToDb(getStoreName<V>(finalState), finalState);
 
 	return true;
+}
+
+function getStoreName<T extends FinalFormState>(value: T):string {
+	switch (true) {
+		case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
+		case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
+		case value!.hasOwnProperty("spareDate"): return dbNames.SPARE;
+		case value!.hasOwnProperty("serviveDate"): return dbNames.SERVICE;
+	}
+	return "" as never;
 }
