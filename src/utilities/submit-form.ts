@@ -13,13 +13,13 @@ export type FuelFormFinalState = {
 export type OtherFormFinalState = {
 	otherDate: number;
 	otherTitle: string;
-	otherPrice: number
+	otherPrice: number;
 };
 
 export type SpareFormFinalState = {
 	spareDate: number;
 	spareTitle: string;
-	sparePrice: number
+	sparePrice: number;
 };
 
 export type ServiceFormFinalState = {
@@ -57,24 +57,22 @@ export type FinalFormState =
 
 // ==============================================
 
-export default function submitForm<T extends TargetFormState, V extends FinalFormState>(
+export default async function submitForm<T extends TargetFormState, V extends FinalFormState>(
 	state: T,
 	checkpoints: Checkpoint<T>[],
 	convertFields: (state: T) => V
-): boolean {
+): Promise<boolean> {
 	for (const checkpoint of checkpoints) {
 		if (!checkpoint(state)) return false;
 	}
 
 	const finalState: V = convertFields(state);
-	console.log(finalState);
-	
-	saveToDb(getStoreName<V>(finalState), finalState);
+	const storeName = getStoreName<V>(finalState);
 
-	return true;
+	return await saveToDb(storeName, finalState, () => console.log("save ok", finalState));
 }
 
-function getStoreName<T extends FinalFormState>(value: T):string {
+function getStoreName<T extends FinalFormState>(value: T): string {
 	switch (true) {
 		case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
 		case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
