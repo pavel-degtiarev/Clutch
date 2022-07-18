@@ -3,12 +3,7 @@ import submitForm, { ServiceDetailsFormFinalState } from "../../utilities/submit
 import { formServiceDetailsCheckpoints } from "./form-service-details-checkpoints";
 import { convertServiceDetailsFields } from "./form-service-details-convert-fields";
 
-export default function submitServiceDetailsForm(state: ServiceDetailsFormState): boolean {
-	console.log("Send FormServiceDetails data to API");
-	
-	return submitForm<ServiceDetailsFormState, ServiceDetailsFormFinalState>(
-		state,
-		formServiceDetailsCheckpoints,
-		convertServiceDetailsFields
-	);
+export default async function submitServiceDetailsForm(state: ServiceDetailsFormState): Promise<boolean> {
+	return await submitForm<ServiceDetailsFormState, ServiceDetailsFormFinalState>(
+		state, formServiceDetailsCheckpoints, convertServiceDetailsFields);
 }

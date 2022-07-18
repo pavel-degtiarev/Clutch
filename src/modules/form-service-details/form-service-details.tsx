@@ -98,8 +98,8 @@ export default function FormServiceDetails({ getValidate, submit, initState,
 			<Button
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
-				clickHandler={() => {
-					if (submit(formState)) {
+				clickHandler={async () => {
+					if (await submit(formState)) {
 						// dispatch(popupClosed());
 					}
 				}}

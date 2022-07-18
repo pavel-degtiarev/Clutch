@@ -5,12 +5,7 @@ import { convertServiceRepeatFields } from "./form-service-repeat-convert-fields
 
 // ====================================
 
-export default function submitServiceRepeatForm(state: ServiceRepeatFormState): boolean {
-	console.log("Send FormServiceRepeat data to API");
-
-	return submitForm<ServiceRepeatFormState, ServiceRepeatFormFinalState>(
-		state,
-		formServiceRepeatCheckpoints,
-		convertServiceRepeatFields
-	);
+export default async function submitServiceRepeatForm(state: ServiceRepeatFormState): Promise<boolean> {
+	return await submitForm<ServiceRepeatFormState, ServiceRepeatFormFinalState>(
+		state, formServiceRepeatCheckpoints, convertServiceRepeatFields);
 }

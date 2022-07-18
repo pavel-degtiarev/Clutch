@@ -5,12 +5,7 @@ import { FuelFormState } from "../../store/form-init-states";
 
 // ====================================
 
-export default function submitFuelForm(state: FuelFormState): boolean {
-	console.log("Send FormFuel data to API");
-	
-	return submitForm<FuelFormState, FuelFormFinalState>(
-		state,
-		formFuelCheckpoints,
-		convertFuelFields
-	);
+export default async function submitFuelForm(state: FuelFormState): Promise<boolean> {	
+	return await submitForm<FuelFormState, FuelFormFinalState>(
+		state, formFuelCheckpoints, convertFuelFields);
 }
