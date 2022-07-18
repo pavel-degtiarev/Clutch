@@ -1,7 +1,7 @@
 import submitForm, { FuelFormFinalState } from "../../utilities/submit-form";
-import { FuelFormState } from "./form-fuel";
 import { formFuelCheckpoints } from "./form-fuel-submit-checkpoints";
 import { convertFuelFields } from "./form-fuel-convert-fields";
+import { FuelFormState } from "../../store/form-init-states";
 
 // ====================================
 

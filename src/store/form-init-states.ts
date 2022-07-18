@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { timeSlotOptions } from "./global.var";
+import { timeSlotOptions } from "../general/global.var";
 
 export const fuelFormInitState = {
 	fuelDate: dayjs().format("YYYY-MM-DD"),

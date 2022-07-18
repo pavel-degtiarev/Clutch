@@ -1,5 +1,5 @@
+import { OtherFormState } from "../../store/form-init-states";
 import submitForm, { OtherFormFinalState } from "../../utilities/submit-form";
-import { OtherFormState } from "./form-other";
 import { convertOtherFields } from "./form-other-convert-fields";
 import { formOtherCheckpoints } from "./form-other-submit-checkpoints";
 

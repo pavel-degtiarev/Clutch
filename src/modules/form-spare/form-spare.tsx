@@ -16,7 +16,7 @@ import {
 import styles from "./form-spare.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-import { SpareFormFields, SpareFormState } from "../../general/form-init-states";
+import { SpareFormFields, SpareFormState } from "../../store/form-init-states";
 
 // ==========================================
 

@@ -1,5 +1,5 @@
+import { ServiceFormState } from "../../store/form-init-states";
 import submitForm, { ServiceFormFinalState } from "../../utilities/submit-form";
-import { ServiceFormState } from "./form-service";
 import { formServiceCheckpoints } from "./form-service-checkpoints";
 import { convertServiceFields } from "./form-service-convert-fields";
 

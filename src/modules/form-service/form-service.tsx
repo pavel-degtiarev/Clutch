@@ -18,7 +18,7 @@ import containerStyles from "../../components/popup-container/popup-container.mo
 import { subforms } from "../../general/forms";
 import { FormItem } from "../../components/popup-switch/popup-switch.types";
 
-import { ServiceFormFields, ServiceFormState } from "../../general/form-init-states";
+import { ServiceFormFields, ServiceFormState } from "../../store/form-init-states";
 
 // ==============================================
 

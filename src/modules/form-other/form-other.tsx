@@ -13,7 +13,7 @@ import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-su
 import styles from "./form-other.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-import { OtherFormFields, OtherFormState } from "../../general/form-init-states";
+import { OtherFormFields, OtherFormState } from "../../store/form-init-states";
 
 // ==========================================
 

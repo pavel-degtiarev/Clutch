@@ -14,7 +14,7 @@ import styles from "./form-service-details.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
 import { RowDeletable } from "../../components/details-list/row-deletable";
-import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../general/form-init-states";
+import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../store/form-init-states";
 
 // ==========================================
 

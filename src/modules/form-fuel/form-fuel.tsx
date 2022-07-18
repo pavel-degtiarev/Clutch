@@ -13,7 +13,7 @@ import { formClosed } from "../../components/popup-switch/popup-switch-actions";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
-import { FuelFormFields, FuelFormState } from "../../general/form-init-states";
+import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
 
 // ================================================
 

@@ -27,7 +27,7 @@ import FormServiceDetails from "../modules/form-service-details/form-service-det
 import getValidateServiceDetailsForm from "../modules/form-service-details/form-service-details-validation";
 import submitServiceDetailsForm from "../modules/form-service-details/form-service-details-submit";
 
-import { FuelFormFields, fuelFormInitState, FuelFormState, OtherFormFields, otherFormInitState, OtherFormState, ServiceDetailsFormFields, ServiceDetailsFormInitState, ServiceDetailsFormState, ServiceFormFields, ServiceFormInitState, ServiceFormState, ServiceRepeatFormFields, ServiceRepeatFormInitState, ServiceRepeatFormState, SpareFormFields, spareFormInitState, SpareFormState } from "./form-init-states";
+import { FuelFormFields, fuelFormInitState, FuelFormState, OtherFormFields, otherFormInitState, OtherFormState, ServiceDetailsFormFields, ServiceDetailsFormInitState, ServiceDetailsFormState, ServiceFormFields, ServiceFormInitState, ServiceFormState, ServiceRepeatFormFields, ServiceRepeatFormInitState, ServiceRepeatFormState, SpareFormFields, spareFormInitState, SpareFormState } from "../store/form-init-states";
 
 
 // ============================================
