@@ -57,19 +57,21 @@ export type FinalFormState =
 
 // ==============================================
 
-export default async function submitForm<T extends TargetFormState, V extends FinalFormState>(
-	state: T,
-	checkpoints: Checkpoint<T>[],
-	convertFields: (state: T) => V
-): Promise<boolean> {
+export function prepareForm<T extends TargetFormState, V extends FinalFormState>(
+	state: T, checkpoints: Checkpoint<T>[], convertFields: (state: T) => V): V | null {
 	for (const checkpoint of checkpoints) {
-		if (!checkpoint(state)) return false;
+		if (!checkpoint(state)) return null;
 	}
 
-	const finalState: V = convertFields(state);
-	const storeName = getStoreName<V>(finalState);
+	return convertFields(state);
+}
 
-	return await saveToDb(storeName, finalState, () => console.log("save ok", finalState));
+export async function saveForm<T extends FinalFormState>(
+	finalState: T, onSaveSuccess?: (...args: any[]) => any): Promise<boolean> {
+	
+	if (!finalState) return false;
+	const storeName = getStoreName<T>(finalState);
+	return await saveToDb<T>(storeName, finalState, onSaveSuccess);
 }
 
 function getStoreName<T extends FinalFormState>(value: T): string {
@@ -77,7 +79,7 @@ function getStoreName<T extends FinalFormState>(value: T): string {
 		case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
 		case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
 		case value!.hasOwnProperty("spareDate"): return dbNames.SPARE;
-		case value!.hasOwnProperty("serviveDate"): return dbNames.SERVICE;
+		case value!.hasOwnProperty("serviceDate"): return dbNames.SERVICE;
 	}
 	return "" as never;
 }
