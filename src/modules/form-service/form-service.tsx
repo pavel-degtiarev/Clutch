@@ -7,6 +7,7 @@ import Button from "../../components/button/button";
 import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
@@ -20,22 +21,22 @@ import containerStyles from "../../components/popup-container/popup-container.mo
 
 // ==============================================
 
-export default function FormService({ getValidate, submit, initState
+export default function FormService({ getValidate, submit 
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
-	const [formState, setFormState] = useState<ServiceFormState>(initState);
+	const { serviceState, updateServiceForm, repeatState, detailsState } = useContext(FormStateContext);
+	const [formState, setFormState] = useState<ServiceFormState>(serviceState);
 	const {showSubform, closeForm} = useContext(FormDisplayContext);
 
 	const useShowSubform = useCallback(
 		(subform: FormItem, value = true) => {
 			if (value === true) showSubform(subform);
 			return value;
-		},
-		[showSubform]
+		}, [showSubform]
 	);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
-
+	
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
@@ -113,7 +114,17 @@ export default function FormService({ getValidate, submit, initState
 				title="Сохранить"
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
-					if (await submit(formState)) {
+					let newFormState = formState;
+					
+					if (repeatState.repeatByRun || repeatState.repeatByTime) {
+						newFormState.serviceRepeatDetails = repeatState;
+					}
+					if (detailsState.services.length || detailsState.services.length) {
+						newFormState.serviceTotalDetails = detailsState;
+					}
+
+					if (await submit(newFormState)) {
+						updateServiceForm(newFormState);
 						closeForm();
 					}
 				}}

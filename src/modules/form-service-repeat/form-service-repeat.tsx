@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormStateContext } from "../../context/form-state/form-state";
 import Checkbox from "../../components/checkbox/checkbox";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
@@ -13,16 +14,17 @@ import { getTimeSuffix } from "../../utilities/units";
 
 import styles from "./form-service-repeat.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../context/form-state/form-init-states";
+import { RepeatFormFields, RepeatFormState } from "../../context/form-state/form-init-states";
 
 // ===========================================
 
-export default function FormServiceRepeat({ getValidate, submit, initState
-}: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
+export default function FormServiceRepeat({ getValidate, submit 
+}: FormComponentProps<RepeatFormFields, RepeatFormState>) {
 	
+	const { repeatState, updateRepeatForm } = useContext(FormStateContext);
 	const { closeSubform } = useContext(FormDisplayContext);
-	const [formState, setFormState] = useState<ServiceRepeatFormState>(initState);
-	const validate = getValidate(setFormState as setStateFunction<ServiceRepeatFormState>);
+	const [formState, setFormState] = useState<RepeatFormState>(repeatState);
+	const validate = getValidate(setFormState as setStateFunction<RepeatFormState>);
 
 	return (
 		<>
@@ -88,6 +90,7 @@ export default function FormServiceRepeat({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
+						updateRepeatForm(formState);
 						closeSubform();
 					}
 				}}

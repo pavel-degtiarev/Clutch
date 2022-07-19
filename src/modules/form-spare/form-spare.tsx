@@ -7,10 +7,9 @@ import InputNumeric from "../../components/field/input/input-numeric";
 
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
-import {
-	FormComponentProps,
-	setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction,
+	} from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import styles from "./form-spare.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
@@ -19,10 +18,11 @@ import { SpareFormFields, SpareFormState } from "../../context/form-state/form-i
 
 // ==========================================
 
-export default function FormSpare({ getValidate, submit, initState
+export default function FormSpare({ getValidate, submit 
 }: FormComponentProps<SpareFormFields, SpareFormState>) {
 
-	const [formState, setFormState] = useState<SpareFormState>(initState);
+	const { spareState, updateSpareForm } = useContext(FormStateContext);
+	const [formState, setFormState] = useState<SpareFormState>(spareState);
 	const {closeForm} = useContext(FormDisplayContext);
 
 	const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
@@ -65,6 +65,7 @@ export default function FormSpare({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
+						updateSpareForm(formState);
 						closeForm();
 					}
 				}}
