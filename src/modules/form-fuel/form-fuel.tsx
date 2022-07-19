@@ -8,12 +8,11 @@ import InputDecimal from "../../components/field/input/input-decimal";
 import Validated from "../../HOC/validated/validated";
 
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { formClosed } from "../../components/popup-switch/popup-switch-actions";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
-import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
 
 // ================================================
 
@@ -21,7 +20,7 @@ export default function FormFuel({ getValidate, submit, initState
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
 	
 	const [formState, setFormState] = useState<FuelFormState>(initState);
-	const dispatch = useContext(DispatchContext);
+	const {closeForm} = useContext(FormDisplayContext);
 
 	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
 
@@ -107,7 +106,7 @@ export default function FormFuel({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						dispatch(formClosed());
+						closeForm();
 					}
 				}}
 			/>

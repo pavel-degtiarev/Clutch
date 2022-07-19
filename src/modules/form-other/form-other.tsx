@@ -5,8 +5,7 @@ import FieldText from "../../components/field/field-text";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
-import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { formClosed } from "../../components/popup-switch/popup-switch-actions";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 
@@ -21,7 +20,7 @@ export default function FormOther({ getValidate, submit, initState
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
 	
 	const [formState, setFormState] = useState<OtherFormState>(initState);
-	const dispatch = useContext(DispatchContext);
+	const {closeForm} = useContext(FormDisplayContext);
 
 	const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
 
@@ -64,7 +63,7 @@ export default function FormOther({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						dispatch(formClosed());
+						closeForm();
 					}
 				}}
 			/>
