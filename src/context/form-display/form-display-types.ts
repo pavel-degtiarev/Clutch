@@ -1,16 +1,16 @@
-export type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : never;
+import { ReactNode } from "react";
 
-export type Action = {
-	type: keyof typeof ActionTypes;
+export type FormDisplayAction = {
+	type: keyof typeof FormDisplayActionTypes;
 	payload?: FormItem;
 };
 
 export type FormItem = {
 	title: string;
-	form: React.ReactNode;
+	form: ReactNode;
 };
 
-export enum ActionTypes {
+export enum FormDisplayActionTypes {
 	ROLLUP_TOGGLED = "ROLLUP_TOGGLED",
 	FORM_SELECTED = "FORM_SELECTED",
 	SUBFORM_SELECTED = "SUBFORM_SELECTED",
