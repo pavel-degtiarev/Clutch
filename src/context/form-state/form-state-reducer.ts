@@ -1,16 +1,20 @@
 import { FormValuesState, FormStateAction } from "./form-state-types";
 import {
+	detailsFormInitState,
 	fuelFormInitState,
 	otherFormInitState,
-	ServiceFormInitState,
+	repeatFormInitState,
+	serviceFormInitState,
 	spareFormInitState,
 } from "./form-init-states";
 
 export const formsInitState: FormValuesState = {
 	fuelState: fuelFormInitState,
-	serviceState: ServiceFormInitState,
+	serviceState: serviceFormInitState,
 	spareState: spareFormInitState,
 	otherState: otherFormInitState,
+	repeatState: repeatFormInitState,
+	detailsState: detailsFormInitState
 };
 
 // ============================================

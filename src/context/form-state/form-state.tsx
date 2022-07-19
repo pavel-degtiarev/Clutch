@@ -11,6 +11,8 @@ interface FormStateContext extends FormValuesState {
 	updateServiceForm: UpdateFormAction;
 	updateSpareForm: UpdateFormAction;
 	updateOtherForm: UpdateFormAction;
+	updateRepeatForm: UpdateFormAction;
+	updateDetailsForm: UpdateFormAction;
 }
 
 interface FormStateProps {
@@ -34,6 +36,12 @@ export default function FormState({ children }: FormStateProps) {
 	const updateOtherForm = useCallback(
 		(data: TargetFormState) => dispatch(updateForm("otherState", data)), [] );
 
+	const updateRepeatForm = useCallback(
+		(data: TargetFormState) => dispatch(updateForm("repeatState", data)), [] );
+
+	const updateDetailsForm = useCallback(
+		(data: TargetFormState) => dispatch(updateForm("detailsState", data)), [] );
+
 	return (
 		<FormStateContext.Provider
 			value={{
@@ -42,6 +50,8 @@ export default function FormState({ children }: FormStateProps) {
 				updateServiceForm,
 				updateSpareForm,
 				updateOtherForm,
+				updateRepeatForm,
+				updateDetailsForm
 			}}>
 			{children}
 		</FormStateContext.Provider>
