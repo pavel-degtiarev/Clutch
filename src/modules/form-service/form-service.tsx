@@ -7,8 +7,8 @@ import Button from "../../components/button/button";
 import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
-import { FormStateContext } from "../../context/form-state/form-state";
 
+import { FormStateContext } from "../../context/form-state/form-state";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { ServiceFormFields, ServiceFormState } from "../../context/form-state/form-init-states";
@@ -25,18 +25,17 @@ export default function FormService({ getValidate, submit
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
 	const { serviceState, updateServiceForm, repeatState, detailsState } = useContext(FormStateContext);
-	const [formState, setFormState] = useState<ServiceFormState>(serviceState);
 	const {showSubform, closeForm} = useContext(FormDisplayContext);
+	const [formState, setFormState] = useState<ServiceFormState>(serviceState);
+	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 
 	const useShowSubform = useCallback(
 		(subform: FormItem, value = true) => {
-			if (value === true) showSubform(subform);
+			value && showSubform(subform);
 			return value;
 		}, [showSubform]
 	);
 
-	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
-	
 	return (
 		<>
 			<div className={containerStyles.popupContent}>
@@ -44,7 +43,12 @@ export default function FormService({ getValidate, submit
 					<div className={styles.serviceFields}>
 						<Validated<ServiceFormFields>
 							validate={validate}
-							Control={<FieldDate name="serviceDate" label="Дата" value={formState.serviceDate} />}
+							Control={
+								<FieldDate
+									name="serviceDate"
+									label="Дата"
+									value={formState.serviceDate}
+								/>}
 						/>
 
 						<Validated<ServiceFormFields>
@@ -115,7 +119,7 @@ export default function FormService({ getValidate, submit
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					let newFormState = formState;
-					
+
 					if (repeatState.repeatByRun || repeatState.repeatByTime) {
 						newFormState.serviceRepeatDetails = repeatState;
 					}
