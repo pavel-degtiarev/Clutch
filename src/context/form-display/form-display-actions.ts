@@ -1,4 +1,4 @@
-import { Action, ActionTypes, FormItem } from "./popup-switch.types";
+import { Action, ActionTypes, FormItem } from "./form-display-types";
 
 export function rollupToggled(): Action {
 	return {

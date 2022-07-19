@@ -8,17 +8,15 @@ import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
 
-import { formClosed, subformSelected } from "../../components/popup-switch/popup-switch-actions";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { DispatchContext } from "../../components/popup-switch/popup-switch";
+import { ServiceFormFields, ServiceFormState } from "../../store/form-init-states";
+import { FormItem } from "../../context/form-display/form-display-types";
+import { subforms } from "../../general/forms";
 import { FieldSuffixes } from "../../general/global.var";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import { subforms } from "../../general/forms";
-import { FormItem } from "../../components/popup-switch/popup-switch.types";
-
-import { ServiceFormFields, ServiceFormState } from "../../store/form-init-states";
 
 // ==============================================
 
@@ -26,13 +24,14 @@ export default function FormService({ getValidate, submit, initState
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
 	const [formState, setFormState] = useState<ServiceFormState>(initState);
-	const dispatch = useContext(DispatchContext);
+	const {showSubform, closeForm} = useContext(FormDisplayContext);
 
-	const showSubform = useCallback(
+	const useShowSubform = useCallback(
 		(subform: FormItem, value = true) => {
-			if (value === true) dispatch(subformSelected(subform));
+			if (value === true) showSubform(subform);
 			return value;
-		}, [dispatch]
+		},
+		[showSubform]
 	);
 
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
@@ -83,7 +82,7 @@ export default function FormService({ getValidate, submit, initState
 									auxStyles={styles.total}>
 									<ButtonIcon
 										auxClassNames={styles.totalDetails}
-										handler={() => showSubform(subforms.detailsSubform)}
+										handler={() => useShowSubform(subforms.detailsSubform)}
 									/>
 								</FieldWithSuffix>
 							}
@@ -97,10 +96,10 @@ export default function FormService({ getValidate, submit, initState
 									label="Повторять периодически"
 									isChecked={formState.serviceRepeat}
 									auxStyles={styles.repeat}
-									changeHandler={(isChecked) => showSubform(subforms.repeatSubform, isChecked)}>
+									changeHandler={(isChecked) => useShowSubform(subforms.repeatSubform, isChecked)}>
 									<ButtonIcon
 										auxClassNames={styles.repeatDetails}
-										handler={() => showSubform(subforms.repeatSubform)}
+										handler={() => useShowSubform(subforms.repeatSubform)}
 										disabled={!formState.serviceRepeat}
 									/>
 								</Checkbox>
@@ -115,7 +114,7 @@ export default function FormService({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						dispatch(formClosed());
+						closeForm();
 					}
 				}}
 			/>

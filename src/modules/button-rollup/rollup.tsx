@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { DispatchContext } from "../../components/popup-switch/popup-switch";
-import { formSelected, rollupToggled } from "../../components/popup-switch/popup-switch-actions";
-import { FormItem } from "../../components/popup-switch/popup-switch.types";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormItem } from "../../context/form-display/form-display-types";
 import styles from "./rollup.module.scss";
 
 type RollupProps = {
@@ -24,7 +23,7 @@ function RollupItem({ title, clickHandler }: RollupItemProps) {
 }
 
 export default function Rollup({ forms, isOpened }: RollupProps) {
-	const dispatch = useContext(DispatchContext);
+	const {toggleRollup, showForm} = useContext(FormDisplayContext);
 	return (
 		<div className={classNames(styles.rollup, { [styles.rollupActive]: isOpened })}>
 			<div className={styles.container}>
@@ -35,8 +34,8 @@ export default function Rollup({ forms, isOpened }: RollupProps) {
 								key={index}
 								title={item.title}
 								clickHandler={() => {
-									dispatch(rollupToggled());
-									dispatch(formSelected({ title: item.title, form: item.form }));
+									toggleRollup();
+									showForm({ title: item.title, form: item.form })
 								}}
 							/>
 						);

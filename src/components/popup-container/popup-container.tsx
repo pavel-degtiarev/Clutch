@@ -1,8 +1,7 @@
-import React, { createContext, MutableRefObject, ReactNode, useContext } from "react";
+import React, { ReactNode } from "react";
 import classNames from "classnames";
 import ButtonIcon from "../button-icon/button-icon";
-import { DispatchContext } from "../popup-switch/popup-switch";
-import { Action } from "../popup-switch/popup-switch.types";
+import { FormDisplayAction } from "../../context/form-display/form-display-state";
 
 import styles from "./popup-container.module.scss";
 import textStyles from "../../styles/typography.module.scss";
@@ -12,17 +11,14 @@ type PopupContainerProps = {
 	form: ReactNode | undefined;
 	small?: boolean;
 	inactive?: boolean;
-	closeAction: () => Action;
+	closeAction: FormDisplayAction;
 };
-
-export const FormContext = createContext({} as MutableRefObject<null>);
 
 export default function PopupContainer({
 	title, small = false, inactive = false, form, closeAction }: PopupContainerProps) {
-	
+
 	const opened = !!form;
 	const containerClasses = classNames(styles.container, { [styles.containerOpened]: opened });
-	const dispatch = useContext(DispatchContext);
 
 	return (
 		<section
@@ -39,7 +35,7 @@ export default function PopupContainer({
 					<ButtonIcon
 						label="Закрыть попап"
 						auxClassNames={styles.close}
-						handler={() => dispatch(closeAction())}
+						handler={() => closeAction()}
 					/>
 				</header>
 					

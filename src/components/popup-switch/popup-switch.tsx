@@ -1,43 +1,37 @@
-import React, { createContext, Dispatch, useReducer } from "react";
+import React, { useContext } from "react";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormItem } from "../../context/form-display/form-display-types";
 import ButtonRollup from "../../modules/button-rollup/button-rollup";
 import PopupContainer from "../popup-container/popup-container";
-import { formClosed, subformClosed } from "./popup-switch-actions";
-import { initState, reducer } from "./popup-switch-reducer";
-import { Action, FormItem } from "./popup-switch.types";
 
 type PopupSwitchProps = {
 	forms: FormItem[];
 };
 
-export const DispatchContext = createContext<Dispatch<Action>>(() => {});
-
 export default function PopupSwitch({ forms }: PopupSwitchProps) {
-	const [state, dispatch] = useReducer(reducer, initState);
+	const { state, closeForm, closeSubform } = useContext(FormDisplayContext);
+	
 	const subformOpened = !!state.currentSubform;
 
 	return (
-		<DispatchContext.Provider value={dispatch}>
-
+		<>
 			<ButtonRollup
-				title="Потратить деньги"
-				forms={forms}
-				rollupOpened={state.rollupOpened}
-			/>
+				title="Потратить деньги" forms={forms}
+				rollupOpened={state.rollupOpened} />
 
 			<PopupContainer
 				title={state.currentForm?.title}
 				form={state.currentForm?.form}
 				inactive={subformOpened}
-				closeAction={formClosed}
+				closeAction={closeForm}
 			/>
 
 			<PopupContainer
 				title={state.currentSubform?.title}
 				form={state.currentSubform?.form}
-				closeAction={subformClosed}
+				closeAction={closeSubform}
 				small
 			/>
-
-		</DispatchContext.Provider>
+		</>
 	);
 }

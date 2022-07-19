@@ -6,6 +6,7 @@ import Main from "../modules/main-container/main-container";
 import Reminder from "../modules/reminder/reminder";
 import TabsGroup from "../components/tabs/tabs-group";
 import Tiles from "../modules/tiles/tiles";
+import FormDisplayState from "../context/form-display/form-display-state";
 import PopupSwitch from "../components/popup-switch/popup-switch";
 
 import reminders from "../mocks/reminders";
@@ -36,8 +37,9 @@ export default function App() {
 				/>
 				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
-				<PopupSwitch forms={forms} />
-
+				<FormDisplayState>
+					<PopupSwitch forms={forms} />
+				</FormDisplayState>
 			</Main>
 		</>
 	);

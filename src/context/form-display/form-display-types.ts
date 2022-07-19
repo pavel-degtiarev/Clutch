@@ -1,6 +1,9 @@
-import React from "react";
+export type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : never;
 
-export type FormSubmitHandler = (formRef: HTMLFormElement) => boolean;
+export type Action = {
+	type: keyof typeof ActionTypes;
+	payload?: FormItem;
+};
 
 export type FormItem = {
 	title: string;
@@ -14,13 +17,6 @@ export enum ActionTypes {
 	FORM_CLOSED = "FORM_CLOSED",
 	SUBFORM_CLOSED = "SUBFORM_CLOSED",
 }
-
-export type Action = {
-	type: keyof typeof ActionTypes;
-	payload?: FormItem;
-};
-
-export type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : never;
 
 export type PopupState = {
 	rollupOpened: boolean;

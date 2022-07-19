@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction }
 	from "../../HOC/with-validate-submit/with-validate-submit";
 import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
@@ -25,6 +26,8 @@ const detailsTabs: TabInfo[] = [
 
 export default function FormServiceDetails({ getValidate, submit, initState,
 }: FormComponentProps<ServiceDetailsFormFields, ServiceDetailsFormState>) {
+
+	const {closeSubform} = useContext(FormDisplayContext);
 	const [formState, setFormState] = useState<ServiceDetailsFormState>(initState);
 	const [currentTab, setCurrentTab] = useState(detailsTabs[0].id);
 
@@ -100,7 +103,7 @@ export default function FormServiceDetails({ getValidate, submit, initState,
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						// dispatch(popupClosed());
+						closeSubform();
 					}
 				}}
 			/>

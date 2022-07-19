@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import Checkbox from "../../components/checkbox/checkbox";
 import FieldGroup from "../../components/field-group/field-group";
 import Select from "../../components/select/select";
@@ -19,6 +20,7 @@ import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../store/for
 export default function FormServiceRepeat({ getValidate, submit, initState
 }: FormComponentProps<ServiceRepeatFormFields, ServiceRepeatFormState>) {
 	
+	const { closeSubform } = useContext(FormDisplayContext);
 	const [formState, setFormState] = useState<ServiceRepeatFormState>(initState);
 	const validate = getValidate(setFormState as setStateFunction<ServiceRepeatFormState>);
 
@@ -86,7 +88,7 @@ export default function FormServiceRepeat({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						// dispatch(popupClosed());
+						closeSubform();
 					}
 				}}
 			/>
