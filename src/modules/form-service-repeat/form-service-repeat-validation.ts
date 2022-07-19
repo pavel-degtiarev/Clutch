@@ -1,11 +1,11 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../context/form-state/form-init-states";
+import { RepeatFormFields, RepeatFormState } from "../../context/form-state/form-init-states";
 
 export default function getValidateServiceRepeatForm(
-	setState: setStateFunction<ServiceRepeatFormState>
+	setState: setStateFunction<RepeatFormState>
 ) {
-	return function (target: ServiceRepeatFormFields, value: string) {
-		const validations: FormValidations<ServiceRepeatFormFields> = {
+	return function (target: RepeatFormFields, value: string) {
+		const validations: FormValidations<RepeatFormFields> = {
 			repeatingRun: (value) => {
 				setState((prevState) => {
 					const newState = { ...prevState, repeatingRun: value };

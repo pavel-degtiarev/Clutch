@@ -27,12 +27,12 @@ export type ServiceFormFinalState = {
 	serviceDescription: string;
 	serviceRun: number;
 	serviceTotal: number;
-	serviceTotalDetails: ServiceDetailsFormFinalState;
+	serviceTotalDetails: detailsFormFinalState;
 	serviceRepeat: boolean;
-	serviceRepeatDetails: ServiceRepeatFormFinalState;
+	serviceRepeatDetails: repeatFormFinalState;
 };
 
-export type ServiceRepeatFormFinalState = {
+export type repeatFormFinalState = {
 	repeatByRun: boolean;
 	repeatingRun: number;
 	repeatByTime: boolean;
@@ -40,7 +40,7 @@ export type ServiceRepeatFormFinalState = {
 	repeatTimeSlot: string;
 } | null;
 
-export type ServiceDetailsFormFinalState = {
+export type detailsFormFinalState = {
 	services: ServiceDetails[] | null;
 	spares: ServiceDetails[] | null;
 } | null;
@@ -49,8 +49,8 @@ export type FinalFormState =
 	| FuelFormFinalState
 	| OtherFormFinalState
 	| SpareFormFinalState
-	| ServiceRepeatFormFinalState
-	| ServiceDetailsFormFinalState
+	| repeatFormFinalState
+	| detailsFormFinalState
 	| ServiceFormFinalState;
 
 // ==============================================

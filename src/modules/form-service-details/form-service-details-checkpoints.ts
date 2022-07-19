@@ -1,8 +1,8 @@
-import { ServiceDetailsFormState } from "../../context/form-state/form-init-states";
+import { DetailsFormState } from "../../context/form-state/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
 
-export const formServiceDetailsCheckpoints: Checkpoint<ServiceDetailsFormState>[] = [
-  function noEmptyFields(state: ServiceDetailsFormState) {
+export const formServiceDetailsCheckpoints: Checkpoint<DetailsFormState>[] = [
+  function noEmptyFields(state: DetailsFormState) {
     return submitCheckpoint(
       () => {
         const allTitles = [...state.services, ...state.spares].map(item => item.title);
