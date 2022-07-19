@@ -1,10 +1,10 @@
-import { ServiceRepeatFormState } from "../../store/form-init-states";
-import { ServiceRepeatFormFinalState } from "../../utilities/submit-form";
+import { RepeatFormState } from "../../context/form-state/form-init-states";
+import { repeatFormFinalState } from "../../utilities/submit-form";
 
 export function convertServiceRepeatFields(
-	state: ServiceRepeatFormState): ServiceRepeatFormFinalState {
+	state: RepeatFormState): repeatFormFinalState {
 	
-	const finalState: ServiceRepeatFormFinalState =
+	const finalState: repeatFormFinalState =
 		state.repeatByRun || state.repeatByTime
 			? {
 					repeatByRun: state.repeatByRun,

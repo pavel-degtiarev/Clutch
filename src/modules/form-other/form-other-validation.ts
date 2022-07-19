@@ -1,5 +1,5 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { OtherFormFields, OtherFormState } from "../../store/form-init-states";
+import { OtherFormFields, OtherFormState } from "../../context/form-state/form-init-states";
 
 export default function getValidateOtherForm(setState: setStateFunction<OtherFormState>) {
 	return function (target: OtherFormFields, value: string) {

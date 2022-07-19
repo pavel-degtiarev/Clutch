@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import classNames from "classnames";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormStateContext } from "../../context/form-state/form-state";
 import { FormComponentProps, setStateFunction }
 	from "../../HOC/with-validate-submit/with-validate-submit";
 import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
@@ -15,7 +16,7 @@ import styles from "./form-service-details.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
 import { RowDeletable } from "../../components/details-list/row-deletable";
-import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../store/form-init-states";
+import { DetailsFormFields, DetailsFormState } from "../../context/form-state/form-init-states";
 
 // ==========================================
 
@@ -24,18 +25,19 @@ const detailsTabs: TabInfo[] = [
 	{ id: "spares", title: "З/Ч, расходники" },
 ];
 
-export default function FormServiceDetails({ getValidate, submit, initState,
-}: FormComponentProps<ServiceDetailsFormFields, ServiceDetailsFormState>) {
+export default function FormServiceDetails({ getValidate, submit 
+}: FormComponentProps<DetailsFormFields, DetailsFormState>) {
 
-	const {closeSubform} = useContext(FormDisplayContext);
-	const [formState, setFormState] = useState<ServiceDetailsFormState>(initState);
+	const { detailsState, updateDetailsForm } = useContext(FormStateContext);
+	const { closeSubform } = useContext(FormDisplayContext);
+	const [formState, setFormState] = useState<DetailsFormState>(detailsState);
 	const [currentTab, setCurrentTab] = useState(detailsTabs[0].id);
 
-	const validate = getValidate(setFormState as setStateFunction<ServiceDetailsFormState>);
+	const validate = getValidate(setFormState as setStateFunction<DetailsFormState>);
 	const getFieldName = (suffix: string, currentTab: string): string => `${currentTab}-${suffix}`;
-	const addRow = () => validate(`${currentTab}-add` as ServiceDetailsFormFields, "");
+	const addRow = () => validate(`${currentTab}-add` as DetailsFormFields, "");
 	const deleteRow = (index: number) =>
-		validate(`${currentTab}-delete-${index}` as ServiceDetailsFormFields, "");
+		validate(`${currentTab}-delete-${index}` as DetailsFormFields, "");
 
 	function useCurrentList(): ServiceDetails[] {
 		const [list, setList] = useState(formState.services);
@@ -103,6 +105,7 @@ export default function FormServiceDetails({ getValidate, submit, initState,
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
+						updateDetailsForm(formState);
 						closeSubform();
 					}
 				}}

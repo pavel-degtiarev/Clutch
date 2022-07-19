@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { ServiceFormState } from "../../store/form-init-states";
+import { ServiceFormState } from "../../context/form-state/form-init-states";
 import { ServiceFormFinalState } from "../../utilities/submit-form";
 
 export function convertServiceFields(state: ServiceFormState): ServiceFormFinalState {

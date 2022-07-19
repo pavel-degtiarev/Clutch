@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { timeSlotOptions } from "../general/global.var";
+import { timeSlotOptions } from "../../general/global.var";
 
 export const fuelFormInitState = {
 	fuelDate: dayjs().format("YYYY-MM-DD"),
@@ -15,14 +15,14 @@ export const spareFormInitState = {
 	sparePrice: "",
 };
 
-export const ServiceFormInitState = {
+export const serviceFormInitState = {
 	serviceDate: dayjs().format("YYYY-MM-DD"),
 	serviceDescription: "",
 	serviceRun: "",
 	serviceTotal: "",
-	serviceTotalDetails: null,
 	serviceRepeat: false,
-	serviceRepeatDetails: null,
+	serviceTotalDetails: {} as DetailsFormState,
+	serviceRepeatDetails: {} as RepeatFormState,
 };
 
 export const otherFormInitState = {
@@ -31,7 +31,7 @@ export const otherFormInitState = {
 	otherPrice: "",
 };
 
-export const ServiceRepeatFormInitState = {
+export const repeatFormInitState = {
 	repeatingRun: "",
 	repeatingTime: "",
 	repeatByRun: false,
@@ -39,7 +39,7 @@ export const ServiceRepeatFormInitState = {
 	repeatTimeSlot: timeSlotOptions[1].value,
 };
 
-export const ServiceDetailsFormInitState = {
+export const detailsFormInitState = {
 	services: [
 		{ id: 1265, title: "замена блока клапанов КПП", price: 30000 },
 		{ id: 6845, title: "замена прокладки крышки клапанов", price: 3000 },
@@ -56,17 +56,17 @@ export type FuelFormFields = keyof FuelFormState;
 export type SpareFormState = typeof spareFormInitState;
 export type SpareFormFields = keyof SpareFormState;
 
-export type ServiceFormState = typeof ServiceFormInitState;
+export type ServiceFormState = typeof serviceFormInitState;
 export type ServiceFormFields = keyof ServiceFormState;
 
 export type OtherFormState = typeof otherFormInitState;
 export type OtherFormFields = keyof OtherFormState;
 
-export type ServiceRepeatFormState = typeof ServiceRepeatFormInitState;
-export type ServiceRepeatFormFields = keyof ServiceRepeatFormState;
+export type RepeatFormState = typeof repeatFormInitState;
+export type RepeatFormFields = keyof RepeatFormState;
 
-export type ServiceDetailsFormState = {
+export type DetailsFormState = {
 	services: ServiceDetails[];
 	spares: ServiceDetails[];
 };
-export type ServiceDetailsFormFields = keyof ServiceDetailsFormState;
+export type DetailsFormFields = keyof DetailsFormState;

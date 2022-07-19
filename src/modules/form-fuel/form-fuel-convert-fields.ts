@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
+import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
 import { FuelFormFinalState } from "../../utilities/submit-form";
 
 export function convertFuelFields(state: FuelFormState): FuelFormFinalState {

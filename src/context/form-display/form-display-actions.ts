@@ -1,33 +1,33 @@
-import { Action, ActionTypes, FormItem } from "./form-display-types";
+import { FormDisplayAction, FormDisplayActionTypes, FormItem } from "./form-display-types";
 
-export function rollupToggled(): Action {
+export function rollupToggled(): FormDisplayAction {
 	return {
-		type: ActionTypes.ROLLUP_TOGGLED,
+		type: FormDisplayActionTypes.ROLLUP_TOGGLED,
 	} as const;
 }
 
-export function formSelected(payload: FormItem): Action {
+export function formSelected(payload: FormItem): FormDisplayAction {
 	return {
-		type: ActionTypes.FORM_SELECTED,
+		type: FormDisplayActionTypes.FORM_SELECTED,
 		payload: payload,
 	} as const;
 }
 
-export function subformSelected(payload: FormItem): Action {
+export function subformSelected(payload: FormItem): FormDisplayAction {
 	return {
-		type: ActionTypes.SUBFORM_SELECTED,
+		type: FormDisplayActionTypes.SUBFORM_SELECTED,
 		payload: payload,
 	} as const;
 }
 
-export function formClosed(): Action {
+export function formClosed(): FormDisplayAction {
 	return {
-		type: ActionTypes.FORM_CLOSED,
+		type: FormDisplayActionTypes.FORM_CLOSED,
 	} as const;
 }
 
-export function subformClosed(): Action {
+export function subformClosed(): FormDisplayAction {
 	return {
-		type: ActionTypes.SUBFORM_CLOSED,
+		type: FormDisplayActionTypes.SUBFORM_CLOSED,
 	} as const;
 }

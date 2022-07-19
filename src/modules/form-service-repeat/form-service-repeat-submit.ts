@@ -1,14 +1,13 @@
-import { ServiceRepeatFormState } from "../../store/form-init-states";
-import { prepareForm, ServiceRepeatFormFinalState } from "../../utilities/submit-form";
+import { RepeatFormState } from "../../context/form-state/form-init-states";
+import { prepareForm, repeatFormFinalState } from "../../utilities/submit-form";
 import { formServiceRepeatCheckpoints } from "./form-service-repeat-checkpoints";
 import { convertServiceRepeatFields } from "./form-service-repeat-convert-fields";
 
 // ====================================
 
-export default async function submitServiceRepeatForm(state: ServiceRepeatFormState): Promise<boolean> {
-	const finalFormState = prepareForm<ServiceRepeatFormState, ServiceRepeatFormFinalState>(
+export default async function submitServiceRepeatForm(state: RepeatFormState): Promise<boolean> {
+	const finalFormState = prepareForm<RepeatFormState, repeatFormFinalState>(
 		state, formServiceRepeatCheckpoints, convertServiceRepeatFields);
 	
-	console.log(finalFormState);
-	return true;
+	return !!finalFormState;
 }

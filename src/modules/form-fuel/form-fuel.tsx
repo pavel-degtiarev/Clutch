@@ -7,20 +7,23 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import InputDecimal from "../../components/field/input/input-decimal";
 import Validated from "../../HOC/validated/validated";
 
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction,
+} from "../../HOC/with-validate-submit/with-validate-submit";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
-import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
+import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
 
 // ================================================
 
-export default function FormFuel({ getValidate, submit, initState
+export default function FormFuel({ getValidate, submit,
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
 	
-	const [formState, setFormState] = useState<FuelFormState>(initState);
-	const {closeForm} = useContext(FormDisplayContext);
+	const { fuelState, updateFuelForm } = useContext(FormStateContext);
+	const [formState, setFormState] = useState<FuelFormState>(fuelState);
+	const { closeForm } = useContext(FormDisplayContext);
 
 	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
 
@@ -29,7 +32,6 @@ export default function FormFuel({ getValidate, submit, initState
 			<div className={containerStyles.popupContent}>
 				<form className={containerStyles.form}>
 					<div className={styles.fuelFields}>
-						
 						<Validated<FuelFormFields>
 							validate={validate}
 							Control={
@@ -106,6 +108,7 @@ export default function FormFuel({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
+						updateFuelForm(formState);
 						closeForm();
 					}
 				}}

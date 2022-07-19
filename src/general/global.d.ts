@@ -20,3 +20,5 @@ type ServiceDetails = {
 	title: string;
 	price: number;
 };
+
+type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : never;

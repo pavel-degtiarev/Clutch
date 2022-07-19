@@ -8,18 +8,20 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import styles from "./form-other.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-import { OtherFormFields, OtherFormState } from "../../store/form-init-states";
+import { OtherFormFields, OtherFormState } from "../../context/form-state/form-init-states";
 
 // ==========================================
 
-export default function FormOther({ getValidate, submit, initState
+export default function FormOther({ getValidate, submit 
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
 	
-	const [formState, setFormState] = useState<OtherFormState>(initState);
+	const { otherState, updateOtherForm } = useContext(FormStateContext);
+	const [formState, setFormState] = useState<OtherFormState>(otherState);
 	const {closeForm} = useContext(FormDisplayContext);
 
 	const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
@@ -63,6 +65,7 @@ export default function FormOther({ getValidate, submit, initState
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
+						updateOtherForm(formState);
 						closeForm();
 					}
 				}}

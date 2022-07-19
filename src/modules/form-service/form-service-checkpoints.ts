@@ -1,4 +1,4 @@
-import { ServiceFormState } from "../../store/form-init-states";
+import { ServiceFormState } from "../../context/form-state/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
 
 export const formServiceCheckpoints: Checkpoint<ServiceFormState>[] = [

@@ -1,10 +1,10 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { ServiceDetailsFormFields, ServiceDetailsFormState } from "../../store/form-init-states";
+import { DetailsFormFields, DetailsFormState } from "../../context/form-state/form-init-states";
 
 export default function getValidateServiceDetailsForm(
-	setState: setStateFunction<ServiceDetailsFormState>
+	setState: setStateFunction<DetailsFormState>
 ) {
-	return function (target: ServiceDetailsFormFields, value: string) {
+	return function (target: DetailsFormFields, value: string) {
 		console.log("ServiceDetails form validation", target, value);
 
 		// форма содержит динамический список инпутов.
@@ -40,7 +40,7 @@ export default function getValidateServiceDetailsForm(
 }
 
 interface StateItem {
-	section: ServiceDetailsFormFields;
+	section: DetailsFormFields;
 	key: keyof ServiceDetails;
 	index: number;
 }
@@ -48,7 +48,7 @@ interface StateItem {
 function parseTarget(target: string): StateItem {
 	const parts = target.split("-");
 	return {
-		section: parts[0] as ServiceDetailsFormFields,
+		section: parts[0] as DetailsFormFields,
 		key: parts[1] as keyof ServiceDetails,
 		index: Number(parts[2]),
 	};

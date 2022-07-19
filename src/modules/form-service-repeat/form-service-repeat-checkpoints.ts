@@ -1,9 +1,9 @@
-import { ServiceRepeatFormState } from "../../store/form-init-states";
+import { RepeatFormState } from "../../context/form-state/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
 
-export const formServiceRepeatCheckpoints: Checkpoint<ServiceRepeatFormState>[] = [
+export const formServiceRepeatCheckpoints: Checkpoint<RepeatFormState>[] = [
 
-	function runFilled(state: ServiceRepeatFormState) {
+	function runFilled(state: RepeatFormState) {
 		return submitCheckpoint(
 			() => {
 				if (!state.repeatByRun) return true;
@@ -14,7 +14,7 @@ export const formServiceRepeatCheckpoints: Checkpoint<ServiceRepeatFormState>[] 
 		);
 	},
 
-	function timeFilled(state: ServiceRepeatFormState) {
+	function timeFilled(state: RepeatFormState) {
 		return submitCheckpoint(
 			() => {
 				if (!state.repeatByTime) return true;

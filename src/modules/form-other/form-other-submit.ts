@@ -1,4 +1,4 @@
-import { OtherFormState } from "../../store/form-init-states";
+import { OtherFormState } from "../../context/form-state/form-init-states";
 import { prepareForm, OtherFormFinalState, saveForm } from "../../utilities/submit-form";
 import { convertOtherFields } from "./form-other-convert-fields";
 import { formOtherCheckpoints } from "./form-other-submit-checkpoints";
