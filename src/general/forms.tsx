@@ -27,7 +27,7 @@ import FormServiceDetails from "../modules/form-service-details/form-service-det
 import getValidateServiceDetailsForm from "../modules/form-service-details/form-service-details-validation";
 import submitServiceDetailsForm from "../modules/form-service-details/form-service-details-submit";
 
-import { FuelFormFields, fuelFormInitState, FuelFormState, OtherFormFields, otherFormInitState, OtherFormState, ServiceDetailsFormFields, ServiceDetailsFormInitState, ServiceDetailsFormState, ServiceFormFields, ServiceFormInitState, ServiceFormState, ServiceRepeatFormFields, ServiceRepeatFormInitState, ServiceRepeatFormState, SpareFormFields, spareFormInitState, SpareFormState } from "../context/form-state/form-init-states";
+import { FuelFormFields, FuelFormState, OtherFormFields, OtherFormState, DetailsFormFields, DetailsFormState, ServiceFormFields, ServiceFormState, RepeatFormFields, RepeatFormState, SpareFormFields, SpareFormState } from "../context/form-state/form-init-states";
 
 
 // ============================================
@@ -40,7 +40,6 @@ export const forms: FormItem[] = [
 				Form={FormFuel}
 				getValidate={getValidateFuelForm}
 				submit={submitFuelForm}
-				initState={fuelFormInitState}
 			/>
 		),
 	},
@@ -51,7 +50,6 @@ export const forms: FormItem[] = [
 				Form={FormSpare}
 				getValidate={getValidateSpareForm}
 				submit={submitSpareForm}
-				initState={spareFormInitState}
 			/>
 		),
 	},
@@ -62,7 +60,6 @@ export const forms: FormItem[] = [
 				Form={FormService}
 				getValidate={getValidateServiceForm}
 				submit={submitServiceForm}
-				initState={ServiceFormInitState}
 			/>
 		),
 	},
@@ -73,7 +70,6 @@ export const forms: FormItem[] = [
 				Form={FormOther}
 				getValidate={getValidateOtherForm}
 				submit={submitOtherForm}
-				initState={otherFormInitState}
 			/>
 		),
 	},
@@ -83,22 +79,20 @@ export const subforms = {
 	repeatSubform: {
 		title: "Периодичность",
 		form: (
-			<WithValidateSubmit<ServiceRepeatFormFields, ServiceRepeatFormState>
+			<WithValidateSubmit<RepeatFormFields, RepeatFormState>
 				Form={FormServiceRepeat}
 				getValidate={getValidateServiceRepeatForm}
 				submit={submitServiceRepeatForm}
-				initState={ServiceRepeatFormInitState}
 			/>
 		),
 	},
 	detailsSubform: {
 		title: "Подробнее",
 		form: (
-			<WithValidateSubmit<ServiceDetailsFormFields, ServiceDetailsFormState>
+			<WithValidateSubmit<DetailsFormFields, DetailsFormState>
 				Form={FormServiceDetails}
 				getValidate={getValidateServiceDetailsForm}
 				submit={submitServiceDetailsForm}
-				initState={ServiceDetailsFormInitState}
 			/>
 		),
 	},
