@@ -1,4 +1,4 @@
-import { FuelFormState } from "../../store/form-init-states";
+import { FuelFormState } from "../../context/form-state/form-init-states";
 import { submitCheckpoint } from "../../utilities/submit-checkpoint";
 
 export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [

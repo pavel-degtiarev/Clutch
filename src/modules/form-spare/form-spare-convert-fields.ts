@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { SpareFormState } from "../../store/form-init-states";
+import { SpareFormState } from "../../context/form-state/form-init-states";
 import { SpareFormFinalState } from "../../utilities/submit-form";
 
 export function convertSpareFields(state: SpareFormState): SpareFormFinalState {

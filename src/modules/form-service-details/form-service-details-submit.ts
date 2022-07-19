@@ -1,4 +1,4 @@
-import { ServiceDetailsFormState } from "../../store/form-init-states";
+import { ServiceDetailsFormState } from "../../context/form-state/form-init-states";
 import { prepareForm, ServiceDetailsFormFinalState } from "../../utilities/submit-form";
 import { formServiceDetailsCheckpoints } from "./form-service-details-checkpoints";
 import { convertServiceDetailsFields } from "./form-service-details-convert-fields";

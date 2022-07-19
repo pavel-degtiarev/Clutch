@@ -1,5 +1,5 @@
 import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../store/form-init-states";
+import { ServiceRepeatFormFields, ServiceRepeatFormState } from "../../context/form-state/form-init-states";
 
 export default function getValidateServiceRepeatForm(
 	setState: setStateFunction<ServiceRepeatFormState>

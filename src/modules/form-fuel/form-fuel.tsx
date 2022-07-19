@@ -9,7 +9,7 @@ import Validated from "../../HOC/validated/validated";
 
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
-import { FuelFormFields, FuelFormState } from "../../store/form-init-states";
+import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";

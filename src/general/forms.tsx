@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FormItem } from "../components/popup-switch/popup-switch.types";
+import { FormItem } from "../context/form-display/form-display-types";
 import WithValidateSubmit from "../HOC/with-validate-submit/with-validate-submit";
 
 import FormFuel from "../modules/form-fuel/form-fuel";
@@ -27,7 +27,7 @@ import FormServiceDetails from "../modules/form-service-details/form-service-det
 import getValidateServiceDetailsForm from "../modules/form-service-details/form-service-details-validation";
 import submitServiceDetailsForm from "../modules/form-service-details/form-service-details-submit";
 
-import { FuelFormFields, fuelFormInitState, FuelFormState, OtherFormFields, otherFormInitState, OtherFormState, ServiceDetailsFormFields, ServiceDetailsFormInitState, ServiceDetailsFormState, ServiceFormFields, ServiceFormInitState, ServiceFormState, ServiceRepeatFormFields, ServiceRepeatFormInitState, ServiceRepeatFormState, SpareFormFields, spareFormInitState, SpareFormState } from "../store/form-init-states";
+import { FuelFormFields, fuelFormInitState, FuelFormState, OtherFormFields, otherFormInitState, OtherFormState, ServiceDetailsFormFields, ServiceDetailsFormInitState, ServiceDetailsFormState, ServiceFormFields, ServiceFormInitState, ServiceFormState, ServiceRepeatFormFields, ServiceRepeatFormInitState, ServiceRepeatFormState, SpareFormFields, spareFormInitState, SpareFormState } from "../context/form-state/form-init-states";
 
 
 // ============================================

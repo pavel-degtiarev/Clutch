@@ -10,7 +10,7 @@ import Validated from "../../HOC/validated/validated";
 
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { ServiceFormFields, ServiceFormState } from "../../store/form-init-states";
+import { ServiceFormFields, ServiceFormState } from "../../context/form-state/form-init-states";
 import { FormItem } from "../../context/form-display/form-display-types";
 import { subforms } from "../../general/forms";
 import { FieldSuffixes } from "../../general/global.var";
