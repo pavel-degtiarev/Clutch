@@ -10,7 +10,6 @@ export const formDisplayInitState: PopupState = {
 };
 
 export function formDisplayReducer(state: PopupState, action: ActionType): PopupState {
-	console.log(action);
 
 	switch (action.type) {
 		case ActionTypes.ROLLUP_TOGGLED:
