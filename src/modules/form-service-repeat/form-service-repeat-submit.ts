@@ -1,5 +1,5 @@
 import { RepeatFormState } from "../../context/form-state/form-init-states";
-import { prepareForm, repeatFormFinalState } from "../../utilities/submit-form";
+import { prepareForm, repeatFormFinalState } from "../../HOC/with-validate-submit/submit-form";
 import { formServiceRepeatCheckpoints } from "./form-service-repeat-checkpoints";
 import { convertServiceRepeatFields } from "./form-service-repeat-convert-fields";
 

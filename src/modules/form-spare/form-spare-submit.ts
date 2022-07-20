@@ -1,5 +1,5 @@
 import { SpareFormState } from "../../context/form-state/form-init-states";
-import { prepareForm, saveForm, SpareFormFinalState } from "../../utilities/submit-form";
+import { prepareForm, saveForm, SpareFormFinalState } from "../../HOC/with-validate-submit/submit-form";
 import { convertSpareFields } from "./form-spare-convert-fields";
 import { formSpareCheckpoints } from "./form-spare-submit-checkpoints";
 

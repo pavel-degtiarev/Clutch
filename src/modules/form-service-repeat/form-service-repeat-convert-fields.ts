@@ -1,5 +1,5 @@
 import { RepeatFormState } from "../../context/form-state/form-init-states";
-import { repeatFormFinalState } from "../../utilities/submit-form";
+import { repeatFormFinalState } from "../../HOC/with-validate-submit/submit-form";
 
 export function convertServiceRepeatFields(
 	state: RepeatFormState): repeatFormFinalState {

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { OtherFormState } from "../../context/form-state/form-init-states";
-import { OtherFormFinalState } from "../../utilities/submit-form";
+import { OtherFormFinalState } from "../../HOC/with-validate-submit/submit-form";
 
 export function convertOtherFields(state: OtherFormState): OtherFormFinalState {
 

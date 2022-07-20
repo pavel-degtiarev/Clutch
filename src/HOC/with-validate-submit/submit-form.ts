@@ -1,6 +1,6 @@
-import { dbNames } from "../API/init-db";
-import saveToDb from "../API/save";
-import { TargetFormState } from "../HOC/with-validate-submit/with-validate-submit";
+import { dbNames } from "../../API/init-db";
+import saveToDb from "../../API/save";
+import { TargetFormState } from "./with-validate-submit";
 
 export type FuelFormFinalState = {
 	fuelDate: number;

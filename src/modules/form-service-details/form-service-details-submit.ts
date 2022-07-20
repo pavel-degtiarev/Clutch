@@ -1,5 +1,5 @@
 import { DetailsFormState } from "../../context/form-state/form-init-states";
-import { prepareForm, detailsFormFinalState } from "../../utilities/submit-form";
+import { prepareForm, detailsFormFinalState } from "../../HOC/with-validate-submit/submit-form";
 import { formServiceDetailsCheckpoints } from "./form-service-details-checkpoints";
 import { convertServiceDetailsFields } from "./form-service-details-convert-fields";
 

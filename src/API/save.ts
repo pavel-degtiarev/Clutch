@@ -1,4 +1,4 @@
-import { FinalFormState } from "../utilities/submit-form";
+import { FinalFormState } from "../HOC/with-validate-submit/submit-form";
 import { getDB } from "./init-db";
 
 export default async function saveToDb<T extends FinalFormState>(
