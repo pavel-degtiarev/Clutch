@@ -7,8 +7,4 @@ export const timeTabs = [
 		id: "year",
 		title: "Год",
 	},
-	{
-		id: "custom",
-		title: "•••",
-	},
 ];
