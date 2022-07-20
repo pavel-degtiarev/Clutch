@@ -10,7 +10,11 @@ export function convertServiceFields(state: ServiceFormState): ServiceFormFinalS
 		serviceTotal: Number(state.serviceTotal),
 		serviceTotalDetails: state.serviceTotalDetails,
 		serviceRepeat: state.serviceRepeat,
-		serviceRepeatDetails: state.serviceRepeatDetails,
+		serviceRepeatDetails: {
+			...state.serviceRepeatDetails,
+			repeatingRun: Number(state.serviceRepeatDetails.repeatingRun),
+			repeatingTime: Number(state.serviceRepeatDetails.repeatingTime),
+		},
 	};
 	return finalState;
 }
