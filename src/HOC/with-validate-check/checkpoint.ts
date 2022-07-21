@@ -1,4 +1,4 @@
-export function submitCheckpoint(
+export function checkpoint(
   comparator: () => boolean, message: string): boolean {
 
   if (!comparator()) {

@@ -1,6 +1,6 @@
 import { dbNames } from "../../API/init-db";
 import saveToDb from "../../API/save";
-import { TargetFormState } from "./with-validate-submit";
+import { TargetFormState } from "./with-validate-check";
 
 export type FuelFormFinalState = {
   fuelDate: number;
@@ -55,29 +55,29 @@ export type FinalFormState =
 
 // ==============================================
 
-export function prepareForm<T extends TargetFormState, V extends FinalFormState>(
-  state: T, checkpoints: Checkpoint<T>[], convertFields: (state: T) => V): V | null {
+export function checkForm<T extends TargetFormState>(
+  state: T, checkpoints: Checkpoint<T>[] ): boolean {
   for (const checkpoint of checkpoints) {
-    if (!checkpoint(state)) return null;
+    if (!checkpoint(state)) return false;
   }
 
-  return convertFields(state);
+  return true;
 }
 
-export async function saveForm<T extends FinalFormState>(
-  finalState: T, onSaveSuccess?: (...args: any[]) => any): Promise<boolean> {
+// export async function saveForm<T extends FinalFormState>(
+//   finalState: T, onSaveSuccess?: (...args: any[]) => any): Promise<boolean> {
   
-  if (!finalState) return false;
-  const storeName = getStoreName<T>(finalState);
-  return await saveToDb<T>(storeName, finalState, onSaveSuccess);
-}
+//   if (!finalState) return false;
+//   const storeName = getStoreName<T>(finalState);
+//   return await saveToDb<T>(storeName, finalState, onSaveSuccess);
+// }
 
-function getStoreName<T extends FinalFormState>(value: T): string {
-  switch (true) {
-    case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
-    case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
-    case value!.hasOwnProperty("spareDate"): return dbNames.SPARE;
-    case value!.hasOwnProperty("serviceDate"): return dbNames.SERVICE;
-  }
-  return "" as never;
-}
+// function getStoreName<T extends FinalFormState>(value: T): string {
+//   switch (true) {
+//     case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
+//     case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
+//     case value!.hasOwnProperty("spareDate"): return dbNames.SPARE;
+//     case value!.hasOwnProperty("serviceDate"): return dbNames.SERVICE;
+//   }
+//   return "" as never;
+// }

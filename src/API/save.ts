@@ -1,4 +1,4 @@
-import { FinalFormState } from "../HOC/with-validate-submit/submit-form";
+import { FinalFormState } from "../HOC/with-validate-check/check-form";
 import { getDB } from "./init-db";
 
 export default async function saveToDb<T extends FinalFormState>(
