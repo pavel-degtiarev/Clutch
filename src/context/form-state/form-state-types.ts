@@ -1,4 +1,4 @@
-import { TargetFormState } from "../../HOC/with-validate-submit/with-validate-submit";
+import { TargetFormState } from "../../HOC/with-validate-submit/with-validate-check";
 import {
   DetailsFormState,
   FuelFormState,

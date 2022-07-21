@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useCallback, useReducer } from "react";
-import { TargetFormState } from "../../HOC/with-validate-submit/with-validate-submit";
+import { TargetFormState } from "../../HOC/with-validate-submit/with-validate-check";
 import updateForm from "./form-state-actions";
 import { formsInitState, formStateReducer } from "./form-state-reducer";
 import { FormValuesState } from "./form-state-types";
