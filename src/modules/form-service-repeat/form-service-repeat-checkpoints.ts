@@ -1,10 +1,10 @@
 import { RepeatFormState } from "../../context/form-state/form-init-states";
-import { submitCheckpoint } from "../../HOC/with-validate-submit/submit-checkpoint";
+import { checkpoint } from "../../HOC/with-validate-check/checkpoint";
 
 export const formServiceRepeatCheckpoints: Checkpoint<RepeatFormState>[] = [
 
   function runFilled(state: RepeatFormState) {
-    return submitCheckpoint(
+    return checkpoint(
       () => {
         if (!state.repeatByRun) return true;
         if (state.repeatingRun) return true;
@@ -15,7 +15,7 @@ export const formServiceRepeatCheckpoints: Checkpoint<RepeatFormState>[] = [
   },
 
   function timeFilled(state: RepeatFormState) {
-    return submitCheckpoint(
+    return checkpoint(
       () => {
         if (!state.repeatByTime) return true;
         if (state.repeatingTime) return true;

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-check/with-validate-check";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormStateContext } from "../../context/form-state/form-state";
 import Checkbox from "../../components/checkbox/checkbox";
@@ -18,7 +18,7 @@ import { RepeatFormFields, RepeatFormState } from "../../context/form-state/form
 
 // ===========================================
 
-export default function FormServiceRepeat({ getValidate, submit 
+export default function FormServiceRepeat({ getValidate, finalCheck 
 }: FormComponentProps<RepeatFormFields, RepeatFormState>) {
   
   const { repeatState, updateRepeatForm } = useContext(FormStateContext);
@@ -88,8 +88,8 @@ export default function FormServiceRepeat({ getValidate, submit
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={async () => {
-          if (await submit(formState)) {
+        clickHandler={() => {
+          if (finalCheck(formState)) {
             updateRepeatForm(formState);
             closeSubform();
           }
