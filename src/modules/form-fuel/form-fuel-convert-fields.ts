@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
-import { FuelFormFinalState } from "../../HOC/with-validate-submit/submit-form";
+import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 export function convertFuelFields(state: FuelFormState): FuelFormFinalState {
 

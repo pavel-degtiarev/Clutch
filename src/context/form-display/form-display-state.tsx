@@ -25,11 +25,11 @@ interface FormDisplayStateProps {
 export default function FormDisplayState({ children }: FormDisplayStateProps) {
   const [state, dispatch] = useReducer(formDisplayReducer, formDisplayInitState);
 
-  const toggleRollup = useCallback(() => dispatch(rollupToggled()), []);
-  const showForm = useCallback((form: FormItem) => dispatch(formSelected(form)), []);
-  const showSubform = useCallback((subform: FormItem) => dispatch(subformSelected(subform)), []);
-  const closeForm = useCallback(() => dispatch(formClosed()), []);
-  const closeSubform = useCallback(() => dispatch(subformClosed()), []);
+  const toggleRollup = () => dispatch(rollupToggled());
+  const showForm = (form: FormItem) => dispatch(formSelected(form));
+  const showSubform = (subform: FormItem) => dispatch(subformSelected(subform));
+  const closeForm = () => dispatch(formClosed());
+  const closeSubform = () => dispatch(subformClosed());
 
   return (
     <FormDisplayContext.Provider

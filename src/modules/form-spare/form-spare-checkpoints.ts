@@ -1,9 +1,9 @@
 import { SpareFormState } from "../../context/form-state/form-init-states";
-import { submitCheckpoint } from "../../HOC/with-validate-submit/submit-checkpoint";
+import { checkpoint } from "../../HOC/with-validate-check/checkpoint";
 
 export const formSpareCheckpoints: Checkpoint<SpareFormState>[] = [
   function noEmptyFields(state: SpareFormState): boolean {
-    return submitCheckpoint(
+    return checkpoint(
       () => !Object.values(state).includes(""),
       "Все поля должны быть заполнены!"
     );

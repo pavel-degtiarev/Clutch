@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { ServiceFormState } from "../../context/form-state/form-init-states";
-import { ServiceFormFinalState } from "../../HOC/with-validate-submit/submit-form";
+import { ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 export function convertServiceFields(state: ServiceFormState): ServiceFormFinalState {
   const finalState: ServiceFormFinalState = {

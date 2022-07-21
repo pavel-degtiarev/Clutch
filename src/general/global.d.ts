@@ -22,3 +22,7 @@ type ServiceDetails = {
 };
 
 type ActionCreatorType<T> = T extends { [key: string]: infer U } ? U : never;
+
+interface IdPayload {
+  id: number;
+}

@@ -8,9 +8,11 @@ import ButtonIcon from "../../components/button-icon/button-icon";
 import Checkbox from "../../components/checkbox/checkbox";
 import Validated from "../../HOC/validated/validated";
 
+import { useClutchStoreDispatch } from "../../store/store";
+import { convertServiceFields } from "./form-service-convert-fields";
 import { FormStateContext } from "../../context/form-state/form-state";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-check/with-validate-check";
 import { detailsFormInitState, repeatFormInitState, ServiceFormFields, serviceFormInitState, ServiceFormState } from "../../context/form-state/form-init-states";
 import { FormItem } from "../../context/form-display/form-display-types";
 import { subforms } from "../../general/forms";
@@ -18,15 +20,18 @@ import { FieldSuffixes } from "../../general/global.var";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
+import { saveService } from "../../store/service-slice/service-slice";
 
 // ==============================================
 
-export default function FormService({ getValidate, submit 
+export default function FormService({ getValidate, finalCheck 
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
   
   const { serviceState, updateServiceForm, repeatState, detailsState, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
   const {showSubform, closeForm} = useContext(FormDisplayContext);
   const [formState, setFormState] = useState<ServiceFormState>(serviceState);
+  const storeDispatch = useClutchStoreDispatch();
+
   const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 
   const useShowSubform = useCallback(
@@ -127,7 +132,9 @@ export default function FormService({ getValidate, submit
             newFormState.serviceTotalDetails = detailsState;
           }
 
-          if (await submit(newFormState)) {
+          if (finalCheck(newFormState)) {
+            storeDispatch(saveService(convertServiceFields(formState)));
+
             updateRepeatForm(repeatFormInitState);
             updateDetailsForm(detailsFormInitState);
             updateServiceForm(serviceFormInitState);

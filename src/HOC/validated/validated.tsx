@@ -6,7 +6,7 @@ import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 import InputDecimal from "../../components/field/input/input-decimal";
 import Select from "../../components/select/select";
-import { TargetFormFields, ValidateFunction } from "../with-validate-submit/with-validate-submit";
+import { TargetFormFields, ValidateFunction } from "../with-validate-check/with-validate-check";
 
 type AnyInput =
   | typeof FieldText
