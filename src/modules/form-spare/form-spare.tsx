@@ -5,25 +5,30 @@ import FieldText from "../../components/field/field-text";
 import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
+import { useClutchStoreDispatch } from "../../store/store";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
 import { FormComponentProps, setStateFunction,
-  } from "../../HOC/with-validate-submit/with-validate-submit";
+  } from "../../HOC/with-validate-check/with-validate-check";
 import { FormStateContext } from "../../context/form-state/form-state";
+
+import Validated from "../../HOC/validated/validated";
+import { SpareFormFields, spareFormInitState, SpareFormState } from "../../context/form-state/form-init-states";
+import { convertSpareFields } from "./form-spare-convert-fields";
+import { saveSpare } from "../../store/spare-slice/spare-slice";
 
 import styles from "./form-spare.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import Validated from "../../HOC/validated/validated";
-import { SpareFormFields, spareFormInitState, SpareFormState } from "../../context/form-state/form-init-states";
 
 // ==========================================
 
-export default function FormSpare({ getValidate, submit 
+export default function FormSpare({ getValidate, finalCheck 
 }: FormComponentProps<SpareFormFields, SpareFormState>) {
 
   const { spareState, updateSpareForm } = useContext(FormStateContext);
   const [formState, setFormState] = useState<SpareFormState>(spareState);
-  const {closeForm} = useContext(FormDisplayContext);
+  const { closeForm } = useContext(FormDisplayContext);
+  const storeDispatch = useClutchStoreDispatch();
 
   const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
 
@@ -63,8 +68,9 @@ export default function FormSpare({ getValidate, submit
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={async () => {
-          if (await submit(formState)) {
+        clickHandler={() => {
+          if (finalCheck(formState)) {
+            storeDispatch(saveSpare(convertSpareFields(formState)));
             updateSpareForm(spareFormInitState);
             closeForm();
           }
