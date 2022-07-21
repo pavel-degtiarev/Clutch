@@ -1,31 +1,31 @@
 import * as React from "react";
 
 import { FormItem } from "../context/form-display/form-display-types";
-import WithValidateSubmit from "../HOC/with-validate-submit/with-validate-submit";
+import WithValidateAndCheck from "../HOC/with-validate-check/with-validate-check";
 
 import FormFuel from "../modules/form-fuel/form-fuel";
 import getValidateFuelForm from "../modules/form-fuel/form-fuel-validation";
-import submitFuelForm from "../modules/form-fuel/form-fuel-submit";
+import checkFuelForm from "../modules/form-fuel/form-fuel-final-check";
 
 import FormOther from "../modules/form-other/form-other";
-import submitOtherForm from "../modules/form-other/form-other-submit";
+import checkOtherForm from "../modules/form-other/form-other-final-check";
 import getValidateOtherForm from "../modules/form-other/form-other-validation";
 
 import FormSpare from "../modules/form-spare/form-spare";
 import getValidateSpareForm from "../modules/form-spare/form-spare-validation";
-import submitSpareForm from "../modules/form-spare/form-spare-submit";
+import checkSpareForm from "../modules/form-spare/form-spare-final-check";
 
 import FormService from "../modules/form-service/form-service";
 import getValidateServiceForm from "../modules/form-service/form-service-validation";
-import submitServiceForm from "../modules/form-service/form-service-submit";
+import checkServiceForm from "../modules/form-service/form-service-final-check";
 
 import FormServiceRepeat from "../modules/form-service-repeat/form-service-repeat";
-import submitServiceRepeatForm from "../modules/form-service-repeat/form-service-repeat-submit";
+import checkServiceRepeatForm from "../modules/form-service-repeat/form-service-repeat-final-check";
 import getValidateServiceRepeatForm from "../modules/form-service-repeat/form-service-repeat-validation";
 
 import FormServiceDetails from "../modules/form-service-details/form-service-details";
 import getValidateServiceDetailsForm from "../modules/form-service-details/form-service-details-validation";
-import submitServiceDetailsForm from "../modules/form-service-details/form-service-details-submit";
+import checkServiceDetailsForm from "../modules/form-service-details/form-service-details-final-check";
 
 import { FuelFormFields, FuelFormState, OtherFormFields, OtherFormState, DetailsFormFields, DetailsFormState, ServiceFormFields, ServiceFormState, RepeatFormFields, RepeatFormState, SpareFormFields, SpareFormState } from "../context/form-state/form-init-states";
 
@@ -36,40 +36,40 @@ export const forms: FormItem[] = [
   {
     title: "Топливо",
     form: (
-      <WithValidateSubmit<FuelFormFields, FuelFormState>
+      <WithValidateAndCheck<FuelFormFields, FuelFormState>
         Form={FormFuel}
         getValidate={getValidateFuelForm}
-        submit={submitFuelForm}
+        finalCheck={checkFuelForm}
       />
     ),
   },
   {
     title: "Расходники, запчасти",
     form: (
-      <WithValidateSubmit<SpareFormFields, SpareFormState>
+      <WithValidateAndCheck<SpareFormFields, SpareFormState>
         Form={FormSpare}
         getValidate={getValidateSpareForm}
-        submit={submitSpareForm}
+        finalCheck={checkSpareForm}
       />
     ),
   },
   {
     title: "Сервис",
     form: (
-      <WithValidateSubmit<ServiceFormFields, ServiceFormState>
+      <WithValidateAndCheck<ServiceFormFields, ServiceFormState>
         Form={FormService}
         getValidate={getValidateServiceForm}
-        submit={submitServiceForm}
+        finalCheck={checkServiceForm}
       />
     ),
   },
   {
     title: "Прочее",
     form: (
-      <WithValidateSubmit<OtherFormFields, OtherFormState>
+      <WithValidateAndCheck<OtherFormFields, OtherFormState>
         Form={FormOther}
         getValidate={getValidateOtherForm}
-        submit={submitOtherForm}
+        finalCheck={checkOtherForm}
       />
     ),
   },
@@ -79,20 +79,20 @@ export const subforms = {
   repeatSubform: {
     title: "Периодичность",
     form: (
-      <WithValidateSubmit<RepeatFormFields, RepeatFormState>
+      <WithValidateAndCheck<RepeatFormFields, RepeatFormState>
         Form={FormServiceRepeat}
         getValidate={getValidateServiceRepeatForm}
-        submit={submitServiceRepeatForm}
+        finalCheck={checkServiceRepeatForm}
       />
     ),
   },
   detailsSubform: {
     title: "Подробнее",
     form: (
-      <WithValidateSubmit<DetailsFormFields, DetailsFormState>
+      <WithValidateAndCheck<DetailsFormFields, DetailsFormState>
         Form={FormServiceDetails}
         getValidate={getValidateServiceDetailsForm}
-        submit={submitServiceDetailsForm}
+        finalCheck={checkServiceDetailsForm}
       />
     ),
   },
