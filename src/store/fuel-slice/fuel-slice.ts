@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
 
-interface IdPayload { id: number };
-
 export const fuelSlice = createSlice({
   name: "fuelSlice",
   initialState: [] as FuelFormFinalState[],
