@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormStateContext } from "../../context/form-state/form-state";
 import { FormComponentProps, setStateFunction }
-  from "../../HOC/with-validate-submit/with-validate-submit";
+  from "../../HOC/with-validate-check/with-validate-check";
 import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
 import Button from "../../components/button/button";
 import DetailsList, { detailsListStyles } from "../../components/details-list/details-list";
@@ -25,7 +25,7 @@ const detailsTabs: TabInfo[] = [
   { id: "spares", title: "З/Ч, расходники" },
 ];
 
-export default function FormServiceDetails({ getValidate, submit 
+export default function FormServiceDetails({ getValidate, finalCheck 
 }: FormComponentProps<DetailsFormFields, DetailsFormState>) {
 
   const { detailsState, updateDetailsForm } = useContext(FormStateContext);
@@ -103,8 +103,8 @@ export default function FormServiceDetails({ getValidate, submit
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={async () => {
-          if (await submit(formState)) {
+        clickHandler={() => {
+          if (finalCheck(formState)) {
             updateDetailsForm(formState);
             closeSubform();
           }

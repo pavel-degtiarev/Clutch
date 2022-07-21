@@ -1,5 +1,5 @@
 import { DetailsFormState } from "../../context/form-state/form-init-states";
-import { detailsFormFinalState } from "../../HOC/with-validate-submit/submit-form";
+import { detailsFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 export function convertServiceDetailsFields(
   state: DetailsFormState): detailsFormFinalState {
