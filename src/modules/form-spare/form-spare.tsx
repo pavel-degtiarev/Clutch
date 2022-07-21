@@ -14,7 +14,7 @@ import { FormStateContext } from "../../context/form-state/form-state";
 import styles from "./form-spare.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-import { SpareFormFields, SpareFormState } from "../../context/form-state/form-init-states";
+import { SpareFormFields, spareFormInitState, SpareFormState } from "../../context/form-state/form-init-states";
 
 // ==========================================
 
@@ -65,7 +65,7 @@ export default function FormSpare({ getValidate, submit
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						updateSpareForm(formState);
+						updateSpareForm(spareFormInitState);
 						closeForm();
 					}
 				}}

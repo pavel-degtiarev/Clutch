@@ -13,7 +13,7 @@ import { FormStateContext } from "../../context/form-state/form-state";
 import styles from "./form-other.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
-import { OtherFormFields, OtherFormState } from "../../context/form-state/form-init-states";
+import { OtherFormFields, otherFormInitState, OtherFormState } from "../../context/form-state/form-init-states";
 
 // ==========================================
 
@@ -65,7 +65,7 @@ export default function FormOther({ getValidate, submit
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						updateOtherForm(formState);
+						updateOtherForm(otherFormInitState);
 						closeForm();
 					}
 				}}

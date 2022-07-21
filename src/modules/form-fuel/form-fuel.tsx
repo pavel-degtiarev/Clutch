@@ -10,7 +10,7 @@ import Validated from "../../HOC/validated/validated";
 import { FormComponentProps, setStateFunction,
 } from "../../HOC/with-validate-submit/with-validate-submit";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
-import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
+import { FuelFormFields, fuelFormInitState, FuelFormState } from "../../context/form-state/form-init-states";
 import { FormStateContext } from "../../context/form-state/form-state";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
@@ -108,7 +108,7 @@ export default function FormFuel({ getValidate, submit,
 				auxStyles={containerStyles.saveButton}
 				clickHandler={async () => {
 					if (await submit(formState)) {
-						updateFuelForm(formState);
+						updateFuelForm(fuelFormInitState);
 						closeForm();
 					}
 				}}

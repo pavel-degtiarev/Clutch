@@ -3,8 +3,8 @@ import { timeSlotOptions } from "../../general/global.var";
 
 export const fuelFormInitState = {
 	fuelDate: dayjs().format("YYYY-MM-DD"),
-	fuelRun: "220120",
-	fuelCost: "45",
+	fuelRun: "",
+	fuelCost: "",
 	fuelPrice: "",
 	fuelVolume: "",
 };
@@ -41,12 +41,12 @@ export const repeatFormInitState = {
 
 export const detailsFormInitState = {
 	services: [
-		{ id: 1265, title: "замена блока клапанов КПП", price: 30000 },
-		{ id: 6845, title: "замена прокладки крышки клапанов", price: 3000 },
+		// { id: 1265, title: "замена блока клапанов КПП", price: 30000 },
+		// { id: 6845, title: "замена прокладки крышки клапанов", price: 3000 },
 	],
 	spares: [
-		{ id: 5831, title: "блок клапанов коробки передач", price: 4500 },
-		{ id: 12, title: "прокладка клапанной крышки", price: 500 },
+		// { id: 5831, title: "блок клапанов коробки передач", price: 4500 },
+		// { id: 12, title: "прокладка клапанной крышки", price: 500 },
 	],
 };
 

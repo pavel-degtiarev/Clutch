@@ -11,7 +11,7 @@ import Validated from "../../HOC/validated/validated";
 import { FormStateContext } from "../../context/form-state/form-state";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
-import { ServiceFormFields, ServiceFormState } from "../../context/form-state/form-init-states";
+import { detailsFormInitState, repeatFormInitState, ServiceFormFields, serviceFormInitState, ServiceFormState } from "../../context/form-state/form-init-states";
 import { FormItem } from "../../context/form-display/form-display-types";
 import { subforms } from "../../general/forms";
 import { FieldSuffixes } from "../../general/global.var";
@@ -24,7 +24,7 @@ import containerStyles from "../../components/popup-container/popup-container.mo
 export default function FormService({ getValidate, submit 
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
 	
-	const { serviceState, updateServiceForm, repeatState, detailsState } = useContext(FormStateContext);
+	const { serviceState, updateServiceForm, repeatState, detailsState, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
 	const {showSubform, closeForm} = useContext(FormDisplayContext);
 	const [formState, setFormState] = useState<ServiceFormState>(serviceState);
 	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
@@ -128,7 +128,9 @@ export default function FormService({ getValidate, submit
 					}
 
 					if (await submit(newFormState)) {
-						updateServiceForm(newFormState);
+						updateRepeatForm(repeatFormInitState);
+						updateDetailsForm(detailsFormInitState);
+						updateServiceForm(serviceFormInitState);
 						closeForm();
 					}
 				}}
