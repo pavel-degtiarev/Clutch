@@ -1,10 +1,10 @@
 export const timeTabs = [
-	{
-		id: "month",
-		title: "Месяц",
-	},
-	{
-		id: "year",
-		title: "Год",
-	},
+  {
+    id: "month",
+    title: "Месяц",
+  },
+  {
+    id: "year",
+    title: "Год",
+  },
 ];

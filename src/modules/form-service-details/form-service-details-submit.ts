@@ -4,8 +4,8 @@ import { formServiceDetailsCheckpoints } from "./form-service-details-checkpoint
 import { convertServiceDetailsFields } from "./form-service-details-convert-fields";
 
 export default async function submitServiceDetailsForm(state: DetailsFormState): Promise<boolean> {
-	const finalFormState = prepareForm<DetailsFormState, detailsFormFinalState>(
-		state, formServiceDetailsCheckpoints, convertServiceDetailsFields);
-	
-	return !!finalFormState;
+  const finalFormState = prepareForm<DetailsFormState, detailsFormFinalState>(
+    state, formServiceDetailsCheckpoints, convertServiceDetailsFields);
+  
+  return !!finalFormState;
 }

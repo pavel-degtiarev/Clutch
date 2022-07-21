@@ -8,11 +8,11 @@ type UpdateFormAction = (data: TargetFormState) => void;
 
 interface FormStateContext extends FormValuesState {
   updateFuelForm: UpdateFormAction;
-	updateServiceForm: UpdateFormAction;
-	updateSpareForm: UpdateFormAction;
-	updateOtherForm: UpdateFormAction;
-	updateRepeatForm: UpdateFormAction;
-	updateDetailsForm: UpdateFormAction;
+  updateServiceForm: UpdateFormAction;
+  updateSpareForm: UpdateFormAction;
+  updateOtherForm: UpdateFormAction;
+  updateRepeatForm: UpdateFormAction;
+  updateDetailsForm: UpdateFormAction;
 }
 
 interface FormStateProps {
@@ -22,38 +22,38 @@ interface FormStateProps {
 export const FormStateContext = createContext<FormStateContext>({} as FormStateContext);
 
 export default function FormState({ children }: FormStateProps) {
-	const [state, dispatch] = useReducer(formStateReducer, formsInitState);
+  const [state, dispatch] = useReducer(formStateReducer, formsInitState);
 
-	const updateFuelForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("fuelState", data)), [] );
+  const updateFuelForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("fuelState", data)), [] );
 
-	const updateServiceForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("serviceState", data)), [] );
+  const updateServiceForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("serviceState", data)), [] );
 
-	const updateSpareForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("spareState", data)), [] );
+  const updateSpareForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("spareState", data)), [] );
 
-	const updateOtherForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("otherState", data)), [] );
+  const updateOtherForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("otherState", data)), [] );
 
-	const updateRepeatForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("repeatState", data)), [] );
+  const updateRepeatForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("repeatState", data)), [] );
 
-	const updateDetailsForm = useCallback(
-		(data: TargetFormState) => dispatch(updateForm("detailsState", data)), [] );
+  const updateDetailsForm = useCallback(
+    (data: TargetFormState) => dispatch(updateForm("detailsState", data)), [] );
 
-	return (
-		<FormStateContext.Provider
-			value={{
-				...state,
-				updateFuelForm,
-				updateServiceForm,
-				updateSpareForm,
-				updateOtherForm,
-				updateRepeatForm,
-				updateDetailsForm
-			}}>
-			{children}
-		</FormStateContext.Provider>
-	);
+  return (
+    <FormStateContext.Provider
+      value={{
+        ...state,
+        updateFuelForm,
+        updateServiceForm,
+        updateSpareForm,
+        updateOtherForm,
+        updateRepeatForm,
+        updateDetailsForm
+      }}>
+      {children}
+    </FormStateContext.Provider>
+  );
 }

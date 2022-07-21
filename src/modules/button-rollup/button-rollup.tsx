@@ -9,21 +9,21 @@ import basicButtonStyles from "../../styles/components/button.module.scss";
 import rollupButtonStyles from "./button-rollup.module.scss";
 
 type ButtonRollupProps = {
-	title: string;
-	forms: FormItem[];
-	rollupOpened: boolean;
+  title: string;
+  forms: FormItem[];
+  rollupOpened: boolean;
 };
 
 export default function ButtonRollup({ title, forms, rollupOpened }: ButtonRollupProps) {
-	const {toggleRollup} = useContext(FormDisplayContext);
-	const auxStyles = classNames(basicButtonStyles.withMark, {
-		[rollupButtonStyles.rollupActive]: rollupOpened,
-	});
-		
-	return (
-		<div className={rollupButtonStyles.buttonRollupContainer}>
-			<Button title={title} auxStyles={auxStyles} clickHandler={toggleRollup} />
-			<Rollup forms={forms} isOpened={rollupOpened} />
-		</div>
-	);
+  const {toggleRollup} = useContext(FormDisplayContext);
+  const auxStyles = classNames(basicButtonStyles.withMark, {
+    [rollupButtonStyles.rollupActive]: rollupOpened,
+  });
+    
+  return (
+    <div className={rollupButtonStyles.buttonRollupContainer}>
+      <Button title={title} auxStyles={auxStyles} clickHandler={toggleRollup} />
+      <Rollup forms={forms} isOpened={rollupOpened} />
+    </div>
+  );
 }

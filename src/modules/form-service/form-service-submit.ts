@@ -4,9 +4,9 @@ import { formServiceCheckpoints } from "./form-service-checkpoints";
 import { convertServiceFields } from "./form-service-convert-fields";
 
 export default async function submitServiceForm(state: ServiceFormState): Promise<boolean> {
-	const finalFormState = prepareForm<ServiceFormState, ServiceFormFinalState>(
-		state, formServiceCheckpoints, convertServiceFields);
+  const finalFormState = prepareForm<ServiceFormState, ServiceFormFinalState>(
+    state, formServiceCheckpoints, convertServiceFields);
 
-	return await saveForm(finalFormState);
+  return await saveForm(finalFormState);
 
 }

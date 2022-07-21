@@ -13,13 +13,13 @@ type TileHeaderProps = {
 
 export default function TileHeader({ title, units, value }: TileHeaderProps) {
   return (
-		<div className={classNames(tileStyles.data, styles.info)}>
-			<h3 className={classNames(textStyles.titleNormal, styles.header)}>
-				{title}&ensp;
-				<br />
-				<span className={classNames(textStyles.textSmall, styles.units)}>{units}</span>
-			</h3>
-			<div className={classNames(textStyles.titleHuge, styles.value)}>{value}</div>
-		</div>
-	);
+    <div className={classNames(tileStyles.data, styles.info)}>
+      <h3 className={classNames(textStyles.titleNormal, styles.header)}>
+        {title}&ensp;
+        <br />
+        <span className={classNames(textStyles.textSmall, styles.units)}>{units}</span>
+      </h3>
+      <div className={classNames(textStyles.titleHuge, styles.value)}>{value}</div>
+    </div>
+  );
 }

@@ -4,8 +4,8 @@ import { convertOtherFields } from "./form-other-convert-fields";
 import { formOtherCheckpoints } from "./form-other-submit-checkpoints";
 
 export default async function submitOtherForm(state: OtherFormState): Promise<boolean> {
-	const finalFormState = prepareForm<OtherFormState, OtherFormFinalState>(
-		state, formOtherCheckpoints, convertOtherFields);
+  const finalFormState = prepareForm<OtherFormState, OtherFormFinalState>(
+    state, formOtherCheckpoints, convertOtherFields);
 
-	return await saveForm(finalFormState);
+  return await saveForm(finalFormState);
 }

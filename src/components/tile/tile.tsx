@@ -7,17 +7,17 @@ import styles from "./tile.module.scss";
 
 
 type TileProps = {
-	title: string;
-	units: string;
-	value: number;
-	chartData: TileChartData;
+  title: string;
+  units: string;
+  value: number;
+  chartData: TileChartData;
 };
 
 export default function Tile({ title, units, value, chartData }: TileProps) {
-	return (
-		<div className={styles.tile}>
-			<TileHeader title={title} units={units} value={value} />
-			<TileChart data={chartData} />
-		</div>
-	);
+  return (
+    <div className={styles.tile}>
+      <TileHeader title={title} units={units} value={value} />
+      <TileChart data={chartData} />
+    </div>
+  );
 }

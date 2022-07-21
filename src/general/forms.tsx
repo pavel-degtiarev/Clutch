@@ -33,67 +33,67 @@ import { FuelFormFields, FuelFormState, OtherFormFields, OtherFormState, Details
 // ============================================
 
 export const forms: FormItem[] = [
-	{
-		title: "Топливо",
-		form: (
-			<WithValidateSubmit<FuelFormFields, FuelFormState>
-				Form={FormFuel}
-				getValidate={getValidateFuelForm}
-				submit={submitFuelForm}
-			/>
-		),
-	},
-	{
-		title: "Расходники, запчасти",
-		form: (
-			<WithValidateSubmit<SpareFormFields, SpareFormState>
-				Form={FormSpare}
-				getValidate={getValidateSpareForm}
-				submit={submitSpareForm}
-			/>
-		),
-	},
-	{
-		title: "Сервис",
-		form: (
-			<WithValidateSubmit<ServiceFormFields, ServiceFormState>
-				Form={FormService}
-				getValidate={getValidateServiceForm}
-				submit={submitServiceForm}
-			/>
-		),
-	},
-	{
-		title: "Прочее",
-		form: (
-			<WithValidateSubmit<OtherFormFields, OtherFormState>
-				Form={FormOther}
-				getValidate={getValidateOtherForm}
-				submit={submitOtherForm}
-			/>
-		),
-	},
+  {
+    title: "Топливо",
+    form: (
+      <WithValidateSubmit<FuelFormFields, FuelFormState>
+        Form={FormFuel}
+        getValidate={getValidateFuelForm}
+        submit={submitFuelForm}
+      />
+    ),
+  },
+  {
+    title: "Расходники, запчасти",
+    form: (
+      <WithValidateSubmit<SpareFormFields, SpareFormState>
+        Form={FormSpare}
+        getValidate={getValidateSpareForm}
+        submit={submitSpareForm}
+      />
+    ),
+  },
+  {
+    title: "Сервис",
+    form: (
+      <WithValidateSubmit<ServiceFormFields, ServiceFormState>
+        Form={FormService}
+        getValidate={getValidateServiceForm}
+        submit={submitServiceForm}
+      />
+    ),
+  },
+  {
+    title: "Прочее",
+    form: (
+      <WithValidateSubmit<OtherFormFields, OtherFormState>
+        Form={FormOther}
+        getValidate={getValidateOtherForm}
+        submit={submitOtherForm}
+      />
+    ),
+  },
 ];
 
 export const subforms = {
-	repeatSubform: {
-		title: "Периодичность",
-		form: (
-			<WithValidateSubmit<RepeatFormFields, RepeatFormState>
-				Form={FormServiceRepeat}
-				getValidate={getValidateServiceRepeatForm}
-				submit={submitServiceRepeatForm}
-			/>
-		),
-	},
-	detailsSubform: {
-		title: "Подробнее",
-		form: (
-			<WithValidateSubmit<DetailsFormFields, DetailsFormState>
-				Form={FormServiceDetails}
-				getValidate={getValidateServiceDetailsForm}
-				submit={submitServiceDetailsForm}
-			/>
-		),
-	},
+  repeatSubform: {
+    title: "Периодичность",
+    form: (
+      <WithValidateSubmit<RepeatFormFields, RepeatFormState>
+        Form={FormServiceRepeat}
+        getValidate={getValidateServiceRepeatForm}
+        submit={submitServiceRepeatForm}
+      />
+    ),
+  },
+  detailsSubform: {
+    title: "Подробнее",
+    form: (
+      <WithValidateSubmit<DetailsFormFields, DetailsFormState>
+        Form={FormServiceDetails}
+        getValidate={getValidateServiceDetailsForm}
+        submit={submitServiceDetailsForm}
+      />
+    ),
+  },
 };

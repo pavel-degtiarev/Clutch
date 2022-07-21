@@ -23,118 +23,118 @@ import containerStyles from "../../components/popup-container/popup-container.mo
 
 export default function FormService({ getValidate, submit 
 }: FormComponentProps<ServiceFormFields, ServiceFormState>) {
-	
-	const { serviceState, updateServiceForm, repeatState, detailsState, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
-	const {showSubform, closeForm} = useContext(FormDisplayContext);
-	const [formState, setFormState] = useState<ServiceFormState>(serviceState);
-	const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
+  
+  const { serviceState, updateServiceForm, repeatState, detailsState, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
+  const {showSubform, closeForm} = useContext(FormDisplayContext);
+  const [formState, setFormState] = useState<ServiceFormState>(serviceState);
+  const validate = getValidate(setFormState as setStateFunction<ServiceFormState>);
 
-	const useShowSubform = useCallback(
-		(subform: FormItem, value = true) => {
-			value && showSubform(subform);
-			return value;
-		}, [showSubform]
-	);
+  const useShowSubform = useCallback(
+    (subform: FormItem, value = true) => {
+      value && showSubform(subform);
+      return value;
+    }, [showSubform]
+  );
 
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form}>
-					<div className={styles.serviceFields}>
-						<Validated<ServiceFormFields>
-							validate={validate}
-							Control={
-								<FieldDate
-									name="serviceDate"
-									label="Дата"
-									value={formState.serviceDate}
-								/>}
-						/>
+  return (
+    <>
+      <div className={containerStyles.popupContent}>
+        <form className={containerStyles.form}>
+          <div className={styles.serviceFields}>
+            <Validated<ServiceFormFields>
+              validate={validate}
+              Control={
+                <FieldDate
+                  name="serviceDate"
+                  label="Дата"
+                  value={formState.serviceDate}
+                />}
+            />
 
-						<Validated<ServiceFormFields>
-							validate={validate}
-							Control={
-								<FieldText
-									name="serviceDescription"
-									label="Описание"
-									value={formState.serviceDescription}
-								/>
-							}
-						/>
+            <Validated<ServiceFormFields>
+              validate={validate}
+              Control={
+                <FieldText
+                  name="serviceDescription"
+                  label="Описание"
+                  value={formState.serviceDescription}
+                />
+              }
+            />
 
-						<Validated<ServiceFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputNumeric}
-									name="serviceRun"
-									label="Пробег"
-									value={formState.serviceRun}
-									suffix={FieldSuffixes.RUN}
-								/>
-							}
-						/>
+            <Validated<ServiceFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputNumeric}
+                  name="serviceRun"
+                  label="Пробег"
+                  value={formState.serviceRun}
+                  suffix={FieldSuffixes.RUN}
+                />
+              }
+            />
 
-						<Validated<ServiceFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputNumeric}
-									name="serviceTotal"
-									label="Общая сумма"
-									value={formState.serviceTotal}
-									suffix={FieldSuffixes.MONEY}
-									auxStyles={styles.total}>
-									<ButtonIcon
-										auxClassNames={styles.totalDetails}
-										handler={() => useShowSubform(subforms.detailsSubform)}
-									/>
-								</FieldWithSuffix>
-							}
-						/>
+            <Validated<ServiceFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputNumeric}
+                  name="serviceTotal"
+                  label="Общая сумма"
+                  value={formState.serviceTotal}
+                  suffix={FieldSuffixes.MONEY}
+                  auxStyles={styles.total}>
+                  <ButtonIcon
+                    auxClassNames={styles.totalDetails}
+                    handler={() => useShowSubform(subforms.detailsSubform)}
+                  />
+                </FieldWithSuffix>
+              }
+            />
 
-						<Validated<ServiceFormFields>
-							validate={validate}
-							Control={
-								<Checkbox
-									name="serviceRepeat"
-									label="Повторять периодически"
-									isChecked={formState.serviceRepeat}
-									auxStyles={styles.repeat}
-									changeHandler={(isChecked) => useShowSubform(subforms.repeatSubform, isChecked)}>
-									<ButtonIcon
-										auxClassNames={styles.repeatDetails}
-										handler={() => useShowSubform(subforms.repeatSubform)}
-										disabled={!formState.serviceRepeat}
-									/>
-								</Checkbox>
-							}
-						/>
-					</div>
-				</form>
-			</div>
+            <Validated<ServiceFormFields>
+              validate={validate}
+              Control={
+                <Checkbox
+                  name="serviceRepeat"
+                  label="Повторять периодически"
+                  isChecked={formState.serviceRepeat}
+                  auxStyles={styles.repeat}
+                  changeHandler={(isChecked) => useShowSubform(subforms.repeatSubform, isChecked)}>
+                  <ButtonIcon
+                    auxClassNames={styles.repeatDetails}
+                    handler={() => useShowSubform(subforms.repeatSubform)}
+                    disabled={!formState.serviceRepeat}
+                  />
+                </Checkbox>
+              }
+            />
+          </div>
+        </form>
+      </div>
 
-			<Button
-				title="Сохранить"
-				auxStyles={containerStyles.saveButton}
-				clickHandler={async () => {
-					let newFormState = formState;
+      <Button
+        title="Сохранить"
+        auxStyles={containerStyles.saveButton}
+        clickHandler={async () => {
+          let newFormState = formState;
 
-					if (repeatState.repeatByRun || repeatState.repeatByTime) {
-						newFormState.serviceRepeatDetails = repeatState;
-					}
-					if (detailsState.services.length || detailsState.services.length) {
-						newFormState.serviceTotalDetails = detailsState;
-					}
+          if (repeatState.repeatByRun || repeatState.repeatByTime) {
+            newFormState.serviceRepeatDetails = repeatState;
+          }
+          if (detailsState.services.length || detailsState.services.length) {
+            newFormState.serviceTotalDetails = detailsState;
+          }
 
-					if (await submit(newFormState)) {
-						updateRepeatForm(repeatFormInitState);
-						updateDetailsForm(detailsFormInitState);
-						updateServiceForm(serviceFormInitState);
-						closeForm();
-					}
-				}}
-			/>
-		</>
-	);
+          if (await submit(newFormState)) {
+            updateRepeatForm(repeatFormInitState);
+            updateDetailsForm(detailsFormInitState);
+            updateServiceForm(serviceFormInitState);
+            closeForm();
+          }
+        }}
+      />
+    </>
+  );
 }

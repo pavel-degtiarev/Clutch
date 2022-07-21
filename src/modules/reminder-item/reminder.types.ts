@@ -1,35 +1,35 @@
 import { TimeUnits } from "../../general/global.var";
 
 export type TimeType = {
-	interval: number;
-	unit: TimeUnits;
+  interval: number;
+  unit: TimeUnits;
 };
 
 export enum Urgency {
-	NORMAL,
-	NEARDUE,
-	OVERDUED,
+  NORMAL,
+  NEARDUE,
+  OVERDUED,
 }
 
 interface ReminderBase<T> {
-	title: string;
-	urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
-	trigger: T;
+  title: string;
+  urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
+  trigger: T;
 }
 
 export interface RunTrigger {
-	run: number;
+  run: number;
 }
 export interface TimeTrigger {
-	time: TimeType;
+  time: TimeType;
 }
 
 export type IReminder = ReminderBase<RunTrigger> | ReminderBase<TimeTrigger>;
 
 export function isRunTrigger(trigger: RunTrigger | TimeTrigger): trigger is RunTrigger {
-	return "run" in trigger;
+  return "run" in trigger;
 }
 
 export function isTimeTrigger(trigger: RunTrigger | TimeTrigger): trigger is TimeTrigger {
-	return "time" in trigger;
+  return "time" in trigger;
 }

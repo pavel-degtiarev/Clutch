@@ -19,57 +19,58 @@ import { OtherFormFields, otherFormInitState, OtherFormState } from "../../conte
 
 export default function FormOther({ getValidate, submit 
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
-	
-	const { otherState, updateOtherForm } = useContext(FormStateContext);
-	const [formState, setFormState] = useState<OtherFormState>(otherState);
-	const {closeForm} = useContext(FormDisplayContext);
+  
+  const { otherState, updateOtherForm } = useContext(FormStateContext);
+  const [formState, setFormState] = useState<OtherFormState>(otherState);
+  const {closeForm} = useContext(FormDisplayContext);
 
-	const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
+  const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
 
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form}>
-					<div className={styles.otherFields}>
-						
-						<Validated<OtherFormFields>
-							validate={validate}
-							Control={<FieldDate name="otherDate" label="Дата" value={formState.otherDate} />}
-						/>
+  return (
+    <>
+      <div className={containerStyles.popupContent}>
+        <form className={containerStyles.form}>
+          <div className={styles.otherFields}>
+            
+            <Validated<OtherFormFields>
+              validate={validate}
+              Control={<FieldDate name="otherDate" label="Дата" value={formState.otherDate} />}
+            />
 
-						<Validated<OtherFormFields>
-							validate={validate}
-							Control={
-								<FieldText name="otherTitle" label="Наименование" value={formState.otherTitle} />
-							}
-						/>
+            <Validated<OtherFormFields>
+              validate={validate}
+              Control={
+                <FieldText name="otherTitle" label="Наименование" value={formState.otherTitle} />
+              }
+            />
 
-						<Validated<OtherFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputNumeric}
-									name="otherPrice"
-									label="Цена"
-									value={formState.otherPrice}
-									suffix={FieldSuffixes.MONEY}
-								/>
-							}
-						/>
-					</div>
-				</form>
-			</div>
+            <Validated<OtherFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputNumeric}
+                  name="otherPrice"
+                  label="Цена"
+                  value={formState.otherPrice}
+                  suffix={FieldSuffixes.MONEY}
+                />
+              }
+            />
+          </div>
+        </form>
+      </div>
 
-			<Button
-				title="Сохранить"
-				auxStyles={containerStyles.saveButton}
-				clickHandler={async () => {
-					if (await submit(formState)) {
-						updateOtherForm(otherFormInitState);
-						closeForm();
-					}
-				}}
-			/>
-		</>
-	);
+      <Button
+        title="Сохранить"
+        auxStyles={containerStyles.saveButton}
+        clickHandler={async () => {
+          if (await submit(formState)) {
+            updateOtherForm(otherFormInitState
+            );
+            closeForm();
+          }
+        }}
+      />
+    </>
+  );
 }

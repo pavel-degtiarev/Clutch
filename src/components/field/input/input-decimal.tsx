@@ -6,20 +6,20 @@ import { InputMode } from "../field-types";
 export interface InputDecimalProps extends InputProps {}
 
 export default function InputDecimal({
-	name, value, disabled, focusHandler, blurHandler, changeHandler }: InputDecimalProps) {
-	
-	const clean = useCallback(cleanDecimal, []);
-	const handler = (val: string) => (changeHandler ? changeHandler(clean(val)) : clean(val));
+  name, value, disabled, focusHandler, blurHandler, changeHandler }: InputDecimalProps) {
+  
+  const clean = useCallback(cleanDecimal, []);
+  const handler = (val: string) => (changeHandler ? changeHandler(clean(val)) : clean(val));
 
-	return (
-		<Input
-			name={name}
-			value={value}
-			inputMode={InputMode.DECIMAL}
-			disabled={disabled}
-			changeHandler={handler}
-			focusHandler={focusHandler}
-			blurHandler={blurHandler}
-		/>
-	);
+  return (
+    <Input
+      name={name}
+      value={value}
+      inputMode={InputMode.DECIMAL}
+      disabled={disabled}
+      changeHandler={handler}
+      focusHandler={focusHandler}
+      blurHandler={blurHandler}
+    />
+  );
 }

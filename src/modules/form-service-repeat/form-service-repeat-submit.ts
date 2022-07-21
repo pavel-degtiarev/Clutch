@@ -6,8 +6,8 @@ import { convertServiceRepeatFields } from "./form-service-repeat-convert-fields
 // ====================================
 
 export default async function submitServiceRepeatForm(state: RepeatFormState): Promise<boolean> {
-	const finalFormState = prepareForm<RepeatFormState, repeatFormFinalState>(
-		state, formServiceRepeatCheckpoints, convertServiceRepeatFields);
-	
-	return !!finalFormState;
+  const finalFormState = prepareForm<RepeatFormState, repeatFormFinalState>(
+    state, formServiceRepeatCheckpoints, convertServiceRepeatFields);
+  
+  return !!finalFormState;
 }

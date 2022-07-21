@@ -6,8 +6,8 @@ import { FuelFormState } from "../../context/form-state/form-init-states";
 // ====================================
 
 export default async function submitFuelForm(state: FuelFormState): Promise<boolean> {
-	const finalFormState = prepareForm<FuelFormState, FuelFormFinalState>(
-		state, formFuelCheckpoints, convertFuelFields);
+  const finalFormState = prepareForm<FuelFormState, FuelFormFinalState>(
+    state, formFuelCheckpoints, convertFuelFields);
 
-	return await saveForm(finalFormState);
+  return await saveForm(finalFormState);
 }

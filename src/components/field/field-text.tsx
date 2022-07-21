@@ -7,25 +7,25 @@ import Label from "./label/label";
 export interface FieldTextProps extends FieldProps {}
 
 export default function FieldText({
-	name, label, value, auxStyles, disabled = false, children,
-	changeHandler, focusHandler, blurHandler }: FieldTextProps) {
-	
-	return (
-		<FieldContainer auxStyles={auxStyles}>
-				<Input
-					name={name}
-					value={value}
-					inputMode={InputMode.TEXT}
-					disabled={disabled}
-					changeHandler={changeHandler}
-					focusHandler={focusHandler}
-					blurHandler={blurHandler}
-				/>
+  name, label, value, auxStyles, disabled = false, children,
+  changeHandler, focusHandler, blurHandler }: FieldTextProps) {
+  
+  return (
+    <FieldContainer auxStyles={auxStyles}>
+        <Input
+          name={name}
+          value={value}
+          inputMode={InputMode.TEXT}
+          disabled={disabled}
+          changeHandler={changeHandler}
+          focusHandler={focusHandler}
+          blurHandler={blurHandler}
+        />
 
-			<Label inputName={name} label={label} />
+      <Label inputName={name} label={label} />
 
-			{children}
+      {children}
 
-		</FieldContainer>
-	);
+    </FieldContainer>
+  );
 }

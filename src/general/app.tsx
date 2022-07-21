@@ -22,28 +22,28 @@ dayjs.locale("ru");
 // ===========================================
 
 export default function App() {
-	return (
-		<>
-			<h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
+  return (
+    <>
+      <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
-			<Header title="Honda Fit" />
-			{/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
+      <Header title="Honda Fit" />
+      {/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
 
-			<Main>
-				<Reminder reminders={reminders} />
-				<TabsGroup
-					name="time-interval"
-					tabs={timeTabs}
-					changedHandler={(tab) => console.log(tab)}
-				/>
-				<Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
+      <Main>
+        <Reminder reminders={reminders} />
+        <TabsGroup
+          name="time-interval"
+          tabs={timeTabs}
+          changedHandler={(tab) => console.log(tab)}
+        />
+        <Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
-				<FormState>
-					<FormDisplayState>
-						<PopupSwitch forms={forms} />
-					</FormDisplayState>
-				</FormState>
-			</Main>
-		</>
-	);
+        <FormState>
+          <FormDisplayState>
+            <PopupSwitch forms={forms} />
+          </FormDisplayState>
+        </FormState>
+      </Main>
+    </>
+  );
 }

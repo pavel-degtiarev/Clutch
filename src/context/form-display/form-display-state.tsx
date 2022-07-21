@@ -8,33 +8,33 @@ export type FormDisplayAction =() => void;
 export type FormDisplayActionWithPayload = (form: FormItem) => void;
 
 interface FormDisplayContext {
-	state: PopupState;
-	toggleRollup: FormDisplayAction;
-	showForm: FormDisplayActionWithPayload;
-	showSubform: FormDisplayActionWithPayload;
-	closeForm: FormDisplayAction;
-	closeSubform: FormDisplayAction;
+  state: PopupState;
+  toggleRollup: FormDisplayAction;
+  showForm: FormDisplayActionWithPayload;
+  showSubform: FormDisplayActionWithPayload;
+  closeForm: FormDisplayAction;
+  closeSubform: FormDisplayAction;
 }
 
 export const FormDisplayContext = createContext<FormDisplayContext>({} as FormDisplayContext);
 
 interface FormDisplayStateProps {
-	children: ReactNode;
+  children: ReactNode;
 }
 
 export default function FormDisplayState({ children }: FormDisplayStateProps) {
-	const [state, dispatch] = useReducer(formDisplayReducer, formDisplayInitState);
+  const [state, dispatch] = useReducer(formDisplayReducer, formDisplayInitState);
 
-	const toggleRollup = useCallback(() => dispatch(rollupToggled()), []);
-	const showForm = useCallback((form: FormItem) => dispatch(formSelected(form)), []);
-	const showSubform = useCallback((subform: FormItem) => dispatch(subformSelected(subform)), []);
-	const closeForm = useCallback(() => dispatch(formClosed()), []);
-	const closeSubform = useCallback(() => dispatch(subformClosed()), []);
+  const toggleRollup = useCallback(() => dispatch(rollupToggled()), []);
+  const showForm = useCallback((form: FormItem) => dispatch(formSelected(form)), []);
+  const showSubform = useCallback((subform: FormItem) => dispatch(subformSelected(subform)), []);
+  const closeForm = useCallback(() => dispatch(formClosed()), []);
+  const closeSubform = useCallback(() => dispatch(subformClosed()), []);
 
-	return (
-		<FormDisplayContext.Provider
-			value={{ state, toggleRollup, showForm, showSubform, closeForm, closeSubform }}>
-			{children}
-		</FormDisplayContext.Provider>
-	);
+  return (
+    <FormDisplayContext.Provider
+      value={{ state, toggleRollup, showForm, showSubform, closeForm, closeSubform }}>
+      {children}
+    </FormDisplayContext.Provider>
+  );
 }

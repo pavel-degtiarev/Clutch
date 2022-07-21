@@ -20,81 +20,81 @@ import { RepeatFormFields, RepeatFormState } from "../../context/form-state/form
 
 export default function FormServiceRepeat({ getValidate, submit 
 }: FormComponentProps<RepeatFormFields, RepeatFormState>) {
-	
-	const { repeatState, updateRepeatForm } = useContext(FormStateContext);
-	const { closeSubform } = useContext(FormDisplayContext);
-	const [formState, setFormState] = useState<RepeatFormState>(repeatState);
-	const validate = getValidate(setFormState as setStateFunction<RepeatFormState>);
+  
+  const { repeatState, updateRepeatForm } = useContext(FormStateContext);
+  const { closeSubform } = useContext(FormDisplayContext);
+  const [formState, setFormState] = useState<RepeatFormState>(repeatState);
+  const validate = getValidate(setFormState as setStateFunction<RepeatFormState>);
 
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form}>
-					<div className={styles.serviceRepeatFields}>
+  return (
+    <>
+      <div className={containerStyles.popupContent}>
+        <form className={containerStyles.form}>
+          <div className={styles.serviceRepeatFields}>
 
-						<FieldGroup>
-							<Validated
-								validate={validate}
-								Control={<Checkbox
-									name="repeatByRun" label="по пробегу"
-									isChecked={formState.repeatByRun}/>}
-							/>
+            <FieldGroup>
+              <Validated
+                validate={validate}
+                Control={<Checkbox
+                  name="repeatByRun" label="по пробегу"
+                  isChecked={formState.repeatByRun}/>}
+              />
 
-							<Validated
-								validate={validate}
-								Control={ <FieldWithSuffix InputComponent={InputNumeric}
-									name="repeatingRun" label="Пробег"
-									value={formState.repeatingRun}
-									suffix={FieldSuffixes.RUN}
-									disabled={!formState.repeatByRun}/>}
-							/>
-						</FieldGroup>
+              <Validated
+                validate={validate}
+                Control={ <FieldWithSuffix InputComponent={InputNumeric}
+                  name="repeatingRun" label="Пробег"
+                  value={formState.repeatingRun}
+                  suffix={FieldSuffixes.RUN}
+                  disabled={!formState.repeatByRun}/>}
+              />
+            </FieldGroup>
 
-						<FieldGroup>
-							<Validated
-								validate={validate}
-								Control={ <Checkbox
-									name="repeatByTime" label="по времени"
-									isChecked={formState.repeatByTime}/>}
-							/>
+            <FieldGroup>
+              <Validated
+                validate={validate}
+                Control={ <Checkbox
+                  name="repeatByTime" label="по времени"
+                  isChecked={formState.repeatByTime}/>}
+              />
 
-							<FieldGroup horizontal>
+              <FieldGroup horizontal>
 
-								<Validated
-									validate={validate}
-									Control={ <FieldWithSuffix InputComponent={InputNumeric}
-										name="repeatingTime"label="Время"
-										value={formState.repeatingTime}
-										disabled={!formState.repeatByTime}
-										suffix={getTimeSuffix(
-											formState.repeatingTime,
-											formState.repeatTimeSlot)} />}
-								/>
+                <Validated
+                  validate={validate}
+                  Control={ <FieldWithSuffix InputComponent={InputNumeric}
+                    name="repeatingTime"label="Время"
+                    value={formState.repeatingTime}
+                    disabled={!formState.repeatByTime}
+                    suffix={getTimeSuffix(
+                      formState.repeatingTime,
+                      formState.repeatTimeSlot)} />}
+                />
 
-								<Validated
-									validate={validate}
-									Control={ <Select
-											name="repeatTimeSlot"
-											options={timeSlotOptions}
-											selected={formState.repeatTimeSlot}
-											disabled={!formState.repeatByTime}/>}
-								/>
-							</FieldGroup>
-						</FieldGroup>
-					</div>
-				</form>
-			</div>
+                <Validated
+                  validate={validate}
+                  Control={ <Select
+                      name="repeatTimeSlot"
+                      options={timeSlotOptions}
+                      selected={formState.repeatTimeSlot}
+                      disabled={!formState.repeatByTime}/>}
+                />
+              </FieldGroup>
+            </FieldGroup>
+          </div>
+        </form>
+      </div>
 
-			<Button
-				title="Сохранить"
-				auxStyles={containerStyles.saveButton}
-				clickHandler={async () => {
-					if (await submit(formState)) {
-						updateRepeatForm(formState);
-						closeSubform();
-					}
-				}}
-			/>
-		</>
-	);
+      <Button
+        title="Сохранить"
+        auxStyles={containerStyles.saveButton}
+        clickHandler={async () => {
+          if (await submit(formState)) {
+            updateRepeatForm(formState);
+            closeSubform();
+          }
+        }}
+      />
+    </>
+  );
 }

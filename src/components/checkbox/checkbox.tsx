@@ -6,38 +6,38 @@ import classNames from "classnames";
 import styles from "./checkbox.module.scss";
 
 export interface CheckboxProps extends ControlledField<boolean> {
-	name: string;
-	label: string;
-	isChecked: boolean;
-	auxStyles?: string;
-	children?: ReactNode;
+  name: string;
+  label: string;
+  isChecked: boolean;
+  auxStyles?: string;
+  children?: ReactNode;
 }
 
 export default function Checkbox({
-	name, label, auxStyles, isChecked, children, changeHandler }: CheckboxProps) {
-	
-	const [checkboxChecked, setCheckboxChecked] = useState(isChecked);
+  name, label, auxStyles, isChecked, children, changeHandler }: CheckboxProps) {
+  
+  const [checkboxChecked, setCheckboxChecked] = useState(isChecked);
 
-	const changeCheckboxState = useCallback(() => {
-		const newState = !checkboxChecked;
-		changeHandler && changeHandler(newState);
-		setCheckboxChecked(newState);
-	}, [changeHandler])
+  const changeCheckboxState = useCallback(() => {
+    const newState = !checkboxChecked;
+    changeHandler && changeHandler(newState);
+    setCheckboxChecked(newState);
+  }, [changeHandler])
 
-	useEffect(()=>setCheckboxChecked(isChecked), [isChecked]);
+  useEffect(()=>setCheckboxChecked(isChecked), [isChecked]);
 
-	return (
-		<div className={classNames(styles.checkbox, auxStyles)}>
-			<input
-				id={name} name={name}
-				className={styles.input} type="checkbox"
-				checked={checkboxChecked}
-				onChange={changeCheckboxState}
-			/>
+  return (
+    <div className={classNames(styles.checkbox, auxStyles)}>
+      <input
+        id={name} name={name}
+        className={styles.input} type="checkbox"
+        checked={checkboxChecked}
+        onChange={changeCheckboxState}
+      />
 
-			<Label inputName={name} label={label} auxStyles={styles.label} />
+      <Label inputName={name} label={label} auxStyles={styles.label} />
 
-			{children}
-		</div>
-	);
+      {children}
+    </div>
+  );
 }

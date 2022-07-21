@@ -8,7 +8,7 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
 import { FormComponentProps, setStateFunction,
-	} from "../../HOC/with-validate-submit/with-validate-submit";
+  } from "../../HOC/with-validate-submit/with-validate-submit";
 import { FormStateContext } from "../../context/form-state/form-state";
 
 import styles from "./form-spare.module.scss";
@@ -21,55 +21,55 @@ import { SpareFormFields, spareFormInitState, SpareFormState } from "../../conte
 export default function FormSpare({ getValidate, submit 
 }: FormComponentProps<SpareFormFields, SpareFormState>) {
 
-	const { spareState, updateSpareForm } = useContext(FormStateContext);
-	const [formState, setFormState] = useState<SpareFormState>(spareState);
-	const {closeForm} = useContext(FormDisplayContext);
+  const { spareState, updateSpareForm } = useContext(FormStateContext);
+  const [formState, setFormState] = useState<SpareFormState>(spareState);
+  const {closeForm} = useContext(FormDisplayContext);
 
-	const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
+  const validate = getValidate(setFormState as setStateFunction<SpareFormState>);
 
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form}>
-					<div className={styles.spareFields}>
-						<Validated<SpareFormFields>
-							validate={validate}
-							Control={<FieldDate name="spareDate" label="Дата" value={formState.spareDate} />}
-						/>
+  return (
+    <>
+      <div className={containerStyles.popupContent}>
+        <form className={containerStyles.form}>
+          <div className={styles.spareFields}>
+            <Validated<SpareFormFields>
+              validate={validate}
+              Control={<FieldDate name="spareDate" label="Дата" value={formState.spareDate} />}
+            />
 
-						<Validated<SpareFormFields>
-							validate={validate}
-							Control={
-								<FieldText name="spareTitle" label="Наименование" value={formState.spareTitle} />
-							}
-						/>
+            <Validated<SpareFormFields>
+              validate={validate}
+              Control={
+                <FieldText name="spareTitle" label="Наименование" value={formState.spareTitle} />
+              }
+            />
 
-						<Validated<SpareFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputNumeric}
-									name="sparePrice"
-									label="Цена"
-									value={formState.sparePrice}
-									suffix={FieldSuffixes.MONEY}
-								/>
-							}
-						/>
-					</div>
-				</form>
-			</div>
+            <Validated<SpareFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputNumeric}
+                  name="sparePrice"
+                  label="Цена"
+                  value={formState.sparePrice}
+                  suffix={FieldSuffixes.MONEY}
+                />
+              }
+            />
+          </div>
+        </form>
+      </div>
 
-			<Button
-				title="Сохранить"
-				auxStyles={containerStyles.saveButton}
-				clickHandler={async () => {
-					if (await submit(formState)) {
-						updateSpareForm(spareFormInitState);
-						closeForm();
-					}
-				}}
-			/>
-		</>
-	);
+      <Button
+        title="Сохранить"
+        auxStyles={containerStyles.saveButton}
+        clickHandler={async () => {
+          if (await submit(formState)) {
+            updateSpareForm(spareFormInitState);
+            closeForm();
+          }
+        }}
+      />
+    </>
+  );
 }

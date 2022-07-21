@@ -20,99 +20,99 @@ import styles from "./form-fuel.module.scss";
 
 export default function FormFuel({ getValidate, submit,
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
-	
-	const { fuelState, updateFuelForm } = useContext(FormStateContext);
-	const [formState, setFormState] = useState<FuelFormState>(fuelState);
-	const { closeForm } = useContext(FormDisplayContext);
+  
+  const { fuelState, updateFuelForm } = useContext(FormStateContext);
+  const [formState, setFormState] = useState<FuelFormState>(fuelState);
+  const { closeForm } = useContext(FormDisplayContext);
 
-	const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
+  const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
 
-	return (
-		<>
-			<div className={containerStyles.popupContent}>
-				<form className={containerStyles.form}>
-					<div className={styles.fuelFields}>
-						<Validated<FuelFormFields>
-							validate={validate}
-							Control={
-								<FieldDate
-									name="fuelDate"
-									label="Дата"
-									auxStyles={styles.date}
-									value={formState.fuelDate}
-								/>
-							}
-						/>
+  return (
+    <>
+      <div className={containerStyles.popupContent}>
+        <form className={containerStyles.form}>
+          <div className={styles.fuelFields}>
+            <Validated<FuelFormFields>
+              validate={validate}
+              Control={
+                <FieldDate
+                  name="fuelDate"
+                  label="Дата"
+                  auxStyles={styles.date}
+                  value={formState.fuelDate}
+                />
+              }
+            />
 
-						<Validated<FuelFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputNumeric}
-									name="fuelRun"
-									label="Пробег"
-									value={formState.fuelRun}
-									auxStyles={styles.run}
-									suffix={FieldSuffixes.RUN}
-								/>
-							}
-						/>
+            <Validated<FuelFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputNumeric}
+                  name="fuelRun"
+                  label="Пробег"
+                  value={formState.fuelRun}
+                  auxStyles={styles.run}
+                  suffix={FieldSuffixes.RUN}
+                />
+              }
+            />
 
-						<Validated<FuelFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputDecimal}
-									name="fuelCost"
-									label="Стоимость"
-									value={formState.fuelCost}
-									auxStyles={styles.cost}
-									suffix={FieldSuffixes.MONEY}
-								/>
-							}
-						/>
+            <Validated<FuelFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputDecimal}
+                  name="fuelCost"
+                  label="Стоимость"
+                  value={formState.fuelCost}
+                  auxStyles={styles.cost}
+                  suffix={FieldSuffixes.MONEY}
+                />
+              }
+            />
 
-						<Validated<FuelFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputDecimal}
-									name="fuelPrice"
-									label="Цена за литр"
-									value={formState.fuelPrice}
-									auxStyles={styles.price}
-									suffix={FieldSuffixes.MONEY}
-								/>
-							}
-						/>
+            <Validated<FuelFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputDecimal}
+                  name="fuelPrice"
+                  label="Цена за литр"
+                  value={formState.fuelPrice}
+                  auxStyles={styles.price}
+                  suffix={FieldSuffixes.MONEY}
+                />
+              }
+            />
 
-						<Validated<FuelFormFields>
-							validate={validate}
-							Control={
-								<FieldWithSuffix
-									InputComponent={InputDecimal}
-									name="fuelVolume"
-									label="Объем"
-									value={formState.fuelVolume}
-									auxStyles={styles.volume}
-									suffix={FieldSuffixes.VOLUME}
-								/>
-							}
-						/>
-					</div>
-				</form>
-			</div>
+            <Validated<FuelFormFields>
+              validate={validate}
+              Control={
+                <FieldWithSuffix
+                  InputComponent={InputDecimal}
+                  name="fuelVolume"
+                  label="Объем"
+                  value={formState.fuelVolume}
+                  auxStyles={styles.volume}
+                  suffix={FieldSuffixes.VOLUME}
+                />
+              }
+            />
+          </div>
+        </form>
+      </div>
 
-			<Button
-				title="Сохранить"
-				auxStyles={containerStyles.saveButton}
-				clickHandler={async () => {
-					if (await submit(formState)) {
-						updateFuelForm(fuelFormInitState);
-						closeForm();
-					}
-				}}
-			/>
-		</>
-	);
+      <Button
+        title="Сохранить"
+        auxStyles={containerStyles.saveButton}
+        clickHandler={async () => {
+          if (await submit(formState)) {
+            updateFuelForm(fuelFormInitState);
+            closeForm();
+          }
+        }}
+      />
+    </>
+  );
 }
