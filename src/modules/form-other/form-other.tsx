@@ -7,22 +7,26 @@ import InputNumeric from "../../components/field/input/input-numeric";
 
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FieldSuffixes } from "../../general/global.var";
-import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { FormComponentProps, setStateFunction } from "../../HOC/with-validate-check/with-validate-check";
 import { FormStateContext } from "../../context/form-state/form-state";
 
 import styles from "./form-other.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
 import { OtherFormFields, otherFormInitState, OtherFormState } from "../../context/form-state/form-init-states";
+import { convertOtherFields } from "./form-other-convert-fields";
+import { useClutchStoreDispatch } from "../../store/store";
+import { saveOther } from "../../store/other-slice/other-slice";
 
 // ==========================================
 
-export default function FormOther({ getValidate, submit 
+export default function FormOther({ getValidate, finalCheck 
 }: FormComponentProps<OtherFormFields, OtherFormState>) {
   
   const { otherState, updateOtherForm } = useContext(FormStateContext);
   const [formState, setFormState] = useState<OtherFormState>(otherState);
   const {closeForm} = useContext(FormDisplayContext);
+  const storeDispatch = useClutchStoreDispatch();
 
   const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
 
@@ -64,9 +68,9 @@ export default function FormOther({ getValidate, submit
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
-          if (await submit(formState)) {
-            updateOtherForm(otherFormInitState
-            );
+          if (finalCheck(formState)) {
+            storeDispatch(saveOther(convertOtherFields(formState)));
+            updateOtherForm(otherFormInitState);
             closeForm();
           }
         }}
