@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FuelFormFinalState } from "../../HOC/with-validate-submit/submit-form";
+import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 interface IdPayload { id: number };
 
