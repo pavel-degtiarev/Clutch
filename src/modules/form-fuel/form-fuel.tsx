@@ -7,23 +7,28 @@ import InputNumeric from "../../components/field/input/input-numeric";
 import InputDecimal from "../../components/field/input/input-decimal";
 import Validated from "../../HOC/validated/validated";
 
+import { useClutchStoreDispatch } from "../../store/store";
+import { saveFuel } from "../../store/fuel-slice/fuel-slice";
+
 import { FormComponentProps, setStateFunction,
-} from "../../HOC/with-validate-submit/with-validate-submit";
+} from "../../HOC/with-validate-check/with-validate-check";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
 import { FuelFormFields, fuelFormInitState, FuelFormState } from "../../context/form-state/form-init-states";
 import { FormStateContext } from "../../context/form-state/form-state";
 
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import styles from "./form-fuel.module.scss";
+import { convertFuelFields } from "./form-fuel-convert-fields";
 
 // ================================================
 
-export default function FormFuel({ getValidate, submit,
+export default function FormFuel({ getValidate, finalCheck,
 }: FormComponentProps<FuelFormFields, FuelFormState>) {
   
   const { fuelState, updateFuelForm } = useContext(FormStateContext);
   const [formState, setFormState] = useState<FuelFormState>(fuelState);
   const { closeForm } = useContext(FormDisplayContext);
+  const storeDispatch = useClutchStoreDispatch();
 
   const validate = getValidate(setFormState as setStateFunction<FuelFormState>);
 
@@ -106,8 +111,9 @@ export default function FormFuel({ getValidate, submit,
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={async () => {
-          if (await submit(formState)) {
+        clickHandler={() => {
+          if (finalCheck(formState)) {
+            storeDispatch(saveFuel(convertFuelFields(formState)));
             updateFuelForm(fuelFormInitState);
             closeForm();
           }

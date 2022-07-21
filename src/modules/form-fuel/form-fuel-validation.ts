@@ -1,4 +1,4 @@
-import { setStateFunction } from "../../HOC/with-validate-submit/with-validate-submit";
+import { setStateFunction } from "../../HOC/with-validate-check/with-validate-check";
 import { FuelFormFields, FuelFormState } from "../../context/form-state/form-init-states";
 
 export default function getValidateFuelForm(setState: setStateFunction<FuelFormState>) {
