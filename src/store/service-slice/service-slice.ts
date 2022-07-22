@@ -25,10 +25,13 @@ export const serviceSlice = createSlice({
 
 export default serviceSlice.reducer;
 
-export const fetchAllService = createAsyncThunk("serviceSlice/fetchAllOther", async () => {
+export const fetchAllService = createAsyncThunk("serviceSlice/fetchAllService", async () => {
   return await loadAllFromDb(dbStoreName.SERVICE);
 });
 
-export const saveService = createAsyncThunk("serviceSlice/saveOther", async (data: ServiceFormFinalState) => {
-  return await saveToDb(dbStoreName.SERVICE, data);
-});
+export const saveService = createAsyncThunk(
+  "serviceSlice/saveService",
+  async (data: ServiceFormFinalState) => {
+    return await saveToDb(dbStoreName.SERVICE, data);
+  }
+);
