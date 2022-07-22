@@ -26,10 +26,10 @@ export const fuelSlice = createSlice({
 // export const { saveFuel, deleteFuelById, loadFuelById, loadAllFuel } = fuelSlice.actions;
 export default fuelSlice.reducer;
 
-export const fetchAllFuel = createAsyncThunk("fetchAllFuel", async () => {
+export const fetchAllFuel = createAsyncThunk("fuelSlice/fetchAllFuel", async () => {
   return await loadAllFromDb(dbStoreName.FUEL);
 });
 
-export const saveFuel = createAsyncThunk("saveFuel", async (data: FuelFormFinalState) => {
+export const saveFuel = createAsyncThunk("fuelSlice/saveFuel", async (data: FuelFormFinalState) => {
   return await saveToDb(dbStoreName.FUEL, data);
 });
