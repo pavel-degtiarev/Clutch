@@ -3,10 +3,9 @@ import { dbStoreName } from "../../API/init-db";
 import loadAllFromDb from "../../API/load-all";
 import saveToDb from "../../API/save";
 import { OtherFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { SliceState } from "../store";
 
-interface OtherSliceState extends OtherFormFinalState {
-  id: number;
-}
+interface OtherSliceState extends SliceState, OtherFormFinalState {}
 
 export const otherSlice = createSlice({
   name: "otherSlice",

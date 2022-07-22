@@ -10,7 +10,7 @@ export const clutchStore = configureStore({
     fuel: fuelSlice,
     other: otherSlice,
     service: serviceSlice,
-    spare: spareSlice
+    spare: spareSlice,
   },
 });
 
@@ -19,3 +19,7 @@ export type clutchStoreDispatch = typeof clutchStore.dispatch;
 
 export const useClutchStoreDispatch: () => clutchStoreDispatch = useDispatch;
 export const useClutchStoreSelector: TypedUseSelectorHook<clutchStoreState> = useSelector;
+
+export interface SliceState {
+  id: number;
+}
