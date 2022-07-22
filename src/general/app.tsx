@@ -15,6 +15,9 @@ import { timeTabs } from "../mocks/tabs";
 import { expencesData, fuelData, runData } from "../mocks/charts";
 import { forms } from "./forms";
 
+import { useClutchStoreDispatch } from "../store/store";
+import { fetchAllOther } from "../store/other-slice/other-slice";
+
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 dayjs.locale("ru");
@@ -22,20 +25,22 @@ dayjs.locale("ru");
 // ===========================================
 
 export default function App() {
+  const storeDispatch = useClutchStoreDispatch();
+  storeDispatch(fetchAllOther());
+
   return (
     <>
       <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
-      <Header title="Honda Fit" />
-      {/* <Header title="Honda Fit" withReturnButton handler={() => { }}/> */}
+      <Header
+        title="Honda Fit"
+        burgerHandler ={()=>{}}
+      />
+      {/* <Header title="Honda Fit" withReturnButton /> */}
 
       <Main>
         <Reminder reminders={reminders} />
-        <TabsGroup
-          name="time-interval"
-          tabs={timeTabs}
-          changedHandler={(tab) => console.log(tab)}
-        />
+        <TabsGroup name="time-interval" tabs={timeTabs} changedHandler={(tab) => console.log(tab)} />
         <Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
 
         <FormState>
