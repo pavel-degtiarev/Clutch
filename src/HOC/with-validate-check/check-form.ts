@@ -1,4 +1,4 @@
-import { dbNames } from "../../API/init-db";
+import { dbStoreName } from "../../API/init-db";
 import saveToDb from "../../API/save";
 import { TargetFormState } from "./with-validate-check";
 
@@ -70,14 +70,4 @@ export function checkForm<T extends TargetFormState>(
 //   if (!finalState) return false;
 //   const storeName = getStoreName<T>(finalState);
 //   return await saveToDb<T>(storeName, finalState, onSaveSuccess);
-// }
-
-// function getStoreName<T extends FinalFormState>(value: T): string {
-//   switch (true) {
-//     case value!.hasOwnProperty("fuelDate"): return dbNames.FUEL;
-//     case value!.hasOwnProperty("otherDate"): return dbNames.OTHER;
-//     case value!.hasOwnProperty("spareDate"): return dbNames.SPARE;
-//     case value!.hasOwnProperty("serviceDate"): return dbNames.SERVICE;
-//   }
-//   return "" as never;
 // }

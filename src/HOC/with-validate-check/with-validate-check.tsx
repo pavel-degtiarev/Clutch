@@ -1,6 +1,5 @@
 import React from "react";
 import { FuelFormFields, FuelFormState, OtherFormFields, OtherFormState, DetailsFormFields, DetailsFormState, ServiceFormFields, ServiceFormState, RepeatFormFields, RepeatFormState, SpareFormFields, SpareFormState } from "../../context/form-state/form-init-states";
-import { FinalFormState } from "./check-form";
 
 export type TargetFormFields =
   | FuelFormFields
