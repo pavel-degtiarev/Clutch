@@ -16,11 +16,12 @@ const WITHOUT_BUTTON: boolean = false;
 
 interface Header {
   title: string;
+  burgerHandler: clickHandler;
 }
 
 interface HeaderWithReturn extends Header {
   withReturnButton?: typeof WITH_BUTTON;
-  handler: (args: any[]) => any;
+  handler: clickHandler;
 }
 
 interface HeaderWithoutRerurn extends Header {
@@ -31,7 +32,7 @@ type HeaderProps = HeaderWithReturn | HeaderWithoutRerurn;
 
 // ==================================================
 
-export default function Header({ title, withReturnButton = false }: HeaderProps) {
+export default function Header({ title, withReturnButton = false, burgerHandler }: HeaderProps) {
   return (
     <header>
       <div className={headerStyles.container}>
@@ -45,12 +46,7 @@ export default function Header({ title, withReturnButton = false }: HeaderProps)
               />
             )}
 
-            <h2
-              className={classNames(
-                `${titleStyles.title}`,
-                `${textStyles.titleBig}`,
-                `${textStyles.noWrap}`
-              )}>
+            <h2 className={classNames(`${titleStyles.title}`, `${textStyles.titleBig}`, `${textStyles.noWrap}`)}>
               {title}
             </h2>
           </div>
@@ -58,7 +54,7 @@ export default function Header({ title, withReturnButton = false }: HeaderProps)
           <ButtonIcon
             label="Burger button"
             auxClassNames={classNames(`${burgerStyles.container}`, `${burgerStyles.buttonBurger}`)}
-            handler={() => {}}
+            handler={(e)=>burgerHandler(e)}
           />
         </div>
       </div>
