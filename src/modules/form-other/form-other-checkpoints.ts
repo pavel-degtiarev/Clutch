@@ -8,4 +8,10 @@ export const formOtherCheckpoints: Checkpoint<OtherFormState>[] = [
       "Все поля должны быть заполнены!"
     );
   },
+  function noNegativePrice(state: OtherFormState): boolean {
+    return checkpoint(
+      () => Number(state.otherPrice)>=0,
+      "Цена не может быть отрицательной!"
+    );
+  },
 ];
