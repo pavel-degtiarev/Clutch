@@ -16,7 +16,7 @@ import Validated from "../../HOC/validated/validated";
 import { OtherFormFields, otherFormInitState, OtherFormState } from "../../context/form-state/form-init-states";
 import { convertOtherFields } from "./form-other-convert-fields";
 import { useClutchStoreDispatch } from "../../store/store";
-import { saveOther } from "../../store/other-slice/other-slice";
+import { save } from "../../store/other-slice/other-slice";
 
 // ==========================================
 
@@ -29,13 +29,12 @@ export default function FormOther({ getValidate, finalCheck
   const storeDispatch = useClutchStoreDispatch();
 
   const validate = getValidate(setFormState as setStateFunction<OtherFormState>);
-
+  
   return (
     <>
       <div className={containerStyles.popupContent}>
         <form className={containerStyles.form}>
           <div className={styles.otherFields}>
-            
             <Validated<OtherFormFields>
               validate={validate}
               Control={<FieldDate name="otherDate" label="Дата" value={formState.otherDate} />}
@@ -43,9 +42,7 @@ export default function FormOther({ getValidate, finalCheck
 
             <Validated<OtherFormFields>
               validate={validate}
-              Control={
-                <FieldText name="otherTitle" label="Наименование" value={formState.otherTitle} />
-              }
+              Control={<FieldText name="otherTitle" label="Наименование" value={formState.otherTitle} />}
             />
 
             <Validated<OtherFormFields>
@@ -69,9 +66,11 @@ export default function FormOther({ getValidate, finalCheck
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
           if (finalCheck(formState)) {
-            storeDispatch(saveOther(convertOtherFields(formState)));
-            updateOtherForm(otherFormInitState);
-            closeForm();
+            const result = await storeDispatch(save(convertOtherFields(formState)));
+            if (result.meta.requestStatus === "fulfilled") {
+              updateOtherForm(otherFormInitState);
+              closeForm();
+            }
           }
         }}
       />

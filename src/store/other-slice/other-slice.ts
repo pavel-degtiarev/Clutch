@@ -1,19 +1,42 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { dbStoreName } from "../../API/init-db";
+import loadAllFromDb from "../../API/load-all";
+import saveToDb from "../../API/save";
 import { OtherFormFinalState } from "../../HOC/with-validate-check/check-form";
+
+interface OtherSliceState extends OtherFormFinalState {
+  id: number;
+}
 
 export const otherSlice = createSlice({
   name: "otherSlice",
-  initialState: [] as OtherFormFinalState[],
+  initialState: [] as OtherSliceState[],
   reducers: {
-    saveOther: (state, action: PayloadAction<OtherFormFinalState>) => {
-      state.push(action.payload);
-    },
+    // saveOther: (state, action: PayloadAction<OtherFormFinalState>) => {
+    //   state.push({ ...action.payload, id: 0 });
+    // },
+  },
 
-    deleteOtherById: (state, action: PayloadAction<IdPayload>) => {},
-    loadOtherById: (state, action: PayloadAction<IdPayload>) => {},
-    loadAllOther: (state) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAllOther.fulfilled, (state, action) => {
+        state = action.payload;
+        return state;
+      })
+      .addCase(save.fulfilled, (state, action) => {
+        state.push(action.payload);
+        return state;
+      });
   },
 });
 
-export const { saveOther, deleteOtherById, loadOtherById, loadAllOther } = otherSlice.actions;
 export default otherSlice.reducer;
+// export const { saveOther } = otherSlice.actions;
+
+export const fetchAllOther = createAsyncThunk("otherSlice/fetchAllOther", async () => {
+  return await loadAllFromDb(dbStoreName.OTHER);
+});
+
+export const save = createAsyncThunk("otherSlice/saveOtherToDb", async (data: OtherFormFinalState) => {
+  return await saveToDb(dbStoreName.OTHER, data);
+});
