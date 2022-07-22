@@ -133,12 +133,13 @@ export default function FormService({ getValidate, finalCheck
           }
 
           if (finalCheck(newFormState)) {
-            storeDispatch(saveService(convertServiceFields(formState)));
-
-            updateRepeatForm(repeatFormInitState);
-            updateDetailsForm(detailsFormInitState);
-            updateServiceForm(serviceFormInitState);
-            closeForm();
+            const result = await storeDispatch(saveService(convertServiceFields(newFormState)));
+            if (result.meta.requestStatus === "fulfilled") {
+              updateRepeatForm(repeatFormInitState);
+              updateDetailsForm(detailsFormInitState);
+              updateServiceForm(serviceFormInitState);
+              closeForm();
+            }
           }
         }}
       />

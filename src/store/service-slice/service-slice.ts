@@ -1,19 +1,34 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadAllFromDb, saveToDb } from "../../API/access-db";
+import { dbStoreName } from "../../API/init-db";
 import { ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { SliceState } from "../store";
+
+interface ServiceSliceState extends SliceState, ServiceFormFinalState {}
 
 export const serviceSlice = createSlice({
   name: "serviceSlice",
-  initialState: [] as ServiceFormFinalState[],
-  reducers: {
-    saveService: (state, action: PayloadAction<ServiceFormFinalState>) => {
-      state.push(action.payload);
-    },
-
-    deleteServiceById: (state, action: PayloadAction<IdPayload>) => {},
-    loadServiceById: (state, action: PayloadAction<IdPayload>) => {},
-    loadAllService: (state) => {},
+  initialState: [] as ServiceSliceState[],
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAllService.fulfilled, (state, action) => {
+        state = action.payload;
+        return state;
+      })
+      .addCase(saveService.fulfilled, (state, action) => {
+        state.push(action.payload);
+        return state;
+      });
   },
 });
 
-export const { saveService, deleteServiceById, loadServiceById, loadAllService } = serviceSlice.actions;
 export default serviceSlice.reducer;
+
+export const fetchAllService = createAsyncThunk("serviceSlice/fetchAllOther", async () => {
+  return await loadAllFromDb(dbStoreName.SERVICE);
+});
+
+export const saveService = createAsyncThunk("serviceSlice/saveOther", async (data: ServiceFormFinalState) => {
+  return await saveToDb(dbStoreName.SERVICE, data);
+});
