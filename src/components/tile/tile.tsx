@@ -1,17 +1,11 @@
 import * as React from "react";
 import TileHeader from "./tile-header";
 import TileChart from "./tile-chart";
-import { TileChartData } from "./tile.types";
+import { TileData } from "../../controllers/tiles-controller/tiles-controller";
 
 import styles from "./tile.module.scss";
 
-
-type TileProps = {
-  title: string;
-  units: string;
-  value: number;
-  chartData: TileChartData;
-};
+type TileProps = TileData;
 
 export default function Tile({ title, units, value, chartData }: TileProps) {
   return (

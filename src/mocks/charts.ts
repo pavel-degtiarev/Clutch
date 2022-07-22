@@ -1,6 +1,6 @@
-import { TileChartData } from "../components/tile/tile.types";
+import { TileChartRecord } from "../controllers/tiles-controller/tiles-controller";
 
-export const runData: TileChartData = [
+export const runData: TileChartRecord[] = [
   { period: "01-2022", value: 4000 },
   { period: "02-2022", value: 3000 },
   { period: "03-2022", value: 2000 },
@@ -9,7 +9,7 @@ export const runData: TileChartData = [
   { period: "06-2022", value: 2390 },
 ];
 
-export const fuelData: TileChartData = [
+export const fuelData: TileChartRecord[] = [
   { period: "01-2022", value: 8 },
   { period: "02-2022", value: 7.8 },
   { period: "03-2022", value: 7.6 },
@@ -18,7 +18,7 @@ export const fuelData: TileChartData = [
   { period: "06-2022", value: 8.6 },
 ];
 
-export const expencesData: TileChartData = [
+export const expencesData: TileChartRecord[] = [
   { period: "01-2022", value: 200 },
   { period: "02-2022", value: 0 },
   { period: "03-2022", value: 240 },
