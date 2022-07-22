@@ -68,11 +68,13 @@ export default function FormSpare({ getValidate, finalCheck
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={() => {
+        clickHandler={async () => {
           if (finalCheck(formState)) {
-            storeDispatch(saveSpare(convertSpareFields(formState)));
-            updateSpareForm(spareFormInitState);
-            closeForm();
+            const result = await storeDispatch(saveSpare(convertSpareFields(formState)));
+            if (result.meta.requestStatus === "fulfilled") {
+              updateSpareForm(spareFormInitState);
+              closeForm();
+            }
           }
         }}
       />
