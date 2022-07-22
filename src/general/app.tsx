@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styles from "../styles/global.module.scss";
 
 import Header from "../modules/header/Header";
@@ -21,8 +21,10 @@ import { fetchAllFuel } from "../store/fuel-slice/fuel-slice";
 import { fetchAllSpare } from "../store/spare-slice/spare-slice";
 import { fetchAllService } from "../store/service-slice/service-slice";
 
+
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import { TilesController } from "../controllers/tiles-controller/tiles-controller";
 dayjs.locale("ru");
 
 // ===========================================
@@ -36,6 +38,9 @@ export default function App() {
     storeDispatch(fetchAllOther()),
   ]);
 
+  const tilesController = new TilesController;
+  const [statData, setStatData] = useState(tilesController.tiles);
+  
   return (
     <>
       <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
@@ -53,7 +58,7 @@ export default function App() {
           tabs={timeTabs}
           changedHandler={(tab) => console.log(tab)}
         />
-        <Tiles runData={runData} fuelData={fuelData} expencesData={expencesData} />
+        <Tiles tilesData={statData} />
 
         <FormState>
           <FormDisplayState>
