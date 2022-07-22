@@ -1,18 +1,17 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { initClutchDB } from "./API/init-db";
 import { Provider } from "react-redux";
 import { clutchStore } from "./store/store";
-
+import initClutchDB from "./API/init-db";
+import App from "./general/app";
 import "reseter.css";
 
-import App from "./general/app";
-
-initClutchDB();
-
 const root = createRoot(document.getElementById("clutch-container"));
-root.render(
-  <Provider store={clutchStore}>
-    <App />
-  </Provider>
-);
+
+initClutchDB().then(() => {
+  root.render(
+    <Provider store={clutchStore}>
+      <App />
+    </Provider>
+  );
+});
