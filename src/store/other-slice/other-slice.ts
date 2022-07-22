@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { dbStoreName } from "../../API/init-db";
 import loadAllFromDb from "../../API/load-all";
 import saveToDb from "../../API/save";
@@ -23,7 +23,7 @@ export const otherSlice = createSlice({
         state = action.payload;
         return state;
       })
-      .addCase(save.fulfilled, (state, action) => {
+      .addCase(saveOther.fulfilled, (state, action) => {
         state.push(action.payload);
         return state;
       });
@@ -37,6 +37,6 @@ export const fetchAllOther = createAsyncThunk("otherSlice/fetchAllOther", async 
   return await loadAllFromDb(dbStoreName.OTHER);
 });
 
-export const save = createAsyncThunk("otherSlice/saveOtherToDb", async (data: OtherFormFinalState) => {
+export const saveOther = createAsyncThunk("otherSlice/saveOtherToDb", async (data: OtherFormFinalState) => {
   return await saveToDb(dbStoreName.OTHER, data);
 });

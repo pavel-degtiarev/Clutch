@@ -16,7 +16,7 @@ import Validated from "../../HOC/validated/validated";
 import { OtherFormFields, otherFormInitState, OtherFormState } from "../../context/form-state/form-init-states";
 import { convertOtherFields } from "./form-other-convert-fields";
 import { useClutchStoreDispatch } from "../../store/store";
-import { save } from "../../store/other-slice/other-slice";
+import { saveOther } from "../../store/other-slice/other-slice";
 
 // ==========================================
 
@@ -66,7 +66,7 @@ export default function FormOther({ getValidate, finalCheck
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
           if (finalCheck(formState)) {
-            const result = await storeDispatch(save(convertOtherFields(formState)));
+            const result = await storeDispatch(saveOther(convertOtherFields(formState)));
             if (result.meta.requestStatus === "fulfilled") {
               updateOtherForm(otherFormInitState);
               closeForm();
