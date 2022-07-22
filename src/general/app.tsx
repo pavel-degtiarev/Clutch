@@ -17,6 +17,7 @@ import { forms } from "./forms";
 
 import { useClutchStoreDispatch } from "../store/store";
 import { fetchAllOther } from "../store/other-slice/other-slice";
+import { fetchAllFuel } from "../store/fuel-slice/fuel-slice";
 
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -26,6 +27,7 @@ dayjs.locale("ru");
 
 export default function App() {
   const storeDispatch = useClutchStoreDispatch();
+  storeDispatch(fetchAllFuel());
   storeDispatch(fetchAllOther());
 
   return (
@@ -34,9 +36,9 @@ export default function App() {
 
       <Header
         title="Honda Fit"
-        burgerHandler ={()=>{}}
+        burgerHandler={() => { }}
+        // withReturnButton
       />
-      {/* <Header title="Honda Fit" withReturnButton /> */}
 
       <Main>
         <Reminder reminders={reminders} />
