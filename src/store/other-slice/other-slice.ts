@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
-import loadAllFromDb from "../../API/load-all";
-import saveToDb from "../../API/save";
 import { OtherFormFinalState } from "../../HOC/with-validate-check/check-form";
 import { SliceState } from "../store";
 
@@ -36,6 +35,6 @@ export const fetchAllOther = createAsyncThunk("otherSlice/fetchAllOther", async 
   return await loadAllFromDb(dbStoreName.OTHER);
 });
 
-export const saveOther = createAsyncThunk("otherSlice/saveOtherToDb", async (data: OtherFormFinalState) => {
+export const saveOther = createAsyncThunk("otherSlice/saveOther", async (data: OtherFormFinalState) => {
   return await saveToDb(dbStoreName.OTHER, data);
 });
