@@ -8,16 +8,18 @@ interface SpareSliceState extends SliceState, SpareFormFinalState {}
 
 export const spareSlice = createSlice({
   name: "spareSlice",
-  initialState: [] as SpareSliceState[],
+  initialState: {
+    rawData: [] as SpareSliceState[]
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllSpare.fulfilled, (state, action) => {
-        state = action.payload;
+        state.rawData = action.payload;
         return state;
       })
       .addCase(saveSpare.fulfilled, (state, action) => {
-        state.push(action.payload);
+        state.rawData.push(action.payload);
         return state;
       });
   },

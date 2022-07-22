@@ -8,16 +8,18 @@ interface ServiceSliceState extends SliceState, ServiceFormFinalState {}
 
 export const serviceSlice = createSlice({
   name: "serviceSlice",
-  initialState: [] as ServiceSliceState[],
+  initialState: {
+    rawData: [] as ServiceSliceState[],
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllService.fulfilled, (state, action) => {
-        state = action.payload;
+        state.rawData = action.payload;
         return state;
       })
       .addCase(saveService.fulfilled, (state, action) => {
-        state.push(action.payload);
+        state.rawData.push(action.payload);
         return state;
       });
   },

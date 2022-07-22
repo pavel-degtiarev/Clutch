@@ -8,7 +8,9 @@ interface OtherSliceState extends SliceState, OtherFormFinalState {}
 
 export const otherSlice = createSlice({
   name: "otherSlice",
-  initialState: [] as OtherSliceState[],
+  initialState: {
+    rawData: [] as OtherSliceState[],
+  },
   reducers: {
     // saveOther: (state, action: PayloadAction<OtherFormFinalState>) => {
     //   state.push({ ...action.payload, id: 0 });
@@ -18,11 +20,11 @@ export const otherSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllOther.fulfilled, (state, action) => {
-        state = action.payload;
+        state.rawData = action.payload;
         return state;
       })
       .addCase(saveOther.fulfilled, (state, action) => {
-        state.push(action.payload);
+        state.rawData.push(action.payload);
         return state;
       });
   },
@@ -35,6 +37,9 @@ export const fetchAllOther = createAsyncThunk("otherSlice/fetchAllOther", async 
   return await loadAllFromDb(dbStoreName.OTHER);
 });
 
-export const saveOther = createAsyncThunk("otherSlice/saveOther", async (data: OtherFormFinalState) => {
-  return await saveToDb(dbStoreName.OTHER, data);
-});
+export const saveOther = createAsyncThunk(
+  "otherSlice/saveOther",
+  async (data: OtherFormFinalState) => {
+    return await saveToDb(dbStoreName.OTHER, data);
+  }
+);

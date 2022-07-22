@@ -8,16 +8,18 @@ interface FuelSliceState extends SliceState, FuelFormFinalState {}
 
 export const fuelSlice = createSlice({
   name: "fuelSlice",
-  initialState: [] as FuelSliceState[],
+  initialState: {
+    rawData: [] as FuelSliceState[],
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllFuel.fulfilled, (state, action) => {
-        state = action.payload;
+        state.rawData = action.payload;
         return state;
       })
       .addCase(saveFuel.fulfilled, (state, action) => {
-        state.push(action.payload);
+        state.rawData.push(action.payload);
         return state;
       });
   },
