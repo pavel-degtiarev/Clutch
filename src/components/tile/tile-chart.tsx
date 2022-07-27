@@ -5,10 +5,12 @@ import tileStyles from "./tile.module.scss";
 import styles from "./tile-chart.module.scss";
 
 type TileChartProps = {
-  data: number[];
+  chartData: number[];
 };
 
-export default function TileChart({ data }: TileChartProps) {
+export default function TileChart({ chartData }: TileChartProps) {
+  console.log(chartData);
+  
   return (
     <div className={classNames(tileStyles.data, styles.chart)}>
       <div className={classNames(styles.chartContainer)}>

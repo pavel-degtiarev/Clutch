@@ -11,7 +11,7 @@ export default function Tile({ title, units, value, chartData }: TileProps) {
   return (
     <div className={styles.tile}>
       <TileHeader title={title} units={units} value={value} />
-      <TileChart data={chartData} />
+      <TileChart chartData={chartData} />
     </div>
   );
 }
