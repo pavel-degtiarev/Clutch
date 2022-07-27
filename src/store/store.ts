@@ -16,12 +16,13 @@ export const clutchStore = configureStore({
   },
 });
 
-export type clutchStoreState = ReturnType<typeof clutchStore.getState>;
-export type clutchStoreDispatch = typeof clutchStore.dispatch;
+export type ClutchStoreType = typeof clutchStore;
+export type ClutchStoreState = ReturnType<typeof clutchStore.getState>;
+export type ClutchStoreDispatch = typeof clutchStore.dispatch;
 
-export const useClutchStoreDispatch: () => clutchStoreDispatch = useDispatch;
-export const useClutchStoreSelector: TypedUseSelectorHook<clutchStoreState> = useSelector;
+export const useClutchStoreDispatch: () => ClutchStoreDispatch = useDispatch;
+export const useClutchStoreSelector: TypedUseSelectorHook<ClutchStoreState> = useSelector;
 
-export interface SliceState {
+export interface SliceData {
   id: number;
 }
