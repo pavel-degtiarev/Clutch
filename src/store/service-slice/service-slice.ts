@@ -2,24 +2,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { SliceState } from "../store";
+import { SliceData } from "../store";
 
-interface ServiceSliceState extends SliceState, ServiceFormFinalState {}
+export interface ServiceSliceData extends SliceData, ServiceFormFinalState {}
 
 export const serviceSlice = createSlice({
   name: "serviceSlice",
-  initialState: {
-    rawData: [] as ServiceSliceState[],
-  },
+  initialState: [] as ServiceSliceData[],
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllService.fulfilled, (state, action) => {
-        state.rawData = action.payload;
+        state = action.payload as ServiceSliceData[];
         return state;
       })
       .addCase(saveService.fulfilled, (state, action) => {
-        state.rawData.push(action.payload);
+        state.push(action.payload as ServiceSliceData);
         return state;
       });
   },
