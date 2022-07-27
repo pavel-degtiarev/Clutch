@@ -15,13 +15,17 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  column-gap: 5px;
+  column-gap: 4px;
   align-items: flex-end;
 }
 
 .bar {
   content: "";
-  width: 12px;
-  border-radius: 6px;
+  width: 14px;
+  border-radius: 7px;
   background: var.$tealLight;
+
+  &:last-child {
+    background: var.$middle;
+  }
 }
