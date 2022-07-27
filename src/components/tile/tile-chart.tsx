@@ -3,10 +3,9 @@ import classNames from "classnames";
 
 import tileStyles from "./tile.module.scss";
 import styles from "./tile-chart.module.scss";
-import { TileChartRecord } from "../../controllers/tiles-controller/tiles-controller";
 
 type TileChartProps = {
-  data: TileChartRecord[];
+  data: number[];
 };
 
 export default function TileChart({ data }: TileChartProps) {

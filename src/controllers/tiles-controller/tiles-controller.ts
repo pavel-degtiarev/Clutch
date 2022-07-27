@@ -7,16 +7,11 @@ import _ from "lodash";
 
 // =============================================
 
-export interface TileChartRecord {
-  period: string;
-  value: number;
-}
-
 export interface TileData {
   title: string;
   units: string;
   value: number;
-  chartData: TileChartRecord[];
+  chartData: number[];
 }
 
 // =============================================
