@@ -12,44 +12,33 @@ import FormDisplayState from "../context/form-display/form-display-state";
 
 import reminders from "../mocks/reminders";
 import { timeTabs } from "../mocks/tabs";
-import { expencesData, fuelData, runData } from "../mocks/charts";
 import { forms } from "./forms";
 
-import { useClutchStoreDispatch } from "../store/store";
-import { fetchAllOther } from "../store/other-slice/other-slice";
-import { fetchAllFuel } from "../store/fuel-slice/fuel-slice";
-import { fetchAllSpare } from "../store/spare-slice/spare-slice";
-import { fetchAllService } from "../store/service-slice/service-slice";
+import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
+import { useStore } from "react-redux";
 
-
-import dayjs from "dayjs";
-import "dayjs/locale/ru";
 import { TilesController } from "../controllers/tiles-controller/tiles-controller";
-dayjs.locale("ru");
 
 // ===========================================
 
-export default function App() {
-  const storeDispatch = useClutchStoreDispatch();
-  Promise.all([
-    storeDispatch(fetchAllFuel()),
-    storeDispatch(fetchAllService()),
-    storeDispatch(fetchAllSpare()),
-    storeDispatch(fetchAllOther()),
-  ]);
+interface AppProps {
+  tilesController: TilesController;
+}
 
-  const tilesController = new TilesController;
+export default function App({ tilesController }: AppProps) {
+  // const storeDispatch = useClutchStoreDispatch();
+  // const storeSelector = useClutchStoreSelector;
+  // const store: ClutchStoreType = useStore();
+
   const [statData, setStatData] = useState(tilesController.tiles);
-  
+
+  // store.subscribe(tilesController.updateTiles);
+
   return (
     <>
       <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
-      <Header
-        title="Honda Fit"
-        burgerHandler={() => {}}
-        // withReturnButton
-      />
+      <Header title="Honda Fit" burgerHandler={() => {}} />
 
       <Main>
         <Reminder reminders={reminders} />
