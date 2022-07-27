@@ -1,7 +1,7 @@
-import { FinalFormState } from "../HOC/with-validate-check/check-form";
+import { FinalBasicFormsState } from "../HOC/with-validate-check/check-form";
 import { dbStoreName } from "./init-db";
 
-export default function getStoreName<T extends FinalFormState>(value: T): dbStoreName {
+export default function getStoreName<T extends FinalBasicFormsState>(value: T): dbStoreName {
   switch (true) {
     case value!.hasOwnProperty("fuelDate"): return dbStoreName.FUEL;
     case value!.hasOwnProperty("otherDate"): return dbStoreName.OTHER;
