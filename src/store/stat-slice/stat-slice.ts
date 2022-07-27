@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface StatTimestamp {
-  month: number;
-  year: number;
-}
-
-interface StatRecord {
-  timestamp: StatTimestamp;
+export interface StatRecord {
+  timestamp: number;
   value: number;
 }
+
+type Statistics = ReturnType<typeof statSlice.getInitialState>;
+export type StatisticsFields = keyof Statistics;
+export type StatData<T extends keyof Statistics> = Record<T, StatRecord[]>;
 
 export const statSlice = createSlice({
   name: "statSlice",
@@ -18,17 +17,16 @@ export const statSlice = createSlice({
     expenceStat: [] as StatRecord[],
   },
   reducers: {
-    setFuelStat: (state, action: PayloadAction<StatRecord>) => {
-      const statItem = state.fuelStat.find(
-        (item) =>
-          item.timestamp.month === action.payload.timestamp.month &&
-          item.timestamp.year === action.payload.timestamp.year
-      );
-
-      statItem ? (statItem.value = action.payload.value) : state.fuelStat.push(action.payload);
-    },
+    setFuelStat: (state, action: PayloadAction<StatRecord>) => setStat(state.fuelStat, action),
+    setRunStat: (state, action: PayloadAction<StatRecord>) => setStat(state.runStat, action),
+    setExpenceStat: (state, action: PayloadAction<StatRecord>) => setStat(state.expenceStat, action),
   },
 });
 
+function setStat(storeField: StatRecord[], action: { payload: StatRecord; type: string }) {
+  const statItem = storeField.find((item) => item.timestamp === action.payload.timestamp);
+  statItem ? (statItem.value = action.payload.value) : storeField.push(action.payload);
+}
+
 export default statSlice.reducer;
-export const { setFuelStat } = statSlice.actions;
+export const { setFuelStat, setRunStat, setExpenceStat } = statSlice.actions;
