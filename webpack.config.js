@@ -6,7 +6,7 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 // =====================================================================
 
-const entryPoint = "./src/index.jsx";
+const entryPoint = "./src/index.tsx";
 const htmlTemplate = "./src/index.html";
 
 // const entryPoint = "./markup/index.js";
