@@ -1,5 +1,3 @@
-import { dbStoreName } from "../../API/init-db";
-import saveToDb from "../../API/save";
 import { TargetFormState } from "./with-validate-check";
 
 export type FuelFormFinalState = {
@@ -45,12 +43,18 @@ export type detailsFormFinalState = {
   spares: ServiceDetails[] | null;
 } | null;
 
-export type FinalFormState =
+export type FinalAllFormsState =
   | FuelFormFinalState
   | OtherFormFinalState
   | SpareFormFinalState
   | repeatFormFinalState
   | detailsFormFinalState
+  | ServiceFormFinalState;
+
+export type FinalBasicFormsState =
+  | FuelFormFinalState
+  | OtherFormFinalState
+  | SpareFormFinalState
   | ServiceFormFinalState;
 
 // ==============================================
@@ -63,11 +67,3 @@ export function checkForm<T extends TargetFormState>(
 
   return true;
 }
-
-// export async function saveForm<T extends FinalFormState>(
-//   finalState: T, onSaveSuccess?: (...args: any[]) => any): Promise<boolean> {
-  
-//   if (!finalState) return false;
-//   const storeName = getStoreName<T>(finalState);
-//   return await saveToDb<T>(storeName, finalState, onSaveSuccess);
-// }

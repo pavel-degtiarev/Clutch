@@ -2,28 +2,27 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { SliceState } from "../store";
+import { SliceData } from "../store";
 
-interface FuelSliceState extends SliceState, FuelFormFinalState {}
+export interface FuelSliceData extends SliceData, FuelFormFinalState {}
 
 export const fuelSlice = createSlice({
   name: "fuelSlice",
-  initialState: [] as FuelSliceState[],
+  initialState: [] as FuelSliceData[],
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllFuel.fulfilled, (state, action) => {
-        state = action.payload;
+        state = action.payload as FuelSliceData[];
         return state;
       })
       .addCase(saveFuel.fulfilled, (state, action) => {
-        state.push(action.payload);
+        state.push(action.payload as FuelSliceData);
         return state;
       });
   },
 });
 
-// export const { saveFuel, deleteFuelById, loadFuelById, loadAllFuel } = fuelSlice.actions;
 export default fuelSlice.reducer;
 
 export const fetchAllFuel = createAsyncThunk("fuelSlice/fetchAllFuel", async () => {

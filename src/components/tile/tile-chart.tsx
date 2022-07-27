@@ -1,10 +1,10 @@
 import * as React from "react";
 import { BarChart, Bar, ResponsiveContainer, ReferenceLine, Label } from "recharts";
 import classNames from "classnames";
-import { TileChartData } from "./tile.types";
 
 import tileStyles from "./tile.module.scss";
 import styles from "./tile-chart.module.scss";
+import { TileChartRecord } from "../../controllers/tiles-controller/tiles-controller";
 
 function RoundedBar({ fill, x, y, width, height }: any) {
   return (
@@ -17,7 +17,7 @@ function RoundedBar({ fill, x, y, width, height }: any) {
 }
 
 type TileChartProps = {
-  data: TileChartData;
+  data: TileChartRecord[];
 };
 
 export default function TileChart({ data }: TileChartProps) {
