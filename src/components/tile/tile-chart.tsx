@@ -15,7 +15,7 @@ interface ChartBarProps {
 }
 
 function ChartBar({ value }: ChartBarProps) {
-  return <div className={classNames(styles.bar)} style={{ height: `${value}%` }}></div>;
+  return <div className={classNames(styles.bar)} style={{ height: `${value}%` }} />;
 }
 
 // ==================================
@@ -25,7 +25,6 @@ interface TileChartProps {
 }
 
 export default function TileChart({ chartData }: TileChartProps) {
-
   const normalizedData = calcNormalized(chartData);
 
   return (
@@ -47,9 +46,9 @@ function calcNormalized(values: number[]): number[] {
   const maxValue = Math.max(...nonZeroData);
   const interval = maxValue - minValue;
 
-  return values.map(item => {
+  return values.map((item) => {
     if (item === 0) return 2;
     const increment = ((item - minValue) * HEIGHT_DIFF) / interval;
     return MIN_HEIGHT + Math.round(increment);
-  })
+  });
 }
