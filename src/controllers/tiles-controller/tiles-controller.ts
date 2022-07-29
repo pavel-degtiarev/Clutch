@@ -2,7 +2,7 @@ import ExpencesTileController from "../expences-tile-controller/expences-tile-co
 import FuelTileController from "../fuel-tile-controller/fuel-tile-controller";
 import RunTileController from "../run-tile-controller/run-tile-controller";
 import { ClutchStoreType } from "../../store/store";
-import TileController from "../tile-controller/tile-controller";
+import TileController, { OnUpdateCallback } from "../tile-controller/tile-controller";
 import _ from "lodash";
 
 // =============================================
@@ -20,7 +20,6 @@ export class TilesController {
   private static _instance: TilesController;
 
   private _store: ClutchStoreType;
-  private _tiles: TileData[];
   private _controllers: TileController[] = [];
   runController: RunTileController;
   fuelController: FuelTileController;
@@ -40,38 +39,30 @@ export class TilesController {
     this.expencesController = new ExpencesTileController(this._store);
     this._controllers = [this.runController, this.fuelController, this.expencesController];
 
-    this._tiles = [];
     return TilesController._instance;
   }
 
   // ================
 
   async init() {
-    await Promise.all(
-      this._controllers.map(async (controller) => controller.initController())
-    );
+    await Promise.all(this._controllers.map(async (controller) => controller.initController()));
   }
 
   // ================
 
-  async update(timestamp:number) {
-    await Promise.all(
-      this._controllers.map(async (controller) => controller.update(timestamp))
-    );
+  async update(timestamp: number) {
+    await Promise.all(this._controllers.map(async (controller) => controller.update(timestamp)));
   }
 
   // ================
 
-  get tiles(): TileData[] {
-    if (!this._tiles) {
-      this.updateTiles();
-    }
-    return this._tiles;
+  get tiles() {
+    return this._controllers.map((controller) => controller.tile);
   }
 
   // ================
 
-  updateTiles() {
-    this._tiles = this._controllers.map((controller) => controller.tile);
+  setOnUpdateCallback(callback: OnUpdateCallback) {
+    this._controllers.forEach(controller => controller.addOnUpdateCallback(callback));
   }
 }
