@@ -5,7 +5,6 @@ import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 import _ from "lodash";
 
-
 // =============================================
 
 export interface TileData {
@@ -23,6 +22,9 @@ export class TilesController {
   private _store: ClutchStoreType;
   private _tiles: TileData[];
   private _controllers: TileController[] = [];
+  runController: RunTileController;
+  fuelController: FuelTileController;
+  expencesController: ExpencesTileController;
 
   // ================
 
@@ -32,11 +34,12 @@ export class TilesController {
     }
 
     this._store = store;
-    this._controllers = [
-      new RunTileController(this._store),
-      new FuelTileController(this._store),
-      new ExpencesTileController(this._store),
-    ];
+
+    this.runController = new RunTileController(this._store);
+    this.fuelController = new FuelTileController(this._store);
+    this.expencesController = new ExpencesTileController(this._store);
+    this._controllers = [this.runController, this.fuelController, this.expencesController];
+
     this._tiles = [];
     return TilesController._instance;
   }
@@ -45,7 +48,15 @@ export class TilesController {
 
   async init() {
     await Promise.all(
-      this._controllers.map(async (controller) => await controller.initController())
+      this._controllers.map(async (controller) => controller.initController())
+    );
+  }
+
+  // ================
+
+  async update(timestamp:number) {
+    await Promise.all(
+      this._controllers.map(async (controller) => controller.update(timestamp))
     );
   }
 
