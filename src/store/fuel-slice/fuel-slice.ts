@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { updateExpencesStat, updateFuelStat, updateRunStat } from "../stat-slice/stat-slice";
 import { SliceData } from "../store";
 
 export interface FuelSliceData extends SliceData, FuelFormFinalState {}
@@ -29,6 +30,15 @@ export const fetchAllFuel = createAsyncThunk("fuelSlice/fetchAllFuel", async () 
   return await loadAllFromDb(dbStoreName.FUEL);
 });
 
-export const saveFuel = createAsyncThunk("fuelSlice/saveFuel", async (data: FuelFormFinalState) => {
-  return await saveToDb(dbStoreName.FUEL, data);
-});
+export const saveFuel = createAsyncThunk(
+  "fuelSlice/saveFuel",
+  async (data: FuelFormFinalState, thunkAPI) => {
+    const result = await saveToDb(dbStoreName.FUEL, data);
+    if (result) {
+      thunkAPI.dispatch(updateFuelStat(data.fuelDate));
+      thunkAPI.dispatch(updateRunStat(data.fuelDate));
+      thunkAPI.dispatch(updateExpencesStat(data.fuelDate));
+    }
+    return result;
+  }
+);

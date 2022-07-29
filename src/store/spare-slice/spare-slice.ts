@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { SpareFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { updateExpencesStat } from "../stat-slice/stat-slice";
 import { SliceData } from "../store";
 
 export interface SpareSliceData extends SliceData, SpareFormFinalState {}
@@ -29,6 +30,11 @@ export const fetchAllSpare = createAsyncThunk("spareSlice/fetchAllSpare", async 
   return await loadAllFromDb(dbStoreName.SPARE);
 });
 
-export const saveSpare = createAsyncThunk("spareSlice/saveSpare", async (data: SpareFormFinalState) => {
-  return await saveToDb(dbStoreName.SPARE, data);
-});
+export const saveSpare = createAsyncThunk(
+  "spareSlice/saveSpare",
+  async (data: SpareFormFinalState, thunkAPI) => {
+    const result = await saveToDb(dbStoreName.SPARE, data);
+    if (result) thunkAPI.dispatch(updateExpencesStat(data.spareDate));
+    return result;
+  }
+);

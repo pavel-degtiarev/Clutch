@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { OtherFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { updateExpencesStat } from "../stat-slice/stat-slice";
 import { SliceData } from "../store";
 
 export interface OtherSliceData extends SliceData, OtherFormFinalState {}
@@ -37,7 +38,9 @@ export const fetchAllOther = createAsyncThunk("otherSlice/fetchAllOther", async 
 
 export const saveOther = createAsyncThunk(
   "otherSlice/saveOther",
-  async (data: OtherFormFinalState) => {
-    return await saveToDb(dbStoreName.OTHER, data);
+  async (data: OtherFormFinalState, thunkAPI) => {
+    const result = await saveToDb(dbStoreName.OTHER, data);
+    if (result) thunkAPI.dispatch(updateExpencesStat(data.otherDate));
+    return result;
   }
 );
