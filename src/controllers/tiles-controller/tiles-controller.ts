@@ -2,6 +2,7 @@ import ExpencesTileController from "../expences-tile-controller/expences-tile-co
 import FuelTileController from "../fuel-tile-controller/fuel-tile-controller";
 import RunTileController from "../run-tile-controller/run-tile-controller";
 import { ClutchStoreType } from "../../store/store";
+import TileController from "../tile-controller/tile-controller";
 import _ from "lodash";
 
 
@@ -21,11 +22,7 @@ export class TilesController {
 
   private _store: ClutchStoreType;
   private _tiles: TileData[];
-  private _controllers = [
-    new RunTileController(),
-    new FuelTileController(),
-    new ExpencesTileController(),
-  ];
+  private _controllers: TileController[] = [];
 
   // ================
 
@@ -35,6 +32,11 @@ export class TilesController {
     }
 
     this._store = store;
+    this._controllers = [
+      new RunTileController(this._store),
+      new FuelTileController(this._store),
+      new ExpencesTileController(this._store),
+    ];
     this._tiles = [];
     return TilesController._instance;
   }
@@ -43,7 +45,7 @@ export class TilesController {
 
   async init() {
     await Promise.all(
-      this._controllers.map(async (controller) => await controller.initController(this._store))
+      this._controllers.map(async (controller) => await controller.initController())
     );
   }
 
@@ -62,7 +64,3 @@ export class TilesController {
     this._tiles = this._controllers.map((controller) => controller.tile);
   }
 }
-
-// type ChartField<T extends keyof TileChartRecord> = T extends "period" ? string : number;
-// type ChartRecord<T extends keyof TileChartRecord> = { [K in T]: ChartField<K> };
-// type TileChartRecord2 = ChartRecord<keyof TileChartRecord>;
