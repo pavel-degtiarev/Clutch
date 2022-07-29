@@ -23,7 +23,7 @@ export const statSlice = createSlice({
   },
 });
 
-function setStat(storeField: StatRecord[], action: { payload: StatRecord; type: string }) {
+function setStat(storeField: StatRecord[], action: { type: string; payload: StatRecord }) {
   const statItem = storeField.find((item) => item.timestamp === action.payload.timestamp);
   statItem ? (statItem.value = action.payload.value) : storeField.push(action.payload);
 }
