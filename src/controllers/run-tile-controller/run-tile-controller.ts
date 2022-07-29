@@ -46,7 +46,7 @@ export default class RunTileController extends TileController {
     const refuelsInPeriod = await loadAllByDateIndex<FuelFormFinalState>(
       this.dbName, start.valueOf(), end.valueOf());
 
-    // если за этот месяц нет записей, пропускаем
+    // если за этот период нет записей, пропускаем
     if (!refuelsInPeriod) return;
 
       return {

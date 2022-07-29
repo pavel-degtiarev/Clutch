@@ -48,7 +48,7 @@ export default class FuelTileController extends TileController {
     const refuelsInPeriod = await loadAllByDateIndex<FuelFormFinalState>(
       this.dbName, start.valueOf(), end.valueOf());
 
-    // если за этот месяц нет записей, пропускаем
+    // если за этот период нет записей, пропускаем
     if (!refuelsInPeriod) return;
 
     // чтобы правильно посчитать расход, необходимо знать
@@ -56,7 +56,7 @@ export default class FuelTileController extends TileController {
     const auxData = await loadFirstByDateIndex<FuelFormFinalState>(
       this.dbName, start.add(1, "month").valueOf(), end.add(1, "month").valueOf());
 
-    // если обрабатываем текущий месяц, данных за следующий еще нет, auxData = undefined
+    // если данных за следующий месяц еще нет, auxData = undefined
     if (auxData) refuelsInPeriod.push(auxData);
 
     const run = refuelsInPeriod[refuelsInPeriod.length - 1].fuelRun - refuelsInPeriod[0].fuelRun;
