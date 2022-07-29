@@ -66,5 +66,6 @@ export default class RunTileController extends TileController {
     if (statRecord) this.dispatch(setRunStat(statRecord));
 
     this.tile = this.setTileLegend(this.store.getState().stat.runStat);
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 }

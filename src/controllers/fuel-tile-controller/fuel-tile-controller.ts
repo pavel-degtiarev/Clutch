@@ -77,7 +77,8 @@ export default class FuelTileController extends TileController {
 
     const statRecord = await this.createStatRecord(monthStart, monthEnd);
     if (statRecord) this.dispatch(setFuelStat(statRecord));
-    
+
     this.tile = this.setTileLegend(this.store.getState().stat.fuelStat);
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 }

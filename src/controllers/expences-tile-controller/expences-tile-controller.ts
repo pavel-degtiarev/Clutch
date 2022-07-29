@@ -120,5 +120,6 @@ export default class ExpencesTileController extends TileController {
     if (statRecord) this.dispatch(setExpenceStat(statRecord));
 
     this.tile = this.setTileLegend(this.store.getState().stat.expenceStat);
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 }
