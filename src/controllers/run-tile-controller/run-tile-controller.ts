@@ -2,60 +2,56 @@ import dayjs from "dayjs";
 import { getOldestDate, loadAllByDateIndex } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { runData } from "../../mocks/charts";
 import { setRunStat, StatRecord } from "../../store/stat-slice/stat-slice";
-import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
+import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 
-export default class RunTileController extends TileController<"runStat"> {
-  constructor() {
-    super("Пробег", "км.");
-    this.tile.chartData = runData;
+export default class RunTileController extends TileController {
+  dbName: dbStoreName;
+
+  constructor(store: ClutchStoreType) {
+    super("Пробег", "км.", store);
+    this.dbName = dbStoreName.FUEL;
   }
 
   // ======================
 
-  async initController(store: ClutchStoreType): Promise<void> {
-    const dispatch: ClutchStoreDispatch = store.dispatch;
-    const dbName = dbStoreName.FUEL;
+  async initController(): Promise<void> {
     const now = dayjs().startOf("month");
 
     // если в нужном сторе нет данных, старейшая дата будет 0
     // ничего не заполняем, просто выходим
-    const oldest = await getOldestDate(dbName);
+    const oldest = await getOldestDate(this.dbName);
     if (oldest === 0) return;
 
     const initDate = dayjs(oldest);
-    let lowerBound = initDate.startOf("month");
-    let upperBound = initDate.endOf("month");
+    let monthStart = initDate.startOf("month");
+    let monthEnd = initDate.endOf("month");
 
     // Берем данные из того же стора, что и fuel (там есть данные о пробеге).
-    while (lowerBound.isSameOrBefore(now)) {
-      const refuelPerMonth = await loadAllByDateIndex<FuelFormFinalState>(
-        dbName, lowerBound.valueOf(), upperBound.valueOf());
-      
-      // если за этот месяц нет записей, пропускаем
-      if (refuelPerMonth) {
-        const monthRunStatRecord = this.createRunStatRecord(lowerBound.valueOf(), refuelPerMonth);
-        dispatch(setRunStat(monthRunStatRecord));
-      }
+    while (monthStart.isSameOrBefore(now)) {
+      const statRecord = await this.createStatRecord(monthStart, monthEnd);      
+      if (statRecord) this.dispatch(setRunStat(statRecord));
 
-      lowerBound = lowerBound.add(1, "month");
-      upperBound = upperBound.add(1, "month");
+      monthStart = monthStart.add(1, "month");
+      monthEnd = monthEnd.add(1, "month");
     }
 
-    this.tile = this.setTileLegend(store.getState().stat.runStat);
+    this.tile = this.setTileLegend(this.store.getState().stat.runStat);
   }
 
   // ======================
 
-  private createRunStatRecord(
-    timestamp: number, data: FuelFormFinalState[]): StatRecord {
-    // здесь пробег за месяц - просто разница в пробеге
-    // меджу первой и последней записями за месяц
-    return {
-      timestamp: timestamp,
-      value: data[data.length - 1].fuelRun - data[0].fuelRun,
-    };
+  async createStatRecord(start: dayjs.Dayjs, end: dayjs.Dayjs): Promise<StatRecord | undefined>{
+    const refuelsInPeriod = await loadAllByDateIndex<FuelFormFinalState>(
+      this.dbName, start.valueOf(), end.valueOf());
+
+    // если за этот месяц нет записей, пропускаем
+    if (!refuelsInPeriod) return;
+
+      return {
+        timestamp: start.valueOf(),
+        value: refuelsInPeriod[refuelsInPeriod.length - 1].fuelRun - refuelsInPeriod[0].fuelRun,
+      };
   }
 }
