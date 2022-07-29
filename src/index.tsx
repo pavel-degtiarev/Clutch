@@ -22,7 +22,6 @@ const root = createRoot(container!);
 
 initClutchDB()
   .then(() => tilesController.init())
-  .then(() => tilesController.updateTiles())
   .then(() => {
     root.render(
       <Provider store={clutchStore}>
