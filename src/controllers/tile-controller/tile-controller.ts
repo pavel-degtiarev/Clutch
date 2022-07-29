@@ -3,12 +3,15 @@ import { StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 import { TileData } from "../tiles-controller/tiles-controller";
 
+export type OnUpdateCallback = () => void;
+
 // ======================
 
 export default abstract class TileController {
   tile: TileData;
   store: ClutchStoreType;
   dispatch: ClutchStoreDispatch;
+  onUpdateCallback: OnUpdateCallback | undefined;
 
   constructor(title: string, units: string, store: ClutchStoreType) {
     this.tile = { title: title, units: units, value: 0, chartData: [] };
@@ -40,4 +43,8 @@ export default abstract class TileController {
   abstract initController(): void;
   abstract update(timestamp: number): void;
   abstract createStatRecord(periodStart: dayjs.Dayjs, periodEnd: dayjs.Dayjs): Promise<StatRecord | undefined>;
+
+  addOnUpdateCallback(callback: OnUpdateCallback) {
+    this.onUpdateCallback = callback;
+  };
 }
