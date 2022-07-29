@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { StatisticsFields, StatRecord } from "../../store/stat-slice/stat-slice";
+import { StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 import { TileData } from "../tiles-controller/tiles-controller";
 

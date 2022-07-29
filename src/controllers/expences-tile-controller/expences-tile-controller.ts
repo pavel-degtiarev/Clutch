@@ -71,22 +71,30 @@ export default class ExpencesTileController extends TileController {
       switch (true) {
         case isFuelFormFinalState(statArray[0]):
           totalExpencesInPeriod += (statArray as FuelFormFinalState[]).reduce(
-            (acc, item) => (acc += item.fuelCost), 0);
+            (acc, item) => (acc += item.fuelCost),
+            0
+          );
           break;
-        
+
         case isOtherFormFinalState(statArray[0]):
           totalExpencesInPeriod += (statArray as OtherFormFinalState[]).reduce(
-            (acc, item) => (acc += item.otherPrice), 0);
+            (acc, item) => (acc += item.otherPrice),
+            0
+          );
           break;
-        
+
         case isSpareFormFinalState(statArray[0]):
           totalExpencesInPeriod += (statArray as SpareFormFinalState[]).reduce(
-            (acc, item) => (acc += item.sparePrice), 0);
+            (acc, item) => (acc += item.sparePrice),
+            0
+          );
           break;
-        
+
         case isServiceFormFinalState(statArray[0]):
           totalExpencesInPeriod += (statArray as ServiceFormFinalState[]).reduce(
-            (acc, item) => (acc += item.serviceTotal), 0);
+            (acc, item) => (acc += item.serviceTotal),
+            0
+          );
           break;
       }
     });
