@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { tilesController } from "../../index";
 
 export interface StatRecord {
   timestamp: number;
@@ -22,6 +23,34 @@ export const statSlice = createSlice({
     setExpenceStat: (state, action: PayloadAction<StatRecord>) => setStat(state.expenceStat, action),
   },
 });
+
+export const updateStats = createAsyncThunk(
+  "statSlice/updateStats",
+  async (timestamp: number) => {
+    tilesController.update(timestamp);
+  }
+);
+
+export const updateFuelStat = createAsyncThunk(
+  "statSlice/updateFuelStat",
+  async (timestamp: number) => {
+    tilesController.fuelController.update(timestamp);
+  }
+);
+
+export const updateRunStat = createAsyncThunk(
+  "statSlice/updateRunStat",
+  async (timestamp: number) => {
+    tilesController.runController.update(timestamp);
+  }
+);
+
+export const updateExpencesStat = createAsyncThunk(
+  "statSlice/updateExpencesStat",
+  async (timestamp: number) => {
+    tilesController.expencesController.update(timestamp);
+  }
+);
 
 function setStat(storeField: StatRecord[], action: { type: string; payload: StatRecord }) {
   const statItem = storeField.find((item) => item.timestamp === action.payload.timestamp);
