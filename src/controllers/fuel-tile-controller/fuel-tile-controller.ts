@@ -44,7 +44,7 @@ export default class FuelTileController extends TileController {
 
   // ======================
 
-  async createStatRecord( start: dayjs.Dayjs, end: dayjs.Dayjs ): Promise<StatRecord | undefined> {
+  async createStatRecord(start: dayjs.Dayjs, end: dayjs.Dayjs): Promise<StatRecord | undefined> {
     const refuelsInPeriod = await loadAllByDateIndex<FuelFormFinalState>(
       this.dbName, start.valueOf(), end.valueOf());
 
@@ -66,5 +66,18 @@ export default class FuelTileController extends TileController {
       timestamp: start.valueOf(),
       value: Math.round((fuelSum * 1000) / run) / 10,
     };
+  }
+
+  // ======================
+
+  async update(timestamp: number) {
+    const initDate = dayjs(timestamp);
+    let monthStart = initDate.startOf("month");
+    let monthEnd = initDate.endOf("month");
+
+    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    if (statRecord) this.dispatch(setFuelStat(statRecord));
+    
+    this.tile = this.setTileLegend(this.store.getState().stat.fuelStat);
   }
 }

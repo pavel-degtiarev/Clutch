@@ -54,4 +54,17 @@ export default class RunTileController extends TileController {
         value: refuelsInPeriod[refuelsInPeriod.length - 1].fuelRun - refuelsInPeriod[0].fuelRun,
       };
   }
+
+  // ======================
+
+  async update(timestamp: number) {
+    const initDate = dayjs(timestamp);
+    let monthStart = initDate.startOf("month");
+    let monthEnd = initDate.endOf("month");
+
+    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    if (statRecord) this.dispatch(setRunStat(statRecord));
+
+    this.tile = this.setTileLegend(this.store.getState().stat.runStat);
+  }
 }

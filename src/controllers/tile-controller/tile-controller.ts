@@ -38,5 +38,6 @@ export default abstract class TileController {
   }
 
   abstract initController(): void;
+  abstract update(timestamp: number): void;
   abstract createStatRecord(periodStart: dayjs.Dayjs, periodEnd: dayjs.Dayjs): Promise<StatRecord | undefined>;
 }

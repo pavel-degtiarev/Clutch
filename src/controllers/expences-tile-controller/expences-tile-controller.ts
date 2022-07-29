@@ -18,6 +18,8 @@ import { setExpenceStat, StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 
+// ======================
+
 export default class ExpencesTileController extends TileController {
   dbNames: dbStoreName[];
 
@@ -52,6 +54,8 @@ export default class ExpencesTileController extends TileController {
 
     this.tile = this.setTileLegend(this.store.getState().stat.expenceStat);
   }
+
+  // ======================
 
   async createStatRecord(start: dayjs.Dayjs, end: dayjs.Dayjs): Promise<StatRecord | undefined> {
     const expencesInPeriod = await Promise.all(
@@ -103,5 +107,18 @@ export default class ExpencesTileController extends TileController {
       timestamp: start.valueOf(),
       value: totalExpencesInPeriod,
     };
+  }
+
+  // ======================
+
+  async update(timestamp: number) {
+    const initDate = dayjs(timestamp);
+    let monthStart = initDate.startOf("month");
+    let monthEnd = initDate.endOf("month");
+
+    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    if (statRecord) this.dispatch(setExpenceStat(statRecord));
+
+    this.tile = this.setTileLegend(this.store.getState().stat.expenceStat);
   }
 }
