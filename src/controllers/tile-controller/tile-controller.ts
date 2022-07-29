@@ -38,5 +38,5 @@ export default abstract class TileController {
   }
 
   abstract initController(): void;
-  // abstract createStatRecord(periodStart: dayjs.Dayjs, periodEnd: dayjs.Dayjs): Promise<StatRecord | undefined>;
+  abstract createStatRecord(periodStart: dayjs.Dayjs, periodEnd: dayjs.Dayjs): Promise<StatRecord | undefined>;
 }
