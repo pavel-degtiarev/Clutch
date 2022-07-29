@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "../styles/global.module.scss";
 
 import Header from "../modules/header/Header";
@@ -31,8 +31,12 @@ export default function App({ tilesController }: AppProps) {
   // const store: ClutchStoreType = useStore();
 
   const [statData, setStatData] = useState(tilesController.tiles);
+  const statChanged = useCallback(() => setStatData(tilesController.tiles), []);
 
-  // store.subscribe(tilesController.updateTiles);
+  useEffect(() => {
+    tilesController.setOnUpdateCallback(statChanged);
+    return () => tilesController.setOnUpdateCallback(null);
+  }, []);
 
   return (
     <>
