@@ -63,6 +63,6 @@ export class TilesController {
   // ================
 
   setOnUpdateCallback(callback: OnUpdateCallback) {
-    this._controllers.forEach(controller => controller.addOnUpdateCallback(callback));
+    this._controllers.forEach(controller => controller.setOnUpdateCallback(callback));
   }
 }
