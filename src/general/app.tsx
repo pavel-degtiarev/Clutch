@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import styles from "../styles/global.module.scss";
 
 import Header from "../modules/header/Header";
@@ -16,27 +16,14 @@ import { forms } from "./forms";
 
 import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
 import { useStore } from "react-redux";
-
-import { TilesController } from "../controllers/tiles-controller/tiles-controller";
+import { tilesController } from "../index";
 
 // ===========================================
 
-interface AppProps {
-  tilesController: TilesController;
-}
-
-export default function App({ tilesController }: AppProps) {
+export default function App() {
   // const storeDispatch = useClutchStoreDispatch();
   // const storeSelector = useClutchStoreSelector;
   // const store: ClutchStoreType = useStore();
-
-  const [statData, setStatData] = useState(tilesController.tiles);
-  const statChanged = useCallback(() => setStatData(tilesController.tiles), []);
-
-  useEffect(() => {
-    tilesController.setOnUpdateCallback(statChanged);
-    return () => tilesController.setOnUpdateCallback(null);
-  }, []);
 
   return (
     <>
@@ -51,7 +38,7 @@ export default function App({ tilesController }: AppProps) {
           tabs={timeTabs}
           changedHandler={(tab) => console.log(tab)}
         />
-        <Tiles tilesData={statData} />
+        <Tiles tilesController={tilesController} />
 
         <FormState>
           <FormDisplayState>
