@@ -1,17 +1,26 @@
-import * as React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Tile from "../../components/tile/tile";
-import { TileData } from "../../controllers/tiles-controller/tiles-controller";
+import { TilesController } from "../../controllers/tiles-controller/tiles-controller";
 
 import styles from "./tiles.module.scss";
 
 interface TilesProps {
-  tilesData: TileData[];
+  tilesController: TilesController;
 }
 
-export default function Tiles({ tilesData }: TilesProps) {
+export default function Tiles({ tilesController }: TilesProps) {
+
+  const [statData, setStatData] = useState(tilesController.tiles);
+  const statChanged = useCallback(() => setStatData(tilesController.tiles), []);
+
+  useEffect(() => {
+    tilesController.setOnUpdateCallback(statChanged);
+    return () => tilesController.setOnUpdateCallback(null);
+  }, []);
+
   return (
     <section className={styles.tiles}>
-      {tilesData.map((tile) => (
+      {statData.map((tile) => (
         <Tile
           key={tile.title}
           title={tile.title}

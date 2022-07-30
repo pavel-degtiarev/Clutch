@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import "dayjs/locale/ru";
 
-import React from "react";
+import React, { createContext } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { clutchStore } from "./store/store";
@@ -25,7 +25,7 @@ initClutchDB()
   .then(() => {
     root.render(
       <Provider store={clutchStore}>
-        <App tilesController={tilesController} />
+        <App />
       </Provider>
     );
   });
