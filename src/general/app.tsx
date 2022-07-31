@@ -20,9 +20,14 @@ import TabsGroupContext from "../components/tabs/tabs-group-context";
 
 // ===========================================
 
+export enum TimeInterval {
+  MONTH = "month",
+  YEAR = "year",
+}
+
 const timeTabs: TabInfo[] = [
-  { id: "month", title: "Месяц" },
-  { id: "year", title: "Год" },
+  { id: TimeInterval.MONTH, title: "Месяц" },
+  { id: TimeInterval.YEAR, title: "Год" },
 ];
 
 export default function App() {
@@ -39,10 +44,7 @@ export default function App() {
       <Main>
         <Reminder reminders={reminders} />
         <TabsGroupContext tabInfo={timeTabs}>
-          <TabsGroup
-            name="time-interval"
-            changedHandler={(tab) => console.log(tab)}
-          />
+          <TabsGroup name="time-interval" />
           <Tiles tilesController={tilesController} />
         </TabsGroupContext>
 
