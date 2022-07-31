@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { getOldestDate, loadAllByDateIndex, loadFirstByDateIndex } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { setFuelStat, StatRecord } from "../../store/stat-slice/stat-slice";
+import { clearFuelStat, setFuelStat, StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 
@@ -20,26 +20,32 @@ export default class FuelTileController extends TileController {
   // ======================
 
   async initController(): Promise<void> {
-    const now = dayjs().startOf("month");
-
+    this.dispatch(clearFuelStat());
+    const now = dayjs().startOf(this.timeInterval);
+    
     // если в нужном сторе нет данных, старейшая дата будет 0
     // ничего не заполняем, просто выходим
     const oldest = await getOldestDate(this.dbName);
     if (oldest === 0) return;
 
     const initDate = dayjs(oldest);
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let timeEnd = initDate.endOf(this.timeInterval);
 
-    while (monthStart.isSameOrBefore(now)) {
-      const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    while (timeStart.isSameOrBefore(now)) {
+      
+      const statRecord = await this.createStatRecord(timeStart, timeEnd);
       if (statRecord) this.dispatch(setFuelStat(statRecord));
 
-      monthStart = monthStart.add(1, "month");
-      monthEnd = monthEnd.add(1, "month");
+      timeStart = timeEnd.add(1, this.timeInterval).startOf(this.timeInterval);
+      timeEnd = timeStart.endOf(this.timeInterval);
     }
 
     this.tile = this.setTileLegend(this.store.getState().stat.fuelStat);
+
+    // если timeInterval был изменен, контроллер инициализируется заново
+    // и состояние Tiles обновляется
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 
   // ======================
@@ -53,8 +59,10 @@ export default class FuelTileController extends TileController {
 
     // чтобы правильно посчитать расход, необходимо знать
     // пробег при первой заправке следующего месяца
+    const nextMonthStart = end.add(1, "day").startOf("month");
+    const nextMonthEnd = nextMonthStart.endOf("month");
     const auxData = await loadFirstByDateIndex<FuelFormFinalState>(
-      this.dbName, start.add(1, "month").valueOf(), end.add(1, "month").valueOf());
+      this.dbName, nextMonthStart.valueOf(), nextMonthEnd.valueOf());
 
     // если данных за следующий месяц еще нет, auxData = undefined
     if (auxData) refuelsInPeriod.push(auxData);
@@ -72,10 +80,10 @@ export default class FuelTileController extends TileController {
 
   async update(timestamp: number) {
     const initDate = dayjs(timestamp);
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let timeEnd = initDate.endOf(this.timeInterval);
 
-    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    const statRecord = await this.createStatRecord(timeStart, timeEnd);
     if (statRecord) this.dispatch(setFuelStat(statRecord));
 
     this.tile = this.setTileLegend(this.store.getState().stat.fuelStat);

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { getOldestDate, loadAllByDateIndex } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { setRunStat, StatRecord } from "../../store/stat-slice/stat-slice";
+import { clearRunStat, setRunStat, StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 
@@ -17,7 +17,8 @@ export default class RunTileController extends TileController {
   // ======================
 
   async initController(): Promise<void> {
-    const now = dayjs().startOf("month");
+    this.dispatch(clearRunStat());
+    const now = dayjs().startOf(this.timeInterval);
 
     // если в нужном сторе нет данных, старейшая дата будет 0
     // ничего не заполняем, просто выходим
@@ -25,19 +26,23 @@ export default class RunTileController extends TileController {
     if (oldest === 0) return;
 
     const initDate = dayjs(oldest);
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let timeEnd = initDate.endOf(this.timeInterval);
 
     // Берем данные из того же стора, что и fuel (там есть данные о пробеге).
-    while (monthStart.isSameOrBefore(now)) {
-      const statRecord = await this.createStatRecord(monthStart, monthEnd);      
+    while (timeStart.isSameOrBefore(now)) {
+      const statRecord = await this.createStatRecord(timeStart, timeEnd);
       if (statRecord) this.dispatch(setRunStat(statRecord));
 
-      monthStart = monthStart.add(1, "month");
-      monthEnd = monthEnd.add(1, "month");
+      timeStart = timeEnd.add(1, this.timeInterval).startOf(this.timeInterval);
+      timeEnd = timeStart.endOf(this.timeInterval);
     }
 
     this.tile = this.setTileLegend(this.store.getState().stat.runStat);
+
+    // если timeInterval был изменен, контроллер инициализируется заново
+    // и состояние Tiles обновляется
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 
   // ======================
@@ -59,10 +64,10 @@ export default class RunTileController extends TileController {
 
   async update(timestamp: number) {
     const initDate = dayjs(timestamp);
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let timeEnd = initDate.endOf(this.timeInterval);
 
-    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    const statRecord = await this.createStatRecord(timeStart, timeEnd);
     if (statRecord) this.dispatch(setRunStat(statRecord));
 
     this.tile = this.setTileLegend(this.store.getState().stat.runStat);
