@@ -11,20 +11,19 @@ export interface TabInfo {
 
 type TabsGroupProps = {
   name: string;
-  tabs: TabInfo[];
-  changedHandler: (tabId: string) => void;
+  changedHandler?: (tabId: string) => void;
   themeOnLight?: boolean;
 };
 
-export default function TabsGroup({
-  name, tabs, changedHandler, themeOnLight = false }: TabsGroupProps) {
-
-  const [tabGroupState, setTabgroupState] = useContext(TabsContext);
-  useEffect(() => changedHandler(tabGroupState), [tabGroupState]);
+export default function TabsGroup({ name, changedHandler, themeOnLight = false }: TabsGroupProps) {
+  const {
+    tabInfo: tabInfo,
+    contextState: [tabGroupState, setTabGroupState]
+  } = useContext(TabsContext);
 
   return (
     <section className={styles.tabs}>
-      {tabs.map((item, index) => {
+      {tabInfo.map((item, index) => {
         const isChecked = index === 0;
         return (
           <Tab
@@ -33,7 +32,10 @@ export default function TabsGroup({
             title={item.title}
             id={item.id}
             checked={isChecked}
-            onCheck={setTabgroupState}
+            onCheck={() => {
+              setTabGroupState(item.id);
+              changedHandler && changedHandler(item.id);
+            }}
             themeOnLight={themeOnLight}
           />
         );
