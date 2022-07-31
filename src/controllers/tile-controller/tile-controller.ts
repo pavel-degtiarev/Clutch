@@ -36,11 +36,11 @@ export default abstract class TileController {
     // если много, берем последние 6 элементов.
     switch (true) {
       case chartData.length > historyLength:
-        chartData = chartData.slice(-6);
+        chartData = chartData.slice(-historyLength);
         break;
 
       case chartData.length < historyLength:
-        const zeros = new Array(6 - chartData.length).fill(0);
+        const zeros = new Array(historyLength - chartData.length).fill(0);
         chartData = zeros.concat(chartData);
         break;
     }
