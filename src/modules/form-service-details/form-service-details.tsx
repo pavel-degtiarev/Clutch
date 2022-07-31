@@ -12,11 +12,13 @@ import FieldWithSuffix from "../../components/field/field-with-suffix";
 import InputNumeric from "../../components/field/input/input-numeric";
 
 import { FieldSuffixes } from "../../general/global.var";
-import styles from "./form-service-details.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import Validated from "../../HOC/validated/validated";
 import { RowDeletable } from "../../components/details-list/row-deletable";
 import { DetailsFormFields, DetailsFormState } from "../../context/form-state/form-init-states";
+import TabsGroupContext from "../../components/tabs/tabs-group-context";
+
+import styles from "./form-service-details.module.scss";
 
 // ==========================================
 
@@ -34,6 +36,7 @@ export default function FormServiceDetails({ getValidate, finalCheck
   const [currentTab, setCurrentTab] = useState(detailsTabs[0].id);
 
   const validate = getValidate(setFormState as setStateFunction<DetailsFormState>);
+
   const getFieldName = (suffix: string, currentTab: string): string => `${currentTab}-${suffix}`;
   const addRow = () => validate(`${currentTab}-add` as DetailsFormFields, "");
   const deleteRow = (index: number) =>
@@ -52,50 +55,51 @@ export default function FormServiceDetails({ getValidate, finalCheck
       <div className={containerStyles.popupContent}>
         <form className={containerStyles.form}>
           <div className={styles.serviceDetailsFields}>
-            <TabsGroup
-              name="service-details"
-              tabs={detailsTabs}
-              changedHandler={setCurrentTab}
-              themeOnLight
-            />
+            <TabsGroupContext tabInfo={detailsTabs}>
+              <TabsGroup
+                name="service-details"
+                changedHandler={setCurrentTab}
+                themeOnLight
+              />
 
-            <DetailsList headers={["Название", "Цена"]} addRowHandler={() => addRow()}>
-              {useCurrentList().map((item, index) => (
-                <RowDeletable key={item.id} deleteHandler={() => deleteRow(index)}>
-                  <Validated
-                    validate={validate}
-                    Control={
-                      <FieldText
-                        name={`${getFieldName("title", currentTab)}-${index}`}
-                        value={item.title}
-                        label=""
-                        auxStyles={classNames(
-                          detailsListStyles.title,
-                          detailsListStyles.detailsRowField
-                        )}
-                      />
-                    }
-                  />
+              <DetailsList headers={["Название", "Цена"]} addRowHandler={() => addRow()}>
+                {useCurrentList().map((item, index) => (
+                  <RowDeletable key={item.id} deleteHandler={() => deleteRow(index)}>
+                    <Validated
+                      validate={validate}
+                      Control={
+                        <FieldText
+                          name={`${getFieldName("title", currentTab)}-${index}`}
+                          value={item.title}
+                          label=""
+                          auxStyles={classNames(
+                            detailsListStyles.title,
+                            detailsListStyles.detailsRowField
+                          )}
+                        />
+                      }
+                    />
 
-                  <Validated
-                    validate={validate}
-                    Control={
-                      <FieldWithSuffix
-                        InputComponent={InputNumeric}
-                        suffix={FieldSuffixes.MONEY}
-                        name={`${getFieldName("price", currentTab)}-${index}`}
-                        value={`${item.price}`}
-                        label={""}
-                        auxStyles={classNames(
-                          detailsListStyles.price,
-                          detailsListStyles.detailsRowField
-                        )}
-                      />
-                    }
-                  />
-                </RowDeletable>
-              ))}
-            </DetailsList>
+                    <Validated
+                      validate={validate}
+                      Control={
+                        <FieldWithSuffix
+                          InputComponent={InputNumeric}
+                          suffix={FieldSuffixes.MONEY}
+                          name={`${getFieldName("price", currentTab)}-${index}`}
+                          value={`${item.price}`}
+                          label={""}
+                          auxStyles={classNames(
+                            detailsListStyles.price,
+                            detailsListStyles.detailsRowField
+                          )}
+                        />
+                      }
+                    />
+                  </RowDeletable>
+                ))}
+              </DetailsList>
+            </TabsGroupContext>
           </div>
         </form>
       </div>
