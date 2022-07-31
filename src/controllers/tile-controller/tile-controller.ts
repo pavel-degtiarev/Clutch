@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { TimeInterval } from "../../general/app";
 import { StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 import { TileData } from "../tiles-controller/tiles-controller";
@@ -10,6 +11,7 @@ export type OnUpdateCallback = (() => void) | null;
 export default abstract class TileController {
   tile: TileData;
   store: ClutchStoreType;
+  timeInterval: TimeInterval;
   dispatch: ClutchStoreDispatch;
   onUpdateCallback: OnUpdateCallback | null;
 
@@ -18,6 +20,7 @@ export default abstract class TileController {
     this.store = store;
     this.dispatch = store.dispatch;
     this.onUpdateCallback = null;
+    this.timeInterval = TimeInterval.MONTH;
   }
 
   setTileLegend(statStore: StatRecord[]): TileData {
