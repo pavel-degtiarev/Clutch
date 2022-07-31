@@ -27,15 +27,19 @@ export default abstract class TileController {
     const currentMonthStat = statStore[statStore.length - 1];
     let chartData = statStore.map((item) => item.value);
 
+    // если timeInterval = TimeInterval.MONTH,
+    // то собираем статистику за 6 месяцев, иначе – за 3 года
+    const historyLength = this.timeInterval === TimeInterval.MONTH ? 6 : 3;
+
     // нужны данные за полгода (statStore.length = 6).
     // если не хватает, в начало массива дописываем нули.
     // если много, берем последние 6 элементов.
     switch (true) {
-      case chartData.length > 6:
+      case chartData.length > historyLength:
         chartData = chartData.slice(-6);
         break;
 
-      case chartData.length < 6:
+      case chartData.length < historyLength:
         const zeros = new Array(6 - chartData.length).fill(0);
         chartData = zeros.concat(chartData);
         break;
