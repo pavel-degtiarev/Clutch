@@ -16,6 +16,7 @@ import { forms } from "./forms";
 import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
 import { useStore } from "react-redux";
 import { tilesController } from "../index";
+import TabsGroupContext from "../components/tabs/tabs-group-context";
 
 // ===========================================
 
@@ -37,12 +38,13 @@ export default function App() {
 
       <Main>
         <Reminder reminders={reminders} />
-        <TabsGroup
-          name="time-interval"
-          tabs={timeTabs}
-          changedHandler={(tab) => console.log(tab)}
-        />
-        <Tiles tilesController={tilesController} />
+        <TabsGroupContext tabInfo={timeTabs}>
+          <TabsGroup
+            name="time-interval" tabs={timeTabs}
+            changedHandler={(tab) => console.log(tab)}
+          />
+          <Tiles tilesController={tilesController} />
+        </TabsGroupContext>
 
         <FormState>
           <FormDisplayState>
