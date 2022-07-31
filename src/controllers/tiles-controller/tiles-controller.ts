@@ -61,5 +61,6 @@ export class TilesController {
 
   setTimeInterval(value: TimeInterval) {
     this._controllers.forEach(controller => controller.timeInterval = value);
+    this.init();
   }
 }
