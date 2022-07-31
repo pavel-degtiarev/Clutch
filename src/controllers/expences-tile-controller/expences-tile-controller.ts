@@ -14,7 +14,7 @@ import {
   isServiceFormFinalState,
   isSpareFormFinalState,
 } from "../../HOC/with-validate-check/form-typeguards";
-import { setExpenceStat, StatRecord } from "../../store/stat-slice/stat-slice";
+import { clearExpenceStat, setExpenceStat, StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
 
@@ -31,7 +31,8 @@ export default class ExpencesTileController extends TileController {
   // ======================
 
   async initController(): Promise<void> {
-    const now = dayjs().startOf("month");
+    this.dispatch(clearExpenceStat());
+    const now = dayjs().startOf(this.timeInterval);
 
     // если во всех нужных сторах нет данных, все старейшие даты будут нулями
     let oldest = await Promise.all(this.dbNames.map((store) => getOldestDate(store)));
@@ -41,18 +42,22 @@ export default class ExpencesTileController extends TileController {
     oldest = oldest.filter((item) => item !== 0);
     const initDate = dayjs(Math.min(...oldest));
 
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let timeEnd = initDate.endOf(this.timeInterval);
 
-    while (monthStart.isSameOrBefore(now)) {
-      const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    while (timeStart.isSameOrBefore(now)) {
+      const statRecord = await this.createStatRecord(timeStart, timeEnd);
       if (statRecord) this.dispatch(setExpenceStat(statRecord));
 
-      monthStart = monthStart.add(1, "month");
-      monthEnd = monthEnd.add(1, "month");
+      timeStart = timeEnd.add(1, this.timeInterval).startOf(this.timeInterval);
+      timeEnd = timeStart.endOf(this.timeInterval);
     }
 
     this.tile = this.setTileLegend(this.store.getState().stat.expenceStat);
+
+    // если timeInterval был изменен, контроллер инициализируется заново
+    // и состояние Tiles обновляется
+    this.onUpdateCallback && this.onUpdateCallback();
   }
 
   // ======================
@@ -105,10 +110,10 @@ export default class ExpencesTileController extends TileController {
 
   async update(timestamp: number) {
     const initDate = dayjs(timestamp);
-    let monthStart = initDate.startOf("month");
-    let monthEnd = initDate.endOf("month");
+    let timeStart = initDate.startOf(this.timeInterval);
+    let monthEnd = initDate.endOf(this.timeInterval);
 
-    const statRecord = await this.createStatRecord(monthStart, monthEnd);
+    const statRecord = await this.createStatRecord(timeStart, monthEnd);
     if (statRecord) this.dispatch(setExpenceStat(statRecord));
 
     this.tile = this.setTileLegend(this.store.getState().stat.expenceStat);

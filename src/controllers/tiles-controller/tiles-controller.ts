@@ -4,6 +4,7 @@ import RunTileController from "../run-tile-controller/run-tile-controller";
 import { ClutchStoreType } from "../../store/store";
 import TileController, { OnUpdateCallback } from "../tile-controller/tile-controller";
 import _ from "lodash";
+import { TimeInterval } from "../../general/app";
 
 // =============================================
 
@@ -42,27 +43,24 @@ export class TilesController {
     return TilesController._instance;
   }
 
-  // ================
-
   async init() {
     await Promise.all(this._controllers.map(async (controller) => controller.initController()));
   }
-
-  // ================
 
   async update(timestamp: number) {
     await Promise.all(this._controllers.map(async (controller) => controller.update(timestamp)));
   }
 
-  // ================
-
   get tiles() {
     return this._controllers.map((controller) => controller.tile);
   }
 
-  // ================
-
   setOnUpdateCallback(callback: OnUpdateCallback) {
     this._controllers.forEach(controller => controller.setOnUpdateCallback(callback));
+  }
+
+  setTimeInterval(value: TimeInterval) {
+    this._controllers.forEach(controller => controller.timeInterval = value);
+    this.init();
   }
 }

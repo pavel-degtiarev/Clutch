@@ -12,10 +12,12 @@ const HEIGHT_DIFF = MAX_HEIGHT - MIN_HEIGHT;
 
 interface ChartBarProps {
   value: number;
+  wide: boolean;
 }
 
-function ChartBar({ value }: ChartBarProps) {
-  return <div className={classNames(styles.bar)} style={{ height: `${value}%` }} />;
+function ChartBar({ value, wide }: ChartBarProps) {
+  const barClasses = classNames(styles.bar, { [styles.barWide]: wide });
+  return <div className={barClasses} style={{ height: `${value}%` }} />;
 }
 
 // ==================================
@@ -26,13 +28,13 @@ interface TileChartProps {
 
 export default function TileChart({ chartData }: TileChartProps) {
   const normalizedData = calcNormalized(chartData);
-
+  const isWide = chartData.length === 3;
   return (
     <div className={classNames(tileStyles.data, styles.chart)}>
       <div className={classNames(styles.chartContainer)}>
         <div className={classNames(styles.barsContainer)}>
           {normalizedData.map((item, index) => (
-            <ChartBar key={index} value={item} />
+            <ChartBar key={index} value={item} wide={isWide} />
           ))}
         </div>
       </div>

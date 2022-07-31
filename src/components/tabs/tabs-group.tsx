@@ -1,5 +1,6 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Tab from "./tab";
+import { TabsContext } from "./tabs-group-context";
 
 import styles from "./tabs-group.module.scss";
 
@@ -10,44 +11,35 @@ export interface TabInfo {
 
 type TabsGroupProps = {
   name: string;
-  tabs: TabInfo[];
-  changedHandler: (tabId: string) => void;
+  changedHandler?: (tabId: string) => void;
   themeOnLight?: boolean;
 };
 
-type ContextType = {
-  tabGroupValue: string;
-  setTabGroupValue: (newCurrent: string) => void;
-};
-
-export const TabsGroupValue = createContext<ContextType>({
-  tabGroupValue: "",
-  setTabGroupValue: () => {},
-});
-
-export default function TabsGroup({ name, tabs, changedHandler, themeOnLight = false }: TabsGroupProps) {
-  const [tabGroupValue, setTabGroupValue] = useState(tabs[0].id);
-  useEffect(() => {
-    changedHandler(tabGroupValue);
-  }, [tabGroupValue]);
+export default function TabsGroup({ name, changedHandler, themeOnLight = false }: TabsGroupProps) {
+  const {
+    tabInfo: tabInfo,
+    contextState: [tabGroupState, setTabGroupState]
+  } = useContext(TabsContext);
 
   return (
-    <TabsGroupValue.Provider value={{ tabGroupValue, setTabGroupValue }}>
-      <section className={styles.tabs}>
-        {tabs.map((item, index) => {
-          const isChecked = index === 0;
-          return (
-            <Tab
-              key={index}
-              name={name}
-              title={item.title}
-              id={item.id}
-              checked={isChecked}
-              themeOnLight={themeOnLight}
-            />
-          );
-        })}
-      </section>
-    </TabsGroupValue.Provider>
+    <section className={styles.tabs}>
+      {tabInfo.map((item, index) => {
+        const isChecked = index === 0;
+        return (
+          <Tab
+            key={index}
+            name={name}
+            title={item.title}
+            id={item.id}
+            checked={isChecked}
+            onCheck={() => {
+              setTabGroupState(item.id);
+              changedHandler && changedHandler(item.id);
+            }}
+            themeOnLight={themeOnLight}
+          />
+        );
+      })}
+    </section>
   );
 }

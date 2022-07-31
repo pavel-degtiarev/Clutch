@@ -21,6 +21,9 @@ export const statSlice = createSlice({
     setFuelStat: (state, action: PayloadAction<StatRecord>) => setStat(state.fuelStat, action),
     setRunStat: (state, action: PayloadAction<StatRecord>) => setStat(state.runStat, action),
     setExpenceStat: (state, action: PayloadAction<StatRecord>) => setStat(state.expenceStat, action),
+    clearFuelStat: (state) => { state.fuelStat = [] },
+    clearRunStat: (state) => { state.runStat = [] },
+    clearExpenceStat: (state) => { state.expenceStat = [] },
   },
 });
 
@@ -58,4 +61,11 @@ function setStat(storeField: StatRecord[], action: { type: string; payload: Stat
 }
 
 export default statSlice.reducer;
-export const { setFuelStat, setRunStat, setExpenceStat } = statSlice.actions;
+export const {
+  setFuelStat,
+  setRunStat,
+  setExpenceStat,
+  clearFuelStat,
+  clearRunStat,
+  clearExpenceStat,
+} = statSlice.actions;
