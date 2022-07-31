@@ -15,39 +15,28 @@ type TabsGroupProps = {
   themeOnLight?: boolean;
 };
 
-type ContextType = {
-  tabGroupValue: string;
-  setTabGroupValue: (newCurrent: string) => void;
-};
+export default function TabsGroup({
+  name, tabs, changedHandler, themeOnLight = false }: TabsGroupProps) {
 
-export const TabsGroupValue = createContext<ContextType>({
-  tabGroupValue: "",
-  setTabGroupValue: () => {},
-});
-
-export default function TabsGroup({ name, tabs, changedHandler, themeOnLight = false }: TabsGroupProps) {
   const [tabGroupValue, setTabGroupValue] = useState(tabs[0].id);
-  useEffect(() => {
-    changedHandler(tabGroupValue);
-  }, [tabGroupValue]);
+  useEffect(() => changedHandler(tabGroupValue), [tabGroupValue]);
 
   return (
-    <TabsGroupValue.Provider value={{ tabGroupValue, setTabGroupValue }}>
-      <section className={styles.tabs}>
-        {tabs.map((item, index) => {
-          const isChecked = index === 0;
-          return (
-            <Tab
-              key={index}
-              name={name}
-              title={item.title}
-              id={item.id}
-              checked={isChecked}
-              themeOnLight={themeOnLight}
-            />
-          );
-        })}
-      </section>
-    </TabsGroupValue.Provider>
+    <section className={styles.tabs}>
+      {tabs.map((item, index) => {
+        const isChecked = index === 0;
+        return (
+          <Tab
+            key={index}
+            name={name}
+            title={item.title}
+            id={item.id}
+            checked={isChecked}
+            onCheck={setTabGroupValue}
+            themeOnLight={themeOnLight}
+          />
+        );
+      })}
+    </section>
   );
 }
