@@ -40,7 +40,7 @@ export default function App() {
         <Reminder reminders={reminders} />
         <TabsGroupContext tabInfo={timeTabs}>
           <TabsGroup
-            name="time-interval" tabs={timeTabs}
+            name="time-interval"
             changedHandler={(tab) => console.log(tab)}
           />
           <Tiles tilesController={tilesController} />
