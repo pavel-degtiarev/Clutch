@@ -4,6 +4,6 @@ import { FuelFormState } from "../../context/form-state/form-init-states";
 
 // ====================================
 
-export default function checkFuelForm(state: FuelFormState): boolean {
-  return checkForm<FuelFormState>(state, formFuelCheckpoints);
+export default async function checkFuelForm(state: FuelFormState): Promise<boolean> {
+  return await checkForm<FuelFormState>(state, formFuelCheckpoints);
 }

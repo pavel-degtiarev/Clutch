@@ -12,7 +12,7 @@ type FormValidations<T extends string> = {
 type FormFields<T extends string> = { [key in T]: string };
 
 interface Checkpoint<T extends TargetFormState> {
-  (state: T): boolean;
+  (state: T): boolean | Promise<boolean>;
 }
 
 type ServiceDetails = {

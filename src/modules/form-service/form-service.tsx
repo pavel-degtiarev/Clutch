@@ -132,7 +132,7 @@ export default function FormService({ getValidate, finalCheck
             newFormState.serviceTotalDetails = detailsState;
           }
 
-          if (finalCheck(newFormState)) {
+          if (await finalCheck(newFormState)) {
             const result = await storeDispatch(saveService(convertServiceFields(newFormState)));
             if (result.meta.requestStatus === "fulfilled") {
               updateRepeatForm(repeatFormInitState);

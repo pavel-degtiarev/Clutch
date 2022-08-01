@@ -107,8 +107,8 @@ export default function FormServiceDetails({ getValidate, finalCheck
       <Button
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
-        clickHandler={() => {
-          if (finalCheck(formState)) {
+        clickHandler={async () => {
+          if (await finalCheck(formState)) {
             updateDetailsForm(formState);
             closeSubform();
           }

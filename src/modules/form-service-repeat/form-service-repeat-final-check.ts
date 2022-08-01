@@ -4,6 +4,6 @@ import { formServiceRepeatCheckpoints } from "./form-service-repeat-checkpoints"
 
 // ====================================
 
-export default function checkServiceRepeatForm(state: RepeatFormState): boolean {
-  return checkForm<RepeatFormState>(state, formServiceRepeatCheckpoints);
+export default async function checkServiceRepeatForm(state: RepeatFormState): Promise<boolean> {
+  return await checkForm<RepeatFormState>(state, formServiceRepeatCheckpoints);
 }

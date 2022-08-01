@@ -65,7 +65,7 @@ export default function FormOther({ getValidate, finalCheck
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
-          if (finalCheck(formState)) {
+          if (await finalCheck(formState)) {
             const result = await storeDispatch(saveOther(convertOtherFields(formState)));
             if (result.meta.requestStatus === "fulfilled") {
               updateOtherForm(otherFormInitState);
