@@ -23,7 +23,7 @@ export const formServiceCheckpoints: Checkpoint<ServiceFormState>[] = [
     const upperRunBound = bound[1] ? (bound[1] as FuelFormFinalState).fuelRun : Infinity;
 
     return checkpoint(
-      () => serviceRun > lowerRunBound && serviceRun < upperRunBound,
+      () => serviceRun >= lowerRunBound && serviceRun <= upperRunBound,
       `Пробег на эту дату должен быть в пределах от ${lowerRunBound} до ${upperRunBound} км.`
     );
   },
