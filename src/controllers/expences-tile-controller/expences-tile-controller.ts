@@ -69,8 +69,9 @@ export default class ExpencesTileController extends TileController {
       )
     );
 
-    // если за этот период нет записей, пропускаем
-    if (expencesInPeriod.every((item) => item.length === 0)) return;
+    // если за этот период нет записей, возвращаем пустой объект
+    if (expencesInPeriod.every((item) => item.length === 0))
+      return { timestamp: start.valueOf(), value: 0 };
 
     // в генерацию статистики за период передаем только ненулевые массивы данных
     const nonZeroExpensesInPeriod = expencesInPeriod.filter((item) => item.length !== 0);

@@ -54,8 +54,8 @@ export default class FuelTileController extends TileController {
     const refuelsInPeriod = await loadAllByDateIndex<FuelFormFinalState>(
       this.dbName, start.valueOf(), end.valueOf());
 
-    // если за этот период нет записей, пропускаем
-    if (!refuelsInPeriod) return;
+    // если за этот период нет записей, возвращаем пустой объект
+    if (refuelsInPeriod.length === 0) return { timestamp: start.valueOf(), value: 0 };
 
     // чтобы правильно посчитать расход, необходимо знать
     // пробег при первой заправке следующего месяца
