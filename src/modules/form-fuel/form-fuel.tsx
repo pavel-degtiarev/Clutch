@@ -112,7 +112,7 @@ export default function FormFuel({ getValidate, finalCheck,
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
-          if (finalCheck(formState)) {
+          if (await finalCheck(formState)) {
             const result = await storeDispatch(saveFuel(convertFuelFields(formState)));
             if (result.meta.requestStatus === "fulfilled") {
               updateFuelForm(fuelFormInitState);

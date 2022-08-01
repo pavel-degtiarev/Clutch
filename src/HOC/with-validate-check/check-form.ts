@@ -59,10 +59,10 @@ export type FinalBasicFormsState =
 
 // ==============================================
 
-export function checkForm<T extends TargetFormState>(
-  state: T, checkpoints: Checkpoint<T>[] ): boolean {
+export async function checkForm<T extends TargetFormState>(
+  state: T, checkpoints: Checkpoint<T>[] ): Promise<boolean> {
   for (const checkpoint of checkpoints) {
-    if (!checkpoint(state)) return false;
+    if (!await checkpoint(state)) return false;
   }
 
   return true;
