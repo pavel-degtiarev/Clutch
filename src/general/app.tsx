@@ -10,12 +10,11 @@ import PopupSwitch from "../components/popup-switch/popup-switch";
 import FormState from "../context/form-state/form-state";
 import FormDisplayState from "../context/form-display/form-display-state";
 
-import reminders from "../mocks/reminders";
 import { forms } from "./forms";
 
 import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
 import { useStore } from "react-redux";
-import { tilesController } from "../index";
+import { remindersController, tilesController } from "../index";
 import TabsGroupContext from "../components/tabs/tabs-group-context";
 
 // ===========================================
@@ -42,7 +41,7 @@ export default function App() {
       <Header title="Honda Fit" burgerHandler={() => {}} />
 
       <Main>
-        <Reminder reminders={reminders} />
+        <Reminder remindersController={remindersController} />
         <TabsGroupContext tabInfo={timeTabs}>
           <TabsGroup name="time-interval" />
           <Tiles tilesController={tilesController} />
