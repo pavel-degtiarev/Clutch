@@ -36,11 +36,11 @@ export async function loadNearestBoundingDateIndex<T extends FinalBasicFormsStat
   return [lower, upper] as T[];
 };
 
-export async function saveToDb<T extends FinalBasicFormsState>(store: dbStoreName, value: T) {
-  const transaction = getDB().transaction(store, "readwrite");
-  const key = await transaction.store.add(value);
-  const result = { ...value, id: key as number };
-  return result;
+export async function getAllRepeatingServices(): Promise<ServiceFormFinalState[]> {
+  const transaction = getDB().transaction(dbStoreName.SERVICE, "readonly");
+  // берем все с ключом repeat === 1
+  const dataRange = await transaction.store.index("repeat").getAll(IDBKeyRange.only(1));
+  return dataRange as ServiceFormFinalState[];
 }
 
 export async function getOldestDate(store: dbStoreName): Promise<number> {
@@ -59,4 +59,11 @@ export async function getOldestDate(store: dbStoreName): Promise<number> {
     case dbStoreName.SPARE:
       return (oldest as SpareFormFinalState).spareDate;
   }
+}
+
+export async function saveToDb<T extends FinalBasicFormsState>(store: dbStoreName, value: T) {
+  const transaction = getDB().transaction(store, "readwrite");
+  const key = await transaction.store.add(value);
+  const result = { ...value, id: key as number };
+  return result;
 }
