@@ -17,7 +17,7 @@ export interface ClutchDBSchema extends DBSchema {
   [dbStoreName.SERVICE]: {
     key: number;
     value: ServiceFormFinalState;
-    indexes: { date: number };
+    indexes: { date: number, repeat: number };
   };
   [dbStoreName.SPARE]: {
     key: number;
@@ -36,17 +36,20 @@ let clutchDB: IDBPDatabase<ClutchDBSchema>;
 export default async function initClutchDB() {
   return (clutchDB = await openDB<ClutchDBSchema>("clutchDB", 1, {
     upgrade(db) {
-      db.createObjectStore(dbStoreName.FUEL, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "fuelDate");
+      const fuelDb = db.createObjectStore(dbStoreName.FUEL, { keyPath: "id", autoIncrement: true });
+      fuelDb.createIndex("date", "fuelDate")
 
-      db.createObjectStore(dbStoreName.SERVICE, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "serviceDate");
+      const serviceDb = db.createObjectStore(dbStoreName.SERVICE, { keyPath: "id", autoIncrement: true });
+      serviceDb.createIndex("date", "serviceDate");
+      serviceDb.createIndex("repeat", "serviceRepeat");
 
-      db.createObjectStore(dbStoreName.SPARE, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "spareDate");
+      const spareDb = db.createObjectStore(dbStoreName.SPARE, { keyPath: "id", autoIncrement: true });
+      spareDb.createIndex("date", "spareDate");
 
-      db.createObjectStore(dbStoreName.OTHER, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "otherDate");
+      const otherDb = db.createObjectStore(dbStoreName.OTHER, { keyPath: "id", autoIncrement: true });
+        otherDb.createIndex("date", "otherDate");
+      
+      
     },
   }));
 }
