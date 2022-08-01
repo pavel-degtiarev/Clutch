@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
+import _ from "lodash";
 import { ServiceFormState } from "../../context/form-state/form-init-states";
-import { ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { repeatFormFinalState, ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 export function convertServiceFields(state: ServiceFormState): ServiceFormFinalState {
   const finalState: ServiceFormFinalState = {
@@ -9,12 +10,14 @@ export function convertServiceFields(state: ServiceFormState): ServiceFormFinalS
     serviceRun: Number(state.serviceRun),
     serviceTotal: Number(state.serviceTotal),
     serviceTotalDetails: state.serviceTotalDetails,
-    serviceRepeat: state.serviceRepeat,
-    serviceRepeatDetails: {
-      ...state.serviceRepeatDetails,
-      repeatingRun: Number(state.serviceRepeatDetails.repeatingRun),
-      repeatingTime: Number(state.serviceRepeatDetails.repeatingTime),
-    },
+    serviceRepeat: Number(state.serviceRepeat),
+    serviceRepeatDetails: _.isEqual(state.serviceRepeatDetails, {})
+      ? ({} as repeatFormFinalState)
+      : {
+          ...state.serviceRepeatDetails,
+          repeatingRun: Number(state.serviceRepeatDetails.repeatingRun),
+          repeatingTime: Number(state.serviceRepeatDetails.repeatingTime),
+        },
   };
   return finalState;
 }

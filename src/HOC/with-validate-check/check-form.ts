@@ -26,7 +26,7 @@ export type ServiceFormFinalState = {
   serviceRun: number;
   serviceTotal: number;
   serviceTotalDetails: detailsFormFinalState;
-  serviceRepeat: boolean;
+  serviceRepeat: number;
   serviceRepeatDetails: repeatFormFinalState;
 };
 
