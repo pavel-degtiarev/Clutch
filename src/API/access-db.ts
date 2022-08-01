@@ -11,7 +11,7 @@ export async function loadAllByDateIndex<T extends FinalBasicFormsState>(
   store: dbStoreName, loverIndex: number, upperIndex: number ): Promise<T[]> {
   const transaction = getDB().transaction(store, "readonly");
   const dataRange = await transaction.store.index("date")
-    .getAll(IDBKeyRange.bound(loverIndex, upperIndex, true, true));
+    .getAll(IDBKeyRange.bound(loverIndex, upperIndex));
   return dataRange as T[];
 }
 
@@ -19,9 +19,22 @@ export async function loadFirstByDateIndex<T extends FinalBasicFormsState>(
   store: dbStoreName, loverIndex: number, upperIndex: number ): Promise<T> {
   const transaction = getDB().transaction(store, "readonly");
   const dataRange = await transaction.store.index("date")
-    .get(IDBKeyRange.bound(loverIndex, upperIndex, true, true));
+    .get(IDBKeyRange.bound(loverIndex, upperIndex));
   return dataRange as T;
 }
+
+export async function loadNearestBoundingDateIndex<T extends FinalBasicFormsState>(
+  store: dbStoreName, index: number): Promise<T[]>{
+  const transaction = getDB().transaction(store, "readonly");
+  const [lowerArray, upperRawValue] = await Promise.all([
+    transaction.store.index("date").getAll(IDBKeyRange.bound(0, index)),
+    transaction.store.index("date").get(IDBKeyRange.lowerBound(index)),
+  ]);
+
+  const lower = lowerArray.length === 0 ? null : lowerArray[lowerArray.length-1];
+  const upper = upperRawValue === undefined ? null : upperRawValue;
+  return [lower, upper] as T[];
+};
 
 export async function saveToDb<T extends FinalBasicFormsState>(store: dbStoreName, value: T) {
   const transaction = getDB().transaction(store, "readwrite");
