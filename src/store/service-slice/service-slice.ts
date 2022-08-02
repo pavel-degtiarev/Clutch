@@ -14,11 +14,9 @@ export const serviceSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllService.fulfilled, (state, action) => {
-        state = action.payload as ServiceSliceData[];
         return state;
       })
       .addCase(saveService.fulfilled, (state, action) => {
-        state.push(action.payload as ServiceSliceData);
         return state;
       });
   },

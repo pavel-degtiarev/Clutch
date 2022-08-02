@@ -11,12 +11,6 @@ export enum Urgency {
   OVERDUED,
 }
 
-interface ReminderBase<T> {
-  title: string;
-  urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
-  trigger: T;
-}
-
 export interface RunTrigger {
   run: number;
 }
@@ -24,7 +18,11 @@ export interface TimeTrigger {
   time: TimeType;
 }
 
-export type IReminder = ReminderBase<RunTrigger> | ReminderBase<TimeTrigger>;
+export interface Reminder {
+  title: string;
+  urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
+  trigger: RunTrigger | TimeTrigger;
+};
 
 export function isRunTrigger(trigger: RunTrigger | TimeTrigger): trigger is RunTrigger {
   return "run" in trigger;

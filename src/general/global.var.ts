@@ -1,7 +1,7 @@
 export enum TimeUnits {
-  DAYS = "days",
-  MONTHS = "months",
-  YEARS = "years",
+  DAY = "days",
+  MONTH = "months",
+  YEAR = "years",
 }
 
 export enum TimeSuffixes {
@@ -24,15 +24,15 @@ export type TimeSlot = {
 export const timeSlotOptions: TimeSlot[] = [
   {
     label: "дни",
-    value: TimeUnits.DAYS,
+    value: TimeUnits.DAY,
   },
   {
     label: "месяцы",
-    value: TimeUnits.MONTHS,
+    value: TimeUnits.MONTH,
   },
   {
     label: "годы",
-    value: TimeUnits.YEARS,
+    value: TimeUnits.YEAR,
   },
 ];
 

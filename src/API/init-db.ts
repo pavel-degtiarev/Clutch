@@ -1,11 +1,12 @@
 import { DBSchema, IDBPDatabase, openDB } from "idb";
-import { FuelFormFinalState, OtherFormFinalState, ServiceFormFinalState, SpareFormFinalState } from "../HOC/with-validate-check/check-form";
+import { FuelFormFinalState, OtherFormFinalState, RepeatFormFinalState, ServiceFormFinalState, SpareFormFinalState } from "../HOC/with-validate-check/check-form";
 
 export enum dbStoreName {
   FUEL = "fuel",
   SERVICE = "service",
   SPARE = "spare",
   OTHER = "other",
+  REPEAT = "repeat",
 }
 
 export interface ClutchDBSchema extends DBSchema {
@@ -29,6 +30,10 @@ export interface ClutchDBSchema extends DBSchema {
     value: OtherFormFinalState;
     indexes: { date: number };
   };
+  [dbStoreName.REPEAT]: {
+    key: number;
+    value: RepeatFormFinalState;
+  };
 }
 
 let clutchDB: IDBPDatabase<ClutchDBSchema>;
@@ -37,16 +42,18 @@ export default async function initClutchDB() {
   return (clutchDB = await openDB<ClutchDBSchema>("clutchDB", 1, {
     upgrade(db) {
       db.createObjectStore(dbStoreName.FUEL, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "fuelDate");
+        .createIndex("date", "fuelDate")
 
       db.createObjectStore(dbStoreName.SERVICE, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "serviceDate");
+        .createIndex("date", "serviceDate");
 
       db.createObjectStore(dbStoreName.SPARE, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "spareDate");
+        .createIndex("date", "spareDate");
 
       db.createObjectStore(dbStoreName.OTHER, { keyPath: "id", autoIncrement: true })
-      .createIndex("date", "otherDate");
+        .createIndex("date", "otherDate");
+      
+      db.createObjectStore(dbStoreName.REPEAT, { keyPath: "id", autoIncrement: true })
     },
   }));
 }

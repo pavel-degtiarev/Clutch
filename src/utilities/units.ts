@@ -15,17 +15,17 @@ export function getTimeSuffix(value: string, timeSlot: TimeUnits): TimeSuffixes 
   const lastDigit = +value - Math.floor(+value / 10) * 10;
 
   const suffixes = {
-    [TimeUnits.DAYS]: {
+    [TimeUnits.DAY]: {
       ONE: TimeSuffixes.ONE_DAY,
       TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_DAYS,
       MANY: TimeSuffixes.MANY_DAYS,
     },
-    [TimeUnits.MONTHS]: {
+    [TimeUnits.MONTH]: {
       ONE: TimeSuffixes.ONE_MONTH,
       TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_MONTHS,
       MANY: TimeSuffixes.MANY_MONTHS,
     },
-    [TimeUnits.YEARS]: {
+    [TimeUnits.YEAR]: {
       ONE: TimeSuffixes.ONE_YEAR,
       TWO_TO_FOUR: TimeSuffixes.TWO_TO_FOUR_YEARS,
       MANY: TimeSuffixes.MANY_YEARS,

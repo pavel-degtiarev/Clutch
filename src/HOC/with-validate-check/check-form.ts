@@ -25,37 +25,29 @@ export type ServiceFormFinalState = {
   serviceDescription: string;
   serviceRun: number;
   serviceTotal: number;
-  serviceTotalDetails: detailsFormFinalState;
-  serviceRepeat: boolean;
-  serviceRepeatDetails: repeatFormFinalState;
+  serviceTotalDetails: DetailsFormFinalState;
 };
 
-export type repeatFormFinalState = {
+export type RepeatFormFinalState = {
+  serviceId: number;
   repeatByRun: boolean;
   repeatingRun: number;
   repeatByTime: boolean;
   repeatingTime: number;
   repeatTimeSlot: string;
-} | null;
+};
 
-export type detailsFormFinalState = {
+export type DetailsFormFinalState = {
   services: ServiceDetails[] | null;
   spares: ServiceDetails[] | null;
 } | null;
-
-export type FinalAllFormsState =
-  | FuelFormFinalState
-  | OtherFormFinalState
-  | SpareFormFinalState
-  | repeatFormFinalState
-  | detailsFormFinalState
-  | ServiceFormFinalState;
 
 export type FinalBasicFormsState =
   | FuelFormFinalState
   | OtherFormFinalState
   | SpareFormFinalState
-  | ServiceFormFinalState;
+  | ServiceFormFinalState
+  | RepeatFormFinalState;
 
 // ==============================================
 
