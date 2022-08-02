@@ -20,7 +20,9 @@ import { FieldSuffixes } from "../../general/global.var";
 
 import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
-import { saveService } from "../../store/service-slice/service-slice";
+import { saveService, ServiceSliceData } from "../../store/service-slice/service-slice";
+import { convertServiceRepeatFields } from "../form-service-repeat/form-service-repeat-convert-fields";
+import { saveRepeat } from "../../store/service-repeat-slice/service-repeat-slice";
 
 // ==============================================
 
@@ -123,18 +125,20 @@ export default function FormService({ getValidate, finalCheck
         title="Сохранить"
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
-          let newFormState = formState;
-
-          if (repeatState.repeatByRun || repeatState.repeatByTime) {
-            newFormState.serviceRepeatDetails = repeatState;
-          }
+          const newFormState = formState;
           if (detailsState.services.length || detailsState.services.length) {
             newFormState.serviceTotalDetails = detailsState;
           }
 
           if (await finalCheck(newFormState)) {
-            const result = await storeDispatch(saveService(convertServiceFields(newFormState)));
-            if (result.meta.requestStatus === "fulfilled") {
+            const resultService = await storeDispatch(saveService(convertServiceFields(newFormState)));
+            if (resultService.meta.requestStatus === "fulfilled") {
+              if (repeatState.repeatByRun || repeatState.repeatByTime) {
+                const serviceId = (resultService.payload as ServiceSliceData).id;
+                const finalRepeatState = convertServiceRepeatFields(repeatState);
+                finalRepeatState.serviceId = serviceId;
+                await storeDispatch(saveRepeat(finalRepeatState));
+              }
               updateRepeatForm(repeatFormInitState);
               updateDetailsForm(detailsFormInitState);
               updateServiceForm(serviceFormInitState);
