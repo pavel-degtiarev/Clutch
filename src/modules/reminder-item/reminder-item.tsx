@@ -20,15 +20,15 @@ function getIntervalClass(time: TimeType): string {
   let interval: string = "";
 
   switch (time.unit) {
-    case TimeUnits.DAYS:
+    case TimeUnits.DAY:
       interval = styles.inDays;
       break;
 
-    case TimeUnits.MONTHS:
+    case TimeUnits.MONTH:
       interval = styles.inMonths;
       break;
 
-    case TimeUnits.YEARS:
+    case TimeUnits.YEAR:
       switch (getYearsSuffix(time)) {
         case YearSuffix.SINGLE:
           interval = styles.inYearsSingle;

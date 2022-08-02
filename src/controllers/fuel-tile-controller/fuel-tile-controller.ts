@@ -1,6 +1,6 @@
 import _ from "lodash";
 import dayjs from "dayjs";
-import { getOldestDate, loadAllByDateIndex, loadFirstByDateIndex } from "../../API/access-db";
+import { getOldestDate, loadAllByDateIndex, loadFirstByDate } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
 import { clearFuelStat, setFuelStat, StatRecord } from "../../store/stat-slice/stat-slice";
@@ -61,7 +61,7 @@ export default class FuelTileController extends TileController {
     // пробег при первой заправке следующего месяца
     const nextMonthStart = end.add(1, "day").startOf("month");
     const nextMonthEnd = nextMonthStart.endOf("month");
-    const auxData = await loadFirstByDateIndex<FuelFormFinalState>(
+    const auxData = await loadFirstByDate<FuelFormFinalState>(
       this.dbName, nextMonthStart.valueOf(), nextMonthEnd.valueOf());
 
     // если данных за следующий месяц еще нет, auxData = undefined

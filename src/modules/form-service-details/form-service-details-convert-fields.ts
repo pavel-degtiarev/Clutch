@@ -1,10 +1,10 @@
 import { DetailsFormState } from "../../context/form-state/form-init-states";
-import { detailsFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { DetailsFormFinalState } from "../../HOC/with-validate-check/check-form";
 
 export function convertServiceDetailsFields(
-  state: DetailsFormState): detailsFormFinalState {
+  state: DetailsFormState): DetailsFormFinalState {
   
-  const finalState: detailsFormFinalState =
+  const finalState: DetailsFormFinalState =
     state.services.length > 0 || state.spares.length > 0
       ? {
           services: state.services.length > 0 ? state.services : null,

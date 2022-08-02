@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { loadNearestBoundingDateIndex } from "../../API/access-db";
+import { loadNearestBoundingDates } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { ServiceFormState } from "../../context/form-state/form-init-states";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
@@ -18,7 +18,7 @@ export const formServiceCheckpoints: Checkpoint<ServiceFormState>[] = [
 
     // В serviceStore хранятся данные о пробеге, но все равно смотрим по базе Fuel.
     // Там они обновляются чаще
-    const bound = await loadNearestBoundingDateIndex(dbStoreName.FUEL, serviceDate.valueOf());
+    const bound = await loadNearestBoundingDates(dbStoreName.FUEL, serviceDate.valueOf());
     const lowerRunBound = bound[0] ? (bound[0] as FuelFormFinalState).fuelRun : -Infinity;
     const upperRunBound = bound[1] ? (bound[1] as FuelFormFinalState).fuelRun : Infinity;
 
