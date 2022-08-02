@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import duration from "dayjs/plugin/duration";
 import "dayjs/locale/ru";
 
 import React from "react";
@@ -13,6 +14,7 @@ import App from "./general/app";
 
 dayjs.locale("ru");
 dayjs.extend(isSameOrBefore);
+dayjs.extend(duration);
 
 import "reseter.css";
 
