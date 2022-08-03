@@ -25,39 +25,51 @@ type TReminderColors = {
 
 export default function Reminder({ remindersController }: ReminderProps) {
   const reminders = remindersController.reminders;
-  
+
   const reminderColors: TReminderColors = {
     [Urgency.NORMAL]: styles.urgencyNormal,
     [Urgency.NEARDUE]: styles.urgencyNearDue,
     [Urgency.OVERDUED]: styles.urgencyOverdued,
   };
 
-  const [urgencyStyle, setUrgencyStyle] = useState<string>(reminderColors[reminders[0].urgency]);
+  const [urgencyStyle, setUrgencyStyle] = useState<string>(styles.urgencyNormal);
 
+  useEffect(() => {
+    if (reminders.length) setUrgencyStyle(reminderColors[reminders[0].urgency]);
+  }, [reminders]);
+
+  console.log(reminders);
+  
   return (
-    <section className={classNames(styles.reminder, urgencyStyle)}>
-      <Swiper
-        slidesPerView={1}
-        modules={[Pagination]}
-        pagination={{ el: ".swiper-pagination", type: "bullets" }}>
-        {reminders.map((item, index) => {
-          return (
-            <SwiperSlide key={index}>
-              {({ isActive }) => {
-                useEffect(() => {
-                  isActive && setUrgencyStyle(reminderColors[item.urgency]);
-                }, [isActive]);
+    reminders.length !== 0 && (
+      <section className={classNames(styles.reminder, urgencyStyle)}>
+        <Swiper
+          slidesPerView={1}
+          modules={[Pagination]}
+          pagination={{ el: ".swiper-pagination", type: "bullets" }}>
+          {reminders.map((item, index) => {
+            return (
+              <SwiperSlide key={index}>
+                {({ isActive }) => {
+                  useEffect(() => {
+                    isActive && setUrgencyStyle(reminderColors[item.urgency]);
+                  }, [isActive]);
 
-                return (
-                  <ReminderItem title={item.title} trigger={item.trigger} urgency={item.urgency} />
-                );
-              }}
-            </SwiperSlide>
-          );
-        })}
+                  return (
+                    <ReminderItem
+                      title={item.title}
+                      trigger={item.trigger}
+                      urgency={item.urgency}
+                    />
+                  );
+                }}
+              </SwiperSlide>
+            );
+          })}
 
-        <div className="swiper-pagination"></div>
-      </Swiper>
-    </section>
+          <div className="swiper-pagination"></div>
+        </Swiper>
+      </section>
+    )
   );
 }
