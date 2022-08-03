@@ -12,6 +12,7 @@ export async function loadAllByDateIndex<T extends FinalBasicFormsState>(
   // в repeatDb нет индекса date,
   // поэтому возвращаем пустую заглушку во всех функциях
   if (store === dbStoreName.REPEAT) return [] as T[];
+
   const transaction = getDB().transaction(store, "readonly");
   const dataRange = await transaction.store.index("date")
     .getAll(IDBKeyRange.bound(loverIndex, upperIndex));
@@ -21,6 +22,7 @@ export async function loadAllByDateIndex<T extends FinalBasicFormsState>(
 export async function loadFirstByDate<T extends FinalBasicFormsState>(
   store: dbStoreName, loverIndex: number, upperIndex: number): Promise<T> {
   if (store === dbStoreName.REPEAT) return {} as T;
+
   const transaction = getDB().transaction(store, "readonly");
   const dataRange = await transaction.store.index("date")
     .get(IDBKeyRange.bound(loverIndex, upperIndex));
@@ -37,20 +39,22 @@ export async function loadById<T extends FinalBasicFormsState>(
 export async function loadNearestBoundingDates<T extends FinalBasicFormsState>(
   store: dbStoreName, date: number): Promise<T[]>{
   if (store === dbStoreName.REPEAT) return [] as T[];
+
   const transaction = getDB().transaction(store, "readonly");
-  const [lowerArray, upperRawValue] = await Promise.all([
-    transaction.store.index("date").getAll(IDBKeyRange.bound(0, date)),
-    transaction.store.index("date").get(IDBKeyRange.lowerBound(date)),
+  const [lowerCursor, upperRawValue] = await Promise.all([
+    transaction.store.index("date").openCursor(IDBKeyRange.bound(0, date), "prev"),
+    transaction.store.index("date").get(IDBKeyRange.lowerBound(date, true)),
   ]);
 
-  const lower = lowerArray.length === 0 ? null : lowerArray[lowerArray.length-1];
-  const upper = upperRawValue === undefined ? null : upperRawValue;
+  const lower = lowerCursor ? lowerCursor.value : null;
+  const upper = upperRawValue ? upperRawValue : null;
   return [lower, upper] as T[];
 };
 
 export async function getNewestRecord<T extends FinalBasicFormsState>(
   store: dbStoreName): Promise<T> {
   if (store === dbStoreName.REPEAT) return {} as T;
+
   const transaction = getDB().transaction(store, "readonly");
   const cursor = await transaction.store.index("date").openCursor(null, "prev");  
   return cursor ? cursor.value as T : {} as T;
@@ -58,6 +62,7 @@ export async function getNewestRecord<T extends FinalBasicFormsState>(
 
 export async function getOldestDate(store: dbStoreName): Promise<number> {
   if (store === dbStoreName.REPEAT) return 0;
+
   const transaction = getDB().transaction(store, "readonly");
   const oldest = await transaction.store.index("date").get(IDBKeyRange.lowerBound(0));
   if(!oldest) return 0;
@@ -74,9 +79,15 @@ export async function getOldestDate(store: dbStoreName): Promise<number> {
   }
 }
 
-export async function saveToDb<T extends FinalBasicFormsState>(store: dbStoreName, value: T) {
+export async function saveToDb<T extends FinalBasicFormsState>(
+  store: dbStoreName, value: T, id?: number) {  
   const transaction = getDB().transaction(store, "readwrite");
-  const key = await transaction.store.add(value);
-  const result = { ...value, id: key as number };
+
+  // Если передан ID, вставляем его в сохраняемые данные.
+  // IndexedDB перезапишет запись с этим ID
+  const finalValue = id ? { ...value, id: id } : value;
+  const newKey = await transaction.store.put(finalValue);  
+  const result = { ...value, id: newKey as number };  
+
   return result;
 }
