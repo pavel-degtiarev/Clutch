@@ -1,12 +1,19 @@
 import dayjs from "dayjs";
 import { DurationUnitType } from "dayjs/plugin/duration";
-import { WritableDraft } from "immer/dist/internal";
 import { getNewestRecord, loadAllFromDb, loadById } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
+import { FormDisplayActionWithPayload } from "../../context/form-display/form-display-state";
+import { RepeatFormState } from "../../context/form-state/form-init-states";
+import { UpdateFormAction } from "../../context/form-state/form-state";
+import { forms, FormTitle } from "../../general/forms";
 import { TimeUnits } from "../../general/global.var";
-import { FuelFormFinalState, RepeatFormFinalState, ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
-import { Reminder, RunTrigger, Urgency } from "../../modules/reminder-item/reminder.types";
-import { clearRepeatSlice, RepeatSliceData, setRepeatSlice } from "../../store/service-repeat-slice/service-repeat-slice";
+import { FuelFormFinalState, RepeatFormFinalState, ServiceFormFinalState,
+  } from "../../HOC/with-validate-check/check-form";
+import { TargetFormState } from "../../HOC/with-validate-check/with-validate-check";
+import { isRunTrigger, isTimeTrigger, Reminder, RunTrigger, Urgency,
+  } from "../../modules/reminder-item/reminder.types";
+import { clearRepeatSlice, RepeatSliceData, setRepeatSlice,
+  } from "../../store/service-repeat-slice/service-repeat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 
 export class RemindersController {
@@ -14,7 +21,11 @@ export class RemindersController {
 
   private _reminders: Reminder[];
   private _store: ClutchStoreType;
-  dispatch: ClutchStoreDispatch;
+  storeDispatch: ClutchStoreDispatch;
+  showServiceForm: (() => void) | undefined;
+  updateServiceForm: UpdateFormAction | undefined;
+  updateRepeatForm: UpdateFormAction | undefined;
+  updateDetailsForm: UpdateFormAction | undefined;
 
   constructor(store: ClutchStoreType) {
     if (!RemindersController._instance) {
@@ -22,20 +33,18 @@ export class RemindersController {
     }
 
     this._store = store;
-    this.dispatch = store.dispatch;
+    this.storeDispatch = store.dispatch;
     this._reminders = [];
 
     return RemindersController._instance;
   }
 
-  get reminders() {
-    return this._reminders;
-  }
+  get reminders() { return this._reminders }
 
   async init() {
-    this.dispatch(clearRepeatSlice());
+    this.storeDispatch(clearRepeatSlice());
     const repeatData = await loadAllFromDb(dbStoreName.REPEAT);
-    this.dispatch(setRepeatSlice(repeatData as RepeatFormFinalState[]));
+    this.storeDispatch(setRepeatSlice(repeatData as RepeatFormFinalState[]));
     await this.setReminders();
   }
 
@@ -57,16 +66,22 @@ export class RemindersController {
         dbStoreName.SERVICE, repeatRecord.serviceId);
 
       const reminder: Reminder = {
+        id: repeatRecord.id,
         serviceId: repeatRecord.serviceId,
         title: serviceRecord.serviceDescription,
         urgency: Urgency.NORMAL,
         trigger: {} as RunTrigger,
+        initConditions: {
+          run: repeatRecord.repeatingRun,
+          time: repeatRecord.repeatingTime,
+          timeUnits: repeatRecord.repeatTimeSlot as TimeUnits,
+        },
       };
 
       if (repeatRecord.repeatByRun) {
         const runToDue = await getRunToDue(serviceRecord, repeatRecord.repeatingRun);
         reminder.urgency = getUrgency(runToDue, 100, reminder.urgency);
-        reminder.trigger = { ...reminder.trigger, run: runToDue <= 0 ? 0 : runToDue };
+        reminder.trigger = { ...reminder.trigger, run: Math.abs(runToDue) };
       }
 
       if (repeatRecord.repeatByTime) {
@@ -78,7 +93,7 @@ export class RemindersController {
           ...reminder.trigger,
           time: {
             interval: Math.round(
-              dayjs.duration(timeToDue).as(repeatRecord.repeatTimeSlot as DurationUnitType)
+              dayjs.duration(Math.abs(timeToDue)).as(repeatRecord.repeatTimeSlot as DurationUnitType)
             ),
             unit: repeatRecord.repeatTimeSlot as TimeUnits,
           },
@@ -88,8 +103,8 @@ export class RemindersController {
     }
 
     function getUrgency(value: number, nearTreshold: number, currentUrgency: Urgency): Urgency {
-      if (value <= nearTreshold && currentUrgency === Urgency.NORMAL) return Urgency.NEARDUE;
       if (value <= 0) return Urgency.OVERDUED;
+      if (value <= nearTreshold && currentUrgency === Urgency.NORMAL) return Urgency.NEARDUE;
       return currentUrgency;
     }
 
@@ -120,9 +135,56 @@ export class RemindersController {
     }
   }
 
+  // ================================
+
+  setShowFormAction(showFormAction: FormDisplayActionWithPayload) {
+    const serviceForm = forms.find((form) => form.title === FormTitle.SERVICE);
+    if (serviceForm) {
+      this.showServiceForm = () => showFormAction(serviceForm);
+    }
+  }
+
+  // ================================
+
+  setFormsDataActions(
+    updateServiceForm: UpdateFormAction,
+    updateRepeatForm: UpdateFormAction,
+    updateDetailsForm: UpdateFormAction
+  ) {
+    this.updateServiceForm = updateServiceForm;
+    this.updateRepeatForm = updateRepeatForm;
+    this.updateDetailsForm = updateDetailsForm;
+  }
+
+  // ================================
+
   async editServiceWithReminder(reminder: Reminder) {
     const serviceRecord: ServiceFormFinalState = await loadById(
-      dbStoreName.SERVICE, reminder.serviceId);
-      console.log(serviceRecord);
-    }
+      dbStoreName.SERVICE,
+      reminder.serviceId
+    );
+
+    const repeatFormState: RepeatFormState = {
+      repeatId: reminder.id,
+      repeatingRun: isRunTrigger(reminder.trigger) ? `${reminder.initConditions.run}` : "",
+      repeatingTime: isTimeTrigger(reminder.trigger) ? `${reminder.initConditions.time}` : "",
+      repeatByRun: "run" in reminder.trigger,
+      repeatByTime: "time" in reminder.trigger,
+      repeatTimeSlot: reminder.initConditions.timeUnits,
+    };
+
+    const serviceFormState = {
+      serviceDate: dayjs().format("YYYY-MM-DD"),
+      serviceDescription: serviceRecord.serviceDescription,
+      serviceRun: "",
+      serviceTotal: "",
+      serviceRepeat: true,
+      serviceTotalDetails: serviceRecord.serviceTotalDetails,
+      serviceRepeatDetails: repeatFormState,
+    };
+
+    this.updateServiceForm && this.updateServiceForm(serviceFormState as TargetFormState);
+    this.updateRepeatForm && this.updateRepeatForm(repeatFormState as TargetFormState);
+    this.showServiceForm && this.showServiceForm();
+  }
 }
