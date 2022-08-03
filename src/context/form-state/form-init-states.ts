@@ -40,14 +40,8 @@ export const repeatFormInitState = {
 };
 
 export const detailsFormInitState = {
-  services: [
-    // { id: 1265, title: "замена блока клапанов КПП", price: 30000 },
-    // { id: 6845, title: "замена прокладки крышки клапанов", price: 3000 },
-  ],
-  spares: [
-    // { id: 5831, title: "блок клапанов коробки передач", price: 4500 },
-    // { id: 12, title: "прокладка клапанной крышки", price: 500 },
-  ],
+  services: [],
+  spares: [],
 };
 
 export type FuelFormState = typeof fuelFormInitState;
