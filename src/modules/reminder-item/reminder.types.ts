@@ -19,9 +19,16 @@ export interface TimeTrigger {
 }
 
 export interface Reminder {
+  id: number;
+  serviceId: number;
   title: string;
   urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
   trigger: RunTrigger | TimeTrigger;
+  initConditions: {
+    run: number;
+    time: number;
+    timeUnits: TimeUnits;
+  };
 };
 
 export function isRunTrigger(trigger: RunTrigger | TimeTrigger): trigger is RunTrigger {

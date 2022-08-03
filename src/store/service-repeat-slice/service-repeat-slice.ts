@@ -24,9 +24,9 @@ export const repeatSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(saveRepeat.fulfilled, (state, action) => {
-      return state;
-    });
+    builder
+      .addCase(saveRepeat.fulfilled, (state) => state)
+      .addCase(updateRepeat.fulfilled, (state) => state);
   },
 });
 
@@ -38,6 +38,18 @@ export const saveRepeat = createAsyncThunk("repeatSlice/saveRepeat",
   async (data: RepeatFormFinalState, thunkAPI) => {
     const result = await saveToDb(dbStoreName.REPEAT, data);
     if (result) thunkAPI.dispatch(addToRepeatSlice(data));
+    return result;
+  }
+);
+
+export const updateRepeat = createAsyncThunk("repeatSlice/updateRepeat",
+  async (data: { id: number; formState: RepeatFormFinalState }, thunkAPI) => {
+    console.log(data);
+    
+    const result = await saveToDb(dbStoreName.REPEAT, data.formState, data.id);
+    console.log(result);
+    
+    if (result) thunkAPI.dispatch(addToRepeatSlice(data.formState));
     return result;
   }
 );

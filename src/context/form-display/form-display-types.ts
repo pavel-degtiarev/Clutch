@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { FormTitle } from "../../general/forms";
 
 export type FormDisplayAction = {
   type: keyof typeof FormDisplayActionTypes;
@@ -6,7 +7,7 @@ export type FormDisplayAction = {
 };
 
 export type FormItem = {
-  title: string;
+  title: FormTitle;
   form: ReactNode;
 };
 

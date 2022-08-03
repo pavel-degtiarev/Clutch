@@ -66,8 +66,11 @@ export default class FuelTileController extends TileController {
 
     // если данных за следующий месяц еще нет, auxData = undefined
     if (auxData) refuelsInPeriod.push(auxData);
-
-    const run = refuelsInPeriod[refuelsInPeriod.length - 1].fuelRun - refuelsInPeriod[0].fuelRun;
+    
+    // если всего одна запись о заправке, берем просто пробег из этой записи
+    const run = (refuelsInPeriod.length === 1)
+      ? refuelsInPeriod[0].fuelRun
+      : refuelsInPeriod[refuelsInPeriod.length - 1].fuelRun - refuelsInPeriod[0].fuelRun;
     const fuelSum = refuelsInPeriod.slice(0, -1).reduce((acc, item) => (acc += item.fuelVolume), 0);
 
     return {

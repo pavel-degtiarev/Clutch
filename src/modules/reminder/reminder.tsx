@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import classNames from "classnames";
@@ -6,6 +6,8 @@ import classNames from "classnames";
 import { RemindersController } from "../../controllers/reminders-controller/reminders-controller";
 import ReminderItem from "../reminder-item/reminder-item";
 import { Urgency } from "../reminder-item/reminder.types";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import "swiper/scss";
 import "swiper/scss/pagination";
@@ -24,6 +26,12 @@ type TReminderColors = {
 };
 
 export default function Reminder({ remindersController }: ReminderProps) {
+  const { showForm } = useContext(FormDisplayContext);
+  const { updateServiceForm, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
+  
+  remindersController.setShowFormAction(showForm);
+  remindersController.setFormsDataActions(updateServiceForm, updateRepeatForm, updateDetailsForm);
+
   const reminders = remindersController.reminders;
 
   const reminderColors: TReminderColors = {
@@ -38,38 +46,37 @@ export default function Reminder({ remindersController }: ReminderProps) {
     if (reminders.length) setUrgencyStyle(reminderColors[reminders[0].urgency]);
   }, [reminders]);
 
-  console.log(reminders);
-  
-  return (
-    reminders.length !== 0 && (
-      <section className={classNames(styles.reminder, urgencyStyle)}>
-        <Swiper
-          slidesPerView={1}
-          modules={[Pagination]}
-          pagination={{ el: ".swiper-pagination", type: "bullets" }}>
-          {reminders.map((item, index) => {
-            return (
-              <SwiperSlide key={index}>
-                {({ isActive }) => {
-                  useEffect(() => {
-                    isActive && setUrgencyStyle(reminderColors[item.urgency]);
-                  }, [isActive]);
+  return reminders.length === 0 ? (
+    <></>
+  ) : (
+    <section className={classNames(styles.reminder, urgencyStyle)}>
+      <Swiper
+        slidesPerView={1}
+        modules={[Pagination]}
+        pagination={{ el: ".swiper-pagination", type: "bullets" }}>
+        {reminders.map((item) => {
+          return (
+            <SwiperSlide key={item.id}>
+              {({ isActive }) => {
+                useEffect(() => {
+                  isActive && setUrgencyStyle(reminderColors[item.urgency]);
+                }, [isActive]);
 
-                  return (
-                    <ReminderItem
-                      title={item.title}
-                      trigger={item.trigger}
-                      urgency={item.urgency}
-                    />
-                  );
-                }}
-              </SwiperSlide>
-            );
-          })}
+                return (
+                  <ReminderItem
+                    title={item.title}
+                    trigger={item.trigger}
+                    urgency={item.urgency}
+                    clickHandler={() => remindersController.editServiceWithReminder(item)}
+                  />
+                );
+              }}
+            </SwiperSlide>
+          );
+        })}
 
-          <div className="swiper-pagination"></div>
-        </Swiper>
-      </section>
-    )
+        <div className="swiper-pagination"></div>
+      </Swiper>
+    </section>
   );
 }

@@ -32,9 +32,19 @@ import { FuelFormFields, FuelFormState, OtherFormFields, OtherFormState, Details
 
 // ============================================
 
+export enum FormTitle {
+  FUEL = "Топливо",
+  SPARE = "Расходники, запчасти",
+  SERVICE = "Сервис",
+  OTHER = "Прочее",
+  REPEAT = "Периодичность",
+  DETAILS = "Подробнее",
+}
+
+
 export const forms: FormItem[] = [
   {
-    title: "Топливо",
+    title: FormTitle.FUEL,
     form: (
       <WithValidateAndCheck<FuelFormFields, FuelFormState>
         Form={FormFuel}
@@ -44,7 +54,7 @@ export const forms: FormItem[] = [
     ),
   },
   {
-    title: "Расходники, запчасти",
+    title: FormTitle.SPARE,
     form: (
       <WithValidateAndCheck<SpareFormFields, SpareFormState>
         Form={FormSpare}
@@ -54,7 +64,7 @@ export const forms: FormItem[] = [
     ),
   },
   {
-    title: "Сервис",
+    title: FormTitle.SERVICE,
     form: (
       <WithValidateAndCheck<ServiceFormFields, ServiceFormState>
         Form={FormService}
@@ -64,7 +74,7 @@ export const forms: FormItem[] = [
     ),
   },
   {
-    title: "Прочее",
+    title: FormTitle.OTHER,
     form: (
       <WithValidateAndCheck<OtherFormFields, OtherFormState>
         Form={FormOther}
@@ -77,7 +87,7 @@ export const forms: FormItem[] = [
 
 export const subforms = {
   repeatSubform: {
-    title: "Периодичность",
+    title: FormTitle.REPEAT,
     form: (
       <WithValidateAndCheck<RepeatFormFields, RepeatFormState>
         Form={FormServiceRepeat}
@@ -87,7 +97,7 @@ export const subforms = {
     ),
   },
   detailsSubform: {
-    title: "Подробнее",
+    title: FormTitle.DETAILS,
     form: (
       <WithValidateAndCheck<DetailsFormFields, DetailsFormState>
         Form={FormServiceDetails}

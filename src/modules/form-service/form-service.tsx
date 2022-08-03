@@ -22,7 +22,7 @@ import styles from "./form-service.module.scss";
 import containerStyles from "../../components/popup-container/popup-container.module.scss";
 import { saveService, ServiceSliceData } from "../../store/service-slice/service-slice";
 import { convertServiceRepeatFields } from "../form-service-repeat/form-service-repeat-convert-fields";
-import { saveRepeat } from "../../store/service-repeat-slice/service-repeat-slice";
+import { saveRepeat, updateRepeat } from "../../store/service-repeat-slice/service-repeat-slice";
 
 // ==============================================
 
@@ -137,7 +137,15 @@ export default function FormService({ getValidate, finalCheck
                 const serviceId = (resultService.payload as ServiceSliceData).id;
                 const finalRepeatState = convertServiceRepeatFields(repeatState);
                 finalRepeatState.serviceId = serviceId;
-                await storeDispatch(saveRepeat(finalRepeatState));
+
+                if (repeatState.repeatId) {
+                  await storeDispatch(
+                    updateRepeat({ id: repeatState.repeatId, formState: finalRepeatState })
+                  );
+                }
+                else {
+                  await storeDispatch(saveRepeat(finalRepeatState));
+                }
               }
               updateRepeatForm(repeatFormInitState);
               updateDetailsForm(detailsFormInitState);
