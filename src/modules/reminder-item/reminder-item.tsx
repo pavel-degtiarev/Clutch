@@ -51,16 +51,16 @@ interface ReminderItemProps {
   title: string;
   urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
   trigger: RunTrigger | TimeTrigger;
+  clickHandler: () => void;
 }
 
-export default function ReminderItem({ title, trigger, urgency }: ReminderItemProps) {
+export default function ReminderItem({ title, trigger, urgency, clickHandler }: ReminderItemProps) {
   return (
-    <div className={styles.slide}>
+    <div className={styles.slide} onClick={clickHandler}>
       <p className={classNames(textStyles.titleNormal, textStyles.noWrap)}>{title}</p>
 
       <div className={classNames(styles.period, urgency === Urgency.OVERDUED && styles.overdued)}>
-        {isRunTrigger(trigger) &&
-          <p className={styles.run}>{trigger.run}</p>}
+        {isRunTrigger(trigger) && <p className={styles.run}>{trigger.run}</p>}
 
         {isTimeTrigger(trigger) && (
           <p className={classNames(styles.time, getIntervalClass(trigger.time))}>

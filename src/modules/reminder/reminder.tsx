@@ -34,40 +34,41 @@ export default function Reminder({ remindersController }: ReminderProps) {
 
   const [urgencyStyle, setUrgencyStyle] = useState<string>(styles.urgencyNormal);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (reminders.length) setUrgencyStyle(reminderColors[reminders[0].urgency]);
   }, [reminders]);
-  
-  return (
-    reminders.length === 0 ? <></> : (
-      <section className={classNames(styles.reminder, urgencyStyle)}>
-        <Swiper
-          slidesPerView={1}
-          modules={[Pagination]}
-          pagination={{ el: ".swiper-pagination", type: "bullets" }}>
-          {reminders.map((item, index) => {
-            return (
-              <SwiperSlide key={index}>
-                {({ isActive }) => {
-                  useEffect(() => {
-                    isActive && setUrgencyStyle(reminderColors[item.urgency]);
-                  }, [isActive]);
 
-                  return (
-                    <ReminderItem
-                      title={item.title}
-                      trigger={item.trigger}
-                      urgency={item.urgency}
-                    />
-                  );
-                }}
-              </SwiperSlide>
-            );
-          })}
+  return reminders.length === 0 ? (
+    <></>
+  ) : (
+    <section className={classNames(styles.reminder, urgencyStyle)}>
+      <Swiper
+        slidesPerView={1}
+        modules={[Pagination]}
+        pagination={{ el: ".swiper-pagination", type: "bullets" }}>
+        {reminders.map((item, index) => {
+          return (
+            <SwiperSlide key={index}>
+              {({ isActive }) => {
+                useEffect(() => {
+                  isActive && setUrgencyStyle(reminderColors[item.urgency]);
+                }, [isActive]);
 
-          <div className="swiper-pagination"></div>
-        </Swiper>
-      </section>
-    )
+                return (
+                  <ReminderItem
+                    title={item.title}
+                    trigger={item.trigger}
+                    urgency={item.urgency}
+                    clickHandler={() => remindersController.editServiceWithReminder(item)}
+                  />
+                );
+              }}
+            </SwiperSlide>
+          );
+        })}
+
+        <div className="swiper-pagination"></div>
+      </Swiper>
+    </section>
   );
 }
