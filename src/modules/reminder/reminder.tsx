@@ -34,14 +34,12 @@ export default function Reminder({ remindersController }: ReminderProps) {
 
   const [urgencyStyle, setUrgencyStyle] = useState<string>(styles.urgencyNormal);
 
-  useEffect(() => {
+  useEffect(() => {    
     if (reminders.length) setUrgencyStyle(reminderColors[reminders[0].urgency]);
   }, [reminders]);
-
-  console.log(reminders);
   
   return (
-    reminders.length !== 0 && (
+    reminders.length === 0 ? <></> : (
       <section className={classNames(styles.reminder, urgencyStyle)}>
         <Swiper
           slidesPerView={1}
