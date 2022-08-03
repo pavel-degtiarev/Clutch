@@ -41,15 +41,18 @@ export default function App() {
       <Header title="Honda Fit" burgerHandler={() => {}} />
 
       <Main>
-        <Reminder remindersController={remindersController} />
-        <TabsGroupContext tabInfo={timeTabs}>
-          <TabsGroup name="time-interval" />
-          <Tiles tilesController={tilesController} />
-        </TabsGroupContext>
-
         <FormState>
           <FormDisplayState>
+            
+            <Reminder remindersController={remindersController} />
+
+            <TabsGroupContext tabInfo={timeTabs}>
+              <TabsGroup name="time-interval" />
+              <Tiles tilesController={tilesController} />
+            </TabsGroupContext>
+
             <PopupSwitch forms={forms} />
+
           </FormDisplayState>
         </FormState>
       </Main>
