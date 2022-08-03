@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { loadNearestBoundingDates } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormState } from "../../context/form-state/form-init-states";
-import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { FuelFormFinalState, ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
 import { checkpoint } from "../../HOC/with-validate-check/checkpoint";
 
 export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [
@@ -31,15 +31,26 @@ export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [
     const fuelRun = Number(state.fuelRun);
     const fuelDate = dayjs(state.fuelDate);
 
-    // bound - массив из двух значений: пробег с предшествующей и последующей дат.
+    // fuelBound, serviceBound - массивы из двух значений: пробег с предшествующей и последующей дат.
+    const [fuelBound, serviceBound] = await Promise.all([
+      loadNearestBoundingDates(dbStoreName.FUEL, fuelDate.valueOf()),
+      loadNearestBoundingDates(dbStoreName.SERVICE, fuelDate.valueOf()),
+    ]);
+    
     // если какого-то значения нет (например, последняя запись и следующей нет), то Infinity.
-    const bound = await loadNearestBoundingDates(dbStoreName.FUEL, fuelDate.valueOf());
-    const lowerRunBound = bound[0] ? (bound[0] as FuelFormFinalState).fuelRun : -Infinity;
-    const upperRunBound = bound[1] ? (bound[1] as FuelFormFinalState).fuelRun : Infinity;
+    const lowerBound = Math.max(
+      fuelBound[0] ? (fuelBound[0] as FuelFormFinalState).fuelRun : -Infinity,
+      serviceBound[0] ? (serviceBound[0] as ServiceFormFinalState).serviceRun : -Infinity
+    );
+
+    const upperBound = Math.min(
+      fuelBound[1] ? (fuelBound[1] as FuelFormFinalState).fuelRun : Infinity,
+      serviceBound[1] ? (serviceBound[1] as ServiceFormFinalState).serviceRun : Infinity
+    );
 
     return checkpoint(
-      () => fuelRun > lowerRunBound && fuelRun < upperRunBound,
-      `Пробег на эту дату должен быть в пределах от ${lowerRunBound} до ${upperRunBound} км.`
+      () => fuelRun > lowerBound && fuelRun < upperBound,
+      `Пробег на эту дату должен быть в пределах от ${lowerBound} до ${upperBound} км.`
     );
   }
 ];
