@@ -1,10 +1,10 @@
-import React, { createContext, ReactNode, useCallback, useReducer } from "react";
+import React, { createContext, ReactNode, useReducer } from "react";
 import { TargetFormState } from "../../HOC/with-validate-check/with-validate-check";
 import updateForm from "./form-state-actions";
 import { formsInitState, formStateReducer } from "./form-state-reducer";
 import { FormValuesState } from "./form-state-types";
 
-type UpdateFormAction = (data: TargetFormState) => void;
+export type UpdateFormAction = (data: TargetFormState) => void;
 
 interface FormStateContext extends FormValuesState {
   updateFuelForm: UpdateFormAction;
