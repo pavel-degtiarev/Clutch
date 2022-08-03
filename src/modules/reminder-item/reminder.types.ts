@@ -23,6 +23,11 @@ export interface Reminder {
   title: string;
   urgency: Urgency.NORMAL | Urgency.NEARDUE | Urgency.OVERDUED;
   trigger: RunTrigger | TimeTrigger;
+  initConditions: {
+    run: number;
+    time: number;
+    timeUnits: TimeUnits;
+  };
 };
 
 export function isRunTrigger(trigger: RunTrigger | TimeTrigger): trigger is RunTrigger {
