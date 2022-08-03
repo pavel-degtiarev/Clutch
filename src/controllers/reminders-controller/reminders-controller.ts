@@ -4,9 +4,8 @@ import { getNewestRecord, loadAllFromDb, loadById } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { TimeUnits } from "../../general/global.var";
 import { FuelFormFinalState, RepeatFormFinalState, ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
-import reminders from "../../mocks/reminders";
 import { Reminder, RunTrigger, Urgency } from "../../modules/reminder-item/reminder.types";
-import { setRepeatSlice } from "../../store/service-repeat-slice/service-repeat-slice";
+import { clearRepeatSlice, setRepeatSlice } from "../../store/service-repeat-slice/service-repeat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 
 export class RemindersController {
@@ -29,9 +28,9 @@ export class RemindersController {
   }
 
   async init() {
-    this._reminders = reminders;
-    const qq = await loadAllFromDb(dbStoreName.REPEAT);
-    this.dispatch(setRepeatSlice(qq as RepeatFormFinalState[]));
+    this.dispatch(clearRepeatSlice());
+    const repeatData = await loadAllFromDb(dbStoreName.REPEAT);
+    this.dispatch(setRepeatSlice(repeatData as RepeatFormFinalState[]));
     await this.setReminders();
   }
 

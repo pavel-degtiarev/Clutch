@@ -10,6 +10,10 @@ export const repeatSlice = createSlice({
   name: "repeatSlice",
   initialState: [] as RepeatSliceData[],
   reducers: {
+    clearRepeatSlice: (state) => {
+      state = [];
+      return state;
+    },
     setRepeatSlice: (state, action: PayloadAction<RepeatFormFinalState[]>) => {
       state = action.payload as RepeatSliceData[];
       return state;
@@ -28,7 +32,7 @@ export const repeatSlice = createSlice({
 
 export default repeatSlice.reducer;
 
-export const { setRepeatSlice, addToRepeatSlice } = repeatSlice.actions;
+export const { clearRepeatSlice, setRepeatSlice, addToRepeatSlice } = repeatSlice.actions;
 
 export const saveRepeat = createAsyncThunk("repeatSlice/saveRepeat",
   async (data: RepeatFormFinalState, thunkAPI) => {
