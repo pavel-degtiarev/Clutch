@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import classNames from "classnames";
@@ -6,6 +6,8 @@ import classNames from "classnames";
 import { RemindersController } from "../../controllers/reminders-controller/reminders-controller";
 import ReminderItem from "../reminder-item/reminder-item";
 import { Urgency } from "../reminder-item/reminder.types";
+import { FormDisplayContext } from "../../context/form-display/form-display-state";
+import { FormStateContext } from "../../context/form-state/form-state";
 
 import "swiper/scss";
 import "swiper/scss/pagination";
@@ -24,6 +26,12 @@ type TReminderColors = {
 };
 
 export default function Reminder({ remindersController }: ReminderProps) {
+  const { showForm } = useContext(FormDisplayContext);
+  const { updateServiceForm, updateRepeatForm, updateDetailsForm } = useContext(FormStateContext);
+  
+  remindersController.setShowFormAction(showForm);
+  remindersController.setFormsDataActions(updateServiceForm, updateRepeatForm, updateDetailsForm);
+
   const reminders = remindersController.reminders;
 
   const reminderColors: TReminderColors = {
