@@ -32,6 +32,7 @@ export const otherFormInitState = {
 };
 
 export const repeatFormInitState = {
+  repeatId: 0,
   repeatingRun: "",
   repeatingTime: "",
   repeatByRun: false,

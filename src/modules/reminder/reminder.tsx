@@ -54,9 +54,9 @@ export default function Reminder({ remindersController }: ReminderProps) {
         slidesPerView={1}
         modules={[Pagination]}
         pagination={{ el: ".swiper-pagination", type: "bullets" }}>
-        {reminders.map((item, index) => {
+        {reminders.map((item) => {
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={item.id}>
               {({ isActive }) => {
                 useEffect(() => {
                   isActive && setUrgencyStyle(reminderColors[item.urgency]);
