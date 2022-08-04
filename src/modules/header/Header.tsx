@@ -8,6 +8,7 @@ import textStyles from "../../styles/typography.module.scss";
 import headerStyles from "./header.module.scss";
 import burgerStyles from "./burger.module.scss";
 import titleStyles from "./header-title.module.scss";
+import BurgerMenu from "../../components/burger-menu/burger-menu";
 
 // ==================================================
 
@@ -58,6 +59,9 @@ export default function Header({ title, withReturnButton = false, burgerHandler 
           />
         </div>
       </div>
+
+      <BurgerMenu />
+      
     </header>
   );
 }
