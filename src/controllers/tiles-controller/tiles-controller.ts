@@ -2,7 +2,7 @@ import ExpencesTileController from "../expences-tile-controller/expences-tile-co
 import FuelTileController from "../fuel-tile-controller/fuel-tile-controller";
 import RunTileController from "../run-tile-controller/run-tile-controller";
 import { ClutchStoreType } from "../../store/store";
-import TileController, { OnUpdateCallback } from "../tile-controller/tile-controller";
+import TileController from "../tile-controller/tile-controller";
 import _ from "lodash";
 import { TimeInterval } from "../../general/app";
 
