@@ -16,6 +16,8 @@ export default function Tiles({ tilesController }: TilesProps) {
   const [statData, setStatData] = useState(tilesController.tiles);
   const statChanged = useCallback(() => setStatData(tilesController.tiles), []);
 
+  // при монтировании Tiles добавляем коллбэк в контроллер,
+  // при размонтировании - удаляем
   useEffect(() => {
     tilesController.setOnUpdateCallback(statChanged);
     return () => tilesController.setOnUpdateCallback(null);

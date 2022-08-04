@@ -4,8 +4,6 @@ import { StatRecord } from "../../store/stat-slice/stat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 import { TileData } from "../tiles-controller/tiles-controller";
 
-export type OnUpdateCallback = (() => void) | null;
-
 // ======================
 
 export default abstract class TileController {

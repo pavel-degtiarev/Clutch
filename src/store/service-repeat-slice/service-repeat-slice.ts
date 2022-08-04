@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { remindersController } from "../../index";
 import { saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { RepeatFormFinalState } from "../../HOC/with-validate-check/check-form";
@@ -31,8 +32,10 @@ export const repeatSlice = createSlice({
 });
 
 export default repeatSlice.reducer;
-
 export const { clearRepeatSlice, setRepeatSlice, addToRepeatSlice } = repeatSlice.actions;
+
+export const updateReminders = createAsyncThunk(
+  "repeatSlice/updateReminders", async () => remindersController.setReminders());
 
 export const saveRepeat = createAsyncThunk("repeatSlice/saveRepeat",
   async (data: RepeatFormFinalState, thunkAPI) => {

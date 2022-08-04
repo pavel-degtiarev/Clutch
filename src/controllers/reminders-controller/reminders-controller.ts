@@ -26,15 +26,17 @@ export class RemindersController {
   updateServiceForm: UpdateFormAction | undefined;
   updateRepeatForm: UpdateFormAction | undefined;
   updateDetailsForm: UpdateFormAction | undefined;
+  onUpdateCallback: OnUpdateCallback | null;
 
   constructor(store: ClutchStoreType) {
     if (!RemindersController._instance) {
       RemindersController._instance = this;
     }
 
+    this._reminders = [];
+    this.onUpdateCallback = null;
     this._store = store;
     this.storeDispatch = store.dispatch;
-    this._reminders = [];
 
     return RemindersController._instance;
   }
@@ -49,6 +51,7 @@ export class RemindersController {
   }
 
   async setReminders() {
+    this._reminders = [];
     const repeatData = this._store.getState().repeat;
     if (!repeatData.length) {
       this._reminders = [];
@@ -93,7 +96,9 @@ export class RemindersController {
           ...reminder.trigger,
           time: {
             interval: Math.round(
-              dayjs.duration(Math.abs(timeToDue)).as(repeatRecord.repeatTimeSlot as DurationUnitType)
+              dayjs
+                .duration(Math.abs(timeToDue))
+                .as(repeatRecord.repeatTimeSlot as DurationUnitType)
             ),
             unit: repeatRecord.repeatTimeSlot as TimeUnits,
           },
@@ -133,6 +138,8 @@ export class RemindersController {
       const runToDue = repeatingRun - (actualRun - initialRun);
       return runToDue;
     }
+
+    this.onUpdateCallback && this.onUpdateCallback()
   }
 
   // ================================
@@ -186,5 +193,11 @@ export class RemindersController {
     this.updateServiceForm && this.updateServiceForm(serviceFormState as TargetFormState);
     this.updateRepeatForm && this.updateRepeatForm(repeatFormState as TargetFormState);
     this.showServiceForm && this.showServiceForm();
+  }
+
+  // ================================
+
+  setOnUpdateCallback(callback: OnUpdateCallback) {
+    this.onUpdateCallback = callback;
   }
 }

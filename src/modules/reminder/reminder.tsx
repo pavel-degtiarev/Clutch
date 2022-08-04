@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import classNames from "classnames";
@@ -32,8 +32,16 @@ export default function Reminder({ remindersController }: ReminderProps) {
   remindersController.setShowFormAction(showForm);
   remindersController.setFormsDataActions(updateServiceForm, updateRepeatForm, updateDetailsForm);
 
-  const reminders = remindersController.reminders;
-
+  const [reminders, setReminders] = useState(remindersController.reminders);
+  const remindersChanged = useCallback(() => setReminders(remindersController.reminders), []);
+  
+  // при монтировании Tiles добавляем коллбэк в контроллер,
+  // при размонтировании - удаляем
+  useEffect(() => {
+    remindersController.setOnUpdateCallback(remindersChanged);
+    return () => remindersController.setOnUpdateCallback(null);
+  }, []);
+  
   const reminderColors: TReminderColors = {
     [Urgency.NORMAL]: styles.urgencyNormal,
     [Urgency.NEARDUE]: styles.urgencyNearDue,
