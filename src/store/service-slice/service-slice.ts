@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { ServiceFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { updateReminders } from "../service-repeat-slice/service-repeat-slice";
 import { updateExpencesStat } from "../stat-slice/stat-slice";
 import { SliceData } from "../store";
 
@@ -32,7 +33,10 @@ export const saveService = createAsyncThunk(
   "serviceSlice/saveService",
   async (data: ServiceFormFinalState, thunkAPI) => {
     const result = await saveToDb(dbStoreName.SERVICE, data);
-    if (result) thunkAPI.dispatch(updateExpencesStat(data.serviceDate));
-    return result
+    if (result) {
+      thunkAPI.dispatch(updateExpencesStat(data.serviceDate));
+      thunkAPI.dispatch(updateReminders());
+    }
+    return result;
   }
 );

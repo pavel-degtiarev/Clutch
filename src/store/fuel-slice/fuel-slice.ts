@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loadAllFromDb, saveToDb } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
+import { updateReminders } from "../service-repeat-slice/service-repeat-slice";
 import { updateStats } from "../stat-slice/stat-slice";
 import { SliceData } from "../store";
 
@@ -34,7 +35,10 @@ export const saveFuel = createAsyncThunk(
   "fuelSlice/saveFuel",
   async (data: FuelFormFinalState, thunkAPI) => {
     const result = await saveToDb(dbStoreName.FUEL, data);
-    if (result) thunkAPI.dispatch(updateStats(data.fuelDate));
+    if (result) {
+      thunkAPI.dispatch(updateStats(data.fuelDate));
+      thunkAPI.dispatch(updateReminders());
+    }
     return result;
   }
 );
