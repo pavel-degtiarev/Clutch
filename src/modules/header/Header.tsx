@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 
+import TitleController from "../../controllers/title-controller/title-controller";
 import BurgerMenu from "../../components/burger-menu/burger-menu";
 import ButtonIcon from "../../components/button-icon/button-icon";
 
@@ -12,28 +13,19 @@ import titleStyles from "./header-title.module.scss";
 
 // ==================================================
 
-const WITH_BUTTON: boolean = true;
-const WITHOUT_BUTTON: boolean = false;
-
-interface Header {
-  title: string;
-  burgerHandler: clickHandler;
+interface HeaderProps {
+  controller: TitleController;
+  burgerHandler?: clickHandler;
+  withReturnButton?: boolean;
+  onReturnHandler?: clickHandler;
 }
 
-interface HeaderWithReturn extends Header {
-  withReturnButton?: typeof WITH_BUTTON;
-  handler: clickHandler;
-}
-
-interface HeaderWithoutRerurn extends Header {
-  withReturnButton?: typeof WITHOUT_BUTTON;
-}
-
-type HeaderProps = HeaderWithReturn | HeaderWithoutRerurn;
-
-// ==================================================
-
-export default function Header({ title, withReturnButton = false, burgerHandler }: HeaderProps) {
+export default function Header({
+  controller,
+  burgerHandler = () => {},
+  withReturnButton = false,
+  onReturnHandler = () => {},
+}: HeaderProps) {
   const [burgerMenuClosed, setBurgerMenuClosed] = useState(true);
 
   const [burgerButtonStyles, setburgerButtonStyles] = useState(
@@ -49,6 +41,8 @@ export default function Header({ title, withReturnButton = false, burgerHandler 
     );
   }, [burgerMenuClosed]);
 
+  const [title, setTitle] = useState(controller.title);
+
   return (
     <header className={headerStyles.header}>
       <div className={headerStyles.container}>
@@ -58,7 +52,7 @@ export default function Header({ title, withReturnButton = false, burgerHandler 
               <ButtonIcon
                 label="Return to main screen"
                 auxClassNames={`${headerStyles.buttonReturn}`}
-                handler={() => {}}
+                handler={(e) => onReturnHandler(e)}
               />
             )}
 
