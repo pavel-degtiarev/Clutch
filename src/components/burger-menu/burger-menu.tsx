@@ -25,12 +25,14 @@ interface BurgerMenuProps {
   isClosed: boolean;
   currentTitle: string;
   titleUpdatedHandler: (newTitle: string) => void;
+  destroyDataHandler: () => void;
 }
 
 export default function BurgerMenu({
   isClosed,
   currentTitle,
   titleUpdatedHandler,
+  destroyDataHandler,
 }: BurgerMenuProps) {
   return (
     <BurgerMenuContainer isClosed={isClosed}>
@@ -45,7 +47,11 @@ export default function BurgerMenu({
         />
       </div>
 
-      <Button title="Удалить данные" auxStyles={styles.destroyDataButton} clickHandler={() => {}} />
+      <Button
+        title="Удалить данные"
+        auxStyles={styles.destroyDataButton}
+        clickHandler={destroyDataHandler}
+      />
     </BurgerMenuContainer>
   );
 }

@@ -18,6 +18,7 @@ interface HeaderProps {
   burgerHandler?: clickHandler;
   withReturnButton?: boolean;
   onReturnHandler?: clickHandler;
+  onDeleteData: () => void;
 }
 
 export default function Header({
@@ -25,6 +26,7 @@ export default function Header({
   burgerHandler = () => {},
   withReturnButton = false,
   onReturnHandler = () => {},
+  onDeleteData,
 }: HeaderProps) {
   const [burgerMenuClosed, setBurgerMenuClosed] = useState(true);
 
@@ -82,6 +84,10 @@ export default function Header({
         isClosed={burgerMenuClosed}
         currentTitle={burgerMenuClosed ? "" : title}
         titleUpdatedHandler={(newTitle) => controller.updateTitle(newTitle)}
+        destroyDataHandler={() => {
+          onDeleteData();
+          setBurgerMenuClosed(true);
+        }}
       />
     </header>
   );

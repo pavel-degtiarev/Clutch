@@ -12,10 +12,9 @@ import FormDisplayState from "../context/form-display/form-display-state";
 
 import { forms } from "./forms";
 
-import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
-import { useStore } from "react-redux";
 import { remindersController, tilesController, titleController } from "../index";
 import TabsGroupContext from "../components/tabs/tabs-group-context";
+import { deleteClutchDb } from "../API/init-db";
 
 // ===========================================
 
@@ -29,21 +28,28 @@ const timeTabs: TabInfo[] = [
   { id: TimeInterval.YEAR, title: "Год" },
 ];
 
-export default function App() {
-  // const storeDispatch = useClutchStoreDispatch();
-  // const storeSelector = useClutchStoreSelector;
-  // const store: ClutchStoreType = useStore();
+function deleteData(): void {
+  const deleteMsg = `Удалить все данные?
+  Эта операция необратима!`;
+  
+  if (window.confirm(deleteMsg)) {
+    titleController.clearTitle();
+    tilesController.clearTiles();
+    remindersController.clearReminders();
+    deleteClutchDb();
+  }
+}
 
+export default function App() {
   return (
     <>
       <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
-      <Header controller={titleController} />
+      <Header controller={titleController} onDeleteData={deleteData} />
 
       <Main>
         <FormState>
           <FormDisplayState>
-            
             <Reminder remindersController={remindersController} />
 
             <TabsGroupContext tabInfo={timeTabs}>
@@ -52,7 +58,6 @@ export default function App() {
             </TabsGroupContext>
 
             <PopupSwitch forms={forms} />
-
           </FormDisplayState>
         </FormState>
       </Main>
