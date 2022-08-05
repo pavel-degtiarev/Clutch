@@ -1,6 +1,8 @@
-import * as React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 
+import TitleController from "../../controllers/title-controller/title-controller";
+import BurgerMenu from "../../components/burger-menu/burger-menu";
 import ButtonIcon from "../../components/button-icon/button-icon";
 
 import textStyles from "../../styles/typography.module.scss";
@@ -11,30 +13,46 @@ import titleStyles from "./header-title.module.scss";
 
 // ==================================================
 
-const WITH_BUTTON: boolean = true;
-const WITHOUT_BUTTON: boolean = false;
-
-interface Header {
-  title: string;
-  burgerHandler: clickHandler;
+interface HeaderProps {
+  controller: TitleController;
+  burgerHandler?: clickHandler;
+  withReturnButton?: boolean;
+  onReturnHandler?: clickHandler;
+  onDeleteData: () => void;
 }
 
-interface HeaderWithReturn extends Header {
-  withReturnButton?: typeof WITH_BUTTON;
-  handler: clickHandler;
-}
+export default function Header({
+  controller,
+  burgerHandler = () => {},
+  withReturnButton = false,
+  onReturnHandler = () => {},
+  onDeleteData,
+}: HeaderProps) {
+  const [burgerMenuClosed, setBurgerMenuClosed] = useState(true);
 
-interface HeaderWithoutRerurn extends Header {
-  withReturnButton?: typeof WITHOUT_BUTTON;
-}
+  const [burgerButtonStyles, setburgerButtonStyles] = useState(
+    classNames(burgerStyles.burgerButton, burgerStyles.iconBurger)
+  );
 
-type HeaderProps = HeaderWithReturn | HeaderWithoutRerurn;
+  useEffect(() => {
+    setburgerButtonStyles(
+      classNames(
+        burgerStyles.burgerButton,
+        burgerMenuClosed ? burgerStyles.iconBurger : burgerStyles.iconClose
+      )
+    );
+  }, [burgerMenuClosed]);
 
-// ==================================================
+  const [title, setTitle] = useState(controller.title);
+  const titleUpdated = useCallback(() => setTitle(controller.title), []);
 
-export default function Header({ title, withReturnButton = false, burgerHandler }: HeaderProps) {
+  useEffect(() => {
+    controller.setOnUpdateCallback(titleUpdated);
+    return () => controller.setOnUpdateCallback(null);
+  }, []);
+
   return (
-    <header>
+    <header className={headerStyles.header}>
       <div className={headerStyles.container}>
         <div className={headerStyles.content}>
           <div className={titleStyles.container}>
@@ -42,22 +60,35 @@ export default function Header({ title, withReturnButton = false, burgerHandler 
               <ButtonIcon
                 label="Return to main screen"
                 auxClassNames={`${headerStyles.buttonReturn}`}
-                handler={() => {}}
+                handler={(e) => onReturnHandler(e)}
               />
             )}
 
-            <h2 className={classNames(`${titleStyles.title}`, `${textStyles.titleBig}`, `${textStyles.noWrap}`)}>
+            <h2 className={classNames(titleStyles.title, textStyles.titleBig, textStyles.noWrap)}>
               {title}
             </h2>
           </div>
 
           <ButtonIcon
             label="Burger button"
-            auxClassNames={classNames(`${burgerStyles.container}`, `${burgerStyles.buttonBurger}`)}
-            handler={(e)=>burgerHandler(e)}
+            auxClassNames={burgerButtonStyles}
+            handler={(e) => {
+              burgerHandler(e);
+              setBurgerMenuClosed((prevState) => !prevState);
+            }}
           />
         </div>
       </div>
+
+      <BurgerMenu
+        isClosed={burgerMenuClosed}
+        currentTitle={burgerMenuClosed ? "" : title}
+        titleUpdatedHandler={(newTitle) => controller.updateTitle(newTitle)}
+        destroyDataHandler={() => {
+          onDeleteData();
+          setBurgerMenuClosed(true);
+        }}
+      />
     </header>
   );
 }

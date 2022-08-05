@@ -23,9 +23,11 @@ $orange: #ffca2a;
 $orangeLight: #ffedb5;
 
 $red:#ff7676;
+$redDark:#e45252;
 
 $teal-to-tiffany: linear-gradient(130deg, $teal, $middle, $tiffany);
 $orange-to-light: linear-gradient(-20deg, $orangeDark, $orange, $orangeLight);
+$redDark-to-red: linear-gradient(-20deg, $redDark, $red);
 $orange-to-light-alt: linear-gradient(130deg, $orangeLight, $orange);
 
 // =============================

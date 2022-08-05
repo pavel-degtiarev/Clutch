@@ -50,6 +50,11 @@ export class RemindersController {
     await this.setReminders();
   }
 
+  clearReminders() {
+    this._reminders = [];
+    this.onUpdateCallback && this.onUpdateCallback();
+  }
+
   async setReminders() {
     this._reminders = [];
     const repeatData = this._store.getState().repeat;

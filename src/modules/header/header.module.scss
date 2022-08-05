@@ -1,6 +1,10 @@
 @use "../../styles/variables.module.scss" as var;
 @use "../../styles/typography.module.scss" as typo;
 
+.header {
+  position: relative;
+}
+
 .container {
   height: 55px;
   width: 100vw;

@@ -1,10 +1,14 @@
-.container {
+.burgerButton {
   flex-grow: 0;
   flex-shrink: 0;
-}
-
-.buttonBurger {
   border-radius: 0;
   background-color: #fff;
+}
+
+.iconBurger {
   mask-image: url(../../assets/images/burger.svg);
+}
+
+.iconClose {
+  mask-image: url(../../assets/images/close-menu.svg);
 }

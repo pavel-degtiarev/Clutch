@@ -55,6 +55,10 @@ export class TilesController {
     return this._controllers.map((controller) => controller.tile);
   }
 
+  clearTiles() {
+    this._controllers.forEach(controller => controller.clearController());
+  }
+
   setOnUpdateCallback(callback: OnUpdateCallback) {
     this._controllers.forEach(controller => controller.setOnUpdateCallback(callback));
   }
