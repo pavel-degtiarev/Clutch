@@ -1,4 +1,5 @@
 let clutchLocalStorage: Storage;
+const LS_KEY = "car_title"
 
 function storageAvailable() {
   try {
@@ -25,9 +26,10 @@ export function clearLS() {
 }
 
 export function getTitleFromLS(): string {
-  return clutchLocalStorage.getItem("title") as string;
+  const value = clutchLocalStorage.getItem(LS_KEY);
+  return value ? value : "";
 }
 
-export function setTitleToLS(newTitle: string): void{
-  clutchLocalStorage.setItem("title", newTitle);
+export function setTitleToLS(newTitle: string): void {
+  clutchLocalStorage.setItem(LS_KEY, newTitle);
 }
