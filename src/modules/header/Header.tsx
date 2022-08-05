@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 
 import TitleController from "../../controllers/title-controller/title-controller";
@@ -42,6 +42,12 @@ export default function Header({
   }, [burgerMenuClosed]);
 
   const [title, setTitle] = useState(controller.title);
+  const titleUpdated = useCallback(() => setTitle(controller.title), []);
+
+  useEffect(() => {
+    controller.setOnUpdateCallback(titleUpdated);
+    return () => controller.setOnUpdateCallback(null);
+  }, []);
 
   return (
     <header className={headerStyles.header}>
@@ -72,7 +78,11 @@ export default function Header({
         </div>
       </div>
 
-      <BurgerMenu isClosed={burgerMenuClosed} />
+      <BurgerMenu
+        isClosed={burgerMenuClosed}
+        currentTitle={burgerMenuClosed ? "" : title}
+        titleUpdatedHandler={(newTitle) => controller.updateTitle(newTitle)}
+      />
     </header>
   );
 }
