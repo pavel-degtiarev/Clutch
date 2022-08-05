@@ -1,5 +1,7 @@
-import { DBSchema, IDBPDatabase, openDB } from "idb";
+import { DBSchema, deleteDB, IDBPDatabase, openDB } from "idb";
 import { FuelFormFinalState, OtherFormFinalState, RepeatFormFinalState, ServiceFormFinalState, SpareFormFinalState } from "../HOC/with-validate-check/check-form";
+
+const CLUTCH_DB_NAME = "clutchDB";
 
 export enum dbStoreName {
   FUEL = "fuel",
@@ -39,7 +41,7 @@ export interface ClutchDBSchema extends DBSchema {
 let clutchDB: IDBPDatabase<ClutchDBSchema>;
 
 export default async function initClutchDB() {
-  return (clutchDB = await openDB<ClutchDBSchema>("clutchDB", 1, {
+  return (clutchDB = await openDB<ClutchDBSchema>(CLUTCH_DB_NAME, 1, {
     upgrade(db) {
       db.createObjectStore(dbStoreName.FUEL, { keyPath: "id", autoIncrement: true })
         .createIndex("date", "fuelDate")
@@ -61,4 +63,9 @@ export default async function initClutchDB() {
 export function getDB() {
   if (!clutchDB) throw new Error("DB access error");
   return clutchDB;
+}
+
+export async function deleteClutchDb() {
+  clutchDB.close();
+  await deleteDB(CLUTCH_DB_NAME);  
 }
