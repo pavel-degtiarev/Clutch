@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import React, { ReactNode } from "react";
+import classNames from "classnames";
 import Button from "../button/button";
 import FieldText from "../field/field-text";
 
@@ -23,20 +23,29 @@ function BurgerMenuContainer({ isClosed, children }: ContainerProps) {
 
 interface BurgerMenuProps {
   isClosed: boolean;
+  currentTitle: string;
+  titleUpdatedHandler: (newTitle: string) => void;
 }
 
-export default function BurgerMenu({ isClosed }: BurgerMenuProps) {
+export default function BurgerMenu({
+  isClosed,
+  currentTitle,
+  titleUpdatedHandler,
+}: BurgerMenuProps) {
   return (
     <BurgerMenuContainer isClosed={isClosed}>
-
       <div className={styles.inputContainer}>
         <h2 className={classNames(typeStyles.titleNormal, styles.header)}>Марка машины</h2>
-        <FieldText value="" name="car-name" label="" auxStyles={styles.burgerMenuInput} />
+        <FieldText
+          name="car-name"
+          value={currentTitle}
+          label=""
+          auxStyles={styles.burgerMenuInput}
+          blurHandler={(e) => titleUpdatedHandler(e.target.value)}
+        />
       </div>
 
-      <Button title="Удалить данные" auxStyles={styles.destroyDataButton}
-        clickHandler={() => { }} />
-
+      <Button title="Удалить данные" auxStyles={styles.destroyDataButton} clickHandler={() => {}} />
     </BurgerMenuContainer>
   );
 }
