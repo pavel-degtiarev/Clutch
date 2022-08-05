@@ -1,3 +1,5 @@
+import { getTitleFromLS, initLocalStorage, setTitleToLS } from "../../API/local-storage";
+
 export default class TitleController {
   private static _instance: TitleController;
   private _title: string = "";
@@ -11,11 +13,13 @@ export default class TitleController {
   get title() { return this._title };
 
   init() {
-    this._title = "Honda FIT";
+    initLocalStorage();
+    this._title = getTitleFromLS();
   }
 
   updateTitle(newTitle: string): void {
     this._title = newTitle;
+    setTitleToLS(this._title);
     console.log(this._title);
     this.callback && this.callback();
   }
