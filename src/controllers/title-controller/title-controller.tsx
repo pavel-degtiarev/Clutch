@@ -1,4 +1,4 @@
-import { getTitleFromLS, initLocalStorage, setTitleToLS } from "../../API/local-storage";
+import { getTitleFromLS, initLocalStorage, removeTitleFromLS, setTitleToLS } from "../../API/local-storage";
 
 export default class TitleController {
   private static _instance: TitleController;
@@ -17,10 +17,15 @@ export default class TitleController {
     this._title = getTitleFromLS();
   }
 
+  clearTitle() {
+    removeTitleFromLS();
+    this._title = "";
+    this.callback && this.callback();
+  }
+
   updateTitle(newTitle: string): void {
     this._title = newTitle;
     setTitleToLS(this._title);
-    console.log(this._title);
     this.callback && this.callback();
   }
 

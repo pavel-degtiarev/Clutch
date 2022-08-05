@@ -53,4 +53,9 @@ export default abstract class TileController {
   setOnUpdateCallback(callback: OnUpdateCallback) {
     this.onUpdateCallback = callback;
   }
+
+  clearController() {
+    this.tile = { ...this.tile, value: 0, chartData: [] };
+    this.onUpdateCallback && this.onUpdateCallback();
+  }
 }
