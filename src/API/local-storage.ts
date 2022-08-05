@@ -21,8 +21,8 @@ export function initLocalStorage(): void {
   }
 }
 
-export function clearLS() {
-  clutchLocalStorage.clear();
+export function removeTitleFromLS() {
+  clutchLocalStorage.removeItem(LS_KEY);
 }
 
 export function getTitleFromLS(): string {
