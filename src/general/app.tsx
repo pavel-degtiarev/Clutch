@@ -14,7 +14,7 @@ import { forms } from "./forms";
 
 import { ClutchStoreType, useClutchStoreDispatch, useClutchStoreSelector } from "../store/store";
 import { useStore } from "react-redux";
-import { remindersController, tilesController } from "../index";
+import { remindersController, tilesController, titleController } from "../index";
 import TabsGroupContext from "../components/tabs/tabs-group-context";
 
 // ===========================================
@@ -38,7 +38,7 @@ export default function App() {
     <>
       <h1 className={styles.visuallyHidden}>Clutch. Car expenses logbook.</h1>
 
-      <Header title="Honda Fit" burgerHandler={() => {}} />
+      <Header controller={titleController} />
 
       <Main>
         <FormState>
