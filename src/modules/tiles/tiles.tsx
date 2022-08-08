@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { TabsContext } from "../../components/tabs/tabs-group-context";
 import Tile from "../../components/tile/tile";
 import { TilesController } from "../../controllers/tiles-controller/tiles-controller";
-import { TimeInterval } from "../../general/app";
+import { TimeInterval } from "../../general/global.var";
 
 import styles from "./tiles.module.scss";
 

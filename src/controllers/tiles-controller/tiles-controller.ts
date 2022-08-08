@@ -3,8 +3,8 @@ import FuelTileController from "../fuel-tile-controller/fuel-tile-controller";
 import RunTileController from "../run-tile-controller/run-tile-controller";
 import { ClutchStoreType } from "../../store/store";
 import TileController from "../tile-controller/tile-controller";
+import { TimeInterval } from "../../general/global.var";
 import _ from "lodash";
-import { TimeInterval } from "../../general/app";
 
 // =============================================
 

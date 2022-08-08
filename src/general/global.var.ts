@@ -9,6 +9,11 @@ export enum TimeInterval {
   YEAR = "year",
 }
 
+export enum StatTabs {
+  STAT = "stat",
+  LIST = "list"
+}
+
 export enum TimeSuffixes {
   ONE_DAY = "день",
   TWO_TO_FOUR_DAYS = "дня",
