@@ -4,6 +4,11 @@ export enum TimeUnits {
   YEAR = "years",
 }
 
+export enum TimeInterval {
+  MONTH = "month",
+  YEAR = "year",
+}
+
 export enum TimeSuffixes {
   ONE_DAY = "день",
   TWO_TO_FOUR_DAYS = "дня",
