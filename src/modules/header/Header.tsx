@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import classNames from "classnames";
 
 import TitleController from "../../controllers/title-controller/title-controller";
 import BurgerMenu from "../../components/burger-menu/burger-menu";
 import ButtonIcon from "../../components/button-icon/button-icon";
+import { CurrentPageContext, Pages } from "../../context/current-page/current-page-context";
 
 import textStyles from "../../styles/typography.module.scss";
 
@@ -16,7 +17,6 @@ import titleStyles from "./header-title.module.scss";
 interface HeaderProps {
   controller: TitleController;
   burgerHandler?: clickHandler;
-  withReturnButton?: boolean;
   onReturnHandler?: clickHandler;
   onDeleteData: () => void;
 }
@@ -24,12 +24,11 @@ interface HeaderProps {
 export default function Header({
   controller,
   burgerHandler = () => {},
-  withReturnButton = false,
   onReturnHandler = () => {},
   onDeleteData,
 }: HeaderProps) {
   const [burgerMenuClosed, setBurgerMenuClosed] = useState(true);
-
+  const { currentPage, switchToTiles } = useContext(CurrentPageContext);
   const [burgerButtonStyles, setburgerButtonStyles] = useState(
     classNames(burgerStyles.burgerButton, burgerStyles.iconBurger)
   );
@@ -56,11 +55,14 @@ export default function Header({
       <div className={headerStyles.container}>
         <div className={headerStyles.content}>
           <div className={titleStyles.container}>
-            {withReturnButton && (
+            {currentPage === Pages.STATS && (
               <ButtonIcon
                 label="Return to main screen"
                 auxClassNames={`${headerStyles.buttonReturn}`}
-                handler={(e) => onReturnHandler(e)}
+                handler={(e) => {
+                  onReturnHandler(e);
+                  switchToTiles();
+                }}
               />
             )}
 
