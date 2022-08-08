@@ -17,8 +17,8 @@ type TabsGroupProps = {
 
 export default function TabsGroup({ name, changedHandler, themeOnLight = false }: TabsGroupProps) {
   const {
-    tabInfo: tabInfo,
-    contextState: [tabGroupState, setTabGroupState]
+    tabInfo,
+    contextState: [, setTabGroupState],
   } = useContext(TabsContext);
 
   return (
