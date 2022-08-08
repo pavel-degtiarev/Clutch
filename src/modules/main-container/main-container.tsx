@@ -18,7 +18,7 @@ const timeTabs: TabInfo[] = [
   { id: TimeInterval.YEAR, title: "Год" },
 ];
 
-function TilesPage() {
+function PageTiles() {
   return (
     <FormState>
       <FormDisplayState>
@@ -35,7 +35,7 @@ function TilesPage() {
   );
 }
 
-function StatPage() {
+function PageStats() {
   return <>STAT</>;
 }
 
@@ -45,7 +45,7 @@ export default function MainContainer() {
   return (
     <main>
       <div className={styles.container}>
-        {currentPage === Pages.TILES ? <TilesPage /> : <StatPage />}
+        {currentPage === Pages.TILES ? <PageTiles /> : <PageStats />}
       </div>
     </main>
   );
