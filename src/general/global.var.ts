@@ -1,3 +1,5 @@
+import { TabInfo } from "../components/tabs/tabs-group";
+
 export enum TimeUnits {
   DAY = "days",
   MONTH = "months",
@@ -57,3 +59,8 @@ export enum FieldSuffixes {
   MONEY = "руб.",
   VOLUME = "л.",
 }
+
+export const timeTabs: TabInfo[] = [
+  { id: TimeInterval.MONTH, title: "Месяц" },
+  { id: TimeInterval.YEAR, title: "Год" },
+];
