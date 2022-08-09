@@ -20,9 +20,11 @@
   font-size: typo.$sizeSmall;
   color: #fff;
 
-  &+&:not(:last-child) {
-    border-bottom: 1px solid var.$middle;
-  }
+  border-bottom: 1px solid var.$middle;
+  
+  // &+&  {
+  //   border-bottom: 1px solid var.$middle;
+  // }
 }
 
 .header {
@@ -31,17 +33,17 @@
   font-size: typo.$sizeSmall;
   color: #FFF;
 
-  &::after {
-    position: absolute;
-    top: 50%;
-    left: 100%;
+  // &::after {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 100%;
 
-    display: block;
-    content: "";
-    background-color: var.$middle;
-    height: 1px;
-    width: 100vw;
-  }
+  //   display: block;
+  //   content: "";
+  //   background-color: var.$middle;
+  //   height: 1px;
+  //   width: 100vw;
+  // }
 }
 
 .title {
