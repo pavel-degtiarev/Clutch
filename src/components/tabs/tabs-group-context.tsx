@@ -1,27 +1,42 @@
-import React, { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
-import { TabInfo } from "./tabs-group";
+import React, { createContext, ReactNode, useCallback, useState } from "react";
+import TabsGroup, { TabInfo } from "./tabs-group";
 
-interface TabsGroupContextProps {
+interface TabsWithContextProps {
   tabInfo: TabInfo[];
-  children: ReactNode;
+  name: string;
+  changedHandler?: (tabId: string) => void;
+  themeOnLight?: boolean;
+
+  children: ReactNode | ReactNode[];
 }
 
-type ContextState<T> = [T, Dispatch<SetStateAction<T>>];
-interface TabsContext {
-  tabInfo: TabInfo[];
-  contextState: ContextState<string>;
-}
+export const TabsContext = createContext<TabInfo>({} as TabInfo);
 
-export const TabsContext = createContext<TabsContext>(
-  { tabInfo: [], contextState: ["", () => { }] }
-);
+export default function TabsWithContext({
+  tabInfo,
+  name,
+  changedHandler,
+  themeOnLight = false,
+  children,
+}: TabsWithContextProps) {
 
-export default function TabsGroupContext({ tabInfo, children }: TabsGroupContextProps) {
-  const [tabGroupState, setTabGroupState] = useState(tabInfo[0].id);
+  const [tabGroupState, setTabGroupState] = useState(tabInfo[0]);
+  const tabChangedHandler = useCallback(
+    (tab: TabInfo) => {
+      changedHandler && changedHandler(tab.id);
+      setTabGroupState(tab);
+    },
+    [changedHandler]
+  );
 
   return (
-    <TabsContext.Provider
-      value={{ tabInfo: tabInfo, contextState: [tabGroupState, setTabGroupState] }}>
+    <TabsContext.Provider value={tabGroupState}>
+      <TabsGroup
+        tabs={tabInfo}
+        name={name}
+        changedHandler={tabChangedHandler}
+        themeOnLight={themeOnLight}
+      />
       {children}
     </TabsContext.Provider>
   );
