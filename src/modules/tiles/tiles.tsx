@@ -11,7 +11,7 @@ interface TilesProps {
 }
 
 export default function Tiles({ tilesController }: TilesProps) {
-  const tabGroupState = useContext(TabsContext).contextState[0] as TimeInterval;
+  const currentTab = useContext(TabsContext).id as TimeInterval;
   
   const [statData, setStatData] = useState(tilesController.tiles);
   const statChanged = useCallback(() => setStatData(tilesController.tiles), []);
@@ -23,7 +23,7 @@ export default function Tiles({ tilesController }: TilesProps) {
     return () => tilesController.setOnUpdateCallback(null);
   }, []);
 
-  useEffect(() => tilesController.setTimeInterval(tabGroupState), [tabGroupState]);
+  useEffect(() => tilesController.setTimeInterval(currentTab), [currentTab]);
 
   return (
     <section className={styles.tiles}>
