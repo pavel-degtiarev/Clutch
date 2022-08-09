@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StatTabs, timeTabs } from "../../general/global.var";
-import TabsGroupContext, { TabsContext } from "../../components/tabs/tabs-group-context";
+import TabsWithContext, { TabsContext } from "../../components/tabs/tabs-group-context";
 import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
 import TilesStat from "../tiles/tiles-stat";
 import StatTable from "../../components/stat-table/stat-table";
@@ -15,24 +15,22 @@ const statTabs: TabInfo[] = [
 export default function PageStats() {
   return (
     <>
-      <TabsGroupContext tabInfo={statTabs}>
-        <TabsGroup name="tab-stat" />
+      <TabsWithContext name="tab-stat" tabInfo={statTabs}>
         <StatsContainer />
-      </TabsGroupContext>
+      </TabsWithContext>
     </>
   );
 }
 
 function StatsContainer() {
-  const { contextState } = useContext(TabsContext);
-  return contextState[0] === StatTabs.STAT ? (
+  const  currentTab  = useContext(TabsContext);
+  return currentTab.id === StatTabs.STAT ? (
     <>
       <TilesStat />
 
-      <TabsGroupContext tabInfo={timeTabs}>
-        <TabsGroup name="time-interval" />
+      <TabsWithContext name="time-interval" tabInfo={timeTabs}>
         <StatTable slots={statTableData} />
-      </TabsGroupContext>
+      </TabsWithContext>
     </>
   ) : (
     <>RAW LIST</>

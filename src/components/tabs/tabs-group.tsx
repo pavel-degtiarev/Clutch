@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import Tab from "./tab";
-import { TabsContext } from "./tabs-group-context";
 
 import styles from "./tabs-group.module.scss";
 
@@ -11,19 +10,20 @@ export interface TabInfo {
 
 type TabsGroupProps = {
   name: string;
-  changedHandler?: (tabId: string) => void;
+  tabs: TabInfo[];
+  changedHandler: (tab: TabInfo) => void;
   themeOnLight?: boolean;
 };
 
-export default function TabsGroup({ name, changedHandler, themeOnLight = false }: TabsGroupProps) {
-  const {
-    tabInfo,
-    contextState: [, setTabGroupState],
-  } = useContext(TabsContext);
-
+export default function TabsGroup({
+  tabs,
+  name,
+  changedHandler,
+  themeOnLight = false,
+}: TabsGroupProps) {
   return (
     <section className={styles.tabs}>
-      {tabInfo.map((item, index) => {
+      {tabs.map((item, index) => {
         const isChecked = index === 0;
         return (
           <Tab
@@ -32,10 +32,7 @@ export default function TabsGroup({ name, changedHandler, themeOnLight = false }
             title={item.title}
             id={item.id}
             checked={isChecked}
-            onCheck={() => {
-              setTabGroupState(item.id);
-              changedHandler && changedHandler(item.id);
-            }}
+            onCheck={() => changedHandler(item)}
             themeOnLight={themeOnLight}
           />
         );
