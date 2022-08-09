@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
-import { StatTabs } from "../../general/global.var";
+import { StatTabs, timeTabs } from "../../general/global.var";
 import TabsGroupContext, { TabsContext } from "../../components/tabs/tabs-group-context";
 import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
 import TilesStat from "../tiles/tiles-stat";
+import StatTable from "../../components/stat-table/stat-table";
+
+import { statTableData } from "../../mocks/stat-table";
 
 const statTabs: TabInfo[] = [
   { id: StatTabs.STAT, title: "Статистика" },
@@ -25,6 +28,11 @@ function StatsContainer() {
   return contextState[0] === StatTabs.STAT ? (
     <>
       <TilesStat />
+
+      <TabsGroupContext tabInfo={timeTabs}>
+        <TabsGroup name="time-interval" />
+        <StatTable slots={statTableData} />
+      </TabsGroupContext>
     </>
   ) : (
     <>RAW LIST</>
