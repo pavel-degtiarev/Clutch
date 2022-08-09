@@ -1,0 +1,54 @@
+@use "../../../styles/variables.module.scss" as var;
+@use "../../../styles/typography.module.scss" as typo;
+
+.slot {
+  margin-bottom: 20px;
+}
+
+.row {
+  height: 25px;
+  border: none;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+
+  font-size: typo.$sizeSmall;
+  color: #fff;
+
+  &+&:not(:last-child) {
+    border-bottom: 1px solid var.$middle;
+  }
+}
+
+.header {
+  position: relative;
+  padding-right: 20px;
+  font-size: typo.$sizeSmall;
+  color: #FFF;
+
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+
+    display: block;
+    content: "";
+    background-color: var.$middle;
+    height: 1px;
+    width: 100vw;
+  }
+}
+
+.title {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.value {
+  text-align: right;
+}
