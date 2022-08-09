@@ -8,9 +8,12 @@ import styles from "./main-container.module.scss";
 export default function MainContainer() {
   const { currentPage } = useContext(CurrentPageContext);
 
+  const containerClasses =
+    currentPage === Pages.TILES ? styles.tilesContainer : styles.statsContainer;
+  
   return (
     <main>
-      <div className={styles.container}>
+      <div className={containerClasses}>
         {currentPage === Pages.TILES ? <PageTiles /> : <PageStats />}
       </div>
     </main>
