@@ -4,7 +4,7 @@ import { FormDisplayContext } from "../../context/form-display/form-display-stat
 import { FormStateContext } from "../../context/form-state/form-state";
 import { FormComponentProps, setStateFunction }
   from "../../HOC/with-validate-check/with-validate-check";
-import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
+import { TabInfo } from "../../components/tabs/tabs-group";
 import Button from "../../components/button/button";
 import DetailsList, { detailsListStyles } from "../../components/details-list/details-list";
 import FieldText from "../../components/field/field-text";
@@ -16,7 +16,7 @@ import containerStyles from "../../components/popup-container/popup-container.mo
 import Validated from "../../HOC/validated/validated";
 import { RowDeletable } from "../../components/details-list/row-deletable";
 import { DetailsFormFields, DetailsFormState } from "../../context/form-state/form-init-states";
-import TabsGroupContext from "../../components/tabs/tabs-group-context";
+import TabsWithContext from "../../components/tabs/tabs-group-context";
 
 import styles from "./form-service-details.module.scss";
 
@@ -27,9 +27,8 @@ const detailsTabs: TabInfo[] = [
   { id: "spares", title: "З/Ч, расходники" },
 ];
 
-export default function FormServiceDetails({ getValidate, finalCheck 
+export default function FormServiceDetails({ getValidate, finalCheck,
 }: FormComponentProps<DetailsFormFields, DetailsFormState>) {
-
   const { detailsState, updateDetailsForm } = useContext(FormStateContext);
   const { closeSubform } = useContext(FormDisplayContext);
   const [formState, setFormState] = useState<DetailsFormState>(detailsState);
@@ -55,13 +54,11 @@ export default function FormServiceDetails({ getValidate, finalCheck
       <div className={containerStyles.popupContent}>
         <form className={containerStyles.form}>
           <div className={styles.serviceDetailsFields}>
-            <TabsGroupContext tabInfo={detailsTabs}>
-              <TabsGroup
-                name="service-details"
-                changedHandler={setCurrentTab}
-                themeOnLight
-              />
-
+            <TabsWithContext
+              name="service-details"
+              tabInfo={detailsTabs}
+              changedHandler={setCurrentTab}
+              themeOnLight>
               <DetailsList headers={["Название", "Цена"]} addRowHandler={() => addRow()}>
                 {useCurrentList().map((item, index) => (
                   <RowDeletable key={item.id} deleteHandler={() => deleteRow(index)}>
@@ -99,7 +96,7 @@ export default function FormServiceDetails({ getValidate, finalCheck
                   </RowDeletable>
                 ))}
               </DetailsList>
-            </TabsGroupContext>
+            </TabsWithContext>
           </div>
         </form>
       </div>
