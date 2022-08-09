@@ -6,7 +6,7 @@ export interface StatRecord {
   value: number;
 }
 
-type Statistics = ReturnType<typeof statSlice.getInitialState>;
+export type Statistics = ReturnType<typeof statSlice.getInitialState>;
 export type StatisticsFields = keyof Statistics;
 export type StatData<T extends keyof Statistics> = Record<T, StatRecord[]>;
 
