@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { StatTabs, timeTabs } from "../../general/global.var";
 import TabsWithContext, { TabsContext } from "../../components/tabs/tabs-group-context";
-import TabsGroup, { TabInfo } from "../../components/tabs/tabs-group";
+import { TabInfo } from "../../components/tabs/tabs-group";
 import TilesStat from "../tiles/tiles-stat";
 import StatTable from "../../components/stat-table/stat-table";
 
-import { statTableData } from "../../mocks/stat-table";
+import { useSelector } from "react-redux";
+import { ClutchStoreState } from "../../store/store";
+import { Statistics } from "../../store/stat-slice/stat-slice";
 
 const statTabs: TabInfo[] = [
   { id: StatTabs.STAT, title: "Статистика" },
@@ -23,13 +25,15 @@ export default function PageStats() {
 }
 
 function StatsContainer() {
-  const  currentTab  = useContext(TabsContext);
-  return currentTab.id === StatTabs.STAT ? (
+  const currentStatTab = useContext(TabsContext);
+  const statData = useSelector((state: ClutchStoreState) => state.stat as Statistics);
+  
+  return currentStatTab.id === StatTabs.STAT ? (
     <>
-      <TilesStat />
+      <TilesStat stat={statData} />
 
       <TabsWithContext name="time-interval" tabInfo={timeTabs}>
-        <StatTable slots={statTableData} />
+        <StatTable stat={statData} />
       </TabsWithContext>
     </>
   ) : (
