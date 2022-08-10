@@ -79,6 +79,23 @@ export async function getOldestDate(store: dbStoreName): Promise<number> {
   }
 }
 
+export async function getNewestDate(store: dbStoreName): Promise<number> {
+  if (store === dbStoreName.REPEAT) return 0;
+  const transaction = getDB().transaction(store, "readonly");
+  const newest = await getNewestRecord(store);
+
+  switch (store) {
+    case dbStoreName.FUEL:
+      return (newest as FuelFormFinalState).fuelDate;
+    case dbStoreName.OTHER:
+      return (newest as OtherFormFinalState).otherDate;
+    case dbStoreName.SERVICE:
+      return (newest as ServiceFormFinalState).serviceDate;
+    case dbStoreName.SPARE:
+      return (newest as SpareFormFinalState).spareDate;
+  }
+}
+
 export async function saveToDb<T extends FinalBasicFormsState>(
   store: dbStoreName, value: T, id?: number) {  
   const transaction = getDB().transaction(store, "readwrite");

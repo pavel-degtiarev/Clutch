@@ -8,6 +8,9 @@ import StatTable from "../../components/stat-table/stat-table";
 import { useSelector } from "react-redux";
 import { ClutchStoreState } from "../../store/store";
 import { Statistics } from "../../store/stat-slice/stat-slice";
+import FormDisplayState from "../../context/form-display/form-display-state";
+import Popups from "../../components/popups/popups";
+import RawTable from "../../components/stat-table/raw-table";
 
 const statTabs: TabInfo[] = [
   { id: StatTabs.STAT, title: "Статистика" },
@@ -27,16 +30,20 @@ export default function PageStats() {
 function StatsContainer() {
   const currentStatTab = useContext(TabsContext);
   const statData = useSelector((state: ClutchStoreState) => state.stat as Statistics);
-  
+
   return currentStatTab.id === StatTabs.STAT ? (
     <>
       <TilesStat stat={statData} />
-
       <TabsWithContext name="time-interval" tabInfo={timeTabs}>
         <StatTable stat={statData} />
       </TabsWithContext>
     </>
   ) : (
-    <>RAW LIST</>
+    <>
+      <FormDisplayState>
+        <RawTable />
+        <Popups />
+      </FormDisplayState>
+    </>
   );
 }
