@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { TileData } from "../controllers/tiles-controller/tiles-controller";
 import { Statistics, StatRecord } from "../store/stat-slice/stat-slice";
-import { ClutchStoreState } from "../store/store";
 
 const HISTORY_LENGTH = 12;
 
@@ -31,8 +29,7 @@ function fillStatTile(tilePlaceholder: StatTileData, storeData: StatRecord[]): S
 
 // ============================================
 
-export default function useStatTiles() {
-  const statData = useSelector((state: ClutchStoreState) => state.stat as Statistics);
+export default function useStatTiles(statData: Statistics) {
   const [tilesData, setTilesData] = useState([runTileData, fuelTileData, expencesTileData]);
 
   useEffect(
