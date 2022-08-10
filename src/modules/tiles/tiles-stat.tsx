@@ -5,9 +5,14 @@ import TileStat from "../../components/tile/tile-stat";
 
 import statStyles from "./tiles-stat.module.scss";
 import styles from "../tiles/tiles.module.scss";
+import { Statistics } from "../../store/stat-slice/stat-slice";
 
-export default function TilesStat() {
-  const tilesData = useStatTiles();
+interface TilesStatProps {
+  stat: Statistics;
+}
+
+export default function TilesStat({ stat }: TilesStatProps) {
+  const tilesData = useStatTiles(stat);
 
   return (
     <section className={classNames(styles.tiles, statStyles.tiles)}>
