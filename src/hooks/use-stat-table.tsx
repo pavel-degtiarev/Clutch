@@ -19,11 +19,16 @@ function createRow(
   });
 }
 
-function fillStatTable(statData: Statistics) {
+function fillStatTable(statData: Statistics, currentTab:TabInfo) {
   const slots: StatSlot[] = [];
 
   getAllStatDates(statData).forEach((date) => {
-    const slot: StatSlot = { header: dayjs(date).format("MMMM YYYY года"), rows: [] };
+    const slot: StatSlot = { header: "", rows: [] };
+    slot.header =
+      currentTab.id === TimeInterval.YEAR
+        ? dayjs(date).format("YYYY год")
+        : dayjs(date).format("MMMM YYYY года");
+    
     createRow(statData.runStat, date, "Пробег", "км.", slot);
     createRow(statData.fuelStat, date, "Расход топлива", "л./100 км.", slot);
     createRow(statData.expenceStat, date, "Затраты", "руб.", slot);
@@ -76,7 +81,7 @@ export default function useStatTable(statData: Statistics, currentTab: TabInfo) 
         expenceStat: createAnnualSummary(statData.expenceStat),
       };
     }
-    setTableData(fillStatTable(data));
+    setTableData(fillStatTable(data, currentTab));
   }, [statData, currentTab]);
 
   return tableData;
