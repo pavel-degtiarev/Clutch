@@ -49,7 +49,7 @@ export const formFuelCheckpoints: Checkpoint<FuelFormState>[] = [
     );
 
     return checkpoint(
-      () => fuelRun > lowerBound && fuelRun < upperBound,
+      () => fuelRun >= lowerBound && fuelRun <= upperBound,
       `Пробег на эту дату должен быть в пределах от ${lowerBound} до ${upperBound} км.`
     );
   }
