@@ -11,6 +11,7 @@ import initClutchDB from "./API/init-db";
 import TilesController from "./controllers/tiles-controller/tiles-controller";
 import RemindersController from "./controllers/reminders-controller/reminders-controller";
 import TitleController from "./controllers/title-controller/title-controller";
+import FormEditController from "./controllers/form-edit-controller/form-edit-controller";
 import App from "./general/app";
 
 dayjs.locale("ru");
@@ -22,6 +23,7 @@ import "reseter.css";
 export const tilesController = new TilesController(clutchStore);
 export const remindersController = new RemindersController(clutchStore);
 export const titleController = new TitleController();
+export const formEditController = new FormEditController();
 
 const container = document.getElementById("clutch-container");
 const root = createRoot(container!);
