@@ -45,20 +45,22 @@ export const detailsFormInitState = {
   spares: [],
 };
 
-export type FuelFormState = typeof fuelFormInitState;
-export type FuelFormFields = keyof FuelFormState;
+type WithID = { id?: number | undefined };
 
-export type SpareFormState = typeof spareFormInitState;
-export type SpareFormFields = keyof SpareFormState;
+export type FuelFormState = typeof fuelFormInitState & WithID;
+export type FuelFormFields = keyof typeof fuelFormInitState;
 
-export type ServiceFormState = typeof serviceFormInitState;
-export type ServiceFormFields = keyof ServiceFormState;
+export type SpareFormState = typeof spareFormInitState & WithID;
+export type SpareFormFields = keyof typeof spareFormInitState;
 
-export type OtherFormState = typeof otherFormInitState;
-export type OtherFormFields = keyof OtherFormState;
+export type ServiceFormState = typeof serviceFormInitState & WithID;
+export type ServiceFormFields = keyof typeof serviceFormInitState;
 
-export type RepeatFormState = typeof repeatFormInitState;
-export type RepeatFormFields = keyof RepeatFormState;
+export type OtherFormState = typeof otherFormInitState & WithID;
+export type OtherFormFields = keyof typeof otherFormInitState;
+
+export type RepeatFormState = typeof repeatFormInitState & WithID;
+export type RepeatFormFields = keyof typeof repeatFormInitState;
 
 export type DetailsFormState = {
   services: ServiceDetails[];

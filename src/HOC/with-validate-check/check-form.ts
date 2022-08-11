@@ -49,6 +49,7 @@ export type FinalBasicFormsState =
   | ServiceFormFinalState
   | RepeatFormFinalState;
 
+export type FinalBasicFormsStateWithID = FinalBasicFormsState & { id: number };
 // ==============================================
 
 export async function checkForm<T extends TargetFormState>(
