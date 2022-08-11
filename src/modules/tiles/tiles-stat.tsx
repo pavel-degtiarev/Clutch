@@ -6,13 +6,12 @@ import TileStat from "../../components/tile/tile-stat";
 import statStyles from "./tiles-stat.module.scss";
 import styles from "../tiles/tiles.module.scss";
 import { Statistics } from "../../store/stat-slice/stat-slice";
+import { useSelector } from "react-redux";
+import { ClutchStoreState } from "../../store/store";
 
-interface TilesStatProps {
-  stat: Statistics;
-}
-
-export default function TilesStat({ stat }: TilesStatProps) {
-  const tilesData = useStatTiles(stat);
+export default function TilesStat() {
+  const statData = useSelector((state: ClutchStoreState) => state.stat as Statistics);
+  const tilesData = useStatTiles(statData);
 
   return (
     <section className={classNames(styles.tiles, statStyles.tiles)}>
