@@ -1,7 +1,9 @@
+import { FinalBasicFormsState } from "../../HOC/with-validate-check/check-form";
+
 export interface SlotRowData {
   title: string;
   value: string | null;
-  aux?: any;
+  aux?: FinalBasicFormsState;
 }
 
 export interface StatSlot {
