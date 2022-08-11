@@ -8,8 +8,8 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { clutchStore } from "./store/store";
 import initClutchDB from "./API/init-db";
-import { TilesController } from "./controllers/tiles-controller/tiles-controller";
-import { RemindersController } from "./controllers/reminders-controller/reminders-controller";
+import TilesController from "./controllers/tiles-controller/tiles-controller";
+import RemindersController from "./controllers/reminders-controller/reminders-controller";
 import TitleController from "./controllers/title-controller/title-controller";
 import App from "./general/app";
 

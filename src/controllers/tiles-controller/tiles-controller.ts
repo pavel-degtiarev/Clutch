@@ -17,7 +17,7 @@ export interface TileData {
 
 // =============================================
 
-export class TilesController {
+export default class TilesController {
   private static _instance: TilesController;
 
   private _store: ClutchStoreType;
