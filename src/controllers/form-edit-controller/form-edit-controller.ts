@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import { loadRepeatByIndex } from "../../API/access-db";
+import { deleteRecord, loadRepeatByIndex } from "../../API/access-db";
+import { dbStoreName } from "../../API/init-db";
 import { FormDisplayActionWithPayload } from "../../context/form-display/form-display-state";
 import { DetailsFormState, RepeatFormState } from "../../context/form-state/form-init-states";
 import { FormStateContext, UpdateFormAction } from "../../context/form-state/form-state";
@@ -127,6 +128,27 @@ export default class FormEditController {
   }
 
   deleteRow(formData: FinalBasicFormsStateWithID) {
-    console.log(formData);
-  };
+    if (!window.confirm("Удалить запись?")) return;
+
+    switch (true) {
+      case isFuelFormFinalState(formData):
+        deleteRecord(dbStoreName.FUEL, formData.id);
+        break;
+
+      case isSpareFormFinalState(formData):
+        deleteRecord(dbStoreName.SPARE, formData.id);
+        break;
+
+      case isOtherFormFinalState(formData):
+        deleteRecord(dbStoreName.OTHER, formData.id);
+        break;
+
+      case isServiceFormFinalState(formData):
+        deleteRecord(dbStoreName.SERVICE, formData.id);
+        loadRepeatByIndex(formData.id).then(foundRepeat => {
+          if (foundRepeat) deleteRecord(dbStoreName.REPEAT, foundRepeat.id)
+        });
+        break;
+    }
+  }
 }
