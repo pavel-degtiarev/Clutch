@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormStateContext } from "../../context/form-state/form-state";
 import useRawData from "../../hooks/use-raw-data";
 import Table from "./table";
@@ -7,20 +7,26 @@ import { FormDisplayContext } from "../../context/form-display/form-display-stat
 import { FinalBasicFormsStateWithID } from "../../HOC/with-validate-check/check-form";
 
 export default function RawTable() {
+
   const { showForm } = useContext(FormDisplayContext);
   const formState = useContext(FormStateContext);
   formEditController.setShowFormAction(showForm);
   formEditController.setFormsDataActions(formState);
 
-  const data = useRawData();
+  const {data, updateData} = useRawData();
 
   return (
     <Table
       slots={data}
       rowsDeletable
-      slotEditHandler={(formData: FinalBasicFormsStateWithID) =>
-        formEditController.editForm(formData)
-      }
+      slotEditHandler={(formData: FinalBasicFormsStateWithID) => {
+        formEditController.editForm(formData);
+        updateData();
+      }}
+      slotDeleteHandler={(formData: FinalBasicFormsStateWithID) => {
+        formEditController.deleteRow(formData);
+        updateData();
+      }}
     />
   );
 }
