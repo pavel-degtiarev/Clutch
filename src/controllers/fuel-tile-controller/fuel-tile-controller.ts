@@ -1,6 +1,6 @@
 import _ from "lodash";
 import dayjs from "dayjs";
-import { getOldestDate, loadAllByDateIndex, loadFirstByDate } from "../../API/access-db";
+import { getNewestDate, getOldestDate, loadAllByDateIndex, loadFirstByDate } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import { FuelFormFinalState } from "../../HOC/with-validate-check/check-form";
 import { clearFuelStat, setFuelStat, StatRecord } from "../../store/stat-slice/stat-slice";
@@ -21,19 +21,20 @@ export default class FuelTileController extends TileController {
 
   async initController(): Promise<void> {
     this.dispatch(clearFuelStat());
-    const now = dayjs().startOf(this.timeInterval);
     
     // если в нужном сторе нет данных, старейшая дата будет 0
     // ничего не заполняем, просто выходим
     const oldest = await getOldestDate(this.dbName);
     if (oldest === 0) return;
 
+    const newest = dayjs(await getNewestDate(this.dbName));
+
     const initDate = dayjs(oldest);
     let timeStart = initDate.startOf(this.timeInterval);
     let timeEnd = initDate.endOf(this.timeInterval);
 
-    while (timeStart.isSameOrBefore(now)) {
-      
+
+    while (timeStart.isSameOrBefore(newest)) {
       const statRecord = await this.createStatRecord(timeStart, timeEnd);
       if (statRecord) this.dispatch(setFuelStat(statRecord));
 

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { getOldestDate, loadAllByDateIndex } from "../../API/access-db";
+import { getNewestDate, getOldestDate, loadAllByDateIndex } from "../../API/access-db";
 import { dbStoreName } from "../../API/init-db";
 import {
   FinalBasicFormsState,
@@ -42,10 +42,14 @@ export default class ExpencesTileController extends TileController {
     oldest = oldest.filter((item) => item !== 0);
     const initDate = dayjs(Math.min(...oldest));
 
+    // ищем самую новую дату
+    let newestDates = await Promise.all(this.dbNames.map((store) => getNewestDate(store)));
+    const newest = dayjs(Math.min(...newestDates));
+
     let timeStart = initDate.startOf(this.timeInterval);
     let timeEnd = initDate.endOf(this.timeInterval);
 
-    while (timeStart.isSameOrBefore(now)) {
+    while (timeStart.isSameOrBefore(newest)) {
       const statRecord = await this.createStatRecord(timeStart, timeEnd);
       if (statRecord) this.dispatch(setExpenceStat(statRecord));
 
