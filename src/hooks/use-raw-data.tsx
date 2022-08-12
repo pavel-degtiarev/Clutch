@@ -5,6 +5,7 @@ import { dbStoreName } from "../API/init-db";
 import { SlotRowData, StatSlot } from "../components/stat-table/slot-types";
 import {
   FinalBasicFormsState,
+  FinalBasicFormsStateWithID,
   FuelFormFinalState,
   OtherFormFinalState,
   ServiceFormFinalState,
@@ -24,6 +25,11 @@ const stores = Object.values(dbStoreName).filter((item) => item !== "repeat");
 
 export default function useRawData() {
   const [data, setData] = useState([] as StatSlot[]);
+  const [dataChanged, setDataChanged] = useState(false);
+
+  function updateData() {
+    setDataChanged(true);  
+  }
 
   useEffect(() => {
     async function createRawData() {
@@ -33,8 +39,7 @@ export default function useRawData() {
       const { newestDate, oldestDate } = await getBoundingDates(stores);
 
       // перебираем день за днем начиная от самой поздней даты,
-      for (let currentDate = newestDate; currentDate >= oldestDate;) {
-
+      for (let currentDate = newestDate; currentDate >= oldestDate; ) {
         // смотрим, есть ли в каком-либо хранилище запись на эту дату
         const recordsAtCurrentDate = await getRecordsAtDate(currentDate);
 
@@ -46,14 +51,13 @@ export default function useRawData() {
 
         currentDate = dayjs(currentDate).subtract(1, "day").valueOf();
       }
-
       setData(newData);
+      dataChanged && setDataChanged(false);
     }
-
     createRawData();
-  }, []);
+  }, [dataChanged]);
 
-  return data;
+  return {data, updateData};
 }
 
 // ===============================================
@@ -80,7 +84,7 @@ function createSlot(currentDate: number, recordsAtCurrentDate: FinalBasicFormsSt
   };
 
   recordsAtCurrentDate.forEach((record) => {
-    const row: SlotRowData = { title: "", value: null, aux: record };
+    const row: SlotRowData = { title: "", value: null, aux: record as FinalBasicFormsStateWithID };
     switch (true) {
       case isFuelFormFinalState(record):
         row.title = "Топливо";
