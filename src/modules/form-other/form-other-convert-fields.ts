@@ -5,6 +5,7 @@ import { OtherFormFinalState } from "../../HOC/with-validate-check/check-form";
 export function convertOtherFields(state: OtherFormState): OtherFormFinalState {
 
   const finalState: OtherFormFinalState = {
+    ...state,
     otherDate: dayjs(state.otherDate).toDate().valueOf(),
     otherTitle: state.otherTitle,
     otherPrice: Number(state.otherPrice),

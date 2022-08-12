@@ -1,5 +1,6 @@
-import { DBSchema, deleteDB, IDBPDatabase, openDB } from "idb";
-import { FuelFormFinalState, OtherFormFinalState, RepeatFormFinalState, ServiceFormFinalState, SpareFormFinalState } from "../HOC/with-validate-check/check-form";
+import { DBSchema, deleteDB, IDBPDatabase, IndexNames, openDB, StoreValue } from "idb";
+import { FuelFormFinalState, OtherFormFinalState, RepeatFormFinalState,
+  ServiceFormFinalState, SpareFormFinalState } from "../HOC/with-validate-check/check-form";
 
 const CLUTCH_DB_NAME = "clutchDB";
 
@@ -35,27 +36,31 @@ export interface ClutchDBSchema extends DBSchema {
   [dbStoreName.REPEAT]: {
     key: number;
     value: RepeatFormFinalState;
+    indexes: { serviceId: number };
   };
 }
+
+type IndexName<T extends dbStoreName> = IndexNames<ClutchDBSchema, T>;
+type IndexField<T extends dbStoreName> = keyof StoreValue<ClutchDBSchema, T>;
 
 let clutchDB: IDBPDatabase<ClutchDBSchema>;
 
 export default async function initClutchDB() {
   return (clutchDB = await openDB<ClutchDBSchema>(CLUTCH_DB_NAME, 1, {
     upgrade(db) {
-      db.createObjectStore(dbStoreName.FUEL, { keyPath: "id", autoIncrement: true })
-        .createIndex("date", "fuelDate")
+      createDbStore(dbStoreName.FUEL, "date", "fuelDate");
+      createDbStore(dbStoreName.SERVICE, "date", "serviceDate");
+      createDbStore(dbStoreName.SPARE, "date", "spareDate");
+      createDbStore(dbStoreName.OTHER, "date", "otherDate");
+      createDbStore(dbStoreName.REPEAT, "serviceId", "serviceId");
 
-      db.createObjectStore(dbStoreName.SERVICE, { keyPath: "id", autoIncrement: true })
-        .createIndex("date", "serviceDate");
-
-      db.createObjectStore(dbStoreName.SPARE, { keyPath: "id", autoIncrement: true })
-        .createIndex("date", "spareDate");
-
-      db.createObjectStore(dbStoreName.OTHER, { keyPath: "id", autoIncrement: true })
-        .createIndex("date", "otherDate");
-      
-      db.createObjectStore(dbStoreName.REPEAT, { keyPath: "id", autoIncrement: true })
+      function createDbStore<T extends dbStoreName>(
+        dbName: T, indexName: IndexName<T>, indexField: IndexField<T>) {
+        if (!db.objectStoreNames.contains(dbName)) {
+          const store = db.createObjectStore(dbName, { keyPath: "id", autoIncrement: true });
+          store.createIndex(indexName, indexField as string);
+        }
+      }
     },
   }));
 }
@@ -67,5 +72,5 @@ export function getDB() {
 
 export async function deleteClutchDb() {
   clutchDB.close();
-  await deleteDB(CLUTCH_DB_NAME);  
+  await deleteDB(CLUTCH_DB_NAME);
 }

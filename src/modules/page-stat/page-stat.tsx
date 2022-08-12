@@ -5,12 +5,10 @@ import { TabInfo } from "../../components/tabs/tabs-group";
 import TilesStat from "../tiles/tiles-stat";
 import StatTable from "../../components/stat-table/stat-table";
 
-import { useSelector } from "react-redux";
-import { ClutchStoreState } from "../../store/store";
-import { Statistics } from "../../store/stat-slice/stat-slice";
 import FormDisplayState from "../../context/form-display/form-display-state";
 import Popups from "../../components/popups/popups";
 import RawTable from "../../components/stat-table/raw-table";
+import FormState from "../../context/form-state/form-state";
 
 const statTabs: TabInfo[] = [
   { id: StatTabs.STAT, title: "Статистика" },
@@ -29,21 +27,22 @@ export default function PageStats() {
 
 function StatsContainer() {
   const currentStatTab = useContext(TabsContext);
-  const statData = useSelector((state: ClutchStoreState) => state.stat as Statistics);
 
   return currentStatTab.id === StatTabs.STAT ? (
     <>
-      <TilesStat stat={statData} />
+      <TilesStat />
       <TabsWithContext name="time-interval" tabInfo={timeTabs}>
-        <StatTable stat={statData} />
+        <StatTable />
       </TabsWithContext>
     </>
   ) : (
     <>
-      <FormDisplayState>
-        <RawTable />
-        <Popups />
-      </FormDisplayState>
+      <FormState>
+        <FormDisplayState>
+          <RawTable />
+          <Popups />
+        </FormDisplayState>
+      </FormState>
     </>
   );
 }

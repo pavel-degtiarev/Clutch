@@ -16,7 +16,7 @@ import { clearRepeatSlice, RepeatSliceData, setRepeatSlice,
   } from "../../store/service-repeat-slice/service-repeat-slice";
 import { ClutchStoreDispatch, ClutchStoreType } from "../../store/store";
 
-export class RemindersController {
+export default class RemindersController {
   private static _instance: RemindersController;
 
   private _reminders: Reminder[];

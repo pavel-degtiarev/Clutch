@@ -34,7 +34,7 @@ export default function useRawData() {
 
       // перебираем день за днем начиная от самой поздней даты,
       for (let currentDate = newestDate; currentDate >= oldestDate;) {
-        
+
         // смотрим, есть ли в каком-либо хранилище запись на эту дату
         const recordsAtCurrentDate = await getRecordsAtDate(currentDate);
 
@@ -59,11 +59,8 @@ export default function useRawData() {
 // ===============================================
 
 async function getRecordsAtDate(currentDate: number) {
-  return (
-    await Promise.all(
-      stores.map((store) => loadAllByDateIndex(store, currentDate, currentDate))
-    )
-  ).flat();
+  const requests = stores.map((store) => loadAllByDateIndex(store, currentDate, currentDate));
+  return (await Promise.all(requests)).flat();
 }
 
 async function getBoundingDates(stores: dbStoreName[]) {
@@ -83,7 +80,7 @@ function createSlot(currentDate: number, recordsAtCurrentDate: FinalBasicFormsSt
   };
 
   recordsAtCurrentDate.forEach((record) => {
-    const row: SlotRowData = { title: "", value: null };
+    const row: SlotRowData = { title: "", value: null, aux: record };
     switch (true) {
       case isFuelFormFinalState(record):
         row.title = "Топливо";

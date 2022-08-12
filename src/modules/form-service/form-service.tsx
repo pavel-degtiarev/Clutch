@@ -126,7 +126,7 @@ export default function FormService({ getValidate, finalCheck
         auxStyles={containerStyles.saveButton}
         clickHandler={async () => {
           const newFormState = formState;
-          if (detailsState.services.length || detailsState.services.length) {
+          if (detailsState.services.length || detailsState.spares.length) {
             newFormState.serviceTotalDetails = detailsState;
           }
 

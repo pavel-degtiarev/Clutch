@@ -6,7 +6,7 @@ import { FormValuesState } from "./form-state-types";
 
 export type UpdateFormAction = (data: TargetFormState) => void;
 
-interface FormStateContext extends FormValuesState {
+export interface FormStateContext extends FormValuesState {
   updateFuelForm: UpdateFormAction;
   updateServiceForm: UpdateFormAction;
   updateSpareForm: UpdateFormAction;

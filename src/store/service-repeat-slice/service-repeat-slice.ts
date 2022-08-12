@@ -46,11 +46,8 @@ export const saveRepeat = createAsyncThunk("repeatSlice/saveRepeat",
 );
 
 export const updateRepeat = createAsyncThunk("repeatSlice/updateRepeat",
-  async (data: { id: number; formState: RepeatFormFinalState }, thunkAPI) => {
-    console.log(data);
-    
+  async (data: { id: number; formState: RepeatFormFinalState }, thunkAPI) => {    
     const result = await saveToDb(dbStoreName.REPEAT, data.formState, data.id);
-    console.log(result);
     
     if (result) thunkAPI.dispatch(addToRepeatSlice(data.formState));
     return result;
