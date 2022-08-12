@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
-import { loadRepeatByIndex } from "../../API/access-db";
+import { deleteRecord, loadRepeatByIndex } from "../../API/access-db";
+import { dbStoreName } from "../../API/init-db";
 import { FormDisplayActionWithPayload } from "../../context/form-display/form-display-state";
 import { DetailsFormState, RepeatFormState } from "../../context/form-state/form-init-states";
 import { FormStateContext, UpdateFormAction } from "../../context/form-state/form-state";
@@ -97,14 +98,16 @@ export default class FormEditController {
         {
           const tmp: ServiceFormFinalState = formData as ServiceFormFinalState;
           loadRepeatByIndex(formData.id).then((repeatRecord) => {
-            const repeatFormState: RepeatFormState | null = repeatRecord ? {
-              repeatId: repeatRecord.id,
-              repeatingRun: String(repeatRecord.repeatingRun),
-              repeatingTime: String(repeatRecord.repeatingTime),
-              repeatByRun: repeatRecord.repeatByRun,
-              repeatByTime: repeatRecord.repeatByTime,
-              repeatTimeSlot: repeatRecord.repeatTimeSlot as TimeUnits,
-            } : null;
+            const repeatFormState: RepeatFormState | null = repeatRecord
+              ? {
+                  repeatId: repeatRecord.id,
+                  repeatingRun: String(repeatRecord.repeatingRun),
+                  repeatingTime: String(repeatRecord.repeatingTime),
+                  repeatByRun: repeatRecord.repeatByRun,
+                  repeatByTime: repeatRecord.repeatByTime,
+                  repeatTimeSlot: repeatRecord.repeatTimeSlot as TimeUnits,
+                }
+              : null;
             repeatFormState && this.updateRepeatForm(repeatFormState);
 
             this.updateServiceForm({
@@ -115,11 +118,36 @@ export default class FormEditController {
               serviceTotal: String(tmp.serviceTotal),
               serviceRepeat: !!repeatFormState,
               serviceTotalDetails: tmp.serviceTotalDetails as DetailsFormState,
-              serviceRepeatDetails: repeatFormState || {} as RepeatFormState,
+              serviceRepeatDetails: repeatFormState || ({} as RepeatFormState),
             });
             this.showForm(FormTitle.SERVICE);
           });
         }
+        break;
+    }
+  }
+
+  deleteRow(formData: FinalBasicFormsStateWithID) {
+    if (!window.confirm("Удалить запись?")) return;
+
+    switch (true) {
+      case isFuelFormFinalState(formData):
+        deleteRecord(dbStoreName.FUEL, formData.id);
+        break;
+
+      case isSpareFormFinalState(formData):
+        deleteRecord(dbStoreName.SPARE, formData.id);
+        break;
+
+      case isOtherFormFinalState(formData):
+        deleteRecord(dbStoreName.OTHER, formData.id);
+        break;
+
+      case isServiceFormFinalState(formData):
+        deleteRecord(dbStoreName.SERVICE, formData.id);
+        loadRepeatByIndex(formData.id).then(foundRepeat => {
+          if (foundRepeat) deleteRecord(dbStoreName.REPEAT, foundRepeat.id)
+        });
         break;
     }
   }

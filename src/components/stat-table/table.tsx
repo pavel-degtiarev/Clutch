@@ -1,23 +1,32 @@
 import React from "react";
-import { FinalBasicFormsState } from "../../HOC/with-validate-check/check-form";
+import { FinalBasicFormsStateWithID } from "../../HOC/with-validate-check/check-form";
 import { StatSlot } from "./slot-types";
 import TableSlot from "./slot/slot";
 import styles from "./stat-table.module.scss";
 
 interface TableProps {
   slots: StatSlot[];
-  slotEditHandler: (formData: FinalBasicFormsState) => void;
+  slotEditHandler?: (formData: FinalBasicFormsStateWithID) => void;
+  slotDeleteHandler?: (formData: FinalBasicFormsStateWithID) => void;
+  rowsDeletable?: boolean;
 }
 
-export default function Table({ slots, slotEditHandler }: TableProps) {
+export default function Table({
+  slots,
+  slotEditHandler = () => {},
+  slotDeleteHandler = () => {},
+  rowsDeletable = false,
+}: TableProps) {
   return (
     <section className={styles.statTable}>
-      {slots.map((slot, index) => (
+      {slots.map((slot) => (
         <TableSlot
-          key={index}
+          key={slot.header}
           header={slot.header}
           rows={slot.rows}
           slotEditHandler={slotEditHandler}
+          slotDeleteHandler={slotDeleteHandler}
+          rowDeletable={rowsDeletable}
         />
       ))}
     </section>
