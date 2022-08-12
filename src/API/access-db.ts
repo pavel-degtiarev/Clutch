@@ -23,8 +23,8 @@ export async function loadAllByDateIndex<T extends FinalBasicFormsState>(
 
 export async function loadRepeatByIndex(serviceId: number): Promise<RepeatSliceData> {
   const transaction = getDB().transaction(dbStoreName.REPEAT, "readonly");
-  const dataRange = await transaction.store.index("serviceId").get(IDBKeyRange.only(serviceId));
-  return dataRange as RepeatSliceData;
+  const repeatSlice = await transaction.store.index("serviceId").get(IDBKeyRange.only(serviceId));
+  return repeatSlice as RepeatSliceData;
 }
 
 export async function loadFirstByDate<T extends FinalBasicFormsState>(
