@@ -5,8 +5,6 @@ export default function getValidateServiceDetailsForm(
   setState: setStateFunction<DetailsFormState>
 ) {
   return function (target: DetailsFormFields, value: string) {
-    console.log("ServiceDetails form validation", target, value);
-
     // форма содержит динамический список инпутов.
     // поэтому поля формы не соответствуют полям объекта состояния
 
@@ -31,8 +29,6 @@ export default function getValidateServiceDetailsForm(
           newState[section][index][key] = value;
           break;
       }
-
-      console.log(newState);
 
       return newState;
     });
