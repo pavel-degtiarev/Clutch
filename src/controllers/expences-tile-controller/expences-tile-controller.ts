@@ -44,7 +44,7 @@ export default class ExpencesTileController extends TileController {
 
     // ищем самую новую дату
     let newestDates = await Promise.all(this.dbNames.map((store) => getNewestDate(store)));
-    const newest = dayjs(Math.min(...newestDates));
+    const newest = dayjs(Math.max(...newestDates));
 
     let timeStart = initDate.startOf(this.timeInterval);
     let timeEnd = initDate.endOf(this.timeInterval);
