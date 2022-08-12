@@ -4,7 +4,7 @@ import useRawData from "../../hooks/use-raw-data";
 import Table from "./table";
 import { formEditController } from "../../index";
 import { FormDisplayContext } from "../../context/form-display/form-display-state";
-import { FinalBasicFormsState } from "../../HOC/with-validate-check/check-form";
+import { FinalBasicFormsStateWithID } from "../../HOC/with-validate-check/check-form";
 
 export default function RawTable() {
   const { showForm } = useContext(FormDisplayContext);
@@ -17,7 +17,10 @@ export default function RawTable() {
   return (
     <Table
       slots={data}
-      slotEditHandler={(formData: FinalBasicFormsState) => formEditController.editForm(formData)}
+      rowsDeletable
+      slotEditHandler={(formData: FinalBasicFormsStateWithID) =>
+        formEditController.editForm(formData)
+      }
     />
   );
 }
