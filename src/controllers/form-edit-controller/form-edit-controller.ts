@@ -97,14 +97,16 @@ export default class FormEditController {
         {
           const tmp: ServiceFormFinalState = formData as ServiceFormFinalState;
           loadRepeatByIndex(formData.id).then((repeatRecord) => {
-            const repeatFormState: RepeatFormState | null = repeatRecord ? {
-              repeatId: repeatRecord.id,
-              repeatingRun: String(repeatRecord.repeatingRun),
-              repeatingTime: String(repeatRecord.repeatingTime),
-              repeatByRun: repeatRecord.repeatByRun,
-              repeatByTime: repeatRecord.repeatByTime,
-              repeatTimeSlot: repeatRecord.repeatTimeSlot as TimeUnits,
-            } : null;
+            const repeatFormState: RepeatFormState | null = repeatRecord
+              ? {
+                  repeatId: repeatRecord.id,
+                  repeatingRun: String(repeatRecord.repeatingRun),
+                  repeatingTime: String(repeatRecord.repeatingTime),
+                  repeatByRun: repeatRecord.repeatByRun,
+                  repeatByTime: repeatRecord.repeatByTime,
+                  repeatTimeSlot: repeatRecord.repeatTimeSlot as TimeUnits,
+                }
+              : null;
             repeatFormState && this.updateRepeatForm(repeatFormState);
 
             this.updateServiceForm({
@@ -115,7 +117,7 @@ export default class FormEditController {
               serviceTotal: String(tmp.serviceTotal),
               serviceRepeat: !!repeatFormState,
               serviceTotalDetails: tmp.serviceTotalDetails as DetailsFormState,
-              serviceRepeatDetails: repeatFormState || {} as RepeatFormState,
+              serviceRepeatDetails: repeatFormState || ({} as RepeatFormState),
             });
             this.showForm(FormTitle.SERVICE);
           });
@@ -123,4 +125,8 @@ export default class FormEditController {
         break;
     }
   }
+
+  deleteRow(formData: FinalBasicFormsStateWithID) {
+    console.log(formData);
+  };
 }

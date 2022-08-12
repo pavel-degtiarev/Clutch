@@ -5,6 +5,7 @@ import SlotRow from "./slot-row";
 import { StatSlot } from "../slot-types";
 import { FinalBasicFormsStateWithID } from "../../../HOC/with-validate-check/check-form";
 import { RowDeletable } from "../../details-list/row-deletable";
+import { formEditController } from "../../../index";
 
 interface RowProps {
   deletable: boolean;
@@ -32,7 +33,10 @@ export default function TableSlot({ header, rows, slotEditHandler, rowDeletable 
     <div className={styles.slot}>
       <SlotHeader header={header} />
       {rows.map((row, index) => (
-        <Row deletable={rowDeletable} key={index} onDelete={() => console.log("delete", row)}>
+        <Row
+          deletable={rowDeletable}
+          key={index}
+          onDelete={() => row.aux && formEditController.deleteRow(row.aux)}>
           <SlotRow
             title={row.title}
             value={row.value}
