@@ -9,6 +9,15 @@
   overflow: hidden;
 }
 
+.burgerMenuClosed {
+  z-index: -1;
+
+  & .container {
+    z-index: -1;
+    transform: translateY(-100%);
+  }
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -23,16 +32,11 @@
   padding: 20px 20px 150px;
 
   transition: var.$transition;
-  
+
   background-color: var.$teal;
 }
 
-.burgerMenuClosed {
-  z-index: -1;
-  transform: translateY(-100%);
-}
-
-.inputContainer{
+.inputContainer {
   width: 100%;
 }
 

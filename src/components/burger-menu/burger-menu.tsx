@@ -13,8 +13,8 @@ interface ContainerProps {
 
 function BurgerMenuContainer({ isClosed, children }: ContainerProps) {
   return (
-    <section className={styles.burgerMenu}>
-      <div className={classNames(styles.container, { [styles.burgerMenuClosed]: isClosed })}>
+    <section className={classNames(styles.burgerMenu, { [styles.burgerMenuClosed]: isClosed })}>
+      <div className={classNames(styles.container)}>
         {children}
       </div>
     </section>
