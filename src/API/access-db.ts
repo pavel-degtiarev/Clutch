@@ -116,3 +116,8 @@ export async function saveToDb<T extends FinalBasicFormsState>(
 
   return result;
 }
+
+export async function deleteRecord(store: dbStoreName, id: number) {  
+  const transaction = getDB().transaction(store, "readwrite");
+  await transaction.store.delete(IDBKeyRange.only(id));  
+}
