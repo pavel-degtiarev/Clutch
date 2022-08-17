@@ -12,6 +12,7 @@ import TilesController from "./controllers/tiles-controller/tiles-controller";
 import RemindersController from "./controllers/reminders-controller/reminders-controller";
 import TitleController from "./controllers/title-controller/title-controller";
 import FormEditController from "./controllers/form-edit-controller/form-edit-controller";
+import loadServiceWorker from "./utilities/load-sw";
 import App from "./general/app";
 
 dayjs.locale("ru");
@@ -29,6 +30,7 @@ const container = document.getElementById("clutch-container");
 const root = createRoot(container!);
 
 initClutchDB()
+  .then(() => loadServiceWorker())
   .then(() =>
     Promise.all([tilesController.init(), remindersController.init(), titleController.init()])
   )
