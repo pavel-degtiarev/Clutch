@@ -1,0 +1,10 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.popup-spare .popup__fields-container,
+.popup-other .popup__fields-container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	height: 100%;
+}

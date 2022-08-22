@@ -1,0 +1,23 @@
+@use "../../node_modules/reseter.css/css/reseter.min.css";
+
+@use "./common/global";
+
+@use "./components/button.scss";
+@use "./components/button-rollup.scss";
+@use "./components/tab.scss";
+@use "./components/field.scss";
+@use "./components/checkbox.scss";
+@use "./components/select.scss";
+@use "./components/bullets.scss";
+
+@use "./modules/header";
+@use "./modules/reminder";
+@use "./modules/main";
+@use "./modules/tiles";
+@use "./modules/popup";
+@use "./modules/popup-fuel";
+@use "./modules/popup-spare-other";
+@use "./modules/popup-service";
+@use "./modules/popup-repeat";
+@use "./modules/popup-service-details";
+@use "./modules/burger-menu";

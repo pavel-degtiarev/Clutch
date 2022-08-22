@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>Clutch</title>
+	</head>
+
+	<body>
+		<!-- class="no-scroll-body" -->
+
+		<h1 class="visually-hidden">Clutch. Car expenses logbook.</h1>
+
+		<header>
+			<div class="header__container">
+				<div class="header__content">
+					<div class="header__title-container">
+						<button class="button-icon button-return" type="button"></button>
+						<h2 class="title-big header__title no-wrap">Honda FIT</h2>
+					</div>
+					<div class="header__burger burger__container">
+						<img class="burger__icon" src="./images/burger.svg" alt="burger" />
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<div class="main">
+				<div class="main__container main-stat">
+					<section class="tabs stat-select">
+						<div class="tab-container">
+							<input type="radio" name="tab-stat" id="tab-stat" value="stat" checked />
+							<label for="tab-stat" class="tab">Статистика</label>
+						</div>
+
+						<div class="tab-container">
+							<input type="radio" name="tab-stat" id="tab-list" value="list" />
+							<label for="tab-list" class="tab">Затраты списком</label>
+						</div>
+					</section>
+
+					<section class="tiles">
+						<div class="tiles__tile tile tile-stat">
+							<div class="tile__data tile__info">
+								<h3 class="title-normal tile__header">
+									Пробег&ensp;<span class="text-small tile__units">км.</span>
+								</h3>
+							</div>
+
+							<div class="tile__data tile__chart">
+								<div class="chart__container">
+									<div class="chart">
+										<div class="chart__bar" style="height: 65%"></div>
+										<div class="chart__bar" style="height: 40%"></div>
+										<div class="chart__bar" style="height: 35%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 80%"></div>
+										<div class="chart__bar" style="height: 100%"></div>
+										<div class="chart__bar" style="height: 85%"></div>
+										<div class="chart__bar" style="height: 35%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 55%"></div>
+										<div class="chart__bar" style="height: 80%"></div>
+										<div class="chart__bar" style="height: 100%"></div>
+										<div class="chart__bar" style="height: 85%"></div>
+									</div>
+								</div>
+
+								<div class="chart__bullets bullets">
+									<ul>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+										<li class="bullet"></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="tabs time-select">
+						<div class="tab-container">
+							<input type="radio" name="tab-time" id="tab-month" value="month" checked />
+							<label for="tab-month" class="tab">Месяц</label>
+						</div>
+
+						<div class="tab-container">
+							<input type="radio" name="tab-time" id="tab-year" value="year" />
+							<label for="tab-year" class="tab">Год</label>
+						</div>
+
+						<div class="tab-container">
+							<input type="radio" name="tab-time" id="tab-custom" value="custom" />
+							<label for="tab-custom" class="tab">•••</label>
+						</div>
+					</section>
+
+					<section class="stat-table">
+						<div class="stat-table-slot">
+							<div class="details-row stat-details slot-header">
+								<h3>Апрель 2022 года</h3>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Пробег</p>
+								<p class="details-price">1500 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Расход топлива</p>
+								<p class="details-price">7,5 л./100 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Затраты на топливо</p>
+								<p class="details-price">2500 руб.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Сервис и расходники</p>
+								<p class="details-price">5500 руб.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Прочие затраты</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+						</div>
+						<div class="stat-table-slot">
+							<div class="details-row stat-details slot-header">
+								<h3>Март 2022 года</h3>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Пробег</p>
+								<p class="details-price">2500 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Расход топлива</p>
+								<p class="details-price">7,2 л./100 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Затраты на топливо</p>
+								<p class="details-price">3000 руб.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Сервис и расходники</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Прочие затраты</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+						</div>
+						<div class="stat-table-slot">
+							<div class="details-row stat-details slot-header">
+								<h3>Март 2022 года</h3>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Пробег</p>
+								<p class="details-price">2500 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Расход топлива</p>
+								<p class="details-price">7,2 л./100 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Затраты на топливо</p>
+								<p class="details-price">3000 руб.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Сервис и расходники</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Прочие затраты</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+						</div>
+						<div class="stat-table-slot">
+							<div class="details-row stat-details slot-header">
+								<h3>Февраль 2022 года</h3>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Пробег</p>
+								<p class="details-price">2500 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Расход топлива</p>
+								<p class="details-price">7,2 л./100 км.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Затраты на топливо</p>
+								<p class="details-price">3000 руб.</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Сервис и расходники</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+							<div class="details-row stat-details">
+								<p class="details-title no-wrap">Прочие затраты</p>
+								<p class="details-price">&mdash;</p>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

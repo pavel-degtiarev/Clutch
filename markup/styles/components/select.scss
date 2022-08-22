@@ -1,0 +1,21 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+@use "../components/button" as btn;
+
+.popup__select {
+	position: relative;
+	appearance: none;
+	@include btn.button(auto, 30px, var.$tealLight);
+	padding-right: 30px;
+	font-size: 16px;
+	box-shadow: none;
+
+	background-image: url("../images/corner.svg");
+	background-position: right 10px center;
+	background-repeat: no-repeat;
+
+	&:focus {
+		background-color: var.$orange;
+	}
+}
