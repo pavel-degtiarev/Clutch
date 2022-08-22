@@ -1,0 +1,24 @@
+@use "../../node_modules/reseter.css/css/reseter.min.css";
+
+@use "./common/global";
+
+@use "./components/button.scss";
+@use "./components/button-rollup.scss";
+@use "./components/tab.scss";
+@use "./components/field.scss";
+@use "./components/checkbox.scss";
+@use "./components/select.scss";
+@use "./components/bullets.scss";
+
+@use "./modules/header";
+@use "./modules/reminder";
+@use "./modules/main";
+@use "./modules/tiles";
+
+@use "./modules/stat-time-select";
+@use "./modules/tiles-stat";
+@use "./modules/stat-table";
+
+.main-stat{
+	padding-bottom: 20px;
+}

@@ -1,0 +1,60 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.popup__checkbox {
+	& .checkbox {
+		appearance: none;
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+	}
+
+	& .field-label {
+		padding-left: 45px;
+	}
+
+	& .field-label::before {
+		position: absolute;
+		left: 0;
+		top: -2px;
+		display: block;
+		content: "";
+		width: 35px;
+		height: 20px;
+		background-color: var.$tiffanyLight;
+		border-radius: 10px;
+		border: 2px solid var.$tealLight;
+		transition: var.$transition;
+	}
+
+	.field-label::after {
+		position: absolute;
+		left: 0;
+		top: -2px;
+		display: block;
+		content: "";
+		width: 20px;
+		height: 20px;
+		background-color: var.$tealLight;
+		border-radius: 10px;
+		border: 2px solid var.$tealLight;
+		transition: var.$transition;
+	}
+
+	& .button-icon {
+		margin-top: 4px;
+		background-color: var.$tiffanyLight;
+	}
+
+	& .checkbox:checked + .field-label::before {
+		background-color: var.$orangeLight;
+	}
+
+	& .checkbox:checked + .field-label::after {
+		left: 15px;
+	}
+
+	& .checkbox:checked ~ .button-icon {
+		background-color: var.$orangeDark;
+	}
+}

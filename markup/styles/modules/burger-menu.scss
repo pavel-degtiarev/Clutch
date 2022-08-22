@@ -1,0 +1,23 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.burger-menu{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 55px);
+  overflow: hidden;
+}
+
+.burger-menu__container {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background-color: var.$tealLight;
+  transition: var.$transition;
+}

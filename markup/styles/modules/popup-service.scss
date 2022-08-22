@@ -1,0 +1,27 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.popup-service .popup__fields-container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.field-repeat,
+.field-total {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.field-repeat {
+	margin-left: -3px;
+}
+
+.repeat__details,
+.total__details {
+	mask-image: url(../images/more.svg);
+}
+
