@@ -1,4 +1,23 @@
+@use "../../styles/variables.module.scss" as var;
+
 .tiles {
+  flex-grow: 0;
+  flex-shrink: 0;
   flex-direction: row;
   overflow-x: scroll;
+
+  @media (min-width:var.$mobileWidth) {
+    scrollbar-color: var.$teal var.$tealLight;
+    scrollbar-width: thin;
+
+    &::--webkit-scrollbar-track {
+      background-color: var.$teal;
+    }
+
+    &::--webkit-scrollbar-thumb {
+      background-color: var.$tealLight;
+    }
+
+
+  }
 }

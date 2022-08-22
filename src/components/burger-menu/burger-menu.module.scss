@@ -7,6 +7,10 @@
   width: 100%;
   height: calc(100vh - 55px);
   overflow: hidden;
+
+  @media (min-width:var.$mobileWidth) {
+    height: calc(var.$mobileHeight - 55px);
+  }
 }
 
 .burgerMenuClosed {
@@ -56,4 +60,10 @@
 
 .destroyDataButton {
   background: var.$redDark-to-red;
+
+  @media (min-width:var.$mobileWidth) {
+    position: absolute;
+    left: 20px;
+    top: calc(var.$mobileHeight - 55px - 50px);
+  }
 }

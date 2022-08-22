@@ -6,17 +6,24 @@
   row-gap: 20px;
 }
 
-.repeat, .total {
+.repeat,
+.total {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  // justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
   column-gap: 5px;
 }
 
 .repeat {
   margin-left: -3px;
+
+  @media (min-width:var.$mobileWidth) {
+    & label {
+      top: 0;
+    }
+  }
 }
 
 .repeatDetails,

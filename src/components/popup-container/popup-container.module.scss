@@ -7,15 +7,27 @@
   bottom: 0;
   left: 0;
   z-index: -1;
+
+  @media (min-width:var.$mobileWidth) {
+    width: var.$mobileWidth;
+    height: calc(calc(100vh - var.$mobileHeight) / 2 + var.$mobileHeight);
+    left: calc(calc(100vw - var.$mobileWidth) / 2);
+  }
 }
 
-.popupOpened{
+.popupOpened {
   z-index: 40;
 }
 
 .popupSmall {
   & .container {
     height: calc(100% - 85px);
+  }
+
+  @media (min-width:var.$mobileWidth) {
+    & .container {
+      height: calc(calc(100vh - var.$mobileHeight) / 2 + var.$mobileHeight - 60px);
+    }
   }
 }
 
@@ -43,6 +55,10 @@
   box-shadow: var.$shadowLight;
   transition: var.$transition;
   transform: translateY(100%);
+
+  @media (min-width:var.$mobileWidth) {
+    height: 100%;
+  }
 }
 
 .containerOpened {
@@ -76,6 +92,10 @@
 
 .form {
   height: 100%;
+
+  @media (min-width:var.$mobileWidth) {
+      margin-bottom: 60px;
+    }
 }
 
 .field,

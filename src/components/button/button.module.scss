@@ -1,5 +1,14 @@
+@use "../../styles/variables.module.scss" as var;
+
 .mainButton {
   position: fixed;
   bottom: 20px;
   left: 20px;
+
+  @media (min-width:var.$mobileWidth) {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: calc(var.$mobileWidth - 40px);
+  }
 }

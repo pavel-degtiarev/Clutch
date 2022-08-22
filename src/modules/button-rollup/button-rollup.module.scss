@@ -1,3 +1,5 @@
+@use "../../styles/variables.module.scss" as var;
+
 .buttonRollupContainer {
   position: fixed;
   width: calc(100vw - 40px);
@@ -5,6 +7,12 @@
   left: 20px;
   height: 70px;
   z-index: 25;
+
+  @media (min-width:var.$mobileWidth) {
+    width: calc(var.$mobileWidth - 40px);
+    position: absolute;
+    height: 50px;
+  }
 }
 
 .rollupActive {

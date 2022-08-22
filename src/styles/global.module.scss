@@ -5,39 +5,17 @@ body {
   min-height: 100vh;
   margin: 0;
   background: var.$teal;
-  // background: var.$teal-to-tiffany;
   background-repeat: no-repeat;
+
+  @media (min-width:var.$mobileWidth) {
+    width: var.$mobileWidth;
+    height: var.$mobileHeight;
+    min-height: auto;
+    margin: 0 auto;
+    margin-top: calc(calc(100vh - var.$mobileHeight) / 2);
+    overflow: hidden;
+  }
 }
-
-.no-scroll-body {
-  height: calc(100vh + 1px);
-  overflow: hidden;
-}
-
-// .details-row {
-//   height: 45px;
-//   display: flex;
-//   flex-direction: row;
-//   flex-wrap: nowrap;
-//   justify-content: space-between;
-//   align-items: center;
-//   column-gap: 10px;
-
-//   color: var.$teal;
-
-//   &+& {
-//     border-top: 1px solid var.$teal;
-//   }
-
-//   & .details-title {
-//     flex-grow: 1;
-//     flex-shrink: 1;
-//   }
-
-//   & .details-price {
-//     flex-basis: 80px;
-//   }
-// }
 
 .visuallyHidden {
   position: absolute;

@@ -10,8 +10,12 @@
 
   height: calc(100vh - 220px);
   padding-bottom: 80px;
-  // max-height: calc(100% - 45px - 25px);
   overflow: hidden;
+
+  @media (min-width:var.$mobileWidth) {
+    height: calc(100vh - var.$mobileHeight - 220px);
+    padding-bottom: 0;
+  }
 }
 
 .row {
@@ -50,6 +54,7 @@
   flex-grow: 1;
   overflow-y: scroll;
   overflow-x: hidden;
+
   & .row {
     height: 45px;
   }

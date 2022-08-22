@@ -1,4 +1,12 @@
+@use "../../styles/variables.module.scss" as var;
+
 .statTable {
   border-bottom: 1px solid #fff;
   margin-top: 20px;
+
+  @media (min-width:var.$mobileWidth) {
+    border-bottom: none;
+    padding-right: 10px;
+    overflow-y: auto;
+  }
 }

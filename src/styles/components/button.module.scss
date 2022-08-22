@@ -13,7 +13,7 @@
   color: #fff;
   cursor: pointer;
   transition: var.$transition;
-  box-shadow: var.$shadow;
+  // box-shadow: var.$shadow;
   line-height: typo.$sizeBig;
   mask-size: contain;
   mask-position: center;
@@ -22,10 +22,14 @@
 }
 
 .button {
-  @include button(calc(100vw - 40px), 50px);
+  @include button(calc(100% - 40px), 50px);
 
   &:active {
     filter: brightness(75%);
+  }
+
+  @media (min-width:var.$mobileWidth) {
+    width: var.$mobileWidth;
   }
 }
 

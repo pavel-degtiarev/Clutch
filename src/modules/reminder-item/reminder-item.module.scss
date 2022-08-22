@@ -10,6 +10,7 @@
   justify-content: center;
   color: #fff;
   gap: 5px;
+  cursor: pointer;
 }
 
 .period {
@@ -21,6 +22,7 @@
 }
 
 .overdued {
+
   & .run::before,
   & .time::before {
     content: "просрочено на ";

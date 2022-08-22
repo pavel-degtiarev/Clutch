@@ -22,8 +22,8 @@ $orangeDark: #e3ad0a;
 $orange: #ffca2a;
 $orangeLight: #ffedb5;
 
-$red:#ff7676;
-$redDark:#e45252;
+$red: #ff7676;
+$redDark: #e45252;
 
 $teal-to-tiffany: linear-gradient(130deg, $teal, $middle, $tiffany);
 $orange-to-light: linear-gradient(-20deg, $orangeDark, $orange, $orangeLight);
@@ -36,3 +36,5 @@ $radius: 25px;
 $shadow: 0px 4px 6px rgba(80, 119, 112, 0.5);
 $shadowLight: 0px 0px 15px rgba(80, 119, 112, 0.25);
 $transition: all 0.2s ease-out;
+$mobileWidth: 450px;
+$mobileHeight: 700px;
