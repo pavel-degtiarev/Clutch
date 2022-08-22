@@ -1,0 +1,44 @@
+@use "../common/variables" as var;
+@use "../common/typography" as typo;
+
+.stat-table {
+	border-bottom: 1px solid #fff;
+
+	& .details-row {
+		height: 25px;
+		border: none;
+		overflow: hidden;
+	}
+}
+
+.stat-table-slot {
+	padding-bottom: 10px;
+}
+
+.stat-details {
+	font-size: typo.$sizeSmall;
+	color: #fff;
+
+	& .details-price {
+		text-align: right;
+	}
+}
+
+.slot-header h3 {
+	position: relative;
+	padding-right: 20px;
+	font-size: typo.$sizeSmall;
+	color: var.$tiffany;
+
+	&::after {
+		position: absolute;
+		top: 50%;
+		left: 100%;
+
+		display: block;
+		content: "";
+		background-color: #fff;
+		height: 1px;
+		width: 100vw;
+	}
+}
